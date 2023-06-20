@@ -1,0 +1,48 @@
+// COLOR VARIABLES
+$color-primary: #00ACE6;
+$color-primary-dark: #25325A;
+
+$color-secondary: #354052;
+
+$color-white: #ffffff;
+$color-black: #000000;
+
+
+// Breakpoint Variables
+$bp-huge: 93.75em; //1500px
+$bp-largest: 75em; //1200px
+$bp-large: 62.5em; //1000px
+$bp-medium: 50em; //800px
+$bp-small: 37.5em; //600px
+$bp-smallest: 31.25em; //600px
+
+
+// FONT VARIABLES
+$font-primary: 'Be Vietnam Pro', sans-serif;
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%; // 10px / 16px = 62.5% -> 1rem = 10px
+    height: 100%;
+    background-color: $color-white;
+
+    @media only screen and (max-height: $bp-medium) {
+      font-size: 50%;
+    }
+  }
+  
+  body {
+    font-family: $font-primary;
+    background-color: $color-white;
+    height: auto;
+    font-size: 3rem;
+  }
+  
+  
+  html, body, div, span, object, iframe,
+  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+  table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }

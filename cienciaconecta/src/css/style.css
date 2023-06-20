@@ -1,0 +1,28 @@
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+  height: 100%;
+  background-color: #ffffff;
+}
+@media only screen and (max-height: 50em) {
+  html {
+    font-size: 50%;
+  }
+}
+
+body {
+  font-family: "Be Vietnam Pro", sans-serif;
+  background-color: #ffffff;
+  height: auto;
+  font-size: 3rem;
+}
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/*# sourceMappingURL=style.css.map */
