@@ -78,5 +78,11 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   font-size: 1em;
   height: 2em;
 }
+.login__error {
+  color: rgb(247, 18, 18);
+  font-size: 15px;
+  margin-top: -15px;
+  margin-bottom: 15px;
+}
 
 /*# sourceMappingURL=style.css.map */

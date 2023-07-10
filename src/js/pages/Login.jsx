@@ -1,34 +1,77 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Button  from '../components/Button/Button'
 
 export default function Login() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [formValues, setFormValues] = useState({
+    email: '',
+    password: ''
+  })
+  const [formErrors, setFormErrors] = useState({ })
+  const [isSubmited, setIsSubmited] = useState(false)
 
+
+  const handleChange = (e) => {
+    const {name, value} = e.target
+    setFormValues({...formValues, [name]: value})
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    setFormErrors(handleValidate(formValues))
+    setIsSubmited(true)
+  }
+
+  const handleValidate = (values) => {
+    const {email, password} = values
+    const errors = {}
+    const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i; // eslint-disable-line
+    if(!email) {
+        errors.email = 'Se requiere el email'
+    } else if (!regex.test(email)){
+        errors.email = 'Se debe ingresar un email valido'
+    }
+    if(!password) {
+        errors.password = 'Se requiere la contraseña'
+    }
+    console.log(errors)
+    return errors
+  }
+
+  useEffect(() => {
+    if(Object.keys(formErrors).length === 0 & isSubmited){
+        // do something
+    }
+
+  }, [formErrors, isSubmited])
+  
   return (
     <div className='login'>
-        <form action="" className='login__form'>
+        <form onSubmit={handleSubmit} className='login__form'>
         <h2 className='login__title'> Iniciar Sesión </h2>
         <label className='login__label'>
             <span className='login__span'>Email: </span>
             <input
+                onBlur={() => setFormErrors(handleValidate(formValues))}
                 className='login__input'
-                required
+                name='email'
                 type='email'
-                onChange={ (e) => setEmail(e.target.value)}
-                value={email}
+                onChange={handleChange}
+                value={formValues.email}
             />
         </label>
+        <p className='login__error'>{formErrors.email}</p>
         <label className='login__label'> 
             <span className='login__span'>Contraseña: </span>
             <input
+                onBlur={() => setFormErrors(handleValidate(formValues))}
                 className='login__input'
-                required
+                name = 'password'
                 type='password'
-                onChange={ (e) => setPassword(e.target.value)}
-                value={password}
+                onChange={handleChange}
+                value={formValues.password}
             />
         </label>
+        <p className='login__error'>{formErrors.password}</p>
         <Button text='Ingresar'/>
     </form>
     </div>
