@@ -25,4 +25,58 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   border: 0;
 }
 
+.__btn {
+  background-color: #00ACE6;
+  color: white;
+  padding: 14px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8em;
+  font-weight: 400;
+  border: 1px solid #00ACE6;
+}
+.__btn:hover {
+  background-color: #ffffff;
+  color: #00ACE6;
+}
+
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #96CADC;
+  font-size: 1em;
+}
+.login__form {
+  min-width: 450px;
+  min-height: 450px;
+  padding: 1.5em;
+  margin: auto;
+  background-color: #FFF;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 4px 15px 0px rgba(0, 0, 0, 0.52);
+}
+.login__title {
+  margin-bottom: 2em;
+  font-size: 42px;
+  text-align: center;
+  font-weight: 500;
+}
+.login__label {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+.login__span {
+  margin-bottom: 10px;
+}
+.login__input {
+  font-size: 1em;
+  height: 2em;
+}
+
 /*# sourceMappingURL=style.css.map */
