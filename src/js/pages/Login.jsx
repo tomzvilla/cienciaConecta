@@ -4,8 +4,8 @@ import { useFormValidator } from '../hooks/useFormValidator'
 
 export default function Login() {
   const [formValues, setFormValues] = useState({
-     email: '',
-     password: ''
+    email: '',
+    password: ''
   })
 
   const {errors, validateForm, onBlurField} = useFormValidator(formValues)
@@ -29,9 +29,7 @@ export default function Login() {
     if(!isValid) return
 
     console.log('Se mando XD')
-
-
-}
+  }
 
   // useEffect(() => {
   //   if(Object.keys(errors).length === 0 ){
@@ -55,7 +53,7 @@ export default function Login() {
                 value={formValues.email}
             />
         </label>
-        {errors.email.dirty && errors.email.error ? (<p className='login__error'>{errors.email.message}</p>) : null} 
+        {errors.email.dirty && errors.email.error ? (<small className='login__error'>{errors.email.message}</small>) : null} 
         <label className='login__label'> 
             <span className='login__span'>Contraseña: </span>
             <input

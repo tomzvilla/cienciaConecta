@@ -4,7 +4,11 @@ import { useState } from 'react'
 
 import {
     emailValidator,
-    passwordValidator
+    passwordValidator,
+    nameValidator,
+    lastnameValidator,
+    cuilValidator,
+    dniValidator
 } from '../validators'
 
 const touchErrors = (errors) => {
@@ -40,7 +44,7 @@ export const useFormValidator = (form) => {
             nextErrors = touchErrors(errors);
         }
 
-        const { email, password } = form;
+        const { email, password, name, lastname, dni, cuil } = form;
 
         if (nextErrors.email.dirty && (field ? field === "email" : true)) {
             const emailMessage = emailValidator(email, form);
@@ -55,6 +59,36 @@ export const useFormValidator = (form) => {
             nextErrors.password.message = passwordMessage;
             if (!!passwordMessage) isValid = false;
         }
+
+        if (nextErrors.name?.dirty && (field ? field === "name" : true)) {
+            const nameMessage = nameValidator(name, form);
+            nextErrors.name.error = !!nameMessage;
+            nextErrors.name.message = nameMessage;
+            if (!!nameMessage) isValid = false;
+        }
+
+        if (nextErrors.lastname?.dirty && (field ? field === "lastname" : true)) {
+            const lastnameMessage = lastnameValidator(lastname, form);
+            nextErrors.lastname.error = !!lastnameMessage;
+            nextErrors.lastname.message = lastnameMessage;
+            if (!!lastnameMessage) isValid = false;
+        }
+
+        if (nextErrors.cuil?.dirty && (field ? field === "cuil" : true)) {
+            const cuilMessage = cuilValidator(cuil, form);
+            nextErrors.cuil.error = !!cuilMessage;
+            nextErrors.cuil.message = cuilMessage;
+            if (!!cuilMessage) isValid = false;
+        }
+
+        if (nextErrors.dni?.dirty && (field ? field === "dni" : true)) {
+            const dniMessage = dniValidator(dni, form);
+            nextErrors.dni.error = !!dniMessage;
+            nextErrors.dni.message = dniMessage;
+            if (!!dniMessage) isValid = false;
+        }
+
+
 
         setErrors(nextErrors);
 
