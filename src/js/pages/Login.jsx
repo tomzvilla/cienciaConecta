@@ -1,48 +1,44 @@
-import { useState, useEffect } from 'react'
 import Button  from '../components/Button/Button'
+import { useState } from 'react'
+import { useFormValidator } from '../hooks/useFormValidator'
 
 export default function Login() {
   const [formValues, setFormValues] = useState({
-    email: '',
-    password: ''
+     email: '',
+     password: ''
   })
-  const [formErrors, setFormErrors] = useState({ })
-  const [isSubmited, setIsSubmited] = useState(false)
 
+  const {errors, validateForm, onBlurField} = useFormValidator(formValues)
 
   const handleChange = (e) => {
     const {name, value} = e.target
-    setFormValues({...formValues, [name]: value})
+    const nextFormValueState = {
+      ...formValues,
+      [name]: value
+    }
+    setFormValues(nextFormValueState)
+    if (errors[name].dirty){
+      validateForm({form: nextFormValueState, errors, name})
+    }
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setFormErrors(handleValidate(formValues))
-    setIsSubmited(true)
-  }
+    const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true})
 
-  const handleValidate = (values) => {
-    const {email, password} = values
-    const errors = {}
-    const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i; // eslint-disable-line
-    if(!email) {
-        errors.email = 'Se requiere el email'
-    } else if (!regex.test(email)){
-        errors.email = 'Se debe ingresar un email valido'
-    }
-    if(!password) {
-        errors.password = 'Se requiere la contraseña'
-    }
-    console.log(errors)
-    return errors
-  }
+    if(!isValid) return
 
-  useEffect(() => {
-    if(Object.keys(formErrors).length === 0 & isSubmited){
-        // do something
-    }
+    console.log('Se mando XD')
 
-  }, [formErrors, isSubmited])
+
+}
+
+  // useEffect(() => {
+  //   if(Object.keys(errors).length === 0 ){
+  //       //  call login function
+  //   }
+
+  // }, [errors])
   
   return (
     <div className='login'>
@@ -51,27 +47,27 @@ export default function Login() {
         <label className='login__label'>
             <span className='login__span'>Email: </span>
             <input
-                onBlur={() => setFormErrors(handleValidate(formValues))}
                 className='login__input'
                 name='email'
                 type='email'
                 onChange={handleChange}
+                onBlur={onBlurField}
                 value={formValues.email}
             />
         </label>
-        <p className='login__error'>{formErrors.email}</p>
+        {errors.email.dirty && errors.email.error ? (<p className='login__error'>{errors.email.message}</p>) : null} 
         <label className='login__label'> 
             <span className='login__span'>Contraseña: </span>
             <input
-                onBlur={() => setFormErrors(handleValidate(formValues))}
                 className='login__input'
                 name = 'password'
                 type='password'
                 onChange={handleChange}
+                onBlur={onBlurField}
                 value={formValues.password}
             />
         </label>
-        <p className='login__error'>{formErrors.password}</p>
+        {errors.password.dirty && errors.password.error && <p className='login__error'>{errors.password.message}</p>}
         <Button text='Ingresar'/>
     </form>
     </div>
