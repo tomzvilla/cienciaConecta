@@ -7,6 +7,7 @@ import Login from './js/pages/Login'
 import Signup from './js/pages/Signup'
 import Home from './js/pages/Home'
 import Unauthorized from './js/pages/Unauthorized'
+import NotFound from './js/pages/NotFound'
 
 
 function App() {
@@ -18,6 +19,9 @@ function App() {
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
           <Route path='/unauthorized' element={<Unauthorized/>}/>
+
+
+          <Route path='*' element={<NotFound/>}/>
 
         </Routes>
       </BrowserRouter>
