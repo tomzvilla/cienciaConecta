@@ -160,4 +160,10 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   width: 100vw;
 }
 
+.projects {
+  background-color: blue;
+  height: 100vh;
+  width: 100vw;
+}
+
 /*# sourceMappingURL=style.css.map */
