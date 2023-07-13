@@ -148,4 +148,10 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   width: 100vw;
 }
 
+.unauthorized {
+  background-color: red;
+  height: 100vh;
+  width: 100vw;
+}
+
 /*# sourceMappingURL=style.css.map */

@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Login from './js/pages/Login'
 import Signup from './js/pages/Signup'
 import Home from './js/pages/Home'
+import Unauthorized from './js/pages/Unauthorized'
 
 
 function App() {
@@ -13,9 +14,11 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path='/*' element={<Home/>}/>
+          <Route path='/' element={<Home/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
+          <Route path='/unauthorized' element={<Unauthorized/>}/>
+
         </Routes>
       </BrowserRouter>
     </div>
