@@ -2,6 +2,7 @@ import Button  from '../components/Button/Button'
 import { useState } from 'react'
 import { useFormValidator } from '../hooks/useFormValidator'
 import useAuth from '../hooks/useAuth'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 
 import axios from '../../api/axios'
 
@@ -15,7 +16,11 @@ export default function Login() {
 
   const {errors, validateForm, onBlurField} = useFormValidator(formValues)
 
-  const { setAuth } = useAuth()
+  const { auth, setAuth } = useAuth()
+
+  const navigate = useNavigate()
+  const location = useLocation()
+  const from = location.state?.from?.pathname || '/'
 
   const handleChange = (e) => {
     const {name, value} = e.target
@@ -45,15 +50,19 @@ export default function Login() {
           }
       )
       console.log(JSON.stringify(response?.data))
-
-      const accessToken = response?.data?.accessToken
-      const roles = response?.data?.roles
+      console.log(JSON.stringify(response?.data.token))
+      
+      const accessToken = response?.data?.token
+      const roles = response?.data?.rol
       setAuth({email, password, roles, accessToken})
 
       setFormValues({
         email: '',
         password: ''
       })
+      console.log(from)
+      console.log(auth)
+      navigate(from, { replace: true })
     } catch (err) {
       if(!err?.response){
         console.log('El servidor no respondio')
