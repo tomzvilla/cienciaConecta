@@ -8,7 +8,10 @@ import {
     nameValidator,
     lastnameValidator,
     cuilValidator,
-    dniValidator
+    dniValidator,
+    positionValidator,
+    phoneNumberValidator,
+    cueValidator
 } from '../validators'
 
 const touchErrors = (errors) => {
@@ -44,16 +47,16 @@ export const useFormValidator = (form) => {
             nextErrors = touchErrors(errors);
         }
 
-        const { email, password, name, lastname, dni, cuil } = form;
+        const { email, password, name, lastname, dni, cuil, position, phoneNumber, cue } = form;
 
-        if (nextErrors.email.dirty && (field ? field === "email" : true)) {
+        if (nextErrors.email?.dirty && (field ? field === "email" : true)) {
             const emailMessage = emailValidator(email, form);
             nextErrors.email.error = !!emailMessage;
             nextErrors.email.message = emailMessage;
             if (!!emailMessage) isValid = false;
         }
       
-        if (nextErrors.password.dirty && (field ? field === "password" : true)) {
+        if (nextErrors.password?.dirty && (field ? field === "password" : true)) {
             const passwordMessage = passwordValidator(password, form);
             nextErrors.password.error = !!passwordMessage;
             nextErrors.password.message = passwordMessage;
@@ -88,8 +91,26 @@ export const useFormValidator = (form) => {
             if (!!dniMessage) isValid = false;
         }
 
+        if (nextErrors.position?.dirty && (field ? field === "position" : true)) {
+            const positionMessage = positionValidator(position, form);
+            nextErrors.position.error = !!positionMessage;
+            nextErrors.position.message = positionMessage;
+            if (!!positionMessage) isValid = false;
+        }
 
+        if (nextErrors.phoneNumber?.dirty && (field ? field === "phoneNumber" : true)) {
+            const phoneNumberMessage = phoneNumberValidator(phoneNumber, form);
+            nextErrors.phoneNumber.error = !!phoneNumberMessage;
+            nextErrors.phoneNumber.message = phoneNumberMessage;
+            if (!!phoneNumberMessage) isValid = false;
+        }
 
+        if (nextErrors.cue?.dirty && (field ? field === "cue" : true)) {
+            const cueMessage = cueValidator(cue, form);
+            nextErrors.cue.error = !!cueMessage;
+            nextErrors.cue.message = cueMessage;
+            if (!!cueMessage) isValid = false;
+        }
         setErrors(nextErrors);
 
         return {

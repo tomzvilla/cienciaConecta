@@ -16,12 +16,12 @@ import Projects from './js/pages/Projects'
 // ROLES
 
 export const ROLES = {
-  Admin: 1,
-  ResponsableProyecto: 2,
-  Evaluador: 3,
-  RefEvaluador: 4,
-  ComAsesora: 5,
-  Docente: 6,
+  Admin: '1',
+  ResponsableProyecto: '2',
+  Evaluador: '3',
+  RefEvaluador: '4',
+  ComAsesora: '5',
+  Docente: '6',
 };
 
 function App() {

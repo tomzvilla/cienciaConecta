@@ -62,3 +62,37 @@ export const dniValidator = (dni) => {
   return "";
 };
 
+export const cueValidator = (cue) => {
+  if (!cue) {
+    return "Debe ingresar un cue valido";
+  } else if (cue.length !== 7) {
+    return "El cue ingresado no es valido"
+  } else if (!/^[0-9]+$/.test(cue)) {
+    return "El cue no puede contener letras"
+  }
+  return "";
+};
+
+export const positionValidator = (position) => {
+  if (!position) {
+    return "Debe ingresar un cargo";
+  } else if (position.length > 30) {
+    return "El cargo ingresado debe tener menos de 30 caracteres"
+  } else if (/[0-9]/.test(position)) {
+    return "El cargo no puede contener expresiones numericas"
+  }
+  return "";
+};
+
+export const phoneNumberValidator = (phoneNumber) => {
+  if (!phoneNumber) {
+    return "Debe ingresar un numero de telefono";
+  } else if (phoneNumber.length > 15 || phoneNumber.length < 7) {
+    return "El numero de telefono ingresado no es valido"
+  } else if (!/^[0-9]+$/.test(phoneNumber)) {
+    return "El numero de telefono no puede contener letras"
+  }
+  return "";
+};
+
+

@@ -14,10 +14,10 @@ const LOGIN_URL = '/auth/login'
 
 export default function Login() {
   const [formValues, setFormValues] = useState({
-    email: '',
+    cuil: '',
     password: ''
   })
-  const { auth, setAuth } = useAuth()
+  const { setAuth } = useAuth()
   const {errors, validateForm, onBlurField} = useFormValidator(formValues)
   const navigate = useNavigate()
   const location = useLocation()
@@ -41,9 +41,9 @@ export default function Login() {
     if(!isValid) return
 
     try {
-      const { email, password } = formValues
+      const { cuil, password } = formValues
       const response = await axios.post(LOGIN_URL, 
-        JSON.stringify({email, password}),
+        JSON.stringify({cuil, password}),
           {
             headers: {'Content-Type': 'application/json'},
             withCredentials: true
@@ -54,15 +54,15 @@ export default function Login() {
       console.log(JSON.stringify(response?.data.token))
       
       const accessToken = response?.data?.token
-      const roles = response?.data?.rol
-      console.log(auth)
-      setAuth({email, password, roles, accessToken})
+      const roles = response?.data?.roles
+
+      setAuth({cuil, password, roles, accessToken})
 
       setFormValues({
-        email: '',
+        cuil: '',
         password: ''
       })
-      navigate(from)
+      navigate(from, { replace: true })
     } catch (err) {
       if(!err?.response){
         console.log('El servidor no respondio')
@@ -83,13 +83,13 @@ export default function Login() {
         <form onSubmit={handleSubmit} className='login__form'>
         <h2 className='login__title'> Iniciar Sesión </h2>
         <InputField
-          label='Email: ' 
-          name='email'
-          type='email'
+          label='CUIL' 
+          name='cuil'
+          type='number'
           onChange={handleChange}
           onBlur={onBlurField}
-          value={formValues.email}
-          errors={errors.email}
+          value={formValues.cuil}
+          errors={errors.cuil}
           required={true}
         />
         <InputField 
