@@ -122,26 +122,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   text-align: center;
   font-weight: 500;
 }
-.signup__label {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-bottom: 20px;
-  font-size: 20px;
-}
-.signup__span {
-  margin-bottom: 10px;
-}
-.signup__input {
-  font-size: 1em;
-  height: 2em;
-}
-.signup__error {
-  color: rgb(247, 18, 18);
-  font-size: 15px;
-  margin-top: -15px;
-  margin-bottom: 15px;
-}
 
 .home {
   background-color: green;
