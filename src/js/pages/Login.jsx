@@ -1,4 +1,8 @@
+// Components
 import Button  from '../components/Button/Button'
+import InputField from '../components/InputField/InputField'
+
+// Other imports
 import { useState } from 'react'
 import { useFormValidator } from '../hooks/useFormValidator'
 import useAuth from '../hooks/useAuth'
@@ -78,32 +82,26 @@ export default function Login() {
     <div className='login'>
         <form onSubmit={handleSubmit} className='login__form'>
         <h2 className='login__title'> Iniciar Sesión </h2>
-        <label className='login__label'>
-            <span className='login__span'>Email: </span>
-            <input
-                className='login__input'
-                name='email'
-                type='email'
-                onChange={handleChange}
-                onBlur={onBlurField}
-                value={formValues.email}
-                required
-            />
-        </label>
-        {errors.email.dirty && errors.email.error ? (<small className='login__error'>{errors.email.message}</small>) : null} 
-        <label className='login__label'> 
-            <span className='login__span'>Contraseña: </span>
-            <input
-                className='login__input'
-                name = 'password'
-                type='password'
-                onChange={handleChange}
-                onBlur={onBlurField}
-                value={formValues.password}
-                required
-            />
-        </label>
-        {errors.password.dirty && errors.password.error && <p className='login__error'>{errors.password.message}</p>}
+        <InputField
+          label='Email: ' 
+          name='email'
+          type='email'
+          onChange={handleChange}
+          onBlur={onBlurField}
+          value={formValues.email}
+          errors={errors.email}
+          required={true}
+        />
+        <InputField 
+          label='Contraseña: '
+          name='password'
+          type='password'
+          onChange={handleChange}
+          onBlur={onBlurField}
+          value={formValues.password}
+          errors={errors.password}
+          required={true}
+        />
         <Button text='Ingresar'/>
     </form>
     </div>

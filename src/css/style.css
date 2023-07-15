@@ -52,6 +52,27 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   color: #00ACE6;
 }
 
+.form-group__label {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+.form-group__span {
+  margin-bottom: 10px;
+}
+.form-group__input {
+  font-size: 1em;
+  height: 2em;
+}
+.form-group__error {
+  color: rgb(247, 18, 18);
+  font-size: 15px;
+  margin-top: -15px;
+  margin-bottom: 15px;
+}
+
 .login {
   display: flex;
   justify-content: center;
@@ -75,26 +96,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   font-size: 42px;
   text-align: center;
   font-weight: 500;
-}
-.login__label {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-bottom: 20px;
-  font-size: 20px;
-}
-.login__span {
-  margin-bottom: 10px;
-}
-.login__input {
-  font-size: 1em;
-  height: 2em;
-}
-.login__error {
-  color: rgb(247, 18, 18);
-  font-size: 15px;
-  margin-top: -15px;
-  margin-bottom: 15px;
 }
 
 .signup {
