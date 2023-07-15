@@ -2,25 +2,22 @@ import Button  from '../components/Button/Button'
 import { useState } from 'react'
 import { useFormValidator } from '../hooks/useFormValidator'
 import useAuth from '../hooks/useAuth'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 import axios from '../../api/axios'
 
-const LOGIN_URL = '/api/v1/auth/login'
+const LOGIN_URL = '/auth/login'
 
 export default function Login() {
   const [formValues, setFormValues] = useState({
     email: '',
     password: ''
   })
-
-  const {errors, validateForm, onBlurField} = useFormValidator(formValues)
-
   const { auth, setAuth } = useAuth()
-
+  const {errors, validateForm, onBlurField} = useFormValidator(formValues)
   const navigate = useNavigate()
   const location = useLocation()
-  const from = location.state?.from?.pathname || '/'
+  const from = location.state?.from?.pathname || '/home'
 
   const handleChange = (e) => {
     const {name, value} = e.target
@@ -45,7 +42,7 @@ export default function Login() {
         JSON.stringify({email, password}),
           {
             headers: {'Content-Type': 'application/json'},
-            withCredentials: false
+            withCredentials: true
 
           }
       )
@@ -54,15 +51,14 @@ export default function Login() {
       
       const accessToken = response?.data?.token
       const roles = response?.data?.rol
+      console.log(auth)
       setAuth({email, password, roles, accessToken})
 
       setFormValues({
         email: '',
         password: ''
       })
-      console.log(from)
-      console.log(auth)
-      navigate(from, { replace: true })
+      navigate(from)
     } catch (err) {
       if(!err?.response){
         console.log('El servidor no respondio')
@@ -77,13 +73,6 @@ export default function Login() {
     }
     console.log('Se mando XD')
   }
-
-  // useEffect(() => {
-  //   if(Object.keys(errors).length === 0 ){
-  //       //  call login function
-  //   }
-
-  // }, [errors])
   
   return (
     <div className='login'>

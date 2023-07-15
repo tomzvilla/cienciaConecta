@@ -1,12 +1,14 @@
 import './css/style.css'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 
 // Import components
 import RequireAuth from './js/components/RequireAuth/RequireAuth'
+import PersistLogin from './js/components/PersistLogin/PersistLogin'
 
 import Login from './js/pages/Login'
 import Signup from './js/pages/Signup'
 import Home from './js/pages/Home'
+import Layout from './js/pages/Layout'
 import Unauthorized from './js/pages/Unauthorized'
 import NotFound from './js/pages/NotFound'
 import Projects from './js/pages/Projects'
@@ -24,23 +26,21 @@ export const ROLES = {
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Home/>}/>
-          <Route path='/login' element={<Login/>}/>
-          <Route path='/signup' element={<Signup/>}/>
-          <Route path='/unauthorized' element={<Unauthorized/>}/>
+      <Routes>
+        <Route path='/' element={<Layout/>}>
+          <Route path='login' element={<Login/>}/>
+          <Route path='home' element={<Home/>}/>
+          <Route path='signup' element={<Signup/>}/>
+          <Route path='unauthorized' element={<Unauthorized/>}/>
 
-          <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]}/>}>
-            <Route path='/projects' element={<Projects/>}/>
+          <Route element={<PersistLogin />}>
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]}/>}>
+              <Route path='projects' element={<Projects/>}/>
+            </Route>
           </Route>
-
           <Route path='*' element={<NotFound/>}/>
-
-        </Routes>
-      </BrowserRouter>
-    </div>
+        </Route>
+      </Routes>
   );
 }
 
