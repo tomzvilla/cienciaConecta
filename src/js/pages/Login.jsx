@@ -12,7 +12,7 @@ import axios from '../../api/axios'
 
 const LOGIN_URL = '/auth/login'
 
-export default function Login() {
+const Login = () => {
   const [formValues, setFormValues] = useState({
     cuil: '',
     password: ''
@@ -107,3 +107,5 @@ export default function Login() {
     </div>
   )
 }
+
+export default Login

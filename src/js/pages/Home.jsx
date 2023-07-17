@@ -2,7 +2,7 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 
-export default function Home() {
+const Home = () => {
   const {auth} = useAuth()
   console.log(auth)
   return (
@@ -12,3 +12,5 @@ export default function Home() {
     </div>
   )
 }
+
+export default Home

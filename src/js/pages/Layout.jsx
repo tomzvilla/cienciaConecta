@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom"
 import LinkPage from "./LinkPage"
 
-export default function Layout() {
+const Layout = () => {
   return (
     <main className="App">
         <LinkPage />
@@ -9,3 +9,5 @@ export default function Layout() {
     </main>
   )
 }
+
+export default Layout
