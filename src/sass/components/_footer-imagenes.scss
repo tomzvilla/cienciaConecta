@@ -1,0 +1,13 @@
+.footer-imagenes {
+    display: flex;
+    flex-direction: column;
+
+    &__cordoba {
+        height: 9rem;
+        margin-bottom: 2rem;
+    }
+
+    &__educacion {
+        height: 6rem;
+    }
+}

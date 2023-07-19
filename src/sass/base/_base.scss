@@ -1,8 +1,11 @@
 // COLOR VARIABLES
 $color-primary: #00ACE6;
+$color-primary-light: #46D0FF;
 $color-primary-dark: #25325A;
 
 $color-secondary: #354052;
+
+$color-grey: #EFEFEF;
 
 $color-white: #ffffff;
 $color-black: #000000;
@@ -33,6 +36,7 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 
 html {
     box-sizing: border-box;

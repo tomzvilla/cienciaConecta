@@ -1,0 +1,16 @@
+.footer-redes {
+    //height: 100%;
+    //display: flex;
+    margin-top: auto;
+    margin-bottom: 5rem;
+
+    &__svg {
+        margin-left: 1rem;
+
+        &--1 {
+            filter: brightness(0) saturate(100%) invert(65%) sepia(53%) saturate(6330%) hue-rotate(162deg) brightness(99%) contrast(101%);
+        }
+    }
+
+    
+}

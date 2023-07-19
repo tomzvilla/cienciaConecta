@@ -1,5 +1,12 @@
 .home{
-    background-color: green;
-    height: 100vh;
+    background-color: $color-white;
     width: 100vw;
+
+    display: flex;
+    flex-direction: column;
+    //overflow: hidden;
 }
+
+// * {
+//     outline: 1px solid #f00 !important;
+//   }
