@@ -1,18 +1,25 @@
-.form-group {
+.input-field {
+
+
+
     &__label {
         display: flex;
         flex-direction: column;
-        width: 100%;
-        margin-bottom: 20px;
-        font-size: 20px;
+        //width: 100%;
+        margin-bottom: 2rem;
+        font-size: 2rem;
+        color: $color-grey-dark;
+        
 
     }
     &__span {
         margin-bottom: 10px;
     }
     &__input {
-        font-size: 1em;
-        height: 2em;
+        font-size: 2rem;
+        height: 4rem;
+        border: 0px;
+        border-bottom: 1px solid $color-grey-dark;
     }
     &__error {
         color: rgb(247, 18, 18);

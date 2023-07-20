@@ -8,11 +8,11 @@ const InputField = ({ value, label, name, type, onChange, onBlur, errors, requir
     }
   
     return (
-    <div className='form-group'>
-        <label className='form-group__label'>
-            <span className='form-group__span'>{label} </span>
+    <div className='input-field'>
+        <label className='input-field__label'>
+            <span className='input-field__span'>{label} </span>
             <input
-                className='form-group__input'
+                className='input-field__input'
                 name={name}
                 type={type}
                 onChange={onChange}
@@ -21,7 +21,7 @@ const InputField = ({ value, label, name, type, onChange, onBlur, errors, requir
                 {...setRequired}
             />
         </label>
-        {errors.dirty && errors.error && <small className='form-group__error'>{errors.message}</small>}
+        {errors.dirty && errors.error && <small className='input-field__error'>{errors.message}</small>}
     </div>
   )
 }

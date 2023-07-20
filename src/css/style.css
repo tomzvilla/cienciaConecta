@@ -61,21 +61,23 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   margin: auto;
 }
 
-.form-group__label {
+.input-field__label {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  margin-bottom: 20px;
-  font-size: 20px;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  color: #757575;
 }
-.form-group__span {
+.input-field__span {
   margin-bottom: 10px;
 }
-.form-group__input {
-  font-size: 1em;
-  height: 2em;
+.input-field__input {
+  font-size: 2rem;
+  height: 4rem;
+  border: 0px;
+  border-bottom: 1px solid #757575;
 }
-.form-group__error {
+.input-field__error {
   color: rgb(247, 18, 18);
   font-size: 15px;
   margin-top: -15px;
@@ -229,6 +231,35 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   filter: brightness(0) saturate(100%) invert(65%) sepia(53%) saturate(6330%) hue-rotate(162deg) brightness(99%) contrast(101%);
 }
 
+.login-form {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  min-width: 45rem;
+  min-height: 45rem;
+  border-radius: 4px;
+  padding: 2rem 0rem;
+  justify-content: space-around;
+  align-items: flex-start;
+  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+}
+.login-form__title {
+  margin-bottom: 2em;
+  font-size: 42px;
+  text-align: center;
+  font-weight: 500;
+}
+.login-form__input {
+  width: 80%;
+  align-self: center;
+}
+.login-form__input--first {
+  margin-top: 2rem;
+}
+.login-form__button {
+  align-self: center;
+}
+
 .login {
   display: flex;
   justify-content: center;
@@ -236,22 +267,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   height: 100vh;
   background-color: #96CADC;
   font-size: 1em;
-}
-.login__form {
-  min-width: 450px;
-  min-height: 450px;
-  padding: 1.5em;
-  margin: auto;
-  background-color: #FFF;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 2px 4px 15px 0px rgba(0, 0, 0, 0.52);
-}
-.login__title {
-  margin-bottom: 2em;
-  font-size: 42px;
-  text-align: center;
-  font-weight: 500;
 }
 
 .signup {
