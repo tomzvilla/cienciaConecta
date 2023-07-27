@@ -6,7 +6,7 @@ import Home from './js/pages/Home';
 import { AuthProvider } from './context/AuthProvider';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
-import Login from './js/pages/Login';
+import Signup from './js/pages/Signup';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,7 +14,7 @@ root.render(
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          <Route path='/*' element={<Login />}/>
+          <Route path='/*' element={< Signup/>}/>
         </Routes>
       </AuthProvider>
     </BrowserRouter>

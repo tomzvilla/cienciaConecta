@@ -189,7 +189,7 @@ export default function Signup() {
             errors={errors.confirmPassword}
             required={true}
           />
-          <Button text='Registrarse'/>
+          <Button text='Registrarse' activo={true}/>
           </form>
     </div>
   )
