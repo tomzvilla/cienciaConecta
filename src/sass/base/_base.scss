@@ -20,6 +20,20 @@ $bp-smallest: 31.25em; //600px
 // FONT VARIABLES
 $font-primary: 'Be Vietnam Pro', sans-serif;
 
+// REMOVE ARROWS FROM NUMBER FIELDS
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 html {
     box-sizing: border-box;
     font-size: 62.5%; // 10px / 16px = 62.5% -> 1rem = 10px
