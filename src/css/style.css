@@ -82,7 +82,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .input-field {
   display: flex;
   flex-direction: column;
-  max-width: 40rem;
 }
 .input-field:focus-within .input-field__label {
   color: #00ACE6;
@@ -331,6 +330,44 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   font-size: 15px;
   margin-top: -15px;
   margin-bottom: 15px;
+}
+
+.register-project-form {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  margin: auto;
+  max-width: 75rem;
+  min-height: 4em;
+  border-radius: 4px;
+  padding-bottom: 2rem;
+  margin-top: 5rem;
+  justify-content: space-around;
+  align-items: flex-start;
+  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+}
+.register-project-form__title {
+  margin-bottom: 2rem;
+  width: 100%;
+  padding-top: 1rem;
+  height: 5rem;
+  font-size: 3rem;
+  text-align: center;
+  font-weight: 500;
+  background-color: #00ACE6;
+  color: #ffffff;
+}
+.register-project-form__input {
+  width: 80%;
+  align-self: center;
+  margin-bottom: 1rem;
+}
+.register-project-form__input--first {
+  margin-top: 2rem;
+}
+.register-project-form__button {
+  margin-top: 1rem;
+  align-self: center;
 }
 
 .login {

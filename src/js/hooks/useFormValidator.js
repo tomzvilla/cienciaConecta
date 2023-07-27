@@ -11,7 +11,10 @@ import {
     dniValidator,
     positionValidator,
     phoneNumberValidator,
-    cueValidator
+    cueValidator,
+    titleValidator,
+    descriptionValidator,
+    schoolNameValidator,
 } from '../validators'
 
 const touchErrors = (errors) => {
@@ -47,7 +50,7 @@ export const useFormValidator = (form) => {
             nextErrors = touchErrors(errors);
         }
 
-        const { email, password, name, lastname, dni, cuil, position, phoneNumber, cue } = form;
+        const { email, password, name, lastname, dni, cuil, position, phoneNumber, cue, title, description, schoolName, schoolEmail, schoolCue } = form;
 
         if (nextErrors.email?.dirty && (field ? field === "email" || field === 'schoolEmail' : true)) {
             const emailMessage = emailValidator(email, form);
@@ -111,6 +114,42 @@ export const useFormValidator = (form) => {
             nextErrors.cue.message = cueMessage;
             if (!!cueMessage) isValid = false;
         }
+
+        if (nextErrors.title?.dirty && (field ? field === "title" : true)) {
+            const titleMessage = titleValidator(title, form);
+            nextErrors.title.error = !!titleMessage;
+            nextErrors.title.message = titleMessage;
+            if (!!titleMessage) isValid = false;
+        }
+
+        if (nextErrors.description?.dirty && (field ? field === "description" : true)) {
+            const descriptionMessage = descriptionValidator(description, form);
+            nextErrors.description.error = !!descriptionMessage;
+            nextErrors.description.message = descriptionMessage;
+            if (!!descriptionMessage) isValid = false;
+        }
+
+        if (nextErrors.schoolName?.dirty && (field ? field === "schoolName" : true)) {
+            const schoolNameMessage = schoolNameValidator(schoolName, form);
+            nextErrors.schoolName.error = !!schoolNameMessage;
+            nextErrors.schoolName.message = schoolNameMessage;
+            if (!!schoolNameMessage) isValid = false;
+        }
+
+        if (nextErrors.schoolEmail?.dirty && (field ? field === "schoolEmail" : true)) {
+            const schoolEmailMessage = emailValidator(schoolEmail, form);
+            nextErrors.schoolEmail.error = !!schoolEmailMessage;
+            nextErrors.schoolEmail.message = schoolEmailMessage;
+            if (!!schoolEmailMessage) isValid = false;
+        }
+
+        if (nextErrors.schoolCue?.dirty && (field ? field === "schoolCue" : true)) {
+            const schoolCueMessage = cueValidator(schoolCue, form);
+            nextErrors.schoolCue.error = !!schoolCueMessage;
+            nextErrors.schoolCue.message = schoolCueMessage;
+            if (!!schoolCueMessage) isValid = false;
+        }
+
         setErrors(nextErrors);
 
         return {

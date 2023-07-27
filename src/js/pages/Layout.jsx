@@ -4,7 +4,7 @@ import LinkPage from "./LinkPage"
 const Layout = () => {
   return (
     <main className="App">
-        <LinkPage />
+        {/* <LinkPage /> */}
         <Outlet />
     </main>
   )

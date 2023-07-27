@@ -104,6 +104,15 @@ export const titleValidator = (title) => {
   return "";
 };
 
+export const descriptionValidator = (description) => {
+  if (!description) {
+    return "Debe ingresar una descripción para el proyecto";
+  } else if (description.length > 500) {
+    return "La descripción debe ser inferior a 500 caracteres"
+  }
+  return "";
+};
+
 export const schoolNameValidator = (schoolName) => {
   if (!schoolName) {
     return "Debe ingresar el nombre de la escuela";
