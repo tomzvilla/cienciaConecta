@@ -11,7 +11,7 @@ import Home from './js/pages/Home'
 import Layout from './js/pages/Layout'
 import Unauthorized from './js/pages/Unauthorized'
 import NotFound from './js/pages/NotFound'
-import Projects from './js/pages/Projects'
+import CreateSchoolStage from './js/pages/Projects/CreateSchoolStage'
 
 // ROLES
 
@@ -32,10 +32,10 @@ function App() {
           <Route path='home' element={<Home/>}/>
           <Route path='signup' element={<Signup/>}/>
           <Route path='unauthorized' element={<Unauthorized/>}/>
-
+          <Route path='projects' element={<CreateSchoolStage/>}/>
           <Route element={<PersistLogin />}>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]}/>}>
-              <Route path='projects' element={<Projects/>}/>
+              {/* <Route path='projects' element={<CreateSchoolStage/>}/> */}
             </Route>
           </Route>
           <Route path='*' element={<NotFound/>}/>

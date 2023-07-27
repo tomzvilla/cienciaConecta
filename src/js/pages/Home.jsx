@@ -7,7 +7,7 @@ import HeroImage from "../components/HeroImage/HeroImage"
 import ComoEmpiezo from '../components/ComoEmpiezo/ComoEmpiezo'
 import Footer from "../components/Footer/Footer"
 
-export default function Home() {
+const Home = () => {
   const {auth} = useAuth()
   console.log(auth)
   return (
@@ -36,3 +36,5 @@ export default function Home() {
     </div>
   )
 }
+
+export default Home

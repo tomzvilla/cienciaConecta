@@ -8,7 +8,7 @@ import InputField from '../components/InputField/InputField'
 import axios from '../../api/axios'
 const SIGNUP_URL = '/auth/register'
 
-export default function Signup() {
+const Signup = () => {
   const [formValues, setFormValues] = useState({
     name: '',
     lastname: '',
@@ -194,3 +194,5 @@ export default function Signup() {
     </div>
   )
 }
+
+export default Signup

@@ -1,9 +1,11 @@
 import React from 'react'
 
-export default function Unauthorized() {
+const Unauthorized = () => {
   return (
     <div className='unauthorized'>
         <h2>NO ESTAS AUTORIZADO</h2>
     </div>
   )
 }
+
+export default Unauthorized

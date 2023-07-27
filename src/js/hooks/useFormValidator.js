@@ -49,7 +49,7 @@ export const useFormValidator = (form) => {
 
         const { email, password, name, lastname, dni, cuil, position, phoneNumber, cue } = form;
 
-        if (nextErrors.email?.dirty && (field ? field === "email" : true)) {
+        if (nextErrors.email?.dirty && (field ? field === "email" || field === 'schoolEmail' : true)) {
             const emailMessage = emailValidator(email, form);
             nextErrors.email.error = !!emailMessage;
             nextErrors.email.message = emailMessage;
@@ -105,7 +105,7 @@ export const useFormValidator = (form) => {
             if (!!phoneNumberMessage) isValid = false;
         }
 
-        if (nextErrors.cue?.dirty && (field ? field === "cue" : true)) {
+        if (nextErrors.cue?.dirty && (field ? field === "cue" || field === "schoolCue" : true)) {
             const cueMessage = cueValidator(cue, form);
             nextErrors.cue.error = !!cueMessage;
             nextErrors.cue.message = cueMessage;

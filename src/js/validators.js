@@ -95,4 +95,23 @@ export const phoneNumberValidator = (phoneNumber) => {
   return "";
 };
 
+export const titleValidator = (title) => {
+  if (!title) {
+    return "Debe ingresar un titulo para el proyecto";
+  } else if (title.length > 30) {
+    return "El titulo no puede contener mas de 30 caracteres"
+  }
+  return "";
+};
+
+export const schoolNameValidator = (schoolName) => {
+  if (!schoolName) {
+    return "Debe ingresar el nombre de la escuela";
+  } else if (schoolName.length > 30) {
+    return "El nombre de la escuela no puede contener mas de 30 caracteres"
+  }
+  return "";
+};
+
+
 

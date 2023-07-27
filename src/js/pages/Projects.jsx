@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import useAxiosPrivate from "../hooks/useAxiosPrivate"
 
-export default function Projects() {
+const Projects = () => {
   const axiosPrivate = useAxiosPrivate()
 
   const inscribirProyecto = async () => {
@@ -39,3 +39,5 @@ export default function Projects() {
     </div>
   )
 }
+
+export default Projects
