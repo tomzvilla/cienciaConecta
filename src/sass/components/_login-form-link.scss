@@ -1,0 +1,23 @@
+.login-form-link {
+    //width: 100%;
+
+    display: flex;
+
+
+    align-items: center;
+    margin: auto;
+
+    &__text {
+        color: $color-grey-dark;
+        font-size: 2rem;
+        margin-right: .5rem;
+    }
+
+
+    &__link {
+        color: $color-primary;
+        font-size: 2rem;
+
+    }
+
+}

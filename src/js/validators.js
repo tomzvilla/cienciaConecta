@@ -1,96 +1,96 @@
 export const emailValidator = (email) => {
     if (!email) {
-      return "Debe ingresar un email";
+      return "Tenés que ingresar un email";
     } else if (!new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i).test(email)) { // eslint-disable-line
-      return "Debe ingresar un email válido";
+      return "El email que ingresaste no es válido";
     }
     return "";
 };
   
 export const passwordValidator = (password) => {
     if (!password) {
-        return "Debe ingresar una contraseña";
+        return "Tenés que ingresar una contraseña";
     } else if (password.length < 7 || password.length > 20 ) {
-      return "La contraseña debe tener entre 8 y 20 caracteres"
+      return "La contraseña tiene que tener entre 8 y 20 caracteres"
     } else if (!new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,20}$/).test(password)) { // eslint-disable-line
-      return "La contraseña debe tener al menos una letra mayuscula, una minuscula y un numero"
+      return "La contraseña tiene que tener al menos una letra mayúscula, una minúscula y un numero"
     }
     return "";
 };
 
 export const nameValidator = (name) => {
   if (!name) {
-    return "Debe ingresar un nombre";
+    return "Tenés que ingresar un nombre";
   } else if (name.length > 30) {
-    return "El nombre debe tener 30 caracteres como maximo"
+    return "El nombre debe tener 30 caracteres como máximo"
   } else if (/[0-9]/.test(name)) {
-    return "El nombre no puede contener expresiones numericas"
+    return "El nombre no puede tener números"
   }
   return "";
 };
 
 export const lastnameValidator = (lastname) => {
   if (!lastname) {
-    return "Debe ingresar un apellido";
+    return "Tenés que ingresar un apellido";
   } else if (lastname.length > 30) {
-    return "El apellido debe tener 30 caracteres como maximo"
+    return "El apellido tiene que tener 30 caracteres como máximo"
   } else if (/[0-9]/.test(lastname)) {
-    return "El apellido no puede contener expresiones numericas"
+    return "El apellido no puede tener números"
   }
   return "";
 };
 
 export const cuilValidator = (cuil) => {
   if (!cuil) {
-    return "Debe ingresar un cuil";
+    return "Tenés que ingresar un CUIL";
   } else if (cuil.length > 11 || cuil.length < 10) {
-    return "El cuil ingresado no es valido"
+    return "El CUIL que ingresaste no es válido"
   } else if (!/^[0-9]+$/.test(cuil)) {
-    return "El cuil no puede contener letras"
+    return "El CUIL no puede tener letras"
   }
   return "";
 };
 
 export const dniValidator = (dni) => {
   if (!dni) {
-    return "Debe ingresar un dni";
+    return "Tenés que ingresar un DNI";
   } else if (dni.length > 8 || dni.length < 7) {
-    return "El dni ingresado no es valido"
+    return "El DNI que ingresaste no es válido"
   } else if (!/^[0-9]+$/.test(dni)) {
-    return "El dni no puede contener letras"
+    return "El DNI no puede tener letras"
   }
   return "";
 };
 
 export const cueValidator = (cue) => {
   if (!cue) {
-    return "Debe ingresar un cue valido";
+    return "Tenés que ingresar un CUE válido";
   } else if (cue.length !== 7) {
-    return "El cue ingresado no es valido"
+    return "El CUE que ingresaste no es válido"
   } else if (!/^[0-9]+$/.test(cue)) {
-    return "El cue no puede contener letras"
+    return "El CUE no puede tener letras"
   }
   return "";
 };
 
 export const positionValidator = (position) => {
   if (!position) {
-    return "Debe ingresar un cargo";
+    return "Tenés que ingresar un cargo";
   } else if (position.length > 30) {
-    return "El cargo ingresado debe tener menos de 30 caracteres"
+    return "El cargo tiene que tener menos de 30 caracteres"
   } else if (/[0-9]/.test(position)) {
-    return "El cargo no puede contener expresiones numericas"
+    return "El cargo no puede tener números"
   }
   return "";
 };
 
 export const phoneNumberValidator = (phoneNumber) => {
   if (!phoneNumber) {
-    return "Debe ingresar un numero de telefono";
+    return "Tenés que ingresar un número de teléfono";
   } else if (phoneNumber.length > 15 || phoneNumber.length < 7) {
-    return "El numero de telefono ingresado no es valido"
+    return "El número de teléfono que ingresaste no es válido"
   } else if (!/^[0-9]+$/.test(phoneNumber)) {
-    return "El numero de telefono no puede contener letras"
+    return "El número de teléfono no puede tener letras"
   }
   return "";
 };

@@ -6,13 +6,16 @@ const InputField = ({ value, label, name, type, onChange, onBlur, errors, requir
     if(required){
         setRequired = true
     }
+
+    const modifier = errors.error ? "--error" : ""
+
+
   
     return (
-    <div className='input-field'>
-        <label className='input-field__label'>
-            <span className='input-field__span'>{label} </span>
+    <div className={`input-field input-field${modifier}`}>
+            <label className={`input-field__label input-field__label${modifier}`}>{label}</label>
             <input
-                className='input-field__input'
+                className={`input-field__input input-field__input${modifier}`}
                 name={name}
                 type={type}
                 onChange={onChange}
@@ -20,8 +23,8 @@ const InputField = ({ value, label, name, type, onChange, onBlur, errors, requir
                 value={value}
                 {...setRequired}
             />
-        </label>
-        {errors.dirty && errors.error && <small className='input-field__error'>{errors.message}</small>}
+        
+        {errors.dirty && errors.error && <small className={`input-field__error input-field__error${modifier}`}>{errors.message}</small>}
     </div>
   )
 }

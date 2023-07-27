@@ -18,8 +18,8 @@
         
     
     &__title {
-        margin-bottom: 2em;
-        font-size: 42px;
+        margin-bottom: 2rem;
+        font-size: 4rem;
         text-align: center;
         font-weight: 500; 
     }
@@ -36,5 +36,17 @@
 
     &__button {
         align-self: center;
+    }
+
+    
+
+
+    &__link-container {
+        align-self: center;
+        
+
+
+        
+
     }
 }

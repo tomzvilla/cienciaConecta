@@ -57,31 +57,64 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   background-color: #00ACE6;
   color: #ffffff;
 }
+.button:focus {
+  transition: all 200ms ease-out;
+  box-shadow: 0px 0.4rem 2rem rgba(0, 0, 0, 0.25);
+}
+.button--activo {
+  background-color: #00ACE6;
+  color: #ffffff;
+}
+.button--activo:hover {
+  transition: all 200ms ease-out;
+  box-shadow: 0px 1.4rem 2rem rgba(0, 0, 0, 0.34);
+  background-color: #ffffff;
+  color: #00ACE6;
+}
+.button--activo:focus {
+  transition: all 400ms ease-out;
+  box-shadow: 0px 0.4rem 2rem rgba(0, 0, 0, 0.25);
+}
 .button__text {
   margin: auto;
 }
 
+.input-field {
+  display: flex;
+  flex-direction: column;
+  max-width: 40rem;
+}
+.input-field:focus-within .input-field__label {
+  color: #00ACE6;
+}
 .input-field__label {
   display: flex;
   flex-direction: column;
-  margin-bottom: 2rem;
   font-size: 2rem;
   color: #757575;
 }
-.input-field__span {
-  margin-bottom: 10px;
+.input-field__label--error {
+  color: #E63B0B;
 }
 .input-field__input {
   font-size: 2rem;
-  height: 4rem;
+  padding: 1rem 0rem;
   border: 0px;
   border-bottom: 1px solid #757575;
+  outline: none;
+}
+.input-field__input:focus {
+  border-bottom: 2px solid #00ACE6;
+  transition: all 50ms linear;
+}
+.input-field__input--error {
+  border-bottom: 2px solid #E63B0B;
 }
 .input-field__error {
-  color: rgb(247, 18, 18);
-  font-size: 15px;
-  margin-top: -15px;
-  margin-bottom: 15px;
+  color: #E63B0B;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  text-overflow: ellipsis;
 }
 
 .navbar {
@@ -244,8 +277,8 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
 }
 .login-form__title {
-  margin-bottom: 2em;
-  font-size: 42px;
+  margin-bottom: 2rem;
+  font-size: 4rem;
   text-align: center;
   font-weight: 500;
 }
@@ -258,6 +291,24 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 .login-form__button {
   align-self: center;
+}
+.login-form__link-container {
+  align-self: center;
+}
+
+.login-form-link {
+  display: flex;
+  align-items: center;
+  margin: auto;
+}
+.login-form-link__text {
+  color: #757575;
+  font-size: 2rem;
+  margin-right: 0.5rem;
+}
+.login-form-link__link {
+  color: #00ACE6;
+  font-size: 2rem;
 }
 
 .login {

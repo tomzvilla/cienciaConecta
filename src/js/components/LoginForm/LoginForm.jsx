@@ -1,6 +1,8 @@
 // Components
 import Button  from '../Button/Button'
 import InputField from '../InputField/InputField'
+import LoginFormLink from '../LoginFormLink/LoginFormLink'
+
 
 // Other imports
 import { useState } from 'react'
@@ -9,6 +11,8 @@ import useAuth from '../../hooks/useAuth'
 import { useNavigate, useLocation } from 'react-router-dom'
 
 import axios from '../../../api/axios'
+
+
 
 const LOGIN_URL = '/auth/login'
 
@@ -114,8 +118,15 @@ const LoginForm = () => {
             
 
             <div className='login-form__button'>
-                <Button text='Ingresar'/>
+                <Button text='Ingresar' activo={true}/>
             </div>
+
+            <div className='login-form__link-container'>
+              <LoginFormLink/>
+            </div>
+          
+            
+            
             
         </form>
     )
