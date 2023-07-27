@@ -1,0 +1,14 @@
+const FooterRedes = () => {
+    return (
+        <div className="footer-redes">
+            <svg className="footer-redes__svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#00ACE6" d="M20.484 0H3.516A3.52 3.52 0 0 0 0 3.516v16.968A3.52 3.52 0 0 0 3.516 24h7.078v-8.484H7.781V11.3h2.813V8.438a4.223 4.223 0 0 1 4.219-4.219h4.266v4.219h-4.266V11.3h4.266l-.7 4.219h-3.566V24h5.672A3.52 3.52 0 0 0 24 20.484V3.516A3.52 3.52 0 0 0 20.484 0zm0 0"></path></svg>
+            <svg className="footer-redes__svg footer-redes__svg--1" xmlns="http://www.w3.org/2000/svg" id="instagram" width="24" height="24" viewBox="0 0 24 24"><defs></defs><g id="Grupo_2540"><g id="Grupo_2539"><path id="Trazado_171" d="M17.028 0H6.972A6.98 6.98 0 0 0 0 6.972v10.056A6.98 6.98 0 0 0 6.972 24h10.056A6.98 6.98 0 0 0 24 17.028V6.972A6.98 6.98 0 0 0 17.028 0zm5.1 17.028a5.1 5.1 0 0 1-5.1 5.1H6.972a5.1 5.1 0 0 1-5.1-5.1V6.972a5.1 5.1 0 0 1 5.1-5.1h10.056a5.1 5.1 0 0 1 5.1 5.1z" class="cls-1"></path></g></g><g id="Grupo_2542" transform="translate(5.531 5.531)"><g id="Grupo_2541"><path id="Trazado_172" d="M124.469 118a6.469 6.469 0 1 0 6.469 6.469 6.476 6.476 0 0 0-6.469-6.469zm0 11.063a4.594 4.594 0 1 1 4.594-4.594 4.6 4.6 0 0 1-4.594 4.594z" class="cls-1" transform="translate(-118 -118)"></path></g></g><g id="Grupo_2544" transform="translate(17.625 4.5)"><g id="Grupo_2543"><circle id="Elipse_12" cx="0.938" cy="0.938" r="0.938" class="cls-1"></circle></g></g></svg>
+            <svg className="footer-redes__svg" xmlns="http://www.w3.org/2000/svg" width="24" height="19.5" viewBox="0 0 24 19.5"><g><g><path fill="#00ACE6" d="M24 50.309a10.258 10.258 0 0 1-2.835.777 4.893 4.893 0 0 0 2.164-2.719 9.833 9.833 0 0 1-3.12 1.191 4.92 4.92 0 0 0-8.509 3.364 5.066 5.066 0 0 0 .114 1.122A13.927 13.927 0 0 1 1.671 48.9a4.922 4.922 0 0 0 1.512 6.576 4.859 4.859 0 0 1-2.223-.609v.054a4.943 4.943 0 0 0 3.94 4.835 4.911 4.911 0 0 1-1.29.162 4.35 4.35 0 0 1-.932-.084 4.967 4.967 0 0 0 4.6 3.428 9.886 9.886 0 0 1-6.1 2.1A9.216 9.216 0 0 1 0 65.292 13.852 13.852 0 0 0 7.548 67.5a13.907 13.907 0 0 0 14-14c0-.217-.007-.427-.018-.636A9.816 9.816 0 0 0 24 50.309z" transform="translate(0 -48) translate(0 48) translate(0 -48)"></path></g></g></svg>
+            <svg className="footer-redes__svg" xmlns="http://www.w3.org/2000/svg" width="27.851" height="19.5" viewBox="0 0 27.851 19.5"><path fill="#00ACE6" d="M27.277 3.051A3.489 3.489 0 0 0 24.822.6c-2.179-.6-10.9-.6-10.9-.6S5.207 0 3.028.574A3.561 3.561 0 0 0 .573 3.051 36.768 36.768 0 0 0 0 9.75a36.633 36.633 0 0 0 .573 6.7 3.49 3.49 0 0 0 2.455 2.45c2.2.6 10.9.6 10.9.6s8.718 0 10.9-.574a3.489 3.489 0 0 0 2.455-2.455 36.769 36.769 0 0 0 .573-6.7 34.9 34.9 0 0 0-.574-6.722zm0 0"></path><path fill="#fff" d="M204.969 110.835l7.249-4.175-7.249-4.175zm0 0" transform="translate(-193.82 -96.91)"></path></svg>
+        
+        </div>
+    );
+}
+
+
+export default FooterRedes;

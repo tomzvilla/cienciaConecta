@@ -1,0 +1,15 @@
+.hero-image {
+    position: relative;
+    display: flex;
+    z-index: 0;
+   
+
+    
+    &__image {
+        margin-left: auto;
+        //padding-right: 2rem;
+        border-radius: 0px 0px 0px 10rem ;
+        width: 60%;
+    }
+}
+

@@ -1,14 +1,9 @@
 // Components
-import Button  from '../components/Button/Button'
-import InputField from '../components/InputField/InputField'
 
-// Other imports
-import { useState } from 'react'
-import { useFormValidator } from '../hooks/useFormValidator'
-import useAuth from '../hooks/useAuth'
-import { useNavigate, useLocation } from 'react-router-dom'
+import Footer from '../components/Footer/Footer'
+import Navbar from '../components/Navbar/Navbar'
 
-import axios from '../../api/axios'
+import LoginForm from '../components/LoginForm/LoginForm'
 
 const LOGIN_URL = '/auth/login'
 
@@ -77,35 +72,18 @@ const Login = () => {
     }
     console.log('Se mando XD')
   }
-  
+
   return (
     <div className='login'>
-        <form onSubmit={handleSubmit} className='login__form'>
-        <h2 className='login__title'> Iniciar Sesión </h2>
-        <InputField
-          label='CUIL' 
-          name='cuil'
-          type='number'
-          onChange={handleChange}
-          onBlur={onBlurField}
-          value={formValues.cuil}
-          errors={errors.cuil}
-          required={true}
-        />
-        <InputField 
-          label='Contraseña: '
-          name='password'
-          type='password'
-          onChange={handleChange}
-          onBlur={onBlurField}
-          value={formValues.password}
-          errors={errors.password}
-          required={true}
-        />
-        <Button text='Ingresar'/>
-    </form>
+        {/* <Navbar/> */}
+
+        <LoginForm />
+
+
+    {/* <Footer/> */}
     </div>
   )
 }
 
-export default Login
+export default Login;
+

@@ -1,0 +1,37 @@
+.hero-content {
+    //background-color: $color-primary;
+    background:  linear-gradient(135deg, $color-primary, $color-primary-light 100%);
+    width: 50%;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    color: $color-white;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    
+    
+    padding-left: 10rem;
+    padding-right: 2rem;
+
+    justify-content: center;
+    border-radius: 0px 0px 10rem 0px;
+
+    &__title {
+        font-size: 9rem;
+        width: 90%;
+    }
+
+
+    &__text {
+        width: 85%;
+        font: $font-primary;
+        font-weight: 100;
+        font-size: 3rem;
+        
+    }
+
+
+}

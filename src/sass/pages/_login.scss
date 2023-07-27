@@ -1,4 +1,4 @@
-.login{
+.login {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -6,22 +6,6 @@
     background-color: #96CADC;
     font-size: 1em;
     
-    &__form {
-        min-width: 450px;
-        min-height: 450px;
-        padding: 1.5em;
-        margin: auto;
-        background-color: #FFF;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 2px 4px 15px 0px rgba(0,0,0,0.52);
-        
-    }
-    &__title {
-        margin-bottom: 2em;
-        font-size: 42px;
-        text-align: center;
-        font-weight: 500; 
-    }
+    
     
 }
