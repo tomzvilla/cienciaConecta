@@ -10,6 +10,7 @@ import SignupProgress from '../components/SignupProgress/SignupProgress'
 import Navbar from '../components/Navbar/Navbar'
 
 import axios from '../../api/axios'
+import SignupConfirm from '../components/SignupConfirm/SignupConfirm'
 const SIGNUP_URL = '/auth/register'
 
 const Signup = () => {
@@ -95,41 +96,54 @@ const Signup = () => {
 
 
   const handleAvanzar = (e) => {
-    if (avanzar == false) {
-      setAvanzar(true)
+    e.preventDefault()
+    const datos = validateForm({form: formValues , errors, forceTouchErrors: true})
+  
+
+    const pasarACuenta = !datos.errors.cue.error & !datos.errors.cuil.error 
+                      & !datos.errors.dni.error & !datos.errors.lastname.error 
+                      & !datos.errors.name.error & !datos.errors.position.error
+
+
+    if (avanzar == false && pasarACuenta) {
+      setAvanzar(true)   
     }
 
-    else {
+    else if (datos.isValid) {
       setConfirmar(true)
     }
 
   }
 
   const handleVolver = (e) => {
-    if (avanzar == true) {
+    if (confirmar){
+      setConfirmar(false)
+    }
+    else if (avanzar == true) {
       setAvanzar(false)
     }
 
-    else {
-      setConfirmar(false)
-    }
+    
 
   }
       
+ 
   return (
     <div className='signup'>
       <div className='signup__navbar'>
         <Navbar />
       </div>
       
+      
       <SignupProgress avanzar={avanzar} confirmar={confirmar}/>
+      
 
-      {!avanzar & !confirmar ?
-      <SignupForm personal={true} handleChange={handleChange} onBlurField={onBlurField} formValues={formValues} 
+
+      {!confirmar ?
+      <SignupForm personal={!avanzar} handleChange={handleChange} onBlurField={onBlurField} 
+                  formValues={formValues}
                   errors={errors} onSubmit={handleSubmit} handleAvanzar={handleAvanzar} handleVolver={handleVolver}/>
-      :
-      <SignupForm personal={false} handleChange={handleChange} onBlurField={onBlurField} formValues={formValues} 
-                  errors={errors} onSubmit={handleSubmit} handleAvanzar={handleAvanzar} handleVolver={handleVolver}/>
+                  : <SignupConfirm  formValues={formValues} handleVolver={handleVolver}/>
       }
       </div>
   )

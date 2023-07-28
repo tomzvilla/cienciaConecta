@@ -3,6 +3,7 @@ import InputField from '../InputField/InputField';
 
 // Agregar on submit
 const SignupForm = (props) => {
+  console.log(props.errors)
     return (
         props.personal ? 
         
@@ -97,11 +98,11 @@ const SignupForm = (props) => {
           </form>
 
           :
-
+        
           <form  className='signup-form'>
           <div className='signup-form__input'>
             <InputField
-                label='Telefono' 
+                label='Teléfono' 
                 name='phoneNumber'
                 type='number'
                 onChange={props.handleChange}
