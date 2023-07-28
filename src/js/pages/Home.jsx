@@ -14,7 +14,7 @@ const Home = () => {
     <div className='home'>
         
         <header>
-          <Navbar />
+          <Navbar home={true}/>
           <HeroContent/>
           <HeroImage/>
           

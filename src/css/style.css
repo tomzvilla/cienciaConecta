@@ -122,7 +122,11 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   flex-direction: row;
   padding: 2rem 0;
   z-index: 10;
+  background-color: #00ACE6;
+}
+.navbar--home {
   position: absolute;
+  background-color: transparent;
 }
 .navbar__logo {
   margin-left: 5rem;
@@ -370,6 +374,48 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   align-self: center;
 }
 
+.signup-form {
+  min-width: 45rem;
+  min-height: 45rem;
+  padding: 3rem 5rem;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1rem;
+  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+  margin-bottom: auto;
+}
+.signup-form__button-container {
+  align-self: flex-end;
+  margin-top: 4rem;
+}
+.signup-form__button-container--double {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.signup-form__input {
+  margin-top: 1rem;
+}
+
+.signup-progress {
+  display: flex;
+  padding: 4rem 0rem;
+}
+.signup-progress__barra {
+  display: flex;
+  background-color: #D9D9D9;
+  color: white;
+  font-size: 2rem;
+  font: "Be Vietnam Pro", sans-serif;
+  padding: 3rem;
+  margin-right: 1rem;
+  transition: all 200ms ease-out;
+}
+.signup-progress__barra--fill {
+  background-color: #00ACE6;
+}
+
 .login {
   display: flex;
   justify-content: center;
@@ -381,21 +427,18 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 
 .signup {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #96CADC;
+  background-color: #ffffff;
   font-size: 1em;
 }
-.signup__form {
-  min-width: 450px;
-  min-height: 450px;
-  padding: 1.5em;
-  margin: auto;
-  background-color: #FFF;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 2px 4px 15px 0px rgba(0, 0, 0, 0.52);
+.signup__navbar {
+  width: 100%;
+  align-self: flex-start;
+  margin-bottom: 0rem;
+  top: 0;
 }
 .signup__title {
   margin-bottom: 2em;

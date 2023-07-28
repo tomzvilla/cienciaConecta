@@ -1,0 +1,24 @@
+.signup-progress {
+    display: flex;
+    padding: 4rem 0rem;
+
+    &__barra {
+        display: flex;
+
+        background-color: $color-grey-light;
+        color: white;
+        font-size: 2rem;
+        font: $font-primary ;       
+        padding: 3rem; 
+        
+        margin-right: 1rem;
+
+        transition: all 200ms ease-out;
+
+        &--fill {
+            background-color: $color-primary;
+        }
+        
+
+    }
+}
