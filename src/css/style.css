@@ -385,6 +385,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   border-radius: 1rem;
   box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
   margin-bottom: auto;
+  animation: card-load 1000ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 .signup-form__button-container {
   align-self: flex-end;
@@ -399,6 +400,16 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   margin-top: 1rem;
 }
 
+@keyframes card-load {
+  0% {
+    margin-top: 4rem;
+    opacity: 0%;
+  }
+  100% {
+    margin-top: 0rem;
+    opacity: 100%;
+  }
+}
 .signup-progress {
   display: flex;
   padding: 2rem 0rem;
@@ -411,7 +422,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   font: "Be Vietnam Pro", sans-serif;
   padding: 2rem 4rem;
   margin-right: 1rem;
-  transition: all 200ms ease-out;
+  transition: all 400ms ease-out;
 }
 .signup-progress__barra--fill {
   background-color: #00ACE6;

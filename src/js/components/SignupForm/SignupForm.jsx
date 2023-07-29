@@ -1,13 +1,14 @@
+import { useState } from 'react';
 import Button from '../Button/Button';
 import InputField from '../InputField/InputField';
 
 // Agregar on submit
 const SignupForm = (props) => {
-  console.log(props.errors)
+
     return (
         props.personal ? 
         
-        <form  className='signup-form'>
+        <form  className="signup-form">
           <div className='signup-form__input'>
             <InputField
                 label='CUIL' 
@@ -99,7 +100,7 @@ const SignupForm = (props) => {
 
           :
         
-          <form  className='signup-form'>
+          <form className='signup-form'>
           <div className='signup-form__input'>
             <InputField
                 label='Teléfono' 
