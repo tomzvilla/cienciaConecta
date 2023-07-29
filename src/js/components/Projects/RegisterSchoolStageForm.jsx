@@ -27,11 +27,20 @@ const axiosPrivate = useAxiosPrivate()
 
 const {errors, validateForm, onBlurField} = useFormValidator(formValues)
 
-const { data: categories, loading:categoriesLoading, error: categoriesError } = useAxiosFetch('/categoria', axiosPrivate)
-const { data: levels, loading:levelsLoading, error: levelsError } = useAxiosFetch('/nivel', axiosPrivate)
-
+const { data: categoriesData} = useAxiosFetch('/categoria', axiosPrivate)
+const { data: levelsData} = useAxiosFetch('/nivel', axiosPrivate)
+let categories = []
+if(categoriesData){
+    categories = [{_id: 0, nombre: ""}, ...categoriesData.categoria]
+}
+let levels = []
+if(levelsData){
+    levels = [{_id: 0, nombre: ""}, ...levelsData.nivel]
+}
 const handleChange = (e) => {
     const {name, value} = e.target
+    console.log(e.target.name)
+    console.log(e.target.value)
     const nextFormValueState = {
       ...formValues,
       [name]: value
@@ -50,6 +59,7 @@ const handleSubmit = async (e) => {
 
     try {
         const { title, description, level, category, schoolName, schoolCue, privateSchool, schoolEmail } = formValues
+        // (privateSchool === '1' && privateSchool !== '0') ? setFormValues(...formValues, privateSchool = true) : setFormValues(...formValues, privateSchool = false)
         const response = await axiosPrivate.post('/proyecto', 
         JSON.stringify({ titulo: title, descripcion: description, nivel: level, categoria: category, nombreEscuela: schoolName, cueEscuela: schoolCue, privada: privateSchool, emailEscuela: schoolEmail}),
         {
@@ -62,16 +72,16 @@ const handleSubmit = async (e) => {
 
         console.log(formValues)
 
-    setFormValues({
-        title: '',
-        description: '',
-        level: '',
-        category: '',
-        schoolName: '',
-        schoolCue: '',
-        private: '',
-        schoolEmail: ''
-    })
+        setFormValues({
+            title: '',
+            description: '',
+            level: '',
+            category: '',
+            schoolName: '',
+            schoolCue: '',
+            privateSchool: '',
+            schoolEmail: ''
+        })
 
     } catch (err) {
         if(!err?.response){
@@ -83,8 +93,9 @@ const handleSubmit = async (e) => {
         } else {
             console.log('Fallo la inscripcion del proyecto')
         }
-
+        console.log(err)
         }
+        
         console.log('Se mando XD')
 }
   
@@ -117,28 +128,49 @@ return (
             />
         </div>
         <div className='register-project-form__input'>
-            <SelectField
+            {!levelsData? <SelectField
                 label='Nivel: ' 
                 name='level'
-                dataValues={levels?.nivel}
+                dataValues={['Cargando']}
                 onChange={handleChange}
                 onBlur={onBlurField}
                 value={formValues.level}
                 errors={errors.level}
                 required={true}
-            />
-        </div>
-        <div className='register-project-form__input'>
-            <SelectField
-                label='Categoria:' 
-                name='category'
-                dataValues={categories?.categoria}
+            />: <SelectField
+                label='Nivel: ' 
+                name='level'
+                dataValues={levels}
                 onChange={handleChange}
                 onBlur={onBlurField}
-                value={formValues.category}
-                errors={errors.category}
+                value={formValues.level}
+                errors={errors.level}
                 required={true}
-            />
+            />}
+        </div>
+        <div className='register-project-form__input'>
+            {!categoriesData ?  
+                <SelectField
+                    label='Categoria:' 
+                    name='category'
+                    dataValues={['Cargando']}
+                    onChange={handleChange}
+                    onBlur={onBlurField}
+                    value={formValues.category}
+                    errors={errors.category}
+                    required={true}
+                /> :
+                <SelectField
+                    label='Categoria:' 
+                    name='category'
+                    dataValues={categories}
+                    onChange={handleChange}
+                    onBlur={onBlurField}
+                    value={formValues.category}
+                    errors={errors.category}
+                    required={true}
+                />
+            }
         </div>
         <div className='register-project-form__input'>
             <InputField
@@ -168,7 +200,7 @@ return (
             <SelectField
                 label='¿Pertenece a escuela privada?' 
                 name='privateSchool'
-                dataValues={[{nombre: 'Privada', _id: true},{nombre: 'Pública', _id: false}]}
+                dataValues={[{nombre: '', _id: 2},{nombre: 'Privada', _id: 1},{nombre: 'Pública', _id: 0}]}
                 onChange={handleChange}
                 onBlur={onBlurField}
                 value={formValues.privateSchool}

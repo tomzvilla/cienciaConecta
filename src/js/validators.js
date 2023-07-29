@@ -122,5 +122,25 @@ export const schoolNameValidator = (schoolName) => {
   return "";
 };
 
+export const categoryValidator = (category) => {
+  if (category === '') {
+    return "Debe ingresar una categoría";
+  } 
+  return "";
+};
+
+export const levelValidator = (level) => {
+  if (level === '') {
+    return "Debe ingresar una nivel";
+  } 
+  return "";
+};
+
+export const schoolTypeValidator = (schoolType) => {
+  if (schoolType === '') {
+    return "Debe ingresar pública o privada";
+  } 
+  return "";
+};
 
 

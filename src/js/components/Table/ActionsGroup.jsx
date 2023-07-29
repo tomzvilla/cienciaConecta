@@ -1,7 +1,7 @@
 const ActionsGroup = () => {
     return(
         <>
-            <td>
+            <td key={''}>
                 <button>Ver</button>
                 <button>Editar</button>
             </td>

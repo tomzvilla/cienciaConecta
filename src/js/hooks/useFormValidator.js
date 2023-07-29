@@ -15,6 +15,9 @@ import {
     titleValidator,
     descriptionValidator,
     schoolNameValidator,
+    categoryValidator,
+    levelValidator,
+    schoolTypeValidator,
 } from '../validators'
 
 const touchErrors = (errors) => {
@@ -50,7 +53,7 @@ export const useFormValidator = (form) => {
             nextErrors = touchErrors(errors);
         }
 
-        const { email, password, name, lastname, dni, cuil, position, phoneNumber, cue, title, description, schoolName, schoolEmail, schoolCue } = form;
+        const { email, password, name, lastname, dni, cuil, position, phoneNumber, cue, title, description, schoolName, schoolEmail, schoolCue, category, level, privateSchool } = form;
 
         if (nextErrors.email?.dirty && (field ? field === "email" || field === 'schoolEmail' : true)) {
             const emailMessage = emailValidator(email, form);
@@ -148,6 +151,27 @@ export const useFormValidator = (form) => {
             nextErrors.schoolCue.error = !!schoolCueMessage;
             nextErrors.schoolCue.message = schoolCueMessage;
             if (!!schoolCueMessage) isValid = false;
+        }
+
+        if (nextErrors.category?.dirty && (field ? field === "category" : true)) {
+            const categoryMessage = categoryValidator(category, form);
+            nextErrors.category.error = !!categoryMessage;
+            nextErrors.category.message = categoryMessage;
+            if (!!categoryMessage) isValid = false;
+        }
+
+        if (nextErrors.level?.dirty && (field ? field === "level" : true)) {
+            const levelMessage = levelValidator(level, form);
+            nextErrors.level.error = !!levelMessage;
+            nextErrors.level.message = levelMessage;
+            if (!!levelMessage) isValid = false;
+        }
+
+        if (nextErrors.privateSchool?.dirty && (field ? field === "privateSchool" : true)) {
+            const privateSchoolMessage = schoolTypeValidator(privateSchool, form);
+            nextErrors.privateSchool.error = !!privateSchoolMessage;
+            nextErrors.privateSchool.message = privateSchoolMessage;
+            if (!!privateSchoolMessage) isValid = false;
         }
 
         setErrors(nextErrors);
