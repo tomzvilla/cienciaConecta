@@ -17,8 +17,8 @@ const SelectField = ({ value, label, name, onChange, onBlur, errors, dataValues,
                 value={value}
                 {...setRequired}
             >
-                {dataValues?.map((el, index) => {
-                    return (<option key={index+1} value={index+1}>{el}</option>)
+                {dataValues?.map((el) => {
+                    return (<option key={el._id} value={el._id}>{el.nombre}</option>)
                 })}
             </select>
         </label>
