@@ -3,9 +3,6 @@ import ActionsGroup from "../../components/Table/ActionsGroup"
 
 const Table = ({ headers, data}) => {
 
-    console.log(headers)
-    console.log(data)
-
     return (
         <table className="table">
           <thead className="headBg">
