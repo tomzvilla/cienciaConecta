@@ -35,10 +35,15 @@ const ViewUserProjects = () => {
         const category = categories.categoria.find(element => element._id === obj.categoria)
         const level = levels.nivel.find(element => element._id === obj.nivel)
         const state = states.find(element => element._id === obj.estado)
-        return {...obj, categoria: category.nombre, nivel: level.nombre, estado: state.nombre}
-      })
+        if(obj.estado !== '6') {
+          return {...obj, categoria: category.nombre, nivel: level.nombre, estado: state.nombre}
+        } else {
+          return null
+        }
+      }).filter(project => project !== null)
     }
-    
+
+    console.log(proyectos)
     return (
       <>
           {/* <Navbar/> */}

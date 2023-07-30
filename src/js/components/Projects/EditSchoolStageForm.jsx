@@ -234,7 +234,7 @@ return (
         </div>
         <div className='edit-project-form__button'>
             <Button text='Borrar' borrar={true} onClickHandler={handleDelete}/>
-            <Button text='Confirmar' activo={true}/>
+            <Button text='Actualizar' activo={true}/>
         </div>
     </form>
 )
