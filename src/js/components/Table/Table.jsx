@@ -1,7 +1,8 @@
 // Components
 import ActionsGroup from "../../components/Table/ActionsGroup"
+import { Link } from "react-router-dom";
 
-const Table = ({ headers, data}) => {
+const Table = ({ headers, data, viewPath, editPath}) => {
 
     return (
         <table className="table">
@@ -28,7 +29,14 @@ const Table = ({ headers, data}) => {
                       return (<td key={index}>{item[`${header.value}`]}</td> )
                     })
                   }
-                  <ActionsGroup />
+                  <td key={index}>
+                    <button>
+                        <Link to={`${viewPath}/${item._id}`}> Ver </Link>
+                    </button>
+                    <button>
+                        <Link to={`${editPath}/${item._id}`}> Editar </Link> 
+                    </button>
+                  </td>
                 </tr>
               )
             })}

@@ -13,6 +13,7 @@ import Unauthorized from './js/pages/Unauthorized'
 import NotFound from './js/pages/NotFound'
 import RegisterSchoolStage from './js/pages/Projects/RegisterSchoolStage'
 import ViewUserProjects from './js/pages/Projects/ViewUserProjects'
+import EditProject from './js/pages/Projects/EditProject'
 
 // ROLES
 
@@ -36,6 +37,7 @@ function App() {
           <Route element={<PersistLogin />}>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]}/>}>
               <Route path='projects' element={<RegisterSchoolStage/>}/>
+              <Route path='editProjects/:id' element={<EditProject/>}/>
               <Route path='myprojects' element={<ViewUserProjects/>}/>
             </Route>
           </Route>

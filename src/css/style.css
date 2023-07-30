@@ -75,6 +75,21 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   transition: all 400ms ease-out;
   box-shadow: 0px 0.4rem 2rem rgba(0, 0, 0, 0.25);
 }
+.button--borrar {
+  background-color: #E63B0B;
+  color: #ffffff;
+  border: 1px solid #E63B0B;
+}
+.button--borrar:hover {
+  transition: all 200ms ease-out;
+  box-shadow: 0px 1.4rem 2rem rgba(0, 0, 0, 0.34);
+  background-color: #ffffff;
+  color: #E63B0B;
+}
+.button--borrar:focus {
+  transition: all 400ms ease-out;
+  box-shadow: 0px 0.4rem 2rem rgba(0, 0, 0, 0.25);
+}
 .button__text {
   margin: auto;
 }
@@ -315,7 +330,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-bottom: 20px;
   font-size: 20px;
 }
 .form-group__span {
@@ -368,6 +382,46 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .register-project-form__button {
   margin-top: 1rem;
   align-self: center;
+}
+
+.edit-project-form {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  margin: auto;
+  max-width: 75rem;
+  min-height: 4em;
+  border-radius: 4px;
+  padding-bottom: 2rem;
+  margin-top: 5rem;
+  justify-content: space-around;
+  align-items: flex-start;
+  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+}
+.edit-project-form__title {
+  margin-bottom: 2rem;
+  width: 100%;
+  padding-top: 1rem;
+  height: 5rem;
+  font-size: 3rem;
+  text-align: center;
+  font-weight: 500;
+  background-color: #00ACE6;
+  color: #ffffff;
+}
+.edit-project-form__input {
+  width: 80%;
+  align-self: center;
+  margin-bottom: 1rem;
+}
+.edit-project-form__input--first {
+  margin-top: 2rem;
+}
+.edit-project-form__button {
+  width: 100%;
+  display: flex;
+  margin-top: 1rem;
+  justify-content: space-around;
 }
 
 .login {

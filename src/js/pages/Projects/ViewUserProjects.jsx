@@ -42,7 +42,7 @@ const ViewUserProjects = () => {
     return (
       <>
           {/* <Navbar/> */}
-          {!data ? (<p>Cargando</p>) : (<Table headers={headers} data={proyectos } />)}
+          {!data ? (<p>Cargando</p>) : (<Table headers={headers} data={proyectos} viewPath={'/projects'} editPath={'/editProjects'} />)}
           
   
       {/* <Footer/> */}

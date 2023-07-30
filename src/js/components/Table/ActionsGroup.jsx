@@ -1,10 +1,8 @@
-const ActionsGroup = () => {
+
+const ActionsGroup = ({viewPath, searchPath}) => {
     return(
         <>
-            <td key={''}>
-                <button>Ver</button>
-                <button>Editar</button>
-            </td>
+            
         </>
     )
 
