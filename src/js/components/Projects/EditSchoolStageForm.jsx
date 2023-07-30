@@ -11,6 +11,8 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import { useNavigate, useLocation } from 'react-router-dom'
 
+const instance = 'REGIONAL'
+
 const EditSchoolStageForm = ({ formData }) => {
 
     let isPrivate = '1'
