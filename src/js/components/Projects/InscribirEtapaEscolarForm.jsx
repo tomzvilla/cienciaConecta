@@ -46,8 +46,6 @@ if(levelsData){
 }
 const handleChange = (e) => {
     const {name, value} = e.target
-    console.log(e.target.name)
-    console.log(e.target.value)
     const nextFormValueState = {
       ...formValues,
       [name]: value
@@ -75,9 +73,6 @@ const handleSubmit = async (e) => {
         }
         )
         console.log(JSON.stringify(response?.data))
-  
-
-        console.log(formValues)
 
         setFormValues({
             title: '',

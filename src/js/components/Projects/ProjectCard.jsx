@@ -21,7 +21,7 @@ const ProjectCard = ({ formData }) => {
                 </p>
                 <p>
                     <strong>Categoria: </strong> 
-                    {formData.cateogria}
+                    {formData.categoria}
                 </p>
                 <p>
                     <strong>Nivel: </strong> 
@@ -29,7 +29,7 @@ const ProjectCard = ({ formData }) => {
                 </p>
                 <p>
                     <strong>Estado: </strong> 
-                    {formData.estado}
+                    {formData.nombreEstado}
                 </p>
                 <button>
                     <Link to={`/editProjects/${formData._id}`}>Editar</Link>

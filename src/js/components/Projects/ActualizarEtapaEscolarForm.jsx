@@ -1,8 +1,8 @@
 // Import Components
 
-import InputField from "../../components/InputField/InputField"
-import SelectField from "../../components/SelectField/SelectField"
-import Button from "../../components/Button/Button"
+import InputField from "../InputField/InputField"
+import SelectField from "../SelectField/SelectField"
+import Button from "../Button/Button"
 
 // Import hooks
 import { useState } from "react"
@@ -13,8 +13,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 
 const instance = 'REGIONAL'
 
-const EditSchoolStageForm = ({ formData }) => {
-
+const ActualizarEtapaEscolarForm = ({ formData }) => {
     let isPrivate = '1'
     if(formData.privada === false){
         isPrivate = '0'
@@ -242,4 +241,4 @@ return (
 )
 }
 
-export default EditSchoolStageForm
+export default ActualizarEtapaEscolarForm
