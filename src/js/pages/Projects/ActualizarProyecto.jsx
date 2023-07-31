@@ -4,7 +4,7 @@ import useAxiosFetch from "../../hooks/useAxiosFetch"
 import { useParams } from "react-router-dom"
 
 // components
-import ActualizarEtapaEscolarForm from "../../components/Projects/ActualizarEtapaEscolarForm"
+import ActualizarProyectoForm from "../../components/Projects/ActualizarProyectoForm"
 
 const ActualizarProyecto = () => {
     const axiosPrivate = useAxiosPrivate()
@@ -13,7 +13,7 @@ const ActualizarProyecto = () => {
 
     return (
         <div>
-            {!data ? <p>Cargando...</p> : <ActualizarEtapaEscolarForm formData={data.proyectos}/>}
+            {!data ? <p>Cargando...</p> : <ActualizarProyectoForm formData={data.proyectos}/>}
         </div>
     )
 

@@ -123,21 +123,21 @@ export const schoolNameValidator = (schoolName) => {
 };
 
 export const categoryValidator = (category) => {
-  if (category === '') {
+  if (category === '' || category === '0') {
     return "Debe ingresar una categoría";
   } 
   return "";
 };
 
 export const levelValidator = (level) => {
-  if (level === '') {
+  if (level === '' || level === '0') {
     return "Debe ingresar una nivel";
   } 
   return "";
 };
 
 export const schoolTypeValidator = (schoolType) => {
-  if (schoolType === '') {
+  if (schoolType === '' || schoolType === '2') {
     return "Debe ingresar pública o privada";
   } 
   return "";
