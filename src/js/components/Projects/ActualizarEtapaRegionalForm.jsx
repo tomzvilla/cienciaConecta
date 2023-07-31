@@ -5,7 +5,7 @@ import FileField from "../FileField/FileField"
 
 const ActualizarEtapaRegionalForm = (props) => {
 
-    const {handleChange, onBlurField, formValues, errors, sedes} = props
+    const {handleChange, handleFileChange, onBlurField, formValues, errors, sedes} = props
 
     return (
         <>
@@ -37,9 +37,8 @@ const ActualizarEtapaRegionalForm = (props) => {
                 <FileField
                     label='Carpeta de campo: ' 
                     name='carpetaCampo'
-                    onChange={handleChange}
+                    onChange={handleFileChange}
                     onBlur={onBlurField}
-                    value={formValues.carpetaCampo}
                     errors={errors.carpetaCampo}
                     required={true}
                 />
@@ -48,9 +47,8 @@ const ActualizarEtapaRegionalForm = (props) => {
                 <FileField
                     label='Informe de trabajo: ' 
                     name='informeTrabajo'
-                    onChange={handleChange}
+                    onChange={handleFileChange}
                     onBlur={onBlurField}
-                    value={formValues.informeTrabajo}
                     errors={errors.informeTrabajo}
                     required={true}
                 />
@@ -59,9 +57,8 @@ const ActualizarEtapaRegionalForm = (props) => {
                 <FileField
                     label='Registro Pedagogico: ' 
                     name='registroPedagogico'
-                    onChange={handleChange}
+                    onChange={handleFileChange}
                     onBlur={onBlurField}
-                    value={formValues.registroPedagogico}
                     errors={errors.registroPedagogico}
                     required={true}
                 />
@@ -70,9 +67,8 @@ const ActualizarEtapaRegionalForm = (props) => {
                 <FileField
                     label='Autorización de uso de imagen: ' 
                     name='autorizacionImagen'
-                    onChange={handleChange}
+                    onChange={handleFileChange}
                     onBlur={onBlurField}
-                    value={formValues.autorizacionImagen}
                     errors={errors.autorizacionImagen}
                     required={true}
                 />

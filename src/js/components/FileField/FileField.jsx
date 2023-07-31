@@ -16,7 +16,6 @@ const FileField = ({ value, label, name, onChange, onBlur, errors, required = fa
                 name={name}
                 onChange={onChange}
                 onBlur={onBlur}
-                value={value}
                 {...setRequired}
             />
         </label>

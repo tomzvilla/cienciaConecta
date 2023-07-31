@@ -18,6 +18,9 @@ import {
     categoryValidator,
     levelValidator,
     schoolTypeValidator,
+    urlValidator,
+    fileValidator,
+    sedeValidator,
 } from '../validators'
 
 const touchErrors = (errors) => {
@@ -53,7 +56,7 @@ export const useFormValidator = (form) => {
             nextErrors = touchErrors(errors);
         }
 
-        const { email, password, name, lastname, dni, cuil, position, phoneNumber, cue, title, description, schoolName, schoolEmail, schoolCue, category, level, privateSchool } = form;
+        const { email, password, name, lastname, dni, cuil, position, phoneNumber, cue, title, description, schoolName, schoolEmail, schoolCue, category, level, privateSchool, videoPresentacion, carpetaCampo, informeTrabajo, registroPedagogico, autorizacionImagen, sede} = form;
 
         if (nextErrors.email?.dirty && (field ? field === "email" || field === 'schoolEmail' : true)) {
             const emailMessage = emailValidator(email, form);
@@ -172,6 +175,49 @@ export const useFormValidator = (form) => {
             nextErrors.privateSchool.error = !!privateSchoolMessage;
             nextErrors.privateSchool.message = privateSchoolMessage;
             if (!!privateSchoolMessage) isValid = false;
+        }
+
+        if (nextErrors.videoPresentacion?.dirty && (field ? field === "videoPresentacion" : true)) {
+            const videoPresentacionMessage = urlValidator(videoPresentacion, form);
+            nextErrors.videoPresentacion.error = !!videoPresentacionMessage;
+            nextErrors.videoPresentacion.message = videoPresentacionMessage;
+            if (!!videoPresentacionMessage) isValid = false;
+        }
+
+        if (nextErrors.carpetaCampo?.dirty && (field ? field === "carpetaCampo" : true)) {
+            const carpetaCampoMessage = fileValidator(carpetaCampo, form, " la carpeta de campo");
+            nextErrors.carpetaCampo.error = !!carpetaCampoMessage;
+            nextErrors.carpetaCampo.message = carpetaCampoMessage;
+            if (!!carpetaCampoMessage) isValid = false;
+        }
+
+        if (nextErrors.informeTrabajo?.dirty && (field ? field === "informeTrabajo" : true)) {
+            const informeTrabajoMessage = fileValidator(informeTrabajo, form, " el informe de trabajo");
+            nextErrors.informeTrabajo.error = !!informeTrabajoMessage;
+            nextErrors.informeTrabajo.message = informeTrabajoMessage;
+            if (!!informeTrabajoMessage) isValid = false;
+              
+        }
+
+        if (nextErrors.registroPedagogico?.dirty && (field ? field === "registroPedagogico" : true)) {
+            const registroPedagogicoMessage = fileValidator(registroPedagogico, form, " el registro pedagógico");
+            nextErrors.registroPedagogico.error = !!registroPedagogicoMessage;
+            nextErrors.registroPedagogico.message = registroPedagogicoMessage;
+            if (!!registroPedagogicoMessage) isValid = false;
+        }
+
+        if (nextErrors.autorizacionImagen?.dirty && (field ? field === "autorizacionImagen" : true)) {
+            const autorizacionImagenMessage = fileValidator(autorizacionImagen, form, " la autorización de uso de imágen");
+            nextErrors.autorizacionImagen.error = !!autorizacionImagenMessage;
+            nextErrors.autorizacionImagen.message = autorizacionImagenMessage;
+            if (!!autorizacionImagenMessage) isValid = false;
+        }
+
+        if (nextErrors.sede?.dirty && (field ? field === "sede" : true)) {
+            const sedeMessage = sedeValidator(sede, form);
+            nextErrors.sede.error = !!sedeMessage;
+            nextErrors.sede.message = sedeMessage;
+            if (!!sedeMessage) isValid = false;
         }
 
         setErrors(nextErrors);

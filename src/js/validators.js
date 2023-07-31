@@ -143,4 +143,33 @@ export const schoolTypeValidator = (schoolType) => {
   return "";
 };
 
+export const urlValidator = (url) => {
+  if (!url) {
+    return "Tenés que ingresar un enlace al video presentación del proyecto";
+  } else if (!/[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/.test(url)) { // eslint-disable-line
+    return "El enlace que ingresaste no es válido"
+  } 
+  return "";
+};
+
+export const fileValidator = (file, form, msg) => {
+  if (!file) {
+    return "Tenés que subir " + msg; 
+  } else if (file.type !== 'application/pdf'){
+    return "El archivo se debe subir en PDF"
+  }
+  else if (file.size > 10240000) { // 10 MB
+    return "El tamaño del archivo debe ser menor a 10 MB"
+  }
+  return "";
+};
+
+export const sedeValidator = (sede) => {
+  if (sede === '' || sede === '0') {
+    return "Tenés que ingresar una sede";
+  } 
+  return "";
+};
+
+
 

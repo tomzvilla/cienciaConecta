@@ -55,16 +55,22 @@ const ActualizarProyectoForm = ({ formData }) => {
 
     let categories = []
     let levels = []
-    let sedes = [{
-        _id: '654612361236123',
-        nombre: "Sede 1",
-        cue: '1234567',
-    },
-    {
-        _id: '644612361236123',
-        nombre: "Sede 2",
-        cue: '1234568',
-    }
+    let sedes = [
+        {
+            _id: '0',
+            nombre: "",
+            cue: '0',
+        },
+        {
+            _id: '654612361236123',
+            nombre: "Sede 1",
+            cue: '1234567',
+        },
+        {
+            _id: '644612361236123',
+            nombre: "Sede 2",
+            cue: '1234568',
+        }
     ]
 
     if(categoriesData){
@@ -83,17 +89,32 @@ const ActualizarProyectoForm = ({ formData }) => {
 
     const cambiarModal = (e) => {
         e.preventDefault()
-        if(etapaActual === ETAPAS.Escolar) setEtapaActual(ETAPAS.Regional)
-        if(etapaActual === ETAPAS.Regional) setEtapaActual(ETAPAS.Grupo)
+        const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true})
+        console.log(errors)
+        if(etapaActual === ETAPAS.Escolar & isValid) setEtapaActual(ETAPAS.Regional)
+        if(etapaActual === ETAPAS.Regional & isValid) setEtapaActual(ETAPAS.Grupo)
     }
 
     const handleChange = (e) => {
         const {name, value} = e.target
-        console.log(e.target.name)
-        console.log(e.target.value)
+        console.log(e.target)
         const nextFormValueState = {
             ...formValues,
             [name]: value
+        }
+        setFormValues(nextFormValueState)
+        if (errors[name].dirty) {
+            validateForm({form: nextFormValueState, errors, name})
+        }
+    }
+
+    const handleFileChange = (e) => {
+        const {name} = e.target
+        const file = e.target.files[0]
+        console.log(file)
+        const nextFormValueState = {
+            ...formValues,
+            [name]: file
         }
         setFormValues(nextFormValueState)
         if (errors[name].dirty) {
@@ -160,6 +181,7 @@ return (
         />}
         { etapaActual === ETAPAS.Regional && <ActualizarEtapaRegionalForm 
             handleChange={handleChange}
+            handleFileChange={handleFileChange}
             onBlurField={onBlurField}
             formValues={formValues}
             errors={errors}
