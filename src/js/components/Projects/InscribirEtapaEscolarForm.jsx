@@ -1,8 +1,8 @@
 // Import Components
 
-import InputField from "../../components/InputField/InputField"
-import SelectField from "../../components/SelectField/SelectField"
-import Button from "../../components/Button/Button"
+import InputField from "../InputField/InputField"
+import SelectField from "../SelectField/SelectField"
+import Button from "../Button/Button"
 
 // Import hooks
 import { useState } from "react"
@@ -10,7 +10,7 @@ import { useFormValidator } from "../../hooks/useFormValidator"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 
-const RegisterSchoolStageForm = () => {
+const InscribirEtapaEscolarForm = () => {
     
 const [formValues, setFormValues] = useState({
     title: '',
@@ -35,7 +35,14 @@ if(categoriesData){
 }
 let levels = []
 if(levelsData){
-    levels = [{_id: 0, nombre: ""}, ...levelsData.nivel]
+    levels = [{_id: 0, nombre: "", codigo: '0'}, ...levelsData.nivel].sort((level1, level2) => {
+        if (level1.codigo < level2.codigo) {
+          return -1; 
+        } else if (level1.codigo > level2.codigo) {
+          return 1;
+        }
+        return 0;
+      });
 }
 const handleChange = (e) => {
     const {name, value} = e.target
@@ -227,4 +234,4 @@ return (
 )
 }
 
-export default RegisterSchoolStageForm
+export default InscribirEtapaEscolarForm
