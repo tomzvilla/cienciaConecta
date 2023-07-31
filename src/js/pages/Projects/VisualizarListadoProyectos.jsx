@@ -21,7 +21,6 @@ const VisualizarListadoProyectos = () => {
 
     let proyectos = []
     if(data && categories && levels){
-      console.log(data)
       proyectos = data.proyectos.map(obj => {
         const category = categories.categoria.find(element => element._id === obj.categoria)
         const level = levels.nivel.find(element => element._id === obj.nivel)
@@ -33,7 +32,6 @@ const VisualizarListadoProyectos = () => {
       }).filter(project => project !== null)
     }
 
-    console.log(proyectos)
     return (
       <>
           {/* <Navbar/> */}

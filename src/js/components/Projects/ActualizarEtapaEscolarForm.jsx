@@ -52,8 +52,6 @@ const ActualizarEtapaEscolarForm = ({ formData }) => {
 
     const handleChange = (e) => {
         const {name, value} = e.target
-        console.log(e.target.name)
-        console.log(e.target.value)
         const nextFormValueState = {
             ...formValues,
             [name]: value
@@ -72,7 +70,6 @@ const ActualizarEtapaEscolarForm = ({ formData }) => {
 
         try {
             const { title, description, level, category, schoolName, schoolCue, privateSchool, schoolEmail } = formValues
-            // (privateSchool === '1' && privateSchool !== '0') ? setFormValues(...formValues, privateSchool = true) : setFormValues(...formValues, privateSchool = false)
             const response = await axiosPrivate.patch(`/proyecto/${formData._id}`, 
             JSON.stringify({ titulo: title, descripcion: description, nivel: level, categoria: category, nombreEscuela: schoolName, cueEscuela: schoolCue, privada: privateSchool, emailEscuela: schoolEmail}),
             {

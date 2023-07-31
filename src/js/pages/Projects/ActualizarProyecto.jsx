@@ -10,10 +10,6 @@ const ActualizarProyecto = () => {
     const axiosPrivate = useAxiosPrivate()
     const { id } = useParams()
     const { data } = useAxiosFetch(`/proyecto/${id}`, axiosPrivate)
-    if(data){
-        console.log('hay datos')
-        console.log(data)
-    }
 
     return (
         <div>

@@ -64,7 +64,6 @@ const handleSubmit = async (e) => {
 
     try {
         const { title, description, level, category, schoolName, schoolCue, privateSchool, schoolEmail } = formValues
-        // (privateSchool === '1' && privateSchool !== '0') ? setFormValues(...formValues, privateSchool = true) : setFormValues(...formValues, privateSchool = false)
         const response = await axiosPrivate.post('/proyecto', 
         JSON.stringify({ titulo: title, descripcion: description, nivel: level, categoria: category, nombreEscuela: schoolName, cueEscuela: schoolCue, privada: privateSchool, emailEscuela: schoolEmail}),
         {

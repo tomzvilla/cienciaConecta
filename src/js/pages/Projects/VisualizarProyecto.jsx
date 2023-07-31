@@ -23,10 +23,7 @@ const VisualizarProyecto = () => {
     let project = {}
 
     if(categoriesData && levelsData && data) {
-        console.log(categoriesData)
-        console.log(data)
         category = categoriesData.categoria.find((category) => category._id === data.proyectos.categoria)
-        console.log(category.nombre)
         level = levelsData.nivel.find((level) => level._id === data.proyectos.nivel)
 
         project = {
