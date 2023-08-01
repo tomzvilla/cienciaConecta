@@ -35,14 +35,21 @@ function App() {
           <Route path='home' element={<Home/>}/>
           <Route path='signup' element={<Signup/>}/>
           <Route path='unauthorized' element={<Unauthorized/>}/>
-          <Route element={<PersistLogin />}>
+          {/* <Route element={<PersistLogin />}>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]}/>}>
               <Route path='projects' element={<RegisterSchoolStage/>}/>
               <Route path='projects/:id' element={<ViewProject/>}/>
               <Route path='editProjects/:id' element={<EditProject/>}/>
               <Route path='myprojects' element={<ViewUserProjects/>}/>
             </Route>
-          </Route>
+          </Route> */}
+           <Route path='projects' element={<RegisterSchoolStage/>}/>
+            <Route path='projects/:id' element={<ViewProject/>}/>
+            <Route path='editProjects/:id' element={<EditProject/>}/>
+            <Route path='myprojects' element={<ViewUserProjects/>}/>
+
+
+
           <Route path='*' element={<NotFound/>}/>
         </Route>
       </Routes>
