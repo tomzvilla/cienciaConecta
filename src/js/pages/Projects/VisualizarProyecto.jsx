@@ -6,17 +6,8 @@ import useAxiosFetch from "../../hooks/useAxiosFetch"
 // components
 import ProjectCard from "../../components/Projects/ProjectCard"
 
-const states = [
-    {nombre: 'En instancia Escolar', _id: '0'},
-    {nombre: 'En instancia Regional', _id: '1'},
-    {nombre: 'En Evaluacion Regional', _id: '2'},
-    {nombre: 'Evaluado en Regional', _id: '3'},
-    {nombre: 'Promovido a Nacional', _id: '4'},
-    {nombre: 'Finalizado', _id: '5'},
-    {nombre: 'Inactivo', _id: '6'},
-  ];
 
-const ViewProject = () => {
+const VisualizarProyecto = () => {
     const axiosPrivate = useAxiosPrivate()
     const { id } = useParams()
     const { data } = useAxiosFetch(`/proyecto/${id}`, axiosPrivate)
@@ -29,26 +20,18 @@ const ViewProject = () => {
     let level = {
         nombre: ''
     }
-    let state = {
-        nombre: ''
-    }
     let project = {}
 
     if(categoriesData && levelsData && data) {
-        category = categoriesData.categoria.find((category) => category._id === data.proyecto.categoria)
-        level = levelsData.nivel.find((level) => level._id === data.proyecto.nivel)
-        state = states.find((state) => state._id === data.proyecto.estado)
+        category = categoriesData.categoria.find((category) => category._id === data.proyectos.categoria)
+        level = levelsData.nivel.find((level) => level._id === data.proyectos.nivel)
 
         project = {
-            ...data.proyecto, 
+            ...data.proyectos, 
             categoria: category.nombre,
             nivel: level.nombre, 
-            estado: state.nombre,
         }
     }
-
-
-
 
     return (
         <div>
@@ -58,4 +41,4 @@ const ViewProject = () => {
     )
 }
 
-export default ViewProject
+export default VisualizarProyecto

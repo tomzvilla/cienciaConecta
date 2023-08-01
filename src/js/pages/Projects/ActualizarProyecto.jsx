@@ -4,22 +4,19 @@ import useAxiosFetch from "../../hooks/useAxiosFetch"
 import { useParams } from "react-router-dom"
 
 // components
-import EditSchoolStageForm from "../../components/Projects/EditSchoolStageForm"
+import ActualizarProyectoForm from "../../components/Projects/ActualizarProyectoForm"
 
-const EditProject = () => {
+const ActualizarProyecto = () => {
     const axiosPrivate = useAxiosPrivate()
     const { id } = useParams()
     const { data } = useAxiosFetch(`/proyecto/${id}`, axiosPrivate)
-    if(data){
-        console.log(data)
-    }
 
     return (
         <div>
-            {!data ? <p>Cargando...</p> : <EditSchoolStageForm formData={data.proyecto}/>}
+            {!data ? <p>Cargando...</p> : <ActualizarProyectoForm formData={data.proyectos}/>}
         </div>
     )
 
 }
 
-export default EditProject
+export default ActualizarProyecto

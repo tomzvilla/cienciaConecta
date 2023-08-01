@@ -11,10 +11,10 @@ import Home from './js/pages/Home'
 import Layout from './js/pages/Layout'
 import Unauthorized from './js/pages/Unauthorized'
 import NotFound from './js/pages/NotFound'
-import RegisterSchoolStage from './js/pages/Projects/RegisterSchoolStage'
-import ViewUserProjects from './js/pages/Projects/ViewUserProjects'
-import EditProject from './js/pages/Projects/EditProject'
-import ViewProject from './js/pages/Projects/ViewProject'
+import InscribirEtapaEscolar from './js/pages/Projects/InscribirEtapaEscolar'
+import VisualizarListadoProyectos from './js/pages/Projects/VisualizarListadoProyectos'
+import ActualizarProyecto from './js/pages/Projects/ActualizarProyecto'
+import VisualizarProyecto from './js/pages/Projects/VisualizarProyecto'
 
 // ROLES
 
@@ -37,10 +37,10 @@ function App() {
           <Route path='unauthorized' element={<Unauthorized/>}/>
           {/* <Route element={<PersistLogin />}>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]}/>}>
-              <Route path='projects' element={<RegisterSchoolStage/>}/>
-              <Route path='projects/:id' element={<ViewProject/>}/>
-              <Route path='editProjects/:id' element={<EditProject/>}/>
-              <Route path='myprojects' element={<ViewUserProjects/>}/>
+              <Route path='projects' element={<InscribirEtapaEscolar/>}/>
+              <Route path='projects/:id' element={<VisualizarProyecto/>}/>
+              <Route path='editProjects/:id' element={<ActualizarProyecto/>}/>
+              <Route path='myprojects' element={<VisualizarListadoProyectos/>}/>
             </Route>
           </Route> */}
            <Route path='projects' element={<RegisterSchoolStage/>}/>

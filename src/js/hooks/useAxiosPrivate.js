@@ -7,17 +7,12 @@ const useAxiosPrivate = () => {
 
   const refresh = useRefreshToken()
   const { auth } = useAuth()
-  console.log('Entro al axios private')
   useEffect(() => {
-    console.log('Se ejecutó el useEffect')
-    
     const requestIntercept = axiosPrivate.interceptors.request.use(
         config => {
             if (!config.headers['Authorization']) {
                 config.headers['Authorization'] = `Bearer ${auth?.accessToken}`
             }
-            console.log(config)
-            console.log(auth)
             return config
         }, (error) => Promise.reject(error)
     )
