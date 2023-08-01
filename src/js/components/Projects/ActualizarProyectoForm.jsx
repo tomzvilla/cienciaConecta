@@ -96,9 +96,10 @@ const ActualizarProyectoForm = ({ formData }) => {
 
     const cambiarVista = (e) => {
         e.preventDefault()
-        console.log('Cambiar vista')
-        const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true})
-        console.log(errors)
+        let fieldsToExclude = []
+        if(etapaActual === ETAPAS.Escolar) fieldsToExclude = ['sede','videoPresentacion','carpetaCampo','informeTrabajo','registroPedagogico','autorizacionImagen','grupoProyecto']
+        if(etapaActual === ETAPAS.Regional) fieldsToExclude = ['grupoProyecto']
+        const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true, fieldsToExclude: fieldsToExclude})
         if(etapaActual === ETAPAS.Escolar & isValid) setEtapaActual(ETAPAS.Regional)
         if(etapaActual === ETAPAS.Regional & isValid) setEtapaActual(ETAPAS.Grupo)
     }
