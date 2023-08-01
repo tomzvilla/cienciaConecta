@@ -171,5 +171,12 @@ export const sedeValidator = (sede) => {
   return "";
 };
 
+export const groupValidator = (group) => {
+  if (!group || group.length < 1) {
+    return "El grupo tiene que estar formado por al menos 1 integrante";
+  } 
+  return "";
+};
+
 
 

@@ -21,13 +21,20 @@ import {
     urlValidator,
     fileValidator,
     sedeValidator,
+    groupValidator,
 } from '../validators'
 
-const touchErrors = (errors) => {
+const touchErrors = (errors, fieldsToExclude) => {
     return Object.entries(errors).reduce((acc, [field, fieldError]) => {
         acc[field] = {
             ...fieldError,
             dirty: true,
+        }
+        if(fieldsToExclude.find((item) => item === field)){
+            acc[field] = {
+                ...fieldError,
+                dirty: false,
+            }
         }
         return acc
     }, {})
@@ -46,17 +53,33 @@ export const useFormValidator = (form) => {
 
     const [errors, setErrors] = useState(newErrors)
 
-    const validateForm = ({form, field, errors, forceTouchErrors = false }) => {
+    // const resetErrors = (errorsToReset) => {
+    //     errors.forEach((err) => {
+    //         console.log(err)
+    //         if(errorsToReset.find(err)){
+    //             setErrors(
+    //                 ...errors,
+    //                 errors[err] = {
+    //                     dirty: false,
+    //                     error: false,
+    //                     message: ''
+    //                 }
+    //             )
+    //         }
+    //     })
+    // } 
+
+    const validateForm = ({form, field, errors, forceTouchErrors = false, fieldsToExclude=[]}) => {
         let isValid = true
 
         // Create a deep copy of the errors
         let nextErrors = JSON.parse(JSON.stringify(errors));
 
         if (forceTouchErrors) {
-            nextErrors = touchErrors(errors);
+            nextErrors = touchErrors(errors, fieldsToExclude);
         }
 
-        const { email, password, name, lastname, dni, cuil, position, phoneNumber, cue, title, description, schoolName, schoolEmail, schoolCue, category, level, privateSchool, videoPresentacion, carpetaCampo, informeTrabajo, registroPedagogico, autorizacionImagen, sede} = form;
+        const { email, password, name, lastname, dni, cuil, position, phoneNumber, cue, title, description, schoolName, schoolEmail, schoolCue, category, level, privateSchool, videoPresentacion, carpetaCampo, informeTrabajo, registroPedagogico, autorizacionImagen, sede, grupoProyecto} = form;
 
         if (nextErrors.email?.dirty && (field ? field === "email" || field === 'schoolEmail' : true)) {
             const emailMessage = emailValidator(email, form);
@@ -218,6 +241,13 @@ export const useFormValidator = (form) => {
             nextErrors.sede.error = !!sedeMessage;
             nextErrors.sede.message = sedeMessage;
             if (!!sedeMessage) isValid = false;
+        }
+
+        if (nextErrors.grupoProyecto?.dirty && (field ? field === "grupoProyecto" : true)) {
+            const grupoProyectoMessage = groupValidator(grupoProyecto, form);
+            nextErrors.grupoProyecto.error = !!grupoProyectoMessage;
+            nextErrors.grupoProyecto.message = grupoProyectoMessage;
+            if (!!grupoProyectoMessage) isValid = false;
         }
 
         setErrors(nextErrors);

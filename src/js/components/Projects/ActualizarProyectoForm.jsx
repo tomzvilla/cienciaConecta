@@ -38,13 +38,19 @@ const ActualizarProyectoForm = ({ formData }) => {
         schoolCue: formData.cueEscuela,
         privateSchool: isPrivate,
         schoolEmail: formData.emailEscuela,
-        sede: {},
-        videoPresentacion: '',
-        carpetaCampo: '',
-        informeTrabajo: '',
-        registroPedagogico: '',
-        autorizacionImagen: '',
-        grupoProyecto: []
+        sede: formData.sede,
+        videoPresentacion: formData.videoPresentacion,
+        carpetaCampo: formData.carpetaCampo,
+        informeTrabajo: formData.informeTrabajo,
+        registroPedagogico: formData.registroPedagogico,
+        autorizacionImagen: formData.autorizacionImagen,
+        grupoProyecto: formData.grupoProyecto.map(alumno => {
+            return {
+                name: alumno.nombre,
+                lastname: alumno.apellido,
+                dni: alumno.dni
+            };
+        }),
     })
 
     const [etapaActual, setEtapaActual] = useState(ETAPAS.Escolar)
@@ -69,14 +75,14 @@ const ActualizarProyectoForm = ({ formData }) => {
             cue: '0',
         },
         {
-            _id: '654612361236123',
-            nombre: "Sede 1",
-            cue: '1234567',
+            _id: '64c968478ba2bc52bd12cc82',
+            nombre: "Sede Monserrat",
+            cue: '1231234',
         },
         {
-            _id: '644612361236123',
-            nombre: "Sede 2",
-            cue: '1234568',
+            _id: '64c9688f8ba2bc52bd12cc83',
+            nombre: "Sede PIO XII",
+            cue: '1234567',
         }
     ]
 
@@ -96,9 +102,10 @@ const ActualizarProyectoForm = ({ formData }) => {
 
     const cambiarVista = (e) => {
         e.preventDefault()
-        console.log('Cambiar vista')
-        const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true})
-        console.log(errors)
+        let fieldsToExclude = []
+        if(etapaActual === ETAPAS.Escolar) fieldsToExclude = ['sede','videoPresentacion','carpetaCampo','informeTrabajo','registroPedagogico','autorizacionImagen','grupoProyecto']
+        if(etapaActual === ETAPAS.Regional) fieldsToExclude = ['grupoProyecto']
+        const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true, fieldsToExclude: fieldsToExclude})
         if(etapaActual === ETAPAS.Escolar & isValid) setEtapaActual(ETAPAS.Regional)
         if(etapaActual === ETAPAS.Regional & isValid) setEtapaActual(ETAPAS.Grupo)
     }
@@ -130,7 +137,6 @@ const ActualizarProyectoForm = ({ formData }) => {
     
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log('Entro al submit')
         const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true})
 
         if(!isValid) return
@@ -157,6 +163,15 @@ const ActualizarProyectoForm = ({ formData }) => {
                     }
                 )
             } else {
+                const grupo = grupoProyecto.map(alumno => {
+                    return {
+                      nombre: alumno.name,
+                      apellido: alumno.lastname,
+                      dni: alumno.dni
+                    };
+                });
+                console.log(sede)
+                console.log(registroPedagogico)
                 response = await axiosPrivate.patch(`/proyecto/regional/${formData._id}`, 
                 JSON.stringify({ 
                     titulo: title, 
@@ -168,12 +183,12 @@ const ActualizarProyectoForm = ({ formData }) => {
                     privada: privateSchool, 
                     emailEscuela: schoolEmail,
                     videoPresentacion: videoPresentacion,
-                    registroPedagogico: registroPedagogico.path,
-                    carpetaCampo: carpetaCampo.path,
-                    informeTrabajo: informeTrabajo.path,
+                    registroPedagogico: registroPedagogico.path || 'www.google.com',
+                    carpetaCampo: carpetaCampo.path || 'www.google.com',
+                    informeTrabajo: informeTrabajo.path || 'www.google.com',
                     autorizacionImagen: true,
-                    grupoProyecto: grupoProyecto,
-                    sede: sede._id
+                    grupoProyecto: grupo,
+                    sede: sede
                 }),
                     {
                         headers: {'Content-Type': 'application/json'},
@@ -222,16 +237,27 @@ const ActualizarProyectoForm = ({ formData }) => {
     }
 
     const handleAddAlumno = (alumno) => {
+        const alumnos = [...formValues.grupoProyecto]
         if(formValues.grupoProyecto.find(a => a.dni === alumno.dni)){
             console.log('No podes añadir dos veces un mismo alumno')
             return
         }
-        setFormValues({...formValues, 
-            grupoProyecto: [ ...formValues.grupoProyecto, alumno]
+        alumnos.push(alumno)
+        setFormValues({
+            ...formValues, 
+            grupoProyecto: alumnos
         })
+        if(alumnos.length >= 1) {
+            console.log('entro aca')
+            errors.grupoProyecto = {
+                dirty: true,
+                errors: false,
+                message: ''
+            }
+        }
     }
-    const handleDeleteAlumno = (alumno) => {
-        setFormValues({...formValues, grupoProyecto: formValues.grupoProyecto.filter(obj => obj !== alumno)})
+    const handleDeleteAlumno = (dni) => {
+        setFormValues({...formValues, grupoProyecto: formValues.grupoProyecto.filter(obj => obj.dni !== dni)})
     }
   
 
@@ -258,6 +284,7 @@ return (
             handleAddAlumno={handleAddAlumno}
             handleDeleteAlumno={handleDeleteAlumno}
             data={formValues.grupoProyecto}
+            formErrors={errors.grupoProyecto}
         
         />}
         <div className='edit-project-form__button'>

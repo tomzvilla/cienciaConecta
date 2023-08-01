@@ -6,7 +6,7 @@ import useAxiosFetch from "../../hooks/useAxiosFetch"
 // components
 import ProjectCard from "../../components/Projects/ProjectCard"
 import Navbar from "../../components/Navbar/Navbar"
-
+import Spinner from "../../components/Spinner/Spinner"
 
 const VisualizarProyecto = () => {
     const axiosPrivate = useAxiosPrivate()
@@ -43,7 +43,7 @@ const VisualizarProyecto = () => {
         <div>
             {/* <Navbar/> */}
             <h1> Feria de Ciencia y Tecnologia 2024</h1>
-            {!data ? <p>Cargando...</p> : <ProjectCard formData={project}/>}
+            {!data ? <Spinner/> : <ProjectCard formData={project}/>}
         </div>
     )
 }

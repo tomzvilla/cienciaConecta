@@ -1,5 +1,6 @@
 // Components
 import Table from "../../components/Table/Table"
+import Spinner from "../../components/Spinner/Spinner"
 
 // Hooks
 import useAxiosFetch from "../../hooks/useAxiosFetch"
@@ -37,7 +38,7 @@ const VisualizarListadoProyectos = () => {
     return (
       <>
           {/* <Navbar/> */}
-          {!data ? (<p>Cargando</p>) : (<Table headers={headers} data={proyectos} viewPath={'/projects'} editPath={'/editProjects'} />)}
+          {!data ? (<Spinner />) : (<Table headers={headers} data={proyectos} viewPath={'/projects'} editPath={'/editProjects'} />)}
           
   
       {/* <Footer/> */}

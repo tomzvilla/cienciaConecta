@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom"
 
 // components
 import ActualizarProyectoForm from "../../components/Projects/ActualizarProyectoForm"
+import Spinner from "../../components/Spinner/Spinner"
 
 const ActualizarProyecto = () => {
     const axiosPrivate = useAxiosPrivate()
@@ -13,7 +14,7 @@ const ActualizarProyecto = () => {
 
     return (
         <div>
-            {!data ? <p>Cargando...</p> : <ActualizarProyectoForm formData={data.proyectos}/>}
+            {!data ? <Spinner/> : <ActualizarProyectoForm formData={data.proyectos}/>}
         </div>
     )
 

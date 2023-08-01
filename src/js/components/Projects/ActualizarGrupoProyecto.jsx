@@ -5,7 +5,7 @@ import InputField from "../InputField/InputField"
 import { useState } from "react"
 import { useFormValidator } from "../../hooks/useFormValidator"
 
-const ActualizarGrupoProyecto = ({ data, handleAddAlumno, handleDeleteAlumno}) => {
+const ActualizarGrupoProyecto = ({ data, handleAddAlumno, handleDeleteAlumno, formErrors}) => {
     const [alumno, setAlumno] = useState({
         name: '',
         lastname: '',
@@ -41,9 +41,9 @@ const ActualizarGrupoProyecto = ({ data, handleAddAlumno, handleDeleteAlumno}) =
         })
     }
     
-    const handleDelete = (e) => {
+    const handleDelete = (e, dni) => {
         e.preventDefault()
-        handleDeleteAlumno(alumno)
+        handleDeleteAlumno(dni)
     }
 
     return (
@@ -64,7 +64,7 @@ const ActualizarGrupoProyecto = ({ data, handleAddAlumno, handleDeleteAlumno}) =
                             <td>{item.lastname} </td> 
                             <td>{item.dni} </td> 
                             <td>
-                                <button onClick={handleDelete}>
+                                <button onClick={(e, dni) => handleDelete(e, item.dni)}>
                                     Borrar
                                 </button>
                             </td>
@@ -114,6 +114,7 @@ const ActualizarGrupoProyecto = ({ data, handleAddAlumno, handleDeleteAlumno}) =
                     Añadir
                 </button>
             </div>
+            {formErrors.dirty && formErrors.error && <small>{formErrors.message}</small>}
         </div>
     )
 }
