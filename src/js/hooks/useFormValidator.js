@@ -21,6 +21,7 @@ import {
     urlValidator,
     fileValidator,
     sedeValidator,
+    groupValidator,
 } from '../validators'
 
 const touchErrors = (errors, fieldsToExclude) => {
@@ -78,7 +79,7 @@ export const useFormValidator = (form) => {
             nextErrors = touchErrors(errors, fieldsToExclude);
         }
 
-        const { email, password, name, lastname, dni, cuil, position, phoneNumber, cue, title, description, schoolName, schoolEmail, schoolCue, category, level, privateSchool, videoPresentacion, carpetaCampo, informeTrabajo, registroPedagogico, autorizacionImagen, sede} = form;
+        const { email, password, name, lastname, dni, cuil, position, phoneNumber, cue, title, description, schoolName, schoolEmail, schoolCue, category, level, privateSchool, videoPresentacion, carpetaCampo, informeTrabajo, registroPedagogico, autorizacionImagen, sede, grupoProyecto} = form;
 
         if (nextErrors.email?.dirty && (field ? field === "email" || field === 'schoolEmail' : true)) {
             const emailMessage = emailValidator(email, form);
@@ -240,6 +241,13 @@ export const useFormValidator = (form) => {
             nextErrors.sede.error = !!sedeMessage;
             nextErrors.sede.message = sedeMessage;
             if (!!sedeMessage) isValid = false;
+        }
+
+        if (nextErrors.grupoProyecto?.dirty && (field ? field === "grupoProyecto" : true)) {
+            const grupoProyectoMessage = groupValidator(grupoProyecto, form);
+            nextErrors.grupoProyecto.error = !!grupoProyectoMessage;
+            nextErrors.grupoProyecto.message = grupoProyectoMessage;
+            if (!!grupoProyectoMessage) isValid = false;
         }
 
         setErrors(nextErrors);
