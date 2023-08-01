@@ -446,6 +446,49 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   justify-content: space-around;
 }
 
+.project-card {
+  background-color: #ffffff;
+  width: 60%;
+  padding: 4rem;
+  box-shadow: 0px 45px 77px 27px rgba(0, 0, 0, 0.25);
+  border-radius: 2rem;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(1fr, 2);
+  grid-template-rows: repeat(1fr, 2);
+}
+.project-card__titulo {
+  color: #00ACE6;
+  grid-row: 1/2;
+  grid-column: 1/2;
+}
+.project-card__edit {
+  color: #00ACE6;
+  grid-row: 1/2;
+  grid-column: 2/3;
+  margin: -2rem 3rem;
+  margin-left: 0rem;
+}
+
+.project-card-details {
+  color: #757575;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 5rem;
+}
+.project-card-details__detail {
+  margin-top: 1rem;
+}
+
+.image-link {
+  width: 4rem;
+}
+.image-link__image {
+  width: 8rem;
+  filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
+}
+
 .login {
   display: flex;
   justify-content: center;

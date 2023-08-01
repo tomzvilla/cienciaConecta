@@ -5,6 +5,7 @@ import useAxiosFetch from "../../hooks/useAxiosFetch"
 
 // components
 import ProjectCard from "../../components/Projects/ProjectCard"
+import Navbar from "../../components/Navbar/Navbar"
 
 
 const VisualizarProyecto = () => {
@@ -21,13 +22,18 @@ const VisualizarProyecto = () => {
         nombre: ''
     }
     let project = {}
+    console.log(data)
+
+    
+
 
     if(categoriesData && levelsData && data) {
-        category = categoriesData.categoria.find((category) => category._id === data.proyectos.categoria)
-        level = levelsData.nivel.find((level) => level._id === data.proyectos.nivel)
+        const proyectos = data.proyectosConNombreEstado
+        category = categoriesData.categoria.find((category) => category._id === proyectos.categoria)
+        level = levelsData.nivel.find((level) => level._id === proyectos.nivel)
 
         project = {
-            ...data.proyectos, 
+            ...proyectos, 
             categoria: category.nombre,
             nivel: level.nombre, 
         }
@@ -35,6 +41,7 @@ const VisualizarProyecto = () => {
 
     return (
         <div>
+            {/* <Navbar/> */}
             <h1> Feria de Ciencia y Tecnologia 2024</h1>
             {!data ? <p>Cargando...</p> : <ProjectCard formData={project}/>}
         </div>
