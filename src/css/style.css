@@ -334,6 +334,8 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 .select-field--error {
   color: #E63B0B;
+  width: 100%;
+  font-size: 20px;
 }
 .select-field:focus-within .select-field__label {
   color: #00ACE6;
@@ -487,6 +489,46 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .image-link__image {
   width: 8rem;
   filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
+}
+
+.edit-project-form {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  margin: auto;
+  max-width: 75rem;
+  min-height: 4em;
+  border-radius: 4px;
+  padding-bottom: 2rem;
+  margin-top: 5rem;
+  justify-content: space-around;
+  align-items: flex-start;
+  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+}
+.edit-project-form__title {
+  margin-bottom: 2rem;
+  width: 100%;
+  padding-top: 1rem;
+  height: 5rem;
+  font-size: 3rem;
+  text-align: center;
+  font-weight: 500;
+  background-color: #00ACE6;
+  color: #ffffff;
+}
+.edit-project-form__input {
+  width: 80%;
+  align-self: center;
+  margin-bottom: 1rem;
+}
+.edit-project-form__input--first {
+  margin-top: 2rem;
+}
+.edit-project-form__button {
+  width: 100%;
+  display: flex;
+  margin-top: 1rem;
+  justify-content: space-around;
 }
 
 .login {
