@@ -17,6 +17,12 @@ export const ETAPAS = {
     Grupo: '3',
   };
 
+const INSTANCIA = {
+    Escolar: '1',
+    Regional: '2',
+    Provincial: '3',
+}
+
 const ActualizarProyectoForm = ({ formData }) => {
     let isPrivate = '1'
     if(formData.privada === false){
@@ -38,9 +44,11 @@ const ActualizarProyectoForm = ({ formData }) => {
         informeTrabajo: '',
         registroPedagogico: '',
         autorizacionImagen: '',
+        grupoProyecto: []
     })
 
-    const [etapaActual, setEtapaActual] = useState(ETAPAS.Regional)
+    const [etapaActual, setEtapaActual] = useState(ETAPAS.Escolar)
+    const [instanciaActual, setInstanciaActual] = useState(INSTANCIA.Regional)
 
     const axiosPrivate = useAxiosPrivate()
     const navigate = useNavigate()
@@ -52,7 +60,6 @@ const ActualizarProyectoForm = ({ formData }) => {
     const { data: categoriesData} = useAxiosFetch('/categoria', axiosPrivate)
     const { data: levelsData} = useAxiosFetch('/nivel', axiosPrivate)
     // const { data: sedesData} = useAxiosFetch('/sedes', axiosPrivate) no esta listo el endpoint
-
     let categories = []
     let levels = []
     let sedes = [
@@ -87,8 +94,9 @@ const ActualizarProyectoForm = ({ formData }) => {
           });
     }
 
-    const cambiarModal = (e) => {
+    const cambiarVista = (e) => {
         e.preventDefault()
+        console.log('Cambiar vista')
         const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true})
         console.log(errors)
         if(etapaActual === ETAPAS.Escolar & isValid) setEtapaActual(ETAPAS.Regional)
@@ -97,7 +105,6 @@ const ActualizarProyectoForm = ({ formData }) => {
 
     const handleChange = (e) => {
         const {name, value} = e.target
-        console.log(e.target)
         const nextFormValueState = {
             ...formValues,
             [name]: value
@@ -111,7 +118,6 @@ const ActualizarProyectoForm = ({ formData }) => {
     const handleFileChange = (e) => {
         const {name} = e.target
         const file = e.target.files[0]
-        console.log(file)
         const nextFormValueState = {
             ...formValues,
             [name]: file
@@ -124,19 +130,58 @@ const ActualizarProyectoForm = ({ formData }) => {
     
     const handleSubmit = async (e) => {
         e.preventDefault()
+        console.log('Entro al submit')
         const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true})
 
         if(!isValid) return
 
         try {
-            const { title, description, level, category, schoolName, schoolCue, privateSchool, schoolEmail } = formValues
-            const response = await axiosPrivate.patch(`/proyecto/${formData._id}`, 
-            JSON.stringify({ titulo: title, descripcion: description, nivel: level, categoria: category, nombreEscuela: schoolName, cueEscuela: schoolCue, privada: privateSchool, emailEscuela: schoolEmail}),
-            {
-                headers: {'Content-Type': 'application/json'},
-                withCredentials: true
+            console.log('Entro al try')
+            const { title, description, level, category, schoolName, schoolCue, privateSchool, schoolEmail, sede, videoPresentacion, carpetaCampo, informeTrabajo, registroPedagogico, autorizacionImagen, grupoProyecto } = formValues
+            let response = {}
+            if(instanciaActual === INSTANCIA.Escolar){
+                response = await axiosPrivate.patch(`/proyecto/${formData._id}`, 
+                JSON.stringify({ 
+                    titulo: title,
+                    descripcion: description, 
+                    nivel: level, 
+                    categoria: category, 
+                    nombreEscuela: schoolName, 
+                    cueEscuela: schoolCue, 
+                    privada: privateSchool, 
+                    emailEscuela: schoolEmail
+                }),
+                    {
+                        headers: {'Content-Type': 'application/json'},
+                        withCredentials: true
+                    }
+                )
+            } else {
+                response = await axiosPrivate.patch(`/proyecto/regional/${formData._id}`, 
+                JSON.stringify({ 
+                    titulo: title, 
+                    descripcion: description, 
+                    nivel: level, 
+                    categoria: category, 
+                    nombreEscuela: schoolName, 
+                    cueEscuela: schoolCue, 
+                    privada: privateSchool, 
+                    emailEscuela: schoolEmail,
+                    videoPresentacion: videoPresentacion,
+                    registroPedagogico: registroPedagogico.path,
+                    carpetaCampo: carpetaCampo.path,
+                    informeTrabajo: informeTrabajo.path,
+                    autorizacionImagen: true,
+                    grupoProyecto: grupoProyecto,
+                    sede: sede._id
+                }),
+                    {
+                        headers: {'Content-Type': 'application/json'},
+                        withCredentials: true
+                    }
+                )
             }
-            )
+            
             console.log(JSON.stringify(response?.data))
             console.log(formValues)
 
@@ -166,6 +211,28 @@ const ActualizarProyectoForm = ({ formData }) => {
             navigate(from, { replace: true })
           }, 2000);
     }
+
+    const handleVolver = (e) => {
+        e.preventDefault()
+        if(etapaActual === ETAPAS.Escolar){
+            navigate(from, { replace: true })
+        }
+        if(etapaActual === ETAPAS.Regional) setEtapaActual(ETAPAS.Escolar)
+        if(etapaActual === ETAPAS.Grupo) setEtapaActual(ETAPAS.Regional)
+    }
+
+    const handleAddAlumno = (alumno) => {
+        if(formValues.grupoProyecto.find(a => a.dni === alumno.dni)){
+            console.log('No podes añadir dos veces un mismo alumno')
+            return
+        }
+        setFormValues({...formValues, 
+            grupoProyecto: [ ...formValues.grupoProyecto, alumno]
+        })
+    }
+    const handleDeleteAlumno = (alumno) => {
+        setFormValues({...formValues, grupoProyecto: formValues.grupoProyecto.filter(obj => obj !== alumno)})
+    }
   
 
 return (
@@ -187,16 +254,25 @@ return (
             errors={errors}
             sedes={sedes}
         />}
-        { etapaActual === ETAPAS.Grupo && <ActualizarGrupoProyecto />}
+        { etapaActual === ETAPAS.Grupo && <ActualizarGrupoProyecto
+            handleAddAlumno={handleAddAlumno}
+            handleDeleteAlumno={handleDeleteAlumno}
+            data={formValues.grupoProyecto}
+        
+        />}
         <div className='edit-project-form__button'>
             <Button 
-                text='Borrar' 
-                borrar={true} 
-                onClickHandler={handleDelete}
+                text='Volver' 
+                onClickHandler={handleVolver}
             />
-            <Button 
+            {instanciaActual === INSTANCIA.Regional && <Button 
                 text={etapaActual !== ETAPAS.Grupo ? 'Continuar' : 'Actualizar'} 
-                onClickHandler={etapaActual !== ETAPAS.Grupo ? cambiarModal : handleSubmit} activo={true}/>
+                onClickHandler={etapaActual !== ETAPAS.Grupo ? cambiarVista : handleSubmit} activo={true}
+            />}
+            {instanciaActual === INSTANCIA.Escolar && <Button 
+                text={'Actualizar'} 
+                onClickHandler={handleSubmit} activo={true}
+            />}
         </div>
     </form>
 )
