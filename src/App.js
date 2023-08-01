@@ -43,6 +43,13 @@ function App() {
               <Route path='myprojects' element={<VisualizarListadoProyectos/>}/>
             </Route>
           </Route>
+           {/* <Route path='projects' element={<InscribirEtapaEscolar/>}/>
+              <Route path='projects/:id' element={<VisualizarProyecto/>}/>
+              <Route path='editProjects/:id' element={<ActualizarProyecto/>}/>
+              <Route path='myprojects' element={<VisualizarListadoProyectos/>}/>
+ */}
+
+
           <Route path='*' element={<NotFound/>}/>
         </Route>
       </Routes>

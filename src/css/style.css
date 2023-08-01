@@ -112,7 +112,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 .input-field__input {
   font-size: 2rem;
-  padding: 1rem 0rem;
+  height: 4rem;
   border: 0px;
   border-bottom: 1px solid #757575;
   outline: none;
@@ -326,27 +326,89 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   font-size: 2rem;
 }
 
-.form-group__label {
+.select-field {
   display: flex;
   flex-direction: column;
+  font-size: 2rem;
+  color: #757575;
+}
+.select-field--error {
+  color: #E63B0B;
   width: 100%;
   font-size: 20px;
 }
-.form-group__span {
-  margin-bottom: 10px;
+.select-field:focus-within .select-field__label {
+  color: #00ACE6;
 }
-.form-group__select {
-  font-size: 1em;
-  height: 2em;
+.select-field__select {
+  margin-top: 1rem;
+  font-size: 2rem;
+  height: 4rem;
+  cursor: pointer;
+  border: 1px solid #757575;
+  color: #757575;
+  border-radius: 0.5rem;
+  transition: all 300ms;
+  padding-left: 0.5rem;
 }
-.form-group__error {
-  color: rgb(247, 18, 18);
-  font-size: 15px;
-  margin-top: -15px;
-  margin-bottom: 15px;
+.select-field__select--error {
+  border: 1px solid #E63B0B;
+}
+.select-field__select:hover {
+  border: 1px solid #00ACE6;
+}
+.select-field__select:focus {
+  border: 1px solid #00ACE6;
+  background-color: #EFEFEF;
+}
+.select-field__option {
+  background-color: #ffffff;
+  color: #757575;
+  font-size: 2rem;
+  padding-left: 0.5rem;
+}
+.select-field__error {
+  color: #E63B0B;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  text-overflow: ellipsis;
 }
 
 .register-project-form {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  margin: auto;
+  max-width: 75rem;
+  min-height: 4rem;
+  border-radius: 4px;
+  padding-bottom: 2rem;
+  margin-top: 5rem;
+  justify-content: space-around;
+  align-items: flex-start;
+  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+}
+.register-project-form__title {
+  margin-bottom: 2rem;
+  width: 100%;
+  padding: 1rem 0rem;
+  font-size: 3rem;
+  text-align: center;
+  font-weight: 500;
+  background-color: #00ACE6;
+  color: #ffffff;
+}
+.register-project-form__input {
+  width: 80%;
+  align-self: center;
+  margin-bottom: 1rem;
+}
+.register-project-form__button {
+  margin-top: 2rem;
+  align-self: center;
+}
+
+.edit-project-form {
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
@@ -360,7 +422,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   align-items: flex-start;
   box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
 }
-.register-project-form__title {
+.edit-project-form__title {
   margin-bottom: 2rem;
   width: 100%;
   padding-top: 1rem;
@@ -371,17 +433,62 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   background-color: #00ACE6;
   color: #ffffff;
 }
-.register-project-form__input {
+.edit-project-form__input {
   width: 80%;
   align-self: center;
   margin-bottom: 1rem;
 }
-.register-project-form__input--first {
+.edit-project-form__input--first {
   margin-top: 2rem;
 }
-.register-project-form__button {
+.edit-project-form__button {
+  width: 100%;
+  display: flex;
   margin-top: 1rem;
-  align-self: center;
+  justify-content: space-around;
+}
+
+.project-card {
+  background-color: #ffffff;
+  width: 60%;
+  padding: 4rem;
+  box-shadow: 0px 45px 77px 27px rgba(0, 0, 0, 0.25);
+  border-radius: 2rem;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(1fr, 2);
+  grid-template-rows: repeat(1fr, 2);
+}
+.project-card__titulo {
+  color: #00ACE6;
+  grid-row: 1/2;
+  grid-column: 1/2;
+}
+.project-card__edit {
+  color: #00ACE6;
+  grid-row: 1/2;
+  grid-column: 2/3;
+  margin: -2rem 3rem;
+  margin-left: 0rem;
+}
+
+.project-card-details {
+  color: #757575;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 5rem;
+}
+.project-card-details__detail {
+  margin-top: 1rem;
+}
+
+.image-link {
+  width: 4rem;
+}
+.image-link__image {
+  width: 8rem;
+  filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
 }
 
 .edit-project-form {

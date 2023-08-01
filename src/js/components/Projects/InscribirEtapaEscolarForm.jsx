@@ -104,7 +104,7 @@ const handleSubmit = async (e) => {
 return (
     <form onSubmit={handleSubmit} className='register-project-form'>
         <h2 className='register-project-form__title'> Inscribir proyecto a etapa escolar </h2>
-        <div className='register-project-form__input register-project-form__input--first'>
+        <div className='register-project-form__input'>
             <InputField
                 label='Titulo del proyecto: ' 
                 name='title'
@@ -118,7 +118,7 @@ return (
         </div>
         <div className='register-project-form__input'>
             <InputField
-                label='Descripcion del proyecto: ' 
+                label='Descripción del proyecto: ' 
                 name='description'
                 type='textarea'
                 onChange={handleChange}
