@@ -15,6 +15,7 @@ import InscribirEtapaEscolar from './js/pages/Projects/InscribirEtapaEscolar'
 import VisualizarListadoProyectos from './js/pages/Projects/VisualizarListadoProyectos'
 import ActualizarProyecto from './js/pages/Projects/ActualizarProyecto'
 import VisualizarProyecto from './js/pages/Projects/VisualizarProyecto'
+import CrearFeria from './js/pages/Ferias/CrearFeria'
 
 // ROLES
 
@@ -37,18 +38,15 @@ function App() {
           <Route path='unauthorized' element={<Unauthorized/>}/>
           <Route element={<PersistLogin />}>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]}/>}>
+              {/* Rutas para proyectos */}
               <Route path='projects' element={<InscribirEtapaEscolar/>}/>
               <Route path='projects/:id' element={<VisualizarProyecto/>}/>
               <Route path='editProjects/:id' element={<ActualizarProyecto/>}/>
               <Route path='myprojects' element={<VisualizarListadoProyectos/>}/>
+              {/* Rutas para feria */}
+              <Route path='feria' element={<CrearFeria/>}/>
             </Route>
           </Route>
-           {/* <Route path='projects' element={<InscribirEtapaEscolar/>}/>
-              <Route path='projects/:id' element={<VisualizarProyecto/>}/>
-              <Route path='editProjects/:id' element={<ActualizarProyecto/>}/>
-              <Route path='myprojects' element={<VisualizarListadoProyectos/>}/>
- */}
-
 
           <Route path='*' element={<NotFound/>}/>
         </Route>

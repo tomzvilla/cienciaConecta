@@ -7,7 +7,7 @@ const InputField = ({ value, label, name, type, onChange, onBlur, errors, requir
         setRequired = true
     }
 
-    const modifier = errors.error ? "--error" : ""
+    const modifier = errors?.error ? "--error" : ""
 
 
   
