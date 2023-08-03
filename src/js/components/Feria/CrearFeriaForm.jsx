@@ -21,14 +21,14 @@ const CrearFeriaForm = () => {
         logo: '',
         fechaInicioFeria: '',
         fechaFinFeria: '',
-        fechaInicioInstanciaEscolar: '',
-        fechaFinInstanciaEscolar: '',
-        fechaInicioEvaluacionRegional: '',
-        fechaFinEvaluacionRegional: '',
-        fechaInicioExposicionRegional: '',
-        fechaFinExposicionRegional: '',
-        fechaInicioEvaluacionProvincial: '',
-        fechaFinEvaluacionProvincial: '',
+        fechaInicioInstanciaEscolar: null,
+        fechaFinInstanciaEscolar: null,
+        fechaInicioEvaluacionRegional: null,
+        fechaFinEvaluacionRegional: null,
+        fechaInicioExposicionRegional: null,
+        fechaFinExposicionRegional: null,
+        fechaInicioEvaluacionProvincial: null,
+        fechaFinEvaluacionProvincial: null,
     })
 
     const [etapaActual, setEtapaActual] = useState(ETAPAS.Datos)

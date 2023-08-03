@@ -22,6 +22,8 @@ import {
     fileValidator,
     sedeValidator,
     groupValidator,
+    nombreFeriaValidator,
+    dateValidator,
 } from '../validators'
 
 const touchErrors = (errors, fieldsToExclude) => {
@@ -79,7 +81,7 @@ export const useFormValidator = (form) => {
             nextErrors = touchErrors(errors, fieldsToExclude);
         }
 
-        const { email, password, name, lastname, dni, cuil, position, phoneNumber, cue, title, description, schoolName, schoolEmail, schoolCue, category, level, privateSchool, videoPresentacion, carpetaCampo, informeTrabajo, registroPedagogico, autorizacionImagen, sede, grupoProyecto} = form;
+        const { email, password, name, lastname, dni, cuil, position, phoneNumber, cue, title, description, schoolName, schoolEmail, schoolCue, category, level, privateSchool, videoPresentacion, carpetaCampo, informeTrabajo, registroPedagogico, autorizacionImagen, sede, grupoProyecto, nombreFeria, descripcionFeria, logo, fechaInicioFeria, fechaFinFeria} = form;
 
         if (nextErrors.email?.dirty && (field ? field === "email" || field === 'schoolEmail' : true)) {
             const emailMessage = emailValidator(email, form);
@@ -248,6 +250,41 @@ export const useFormValidator = (form) => {
             nextErrors.grupoProyecto.error = !!grupoProyectoMessage;
             nextErrors.grupoProyecto.message = grupoProyectoMessage;
             if (!!grupoProyectoMessage) isValid = false;
+        }
+
+        if (nextErrors.nombreFeria?.dirty && (field ? field === "nombreFeria" : true)) {
+            const nombreFeriaMessage = nombreFeriaValidator(nombreFeria, form);
+            nextErrors.nombreFeria.error = !!nombreFeriaMessage;
+            nextErrors.nombreFeria.message = nombreFeriaMessage;
+            if (!!nombreFeriaMessage) isValid = false;
+        }
+
+        if (nextErrors.descripcionFeria?.dirty && (field ? field === "descripcionFeria" : true)) {
+            const descripcionFeriaMessage = descriptionValidator(descripcionFeria, form);
+            nextErrors.descripcionFeria.error = !!descripcionFeriaMessage;
+            nextErrors.descripcionFeria.message = descripcionFeriaMessage;
+            if (!!descripcionFeriaMessage) isValid = false;
+        }
+
+        if (nextErrors.logo?.dirty && (field ? field === "logo" : true)) {
+            const logoMessage = fileValidator(logo, form, " el logo de la feria");
+            nextErrors.logo.error = !!logoMessage;
+            nextErrors.logo.message = logoMessage;
+            if (!!logoMessage) isValid = false;
+        }
+
+        if (nextErrors.fechaInicioFeria?.dirty && (field ? field === "fechaInicioFeria" : true)) {
+            const fechaInicioFeriaMessage = dateValidator( {fecha: fechaInicioFeria, nombre: 'Inicio de la feria'},  {fecha: new Date(), nombre: 'actual'}, form);
+            nextErrors.fechaInicioFeria.error = !!fechaInicioFeriaMessage;
+            nextErrors.fechaInicioFeria.message = fechaInicioFeriaMessage;
+            if (!!fechaInicioFeriaMessage) isValid = false;
+        }
+
+        if (nextErrors.fechaFinFeria?.dirty && (field ? field === "fechaFinFeria" : true)) {
+            const fechaFinFeriaMessage = dateValidator({fecha: fechaInicioFeria, nombre: 'Inicio de la feria'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'}, form);
+            nextErrors.fechaFinFeria.error = !!fechaFinFeriaMessage;
+            nextErrors.fechaFinFeria.message = fechaFinFeriaMessage;
+            if (!!fechaFinFeriaMessage) isValid = false;
         }
 
         setErrors(nextErrors);

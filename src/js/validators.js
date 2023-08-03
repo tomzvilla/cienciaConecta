@@ -106,7 +106,7 @@ export const titleValidator = (title) => {
 
 export const descriptionValidator = (description) => {
   if (!description) {
-    return "Debe ingresar una descripción para el proyecto";
+    return "Debe ingresar una descripción";
   } else if (description.length > 500) {
     return "La descripción debe ser inferior a 500 caracteres"
   }
@@ -178,5 +178,23 @@ export const groupValidator = (group) => {
   return "";
 };
 
+export const nombreFeriaValidator = (nombreFeria) => {
+  if (!nombreFeria) {
+    return "El nombre de la feria debe estar definido";
+  } else if (nombreFeria.length > 100) {
+    return "El nombre de la feria no puede contener mas de 100 caracteres"
+  }
+  return "";
+};
 
-
+export const dateValidator = (fechaAnterior, fechaPosterior) => {
+  console.log({fechaAnterior: fechaAnterior.fecha})
+  console.log({fechaPosterior: fechaPosterior.fecha})
+  console.log(fechaAnterior.fecha > fechaPosterior.fecha)
+  if (!fechaPosterior || !fechaAnterior || fechaAnterior === '' || fechaPosterior === '') {
+    return "Debe ingresar una fecha";
+  } else if (new Date(fechaAnterior.fecha) > new Date(fechaPosterior.fecha)) {
+    return `La fecha ${fechaPosterior.nombre} debe ser posterior a la fecha ${fechaAnterior.nombre} `
+  }
+  return "";
+};
