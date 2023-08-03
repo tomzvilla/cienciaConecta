@@ -9,7 +9,6 @@ import Footer from "../components/Footer/Footer"
 
 const Home = () => {
   const {auth} = useAuth()
-  console.log(auth)
   return (
     <div className='home'>
         

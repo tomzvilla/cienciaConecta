@@ -1,10 +1,16 @@
 .image-link {
     width: 4rem;
+
+    
     
 
     &__image {
         width: 8rem;
         filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
         
+
+        &--small {
+            width: 4.5rem;
+        }
     }
 }

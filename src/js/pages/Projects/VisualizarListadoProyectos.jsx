@@ -1,5 +1,5 @@
 // Components
-import Table from "../../components/Table/Table"
+import TableCard from "../../components/Table/TableCard"
 import Spinner from "../../components/Spinner/Spinner"
 
 // Hooks
@@ -38,7 +38,7 @@ const VisualizarListadoProyectos = () => {
     return (
       <>
           {/* <Navbar/> */}
-          {!data ? (<Spinner />) : (<Table headers={headers} data={proyectos} viewPath={'/projects'} editPath={'/editProjects'} />)}
+          {!data ? (<Spinner />) : (<TableCard title="Mis Proyectos" headers={headers} data={proyectos} viewPath={'/projects'} editPath={'/editProjects'} />)}
           
   
       {/* <Footer/> */}
