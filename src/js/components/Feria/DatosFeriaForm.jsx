@@ -6,6 +6,7 @@ const DatosFeriaForm = (props) => {
     const {handleChange, handleFileChange, onBlurField, formValues, errors} = props
     return (
         <>
+            <h2>Datos de la Feria</h2>
             <div className='edit-project-form__input edit-project-form__input--first'>
                 <InputField
                     label='Nombre de la Feria: ' 
