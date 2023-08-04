@@ -1,11 +1,16 @@
 import { useState } from 'react'
 import { useFormValidator } from '../hooks/useFormValidator'
 import { useNavigate } from 'react-router-dom'
+
 // Components
 import Button  from '../components/Button/Button'
 import InputField from '../components/InputField/InputField'
+import SignupForm from '../components/SignupForm/SignupForm'
+import SignupProgress from '../components/SignupProgress/SignupProgress'
+import Navbar from '../components/Navbar/Navbar'
 
 import axios from '../../api/axios'
+import SignupConfirm from '../components/SignupConfirm/SignupConfirm'
 const SIGNUP_URL = '/auth/register'
 
 const Signup = () => {
@@ -21,6 +26,10 @@ const Signup = () => {
     phoneNumber: '',
     position: ''
   })
+
+  const [avanzar, setAvanzar] = useState(false)
+  const [confirmar, setConfirmar] = useState(false)
+
   const navigate = useNavigate()
 
   const {errors, validateForm, onBlurField} = useFormValidator(formValues)
@@ -84,114 +93,59 @@ const Signup = () => {
     console.log('Se mando XD')
 
   }
+
+
+  const handleAvanzar = (e) => {
+    e.preventDefault()
+    const datos = validateForm({form: formValues , errors, forceTouchErrors: true})
+  
+
+    const pasarACuenta = !datos.errors.cue.error & !datos.errors.cuil.error 
+                      & !datos.errors.dni.error & !datos.errors.lastname.error 
+                      & !datos.errors.name.error & !datos.errors.position.error
+
+
+    if (avanzar == false && pasarACuenta) {
+      setAvanzar(true)   
+    }
+
+    else if (datos.isValid) {
+      setConfirmar(true)
+    }
+
+  }
+
+  const handleVolver = (e) => {
+    if (confirmar){
+      setConfirmar(false)
+    }
+    else if (avanzar == true) {
+      setAvanzar(false)
+    }
+
+    
+
+  }
       
+ 
   return (
     <div className='signup'>
-      <form onSubmit={handleSubmit} className='signup__form'>
-          <h2 className='signup__title'> Registrar Usuario </h2>
-          <InputField
-            label='Nombre: ' 
-            name='name'
-            type='text'
-            onChange={handleChange}
-            onBlur={onBlurField}
-            value={formValues.name}
-            errors={errors.name}
-            required={true}
-          />
-          <InputField
-            label='Apellido: ' 
-            name='lastname'
-            type='text'
-            onChange={handleChange}
-            onBlur={onBlurField}
-            value={formValues.lastname}
-            errors={errors.lastname}
-            required={true}
-          />
-          <InputField
-            label='DNI' 
-            name='dni'
-            type='number'
-            onChange={handleChange}
-            onBlur={onBlurField}
-            value={formValues.dni}
-            errors={errors.dni}
-            required={true}
-          />
-          <InputField
-            label='CUIL' 
-            name='cuil'
-            type='number'
-            onChange={handleChange}
-            onBlur={onBlurField}
-            value={formValues.cuil}
-            errors={errors.cuil}
-            required={true}
-          />
-          <InputField
-            label='CUE' 
-            name='cue'
-            type='number'
-            onChange={handleChange}
-            onBlur={onBlurField}
-            value={formValues.cue}
-            errors={errors.cue}
-            required={true}
-          />
-          <InputField
-            label='Cargo' 
-            name='position'
-            type='text'
-            onChange={handleChange}
-            onBlur={onBlurField}
-            value={formValues.position}
-            errors={errors.position}
-            required={true}
-          />
-          <InputField
-            label='Telefono' 
-            name='phoneNumber'
-            type='number'
-            onChange={handleChange}
-            onBlur={onBlurField}
-            value={formValues.phoneNumber}
-            errors={errors.phoneNumber}
-            required={true}
-          />
-          <InputField
-            label='Email' 
-            name='email'
-            type='email'
-            onChange={handleChange}
-            onBlur={onBlurField}
-            value={formValues.email}
-            errors={errors.email}
-            required={true}
-          />
-          <InputField 
-            label='Contraseña: '
-            name='password'
-            type='password'
-            onChange={handleChange}
-            onBlur={onBlurField}
-            value={formValues.password}
-            errors={errors.password}
-            required={true}
-          />
-          <InputField 
-            label='Repita la contraseña: '
-            name='confirmPassword'
-            type='password'
-            onChange={handleChange}
-            onBlur={onBlurField}
-            value={formValues.confirmPassword}
-            errors={errors.confirmPassword}
-            required={true}
-          />
-          <Button text='Registrarse' activo={true}/>
-          </form>
-    </div>
+      <div className='signup__navbar'>
+        <Navbar />
+      </div>
+      
+      
+      <SignupProgress avanzar={avanzar} confirmar={confirmar}/>
+      
+
+
+      {!confirmar ?
+      <SignupForm personal={!avanzar} handleChange={handleChange} onBlurField={onBlurField} 
+                  formValues={formValues}
+                  errors={errors} onSubmit={handleSubmit} handleAvanzar={handleAvanzar} handleVolver={handleVolver}/>
+                  : <SignupConfirm  formValues={formValues} handleVolver={handleVolver} handleSubmit={handleSubmit}/>
+      }
+      </div>
   )
 }
 
