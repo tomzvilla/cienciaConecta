@@ -27,7 +27,7 @@ const SignupConfirm = (props) => {
 
             <div className='signup-confirm__button-container'>
                 <Button text='Volver' onClickHandler={props.handleVolver} activo={false}/>
-                <Button text='Confirmar' onClickHandler={props.handleAvanzar} activo={true}/>
+                <Button text='Confirmar' onClickHandler={props.handleSubmit} activo={true}/>
           </div>
         </div>
     )  
