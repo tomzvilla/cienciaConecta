@@ -22,18 +22,14 @@ const VisualizarProyecto = () => {
         nombre: ''
     }
     let project = {}
-    console.log(data)
-
-    
-
 
     if(categoriesData && levelsData && data) {
-        const proyectos = data.proyecto
-        category = categoriesData.categoria.find((category) => category._id === proyectos.categoria)
-        level = levelsData.nivel.find((level) => level._id === proyectos.nivel)
+        category = categoriesData.categoria.find((category) => category._id === data.proyecto.categoria)
+        level = levelsData.nivel.find((level) => level._id === data.proyecto.nivel)
 
         project = {
-            ...proyectos, 
+            ...data.proyecto, 
+
             categoria: category.nombre,
             nivel: level.nombre, 
         }
@@ -41,7 +37,6 @@ const VisualizarProyecto = () => {
 
     return (
         <div>
-            {/* <Navbar/> */}
             <h1> Feria de Ciencia y Tecnologia 2024</h1>
             {!data ? <Spinner/> : <ProjectCard formData={project}/>}
         </div>

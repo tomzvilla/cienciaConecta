@@ -11,7 +11,6 @@ const FileField = ({ value, label, name, onChange, onBlur, errors, required = fa
         setRequired = true
     }
 
-
     const onChangeHandler = (e)=> {
         setFileName(e.target.files[0].name)
         onChange(e)
@@ -26,8 +25,6 @@ const FileField = ({ value, label, name, onChange, onBlur, errors, required = fa
             {label + fileName}
             <img className='file-field__image' src={require("../../../assets/add.png")} alt="" />
             
-
-
             <input
                 className='file-field__select'
                 type="file"
@@ -41,6 +38,7 @@ const FileField = ({ value, label, name, onChange, onBlur, errors, required = fa
         </label>
             
         
+
         {errors.dirty && errors.error && <small className='file-field__error'>{errors.message}</small>}
     </div>
   )

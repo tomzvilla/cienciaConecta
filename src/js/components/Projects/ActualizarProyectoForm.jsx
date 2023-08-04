@@ -134,7 +134,6 @@ const ActualizarProyectoForm = ({ formData }) => {
             validateForm({form: nextFormValueState, errors, name})
         }
 
-        
     }
     
     const handleSubmit = async (e) => {

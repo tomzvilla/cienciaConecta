@@ -30,6 +30,7 @@
         //background-color: $color-grey;
         transition: all 300ms;
         padding-left: .5rem;
+
         
 
         /* wrap text in compatible browsers */
@@ -41,6 +42,7 @@
         /* hide text that can't wrap with an ellipsis */
         
         text-overflow: ellipsis;  
+
 
         &--error {
             border: 1px solid $color-red;

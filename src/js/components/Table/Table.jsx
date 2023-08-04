@@ -1,6 +1,5 @@
 // Components
 import ActionsGroup from "../../components/Table/ActionsGroup"
-
 import TableHeader from "./TableHeader";
 import TableBodyRow from "./TableBodyRow";
 
@@ -15,7 +14,7 @@ const Table = ({ headers, data, viewPath, editPath, callback}) => {
               <TableBodyRow data={data} viewPath={viewPath} editPath={editPath} callback={callback} headers={headers}/>
           </tbody>
 
-          
+
       </table>
     )
 

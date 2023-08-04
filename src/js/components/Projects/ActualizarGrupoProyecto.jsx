@@ -1,7 +1,7 @@
 // components
-
 import Table from "../Table/Table"
 import AddAlumno from "./AddAlumno"
+import InputField from "../InputField/InputField"
 
 //hooks
 import { useState } from "react"
@@ -15,7 +15,6 @@ const ActualizarGrupoProyecto = ({ data, handleAddAlumno, handleDeleteAlumno, fo
     })
 
     const {errors, validateForm, onBlurField} = useFormValidator(alumno)
-
 
     const headers = [
         {name: 'Apellido', value: 'lastname'},
@@ -50,47 +49,24 @@ const ActualizarGrupoProyecto = ({ data, handleAddAlumno, handleDeleteAlumno, fo
         })
     }
     
+
     const handleDelete = (e) => {
         const dni = e.target.parentNode.parentNode.parentNode.children[2].firstChild.data;
+
         e.preventDefault()
         handleDeleteAlumno(dni)
     }
 
     return (
+
         <div className="actualizar-grupo">
             <Table data={data} headers={headers} callback={handleDelete}/>
-            {/* <table className="table">
-                <thead className="headBg">
-                    <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Apellido</th>
-                        <th scope="col">DNI</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data && data.map((item, index) => {
-                    return (
-                        <tr key={index}>
-                            <td>{item.name} </td> 
-                            <td>{item.lastname} </td> 
-                            <td>{item.dni} </td> 
-                            <td>
-                                <button onClick={(e, dni) => handleDelete(e, item.dni)}>
-                                    Borrar
-                                </button>
-                            </td>
-                        </tr>
-                    )
-                    })}
-                </tbody>
-            </table> */}
+            
 
 
 
             <AddAlumno  handleChange={handleChange} onBlurField={onBlurField} alumno={alumno} errors={errors} handleAdd={handleAdd}/>
             
-            
-
 
             {formErrors.dirty && formErrors.error && <small>{formErrors.message}</small>}
         </div>

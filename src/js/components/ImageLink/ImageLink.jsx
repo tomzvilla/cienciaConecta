@@ -7,6 +7,7 @@ const ImageLink = (props) => {
     return (
         <div className={`image-link image-link${modifier}`}>
             <Link to={props.linkto}><img className={`image-link__image image-link__image${modifier}`} src={props.src} alt={props.alt} /></Link>
+
         </div>
     )
 
