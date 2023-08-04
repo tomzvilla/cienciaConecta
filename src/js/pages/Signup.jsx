@@ -3,14 +3,12 @@ import { useFormValidator } from '../hooks/useFormValidator'
 import { useNavigate } from 'react-router-dom'
 
 // Components
-import Button  from '../components/Button/Button'
-import InputField from '../components/InputField/InputField'
-import SignupForm from '../components/SignupForm/SignupForm'
-import SignupProgress from '../components/SignupProgress/SignupProgress'
+import SignupForm from '../components/Signup/SignupForm'
+import SignupProgress from '../components/Signup/SignupProgress'
 import Navbar from '../components/Navbar/Navbar'
 
 import axios from '../../api/axios'
-import SignupConfirm from '../components/SignupConfirm/SignupConfirm'
+import SignupConfirm from '../components/Signup/SignupConfirm'
 const SIGNUP_URL = '/auth/register'
 
 const Signup = () => {
@@ -105,7 +103,7 @@ const Signup = () => {
                       & !datos.errors.name.error & !datos.errors.position.error
 
 
-    if (avanzar == false && pasarACuenta) {
+    if (avanzar === false && pasarACuenta) {
       setAvanzar(true)   
     }
 
@@ -119,7 +117,7 @@ const Signup = () => {
     if (confirmar){
       setConfirmar(false)
     }
-    else if (avanzar == true) {
+    else if (avanzar === true) {
       setAvanzar(false)
     }
 

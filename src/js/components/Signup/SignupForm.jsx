@@ -1,4 +1,4 @@
-import { useState } from 'react';
+// components
 import Button from '../Button/Button';
 import InputField from '../InputField/InputField';
 

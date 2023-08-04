@@ -1,6 +1,6 @@
+// components
 import Button from "../Button/Button";
-import CardData from "../CardData/CardData";
-import SignupConfirmColumn from "../SignupConfirmColumn/SignupConfirmColumn";
+import SignupConfirmColumn from "./SignupConfirmColumn";
 
 const SignupConfirm = (props) => {
 
