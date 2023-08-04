@@ -21,14 +21,14 @@ const CrearFeriaForm = () => {
         logo: '',
         fechaInicioFeria: '',
         fechaFinFeria: '',
-        fechaInicioInstanciaEscolar: null,
-        fechaFinInstanciaEscolar: null,
-        fechaInicioEvaluacionRegional: null,
-        fechaFinEvaluacionRegional: null,
-        fechaInicioExposicionRegional: null,
-        fechaFinExposicionRegional: null,
-        fechaInicioEvaluacionProvincial: null,
-        fechaFinEvaluacionProvincial: null,
+        fechaInicioInstanciaEscolar: '',
+        fechaFinInstanciaEscolar: '',
+        fechaInicioEvaluacionRegional: '',
+        fechaFinEvaluacionRegional: '',
+        fechaInicioExposicionRegional: '',
+        fechaFinExposicionRegional: '',
+        fechaInicioEvaluacionProvincial: '',
+        fechaFinEvaluacionProvincial: '',
     })
 
     const [etapaActual, setEtapaActual] = useState(ETAPAS.Datos)
@@ -41,7 +41,11 @@ const CrearFeriaForm = () => {
 
     const cambiarVista = (e) => {
         e.preventDefault()
-        const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true})
+        let fieldsToExclude = []
+        if(etapaActual === ETAPAS.Datos) fieldsToExclude = ['fechaInicioInstanciaEscolar', 'fechaFinInstanciaEscolar','fechaInicioEvaluacionRegional', 'fechaFinEvaluacionRegional', 'fechaInicioExposicionRegional', 'fechaFinExposicionRegional', 'fechaInicioEvaluacionProvincial',  'fechaFinEvaluacionProvincial']
+        if(etapaActual === ETAPAS.Instancias) fieldsToExclude = []
+        if(etapaActual === ETAPAS.Sedes) setEtapaActual(ETAPAS.Criterios)
+        const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true, fieldsToExclude: fieldsToExclude})
         if(etapaActual === ETAPAS.Datos & isValid) setEtapaActual(ETAPAS.Instancias)
         if(etapaActual === ETAPAS.Instancias & isValid) setEtapaActual(ETAPAS.Sedes)
         if(etapaActual === ETAPAS.Sedes & isValid) setEtapaActual(ETAPAS.Criterios)
@@ -62,6 +66,7 @@ const CrearFeriaForm = () => {
     const handleFileChange = (e) => {
         const {name} = e.target
         const file = e.target.files[0]
+        console.log(file)
         const nextFormValueState = {
             ...formValues,
             [name]: file

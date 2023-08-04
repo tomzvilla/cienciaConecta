@@ -152,11 +152,14 @@ export const urlValidator = (url) => {
   return "";
 };
 
-export const fileValidator = (file, form, msg) => {
+export const fileValidator = (file, msg, format) => {
+  let formato = '*'
+  if(format === 'PDF') formato = 'application/pdf'
+  else if(format === 'imágen') formato = 'image/'
   if (!file) {
     return "Tenés que subir " + msg; 
-  } else if (file.type !== 'application/pdf'){
-    return "El archivo se debe subir en PDF"
+  } else if (!file.type?.startsWith(formato)){
+    return "El archivo se debe subir en formato " + format 
   }
   else if (file.size > 10240000) { // 10 MB
     return "El tamaño del archivo debe ser menor a 10 MB"
@@ -187,14 +190,13 @@ export const nombreFeriaValidator = (nombreFeria) => {
   return "";
 };
 
-export const dateValidator = (fechaAnterior, fechaPosterior) => {
-  console.log({fechaAnterior: fechaAnterior.fecha})
-  console.log({fechaPosterior: fechaPosterior.fecha})
-  console.log(fechaAnterior.fecha > fechaPosterior.fecha)
-  if (!fechaPosterior || !fechaAnterior || fechaAnterior === '' || fechaPosterior === '') {
+export const dateValidator = (fechaAnterior, fechaPosterior, fechaFinal='') => {
+  if (!fechaPosterior || !fechaAnterior || fechaAnterior.fecha === '' || fechaPosterior.fecha === '') {
     return "Debe ingresar una fecha";
-  } else if (new Date(fechaAnterior.fecha) > new Date(fechaPosterior.fecha)) {
+  } else if (fechaAnterior.fecha > fechaPosterior.fecha) {
     return `La fecha ${fechaPosterior.nombre} debe ser posterior a la fecha ${fechaAnterior.nombre} `
+  } else if (fechaFinal !== '' & fechaPosterior.fecha > fechaFinal.fecha ) {
+    return `La fecha ${fechaPosterior.nombre} debe ser anterior a la fecha ${fechaFinal.nombre} `
   }
   return "";
 };

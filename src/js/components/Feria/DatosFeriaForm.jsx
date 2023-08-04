@@ -38,6 +38,7 @@ const DatosFeriaForm = (props) => {
                     onChange={handleFileChange}
                     onBlur={onBlurField}
                     errors={errors.logo}
+                    accept={'image/*'}
                     required={true}
                 />
             </div>

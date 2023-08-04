@@ -1,4 +1,4 @@
-const FileField = ({ value, label, name, onChange, onBlur, errors, required = false }) => {
+const FileField = ({ value, label, name, onChange, onBlur, errors, accept, required = false }) => {
     
     let setRequired = false
     if(required){
@@ -12,7 +12,7 @@ const FileField = ({ value, label, name, onChange, onBlur, errors, required = fa
             <input
                 className='file-field__select'
                 type="file"
-                accept='.pdf'
+                accept={accept}
                 name={name}
                 onChange={onChange}
                 onBlur={onBlur}
