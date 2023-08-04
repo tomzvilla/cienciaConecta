@@ -1,0 +1,17 @@
+.project-card-details {
+    color: $color-grey-dark;
+
+    padding: 2rem;
+    
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 5rem;
+
+
+    &__detail {
+        margin-top: 1rem;
+        
+    }
+
+}

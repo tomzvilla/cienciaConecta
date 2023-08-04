@@ -1,11 +1,11 @@
-.register-project-form {
+.edit-project-form {
     display: flex;
     flex-direction: column;
     background-color: $color-white;
     margin: auto;
 
     max-width: 75rem;
-    min-height: 4rem;
+    min-height: 4em;
     border-radius: 4px;
     padding-bottom: 2rem;
     margin-top: 5rem;
@@ -19,25 +19,31 @@
     &__title {
         margin-bottom: 2rem;
         width: 100%;
-        padding: 1rem 0rem;
-
+        padding-top: 1rem;
+        height: 5rem;
         font-size: 3rem;
         text-align: center;
         font-weight: 500; 
         background-color: $color-primary;
         color: $color-white;
-        
     }
     &__input {
         width: 80%;
         align-self: center;
         margin-bottom: 1rem;
 
+        &--first {
+            margin-top: 2rem;
 
+        }
     }
 
     &__button {
-        margin-top: 2rem;
-        align-self: center;
+        width: 100%;
+        display: flex;
+        margin-top: 1rem;
+        justify-content: space-around;
+        
     }
+    
 }
