@@ -336,6 +336,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   flex-direction: column;
   font-size: 2rem;
   color: #757575;
+
 }
 .select-field--error {
   color: #E63B0B;
@@ -370,6 +371,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   font-size: 2rem;
   padding-left: 0.5rem;
 }
+
 .select-field__error {
   color: #E63B0B;
   font-size: 1.5rem;
@@ -492,100 +494,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .image-link__image {
   width: 8rem;
   filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
-}
-
-.signup-form {
-  min-width: 45rem;
-  min-height: 45rem;
-  padding: 3rem 5rem;
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  border-radius: 1rem;
-  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
-  margin-bottom: auto;
-  animation: card-load 1000ms cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-.signup-form__button-container {
-  align-self: flex-end;
-  margin-top: 4rem;
-}
-.signup-form__button-container--double {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-}
-.signup-form__input {
-  margin-top: 1rem;
-}
-
-@keyframes card-load {
-  0% {
-    margin-top: 4rem;
-    opacity: 0%;
-  }
-  100% {
-    margin-top: 0rem;
-    opacity: 100%;
-  }
-}
-.signup-progress {
-  display: flex;
-  padding: 2rem 0rem;
-}
-.signup-progress__barra {
-  display: flex;
-  background-color: #D9D9D9;
-  color: white;
-  font-size: 2rem;
-  font: "Be Vietnam Pro", sans-serif;
-  padding: 2rem 4rem;
-  margin-right: 1rem;
-  transition: all 400ms ease-out;
-}
-.signup-progress__barra--fill {
-  background-color: #00ACE6;
-}
-
-.signup-confirm {
-  min-width: 45rem;
-  width: 70rem;
-  height: max-content;
-  padding: 3rem 5rem;
-  background-color: #ffffff;
-  display: grid;
-  grid-template-columns: repeat(1fr, 2);
-  border-radius: 1rem;
-  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
-  margin-bottom: auto;
-}
-.signup-confirm__column--1 {
-  grid-column: 1/2;
-}
-.signup-confirm__column--2 {
-  grid-column: 2/3;
-}
-.signup-confirm__button-container {
-  margin-top: 3rem;
-  display: flex;
-  grid-column: 1/3;
-  justify-content: space-between;
-}
-
-.card-data {
-  font-weight: 400;
-  color: #757575;
-  width: 90%;
-  border-bottom: 1px solid #757575;
-  padding: 0.5rem 0rem;
-  margin-bottom: 1rem;
-}
-.card-data__title {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-.card-data__value {
-  font-size: 2rem;
 }
 
 .login {
