@@ -25,7 +25,7 @@ const useAxiosFetch = (url, axios) => {
     return () => {
       mounted = false;
     };
-  },[]);
+  },[url]);
 
   return { data, isLoading, error };
 };

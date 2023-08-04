@@ -1,11 +1,13 @@
 // components
 import DatosFeriaForm from "./DatosFeriaForm"
 import InstanciasFeriaForm from "./InstanciasFeriaForm";
+import SedesFeriaForm from "./SedesFeriaForm";
 import Button from "../Button/Button";
 // hooks
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useFormValidator } from "../../hooks/useFormValidator";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 export const ETAPAS = {
     Datos: '1',
@@ -29,13 +31,15 @@ const CrearFeriaForm = () => {
         fechaFinExposicionRegional: '',
         fechaInicioEvaluacionProvincial: '',
         fechaFinEvaluacionProvincial: '',
+        departamento: '',
+        localidad: '',
+        establecimiento: ''
     })
 
-    const [etapaActual, setEtapaActual] = useState(ETAPAS.Datos)
+    const [etapaActual, setEtapaActual] = useState(ETAPAS.Sedes)
     const navigate = useNavigate()
     const location = useLocation()
     const from = location.state?.from?.pathname || '/myprojects'
-
      
     const {errors, validateForm, onBlurField} = useFormValidator(formValues)
 
@@ -135,7 +139,12 @@ const CrearFeriaForm = () => {
                 formValues={formValues}
                 errors={errors}
             />}
-            {etapaActual === ETAPAS.Sedes && <p>Sedes</p>}
+            {etapaActual === ETAPAS.Sedes && <SedesFeriaForm
+                handleChange={handleChange}
+                onBlurField={onBlurField}
+                formValues={formValues}
+                errors={errors}
+            />}
             {etapaActual === ETAPAS.Criterios && <p>Criterios</p>}
             <div className='edit-project-form__button'>
                 <Button 
