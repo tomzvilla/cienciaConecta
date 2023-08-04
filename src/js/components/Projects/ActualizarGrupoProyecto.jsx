@@ -1,5 +1,7 @@
 // components
-import InputField from "../InputField/InputField"
+
+import Table from "../Table/Table"
+import AddAlumno from "./AddAlumno"
 
 //hooks
 import { useState } from "react"
@@ -13,6 +15,13 @@ const ActualizarGrupoProyecto = ({ data, handleAddAlumno, handleDeleteAlumno, fo
     })
 
     const {errors, validateForm, onBlurField} = useFormValidator(alumno)
+
+
+    const headers = [
+        {name: 'Apellido', value: 'lastname'},
+        {name: 'Nombre', value: 'name'},
+        {name: 'DNI', value: 'dni'}
+      ]
 
     const handleChange = (e) => {
         const {name, value} = e.target
@@ -41,14 +50,16 @@ const ActualizarGrupoProyecto = ({ data, handleAddAlumno, handleDeleteAlumno, fo
         })
     }
     
-    const handleDelete = (e, dni) => {
+    const handleDelete = (e) => {
+        const dni = e.target.parentNode.parentNode.parentNode.children[2].firstChild.data;
         e.preventDefault()
         handleDeleteAlumno(dni)
     }
 
     return (
-        <div>
-            <table className="table">
+        <div className="actualizar-grupo">
+            <Table data={data} headers={headers} callback={handleDelete}/>
+            {/* <table className="table">
                 <thead className="headBg">
                     <tr>
                         <th scope="col">Nombre</th>
@@ -72,48 +83,15 @@ const ActualizarGrupoProyecto = ({ data, handleAddAlumno, handleDeleteAlumno, fo
                     )
                     })}
                 </tbody>
-            </table>
-            <div>
-                <div className='edit-project-form__input'>
-                    <InputField
-                        label='Nombre Alumno: ' 
-                        name='name'
-                        type='text'
-                        onChange={handleChange}
-                        onBlur={onBlurField}
-                        value={alumno.name}
-                        errors={errors.name}
-                        required={true}
-                    />
-                </div>
-                <div className='edit-project-form__input'>
-                    <InputField
-                        label='Apellido Alumno: ' 
-                        name='lastname'
-                        type='text'
-                        onChange={handleChange}
-                        onBlur={onBlurField}
-                        value={alumno.lastname}
-                        errors={errors.lastname}
-                        required={true}
-                    />
-                </div>
-                <div className='edit-project-form__input'>
-                    <InputField
-                        label='DNI Alumno: ' 
-                        name='dni'
-                        type='number'
-                        onChange={handleChange}
-                        onBlur={onBlurField}
-                        value={alumno.dni}
-                        errors={errors.dni}
-                        required={true}
-                    />
-                </div>
-                <button onClick={handleAdd}>
-                    Añadir
-                </button>
-            </div>
+            </table> */}
+
+
+
+            <AddAlumno  handleChange={handleChange} onBlurField={onBlurField} alumno={alumno} errors={errors} handleAdd={handleAdd}/>
+            
+            
+
+
             {formErrors.dirty && formErrors.error && <small>{formErrors.message}</small>}
         </div>
     )

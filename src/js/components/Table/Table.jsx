@@ -4,7 +4,7 @@ import ActionsGroup from "../../components/Table/ActionsGroup"
 import TableHeader from "./TableHeader";
 import TableBodyRow from "./TableBodyRow";
 
-const Table = ({ headers, data, viewPath, editPath}) => {
+const Table = ({ headers, data, viewPath, editPath, callback}) => {
 
     return (
         <table className="table">
@@ -12,7 +12,7 @@ const Table = ({ headers, data, viewPath, editPath}) => {
             <TableHeader headers={headers}/>
           </thead>
           <tbody className="table__body">
-              <TableBodyRow data={data} viewPath={viewPath} editPath={editPath} headers={headers}/>
+              <TableBodyRow data={data} viewPath={viewPath} editPath={editPath} callback={callback} headers={headers}/>
           </tbody>
 
           
