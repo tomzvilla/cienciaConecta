@@ -1,9 +1,9 @@
 // components
 import SelectField from "../SelectField/SelectField"
+import DataList from "../DataList/DataList"
 // hooks
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
-import { useState } from "react"
 
 const SedesFeriaForm = (props) => {
     const {handleChange, onBlurField, formValues, errors} = props
@@ -85,7 +85,7 @@ const SedesFeriaForm = (props) => {
                 />
             </div>
             <div className='edit-project-form__input'>
-                <SelectField
+                <DataList
                     label='Establecimiento: ' 
                     name='establecimiento'
                     dataValues={establecimientos}
