@@ -78,26 +78,24 @@ const CuposModal = (props) => {
     return (
         <div>
             <h1>Cupos</h1>
-            {niveles && niveles.map((nivel) => {
-                if(nivel._id !== 0)
-                    return (
-                        <div key={nivel._id}> 
-                            <InputField
-                                label={nivel.nombre} 
-                                name={nivel._id} 
-                                type='number'
-                                onChange={handleChange}
-                                onBlur={() => {}}
-                                value={
-                                    cupos.length === 0 ? 0 : cupos[nivel._id]
-                                }
-                                errors={null}
-                                required={true}
-                            />
-                        </div>
-                    )
-                })
-            }
+            {niveles && niveles.map((nivel) => 
+                nivel._id !== 0 ? (
+                    <div key={nivel._id}> 
+                        <InputField
+                            label={nivel.nombre} 
+                            name={nivel._id} 
+                            type='number'
+                            onChange={handleChange}
+                            onBlur={() => {}}
+                            value={
+                                cupos.length === 0 ? 0 : cupos[nivel._id]
+                            }
+                            errors={null}
+                            required={true}
+                        />
+                    </div>
+                ) : null
+            )}
             <div className='edit-project-form__button'>
                 <Button 
                     text='Cancelar' 

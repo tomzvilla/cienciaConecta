@@ -66,6 +66,7 @@ const SedesFeriaForm = (props) => {
         const filteredValue = establecimientos.filter((sede) => {
             if(!formValues.establecimientos.find((s) => sede.nombre === s.nombre))
                 return sede.nombre.toLowerCase().includes(e.target.value.toLowerCase())
+            return null
         })
         setResults(filteredValue)
     }
@@ -88,6 +89,7 @@ const SedesFeriaForm = (props) => {
         const notSelectedSedes = establecimientos.filter((sede) => {
             if(!formValues.establecimientos.find((s) => sede.nombre === s.nombre))
                 return sede
+            else return null
         })
         setResults(notSelectedSedes)
     }

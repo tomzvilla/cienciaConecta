@@ -8,7 +8,7 @@ import useAxiosFetch from "../../hooks/useAxiosFetch"
 import { useState } from "react"
 const SedeProvincialForm = (props) => {
 
-    const {handleChange, onBlurField, errors, setFormValues, handleDeleteSedeProvincial, formValues} = props
+    const {handleChange, onBlurField, setFormValues, handleDeleteSedeProvincial, formValues} = props
     const axiosPrivate = useAxiosPrivate()
     const [results, setResults] = useState([])
     const [isSelected, setIsSelected] = useState(false)
@@ -61,14 +61,24 @@ const SedeProvincialForm = (props) => {
         establecimientos = establecimientos.concat(establecimientosData.establecimientos)
     }
 
+    // const handleFilter = (e) => {
+    //     if(!e.target.value.trim()) return setResults([])
+    //     const filteredValue = establecimientos.filter((sede) => {
+    //         if(!formValues.establecimientos.find((s) => sede.nombre === s.nombre))
+    //             return sede.nombre.toLowerCase().includes(e.target.value.toLowerCase())
+    //     })
+    //     setResults(filteredValue)
+    // }
     const handleFilter = (e) => {
-        if(!e.target.value.trim()) return setResults([])
+        const searchTerm = e.target.value.trim().toLowerCase();
         const filteredValue = establecimientos.filter((sede) => {
-            if(!formValues.establecimientos.find((s) => sede.nombre === s.nombre))
-                return sede.nombre.toLowerCase().includes(e.target.value.toLowerCase())
-        })
-        setResults(filteredValue)
-    }
+          return !searchTerm || (
+            !formValues.establecimientos.some((s) => sede.nombre === s.nombre) &&
+            sede.nombre.toLowerCase().includes(searchTerm)
+          );
+        });
+        setResults(filteredValue);
+    };
 
     const handleSelect = (item) => {
         console.log(item)
@@ -79,13 +89,20 @@ const SedeProvincialForm = (props) => {
         
     }
 
+    // const handleFocus = () => {
+    //     const notSelectedSedes = establecimientos.filter((sede) => {
+    //         if(!formValues.establecimientos.find((s) => sede.nombre === s.nombre))
+    //             return sede
+    //     })
+    //     setResults(notSelectedSedes)
+    // }
+
     const handleFocus = () => {
         const notSelectedSedes = establecimientos.filter((sede) => {
-            if(!formValues.establecimientos.find((s) => sede.nombre === s.nombre))
-                return sede
-        })
-        setResults(notSelectedSedes)
-    }
+          return !formValues.establecimientos.some((s) => sede.nombre === s.nombre);
+        });
+        setResults(notSelectedSedes);
+    };
     
     const handleChangeDpto = (e) => {
         setIsSelected(false)
