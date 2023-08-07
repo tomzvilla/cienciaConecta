@@ -1,6 +1,7 @@
 // components
 import Autocomplete from "../Autocomplete/Autocomplete"
 import SelectField from "../SelectField/SelectField"
+import CuposModal from "./CuposModal"
 // hooks
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
@@ -11,6 +12,8 @@ const SedeProvincialForm = (props) => {
     const axiosPrivate = useAxiosPrivate()
     const [results, setResults] = useState([])
     const [isSelected, setIsSelected] = useState(false)
+    const [showModal, setShowModal] = useState(false)
+    const [selectedSede, setSelectedSede] = useState({})
 
     const { data: dptoData } = useAxiosFetch('/departamento', axiosPrivate)
     
@@ -101,17 +104,68 @@ const SedeProvincialForm = (props) => {
         handleDeleteSedeProvincial()
     }
 
+    const handleCupos = (e, nombreSede) => {
+        e.preventDefault()
+        setSelectedSede(nombreSede)
+        setShowModal(true)
+    }
+
+    
+    const getSede = () => {
+        return formValues.sedeProvincial
+    }
+
+    const cerrarModal = () => {
+        setShowModal(false)
+    }
+
+    const confirmarCupo = (cupos) => {
+        setShowModal(false)
+        const prevCupos = [...formValues.cuposProvincial]
+
+        for (const cupo of cupos) {
+            const existingIndex = prevCupos.findIndex(c1 => c1.nivel === cupo.nivel);
+            
+            if (existingIndex !== -1) {
+              prevCupos[existingIndex].cantidad = cupo.cantidad;
+            } else {
+                prevCupos.push(cupo);
+            }
+        }
+
+        setFormValues({
+            ...formValues,
+            cuposProvincial: prevCupos
+        })
+
+    }
+
+    const getCupos = () => {
+        if(formValues.cuposProvincial.length > 0){
+            let newCupos = {}
+            formValues.cuposProvincial.forEach(cupo => {
+                const { nivel, cantidad} = cupo
+                newCupos = {...newCupos, [nivel]: cantidad }
+            })
+            console.log(newCupos)
+            return newCupos
+        } else {
+            return []
+        }
+    }
+
 
     return (
         <>
+            {showModal && <CuposModal getCupos={(idSede) => getCupos(idSede)} getSede={() => getSede(selectedSede)} cerrarModal={cerrarModal} confirmarCupo={confirmarCupo}/>}
             <h2>Sede Provincial</h2>
-            {console.log(formValues.sedeProvincial)}
             {formValues.sedeProvincial === null ? (<p> No hay sede provincial seleccionada </p>) : (
             <table className="table">
                 <thead className="headBg">
                     <tr>
                         <th scope="col">Establecimiento</th>
                         <th scope="col">CUE</th>
+                        <th scope="col">Cupos</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
@@ -119,6 +173,11 @@ const SedeProvincialForm = (props) => {
                     <tr>
                         <td>{formValues.sedeProvincial.nombre} </td> 
                         <td>{formValues.sedeProvincial.cue} </td> 
+                        <td> 
+                            <button onClick={(e) => handleCupos(e, formValues.sedeProvincial.nombre)}>
+                                Cupos
+                            </button>
+                        </td> 
                         <td>
                             <button onClick={(e) => handleDelete(e)}>
                                 Borrar

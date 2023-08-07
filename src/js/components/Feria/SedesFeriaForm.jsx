@@ -148,9 +148,7 @@ const SedesFeriaForm = (props) => {
 
     const getCupos = (selectedSede) => {
         if(formValues.cupos.find(s => s.sede === selectedSede)){
-            console.log('entro al if')
             const cuposSede = formValues.cupos.filter(s => s.sede === selectedSede);
-            console.log(cuposSede)
             let newCupos = {}
             cuposSede.forEach(cupo => {
                 const { nivel, cantidad} = cupo

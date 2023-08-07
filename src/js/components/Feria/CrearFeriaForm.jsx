@@ -40,6 +40,7 @@ const CrearFeriaForm = () => {
         sedeProvincialDpto: '',
         sedeProvincialLocalidad: '',
         sedeProvincial: null,
+        cuposProvincial: [],
     })
 
     const [etapaActual, setEtapaActual] = useState(ETAPAS.SedesRegionales)
