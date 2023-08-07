@@ -24,7 +24,7 @@ const InputField = ({ value, label, name, type, onChange, onBlur, errors, requir
                 {...setRequired}
             />
         
-        {errors.dirty && errors.error && <small className={`input-field__error input-field__error${modifier}`}>{errors.message}</small>}
+        {errors && errors.dirty && errors.error && <small className={`input-field__error input-field__error${modifier}`}>{errors.message}</small>}
     </div>
   )
 }

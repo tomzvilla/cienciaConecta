@@ -5,7 +5,7 @@ const SelectField = ({ value, label, name, onChange, onBlur, errors, dataValues,
     let setRequired = false
     if(required) setRequired = true
 
-    const modifier = errors.error ? "--error" : ""
+    const modifier = errors?.error ? "--error" : ""
 
     return (
     <div className={`select-field select-field${modifier}`}>
@@ -25,7 +25,7 @@ const SelectField = ({ value, label, name, onChange, onBlur, errors, dataValues,
             
         </select>
         
-        {errors.dirty && errors.error && <small className='select-field__error'>{errors.message}</small>}
+        {errors && errors.dirty && errors.error && <small className='select-field__error'>{errors.message}</small>}
     </div>
   )
 }

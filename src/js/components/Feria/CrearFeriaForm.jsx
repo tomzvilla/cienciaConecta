@@ -33,7 +33,8 @@ const CrearFeriaForm = () => {
         fechaFinEvaluacionProvincial: '',
         departamento: '',
         localidad: '',
-        establecimiento: ''
+        establecimientos: [],
+        cupos: [],
     })
 
     const [etapaActual, setEtapaActual] = useState(ETAPAS.Sedes)
@@ -123,6 +124,11 @@ const CrearFeriaForm = () => {
         if(etapaActual === ETAPAS.Sedes) setEtapaActual(ETAPAS.Instancias)
         if(etapaActual === ETAPAS.Criterios) setEtapaActual(ETAPAS.Sedes)
     }
+
+    const handleDeleteSede = (nombreSede) => {
+        setFormValues({...formValues, establecimientos: formValues.establecimientos.filter(obj => obj.nombre !== nombreSede)})
+    }
+
     return (
         <form className='edit-project-form'>
             <h2 className='edit-project-form__title'> Registrar Feria de Ciencias y Tecnologia </h2>
@@ -141,8 +147,10 @@ const CrearFeriaForm = () => {
             />}
             {etapaActual === ETAPAS.Sedes && <SedesFeriaForm
                 handleChange={handleChange}
+                handleDeleteSede={handleDeleteSede}
                 onBlurField={onBlurField}
                 formValues={formValues}
+                setFormValues={setFormValues}
                 errors={errors}
             />}
             {etapaActual === ETAPAS.Criterios && <p>Criterios</p>}
