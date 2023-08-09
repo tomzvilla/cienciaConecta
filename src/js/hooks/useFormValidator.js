@@ -24,6 +24,9 @@ import {
     groupValidator,
     nombreFeriaValidator,
     dateValidator,
+    rubricaValidator,
+    ponderacionValidator,
+    criterioValidator,
 } from '../validators'
 
 const touchErrors = (errors, fieldsToExclude) => {
@@ -112,6 +115,9 @@ export const useFormValidator = (form) => {
             fechaFinFeria, 
             fechaInicioInstanciaEscolar,
             fechaFinInstanciaEscolar,
+            nombreRubrica,
+            nombreCriterio,
+            ponderacion,
         } = form;
 
         if (nextErrors.email?.dirty && (field ? field === "email" || field === 'schoolEmail' : true)) {
@@ -290,6 +296,13 @@ export const useFormValidator = (form) => {
             if (!!nombreFeriaMessage) isValid = false;
         }
 
+        if (nextErrors.nombreRubrica?.dirty && (field ? field === "nombreRubrica" : true)) {
+            const nombreRubricaMessage = rubricaValidator(nombreRubrica, form);
+            nextErrors.nombreRubrica.error = !!nombreRubricaMessage;
+            nextErrors.nombreRubrica.message = nombreRubricaMessage;
+            if (!!nombreRubricaMessage) isValid = false;
+        }
+
         if (nextErrors.descripcionFeria?.dirty && (field ? field === "descripcionFeria" : true)) {
             const descripcionFeriaMessage = descriptionValidator(descripcionFeria, form);
             nextErrors.descripcionFeria.error = !!descripcionFeriaMessage;
@@ -376,6 +389,20 @@ export const useFormValidator = (form) => {
             nextErrors.fechaFinEvaluacionProvincial.error = !!fechaFinEvaluacionProvincialMessage;
             nextErrors.fechaFinEvaluacionProvincial.message = fechaFinEvaluacionProvincialMessage;
             if (!!fechaFinEvaluacionProvincialMessage) isValid = false;
+        }
+
+        if (nextErrors.nombreCriterio?.dirty && (field ? field === "nombreCriterio" : true)) {
+            const nombreCriterioMessage = criterioValidator(nombreCriterio, form);
+            nextErrors.nombreCriterio.error = !!nombreCriterioMessage;
+            nextErrors.nombreCriterio.message = nombreCriterioMessage;
+            if (!!nombreCriterioMessage) isValid = false;
+        }
+
+        if (nextErrors.ponderacion?.dirty && (field ? field === "ponderacion" : true)) {
+            const ponderacionMessage = ponderacionValidator(ponderacion, form);
+            nextErrors.ponderacion.error = !!ponderacionMessage;
+            nextErrors.ponderacion.message = ponderacionMessage;
+            if (!!ponderacionMessage) isValid = false;
         }
 
         setErrors(nextErrors);

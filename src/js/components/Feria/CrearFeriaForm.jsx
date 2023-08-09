@@ -4,6 +4,7 @@ import InstanciasFeriaForm from "./InstanciasFeriaForm";
 import SedesFeriaForm from "./SedesFeriaForm";
 import Button from "../Button/Button";
 import SedeProvincialForm from "./SedeProvincialForm";
+import RubricasFeriaForm from "./RubricasFeriaForm";
 // hooks
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -40,6 +41,8 @@ const CrearFeriaForm = () => {
         sedeProvincialLocalidad: '',
         sedeProvincial: null,
         cuposProvincial: [],
+        criteriosEvaluacion: [],
+        nombreRubrica: '',
     })
 
     const [etapaActual, setEtapaActual] = useState(ETAPAS.SedesRegionales)
@@ -143,6 +146,24 @@ const CrearFeriaForm = () => {
         console.log(formValues.sedeProvincial)
     }
 
+    const handleAddRubrica = (rubrica) => {
+        // crear objeto 
+        const newRubrica = {
+            nombreRubrica: rubrica.nombre,
+            criterios: [],
+        }
+        setFormValues({...formValues, criteriosEvaluacion: [...formValues.criteriosEvaluacion, newRubrica]})
+        console.log(formValues.criteriosEvaluacion)
+    }
+
+    const handleDeleteRubrica = (nombreRubrica) => {
+        setFormValues({
+            ...formValues, 
+            nombreRubrica: '',
+            criteriosEvaluacion: formValues.criteriosEvaluacion.filter(r => r.nombreRubrica !== nombreRubrica)
+        })
+    }
+
     return (
         <form className='edit-project-form'>
             <h2 className='edit-project-form__title'> Registrar Feria de Ciencias y Tecnologia </h2>
@@ -175,7 +196,15 @@ const CrearFeriaForm = () => {
                 setFormValues={setFormValues}
                 errors={errors}
             />}
-            {etapaActual === ETAPAS.Criterios && <p>Criterios</p>}
+            {etapaActual === ETAPAS.Criterios && <RubricasFeriaForm 
+                handleChange={handleChange}
+                onBlurField={onBlurField}
+                formValues={formValues}
+                handleAddRubrica={handleAddRubrica}
+                handleDeleteRubrica={handleDeleteRubrica}
+                setFormValues={setFormValues}
+                errors={errors}
+            />}
             <div className='edit-project-form__button'>
                 <Button 
                     text='Volver' 

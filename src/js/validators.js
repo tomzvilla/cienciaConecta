@@ -200,3 +200,27 @@ export const dateValidator = (fechaAnterior, fechaPosterior, fechaFinal='') => {
   }
   return "";
 };
+
+export const criterioValidator = (nombreCriterio) => {
+  if (!nombreCriterio) {
+    return "El nombre del criterio debe estar definido";
+  }
+  return "";
+};
+
+export const rubricaValidator = (nombreRubrica) => {
+  if (!nombreRubrica) {
+    return "El nombre de la rúbrica debe estar definido";
+  }
+  return "";
+};
+
+
+export const ponderacionValidator = (ponderacion) => {
+  if (!ponderacion) {
+    return "Se debe ingresar una ponderación";
+  } else if(parseInt(ponderacion) > 1 || parseInt(ponderacion) < 0) {
+    return "La ponderación debe estar entre 0 y 1"
+  }
+  return "";
+};
