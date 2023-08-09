@@ -1,23 +1,6 @@
-// components
-import OpcionesModal from "./OpcionesModal"
-// hooks
-import { useState } from "react"
-
 const CriteriosTable = (props) => {
 
-    const { rubrica, formValues, setFormValues, handleDeleteCriterio } = props
-
-    const [showModal, setShowModal] = useState(false)
-    const [selectedCriterio, setSelectedCriterio] = useState(null)
-
-    const cerrarModal = () => {
-        setShowModal(false)
-    }
-
-    const abrirOpciones = (criterio) => {
-        setSelectedCriterio(criterio)
-        setShowModal(true)
-    }
+    const { rubrica, handleDeleteCriterio, abrirOpciones } = props
 
     return (
         rubrica?.criterios?.length === 0 ? 
@@ -26,7 +9,7 @@ const CriteriosTable = (props) => {
         ) 
         :
         (
-            showModal ? (<OpcionesModal formValues={formValues} setFormValues={setFormValues} cerrarModal={cerrarModal} criterio={selectedCriterio} rubrica={rubrica} />) : (
+            
             <table>
                 <thead>
                     <tr>
@@ -43,7 +26,7 @@ const CriteriosTable = (props) => {
                                 <td>{c.nombre} </td> 
                                 <td>{c.ponderacion} </td> 
                                 <td> 
-                                    <button onClick={() => abrirOpciones(c)}>
+                                    <button onClick={(e) => abrirOpciones(e, rubrica, c)}>
                                         Opciones
                                     </button>
                                 </td> 
@@ -56,7 +39,7 @@ const CriteriosTable = (props) => {
                         ))}
                 </tbody>
             </table>
-            )
+            
         )
     )
 

@@ -1,12 +1,14 @@
 // components
 import InputField from "../../InputField/InputField"
 import Button from "../../Button/Button"
+import OpcionesTable from "./OpcionesTable"
 // hooks
 import { useState } from "react"
 import { useFormValidator } from "../../../hooks/useFormValidator"
+
 const OpcionesModal = (props) => {
 
-    const { rubrica, criterio, formValues, setFormValues } = props 
+    const { rubrica, criterio, formValues, setFormValues, cerrarModal } = props 
     const [opcion, setOpcion] = useState({
         nombreOpcion: ''
     })
@@ -20,14 +22,13 @@ const OpcionesModal = (props) => {
         const prevCriterios = [...formValues.criteriosEvaluacion]
         const rubricaIndex = prevCriterios.findIndex(rbr => rbr.nombreRubrica === rubrica.nombreRubrica);
         const criterioIndex = prevCriterios[rubricaIndex].criterios.findIndex(crit => crit.nombre === criterio.nombre);
-        console.log( prevCriterios[rubricaIndex].criterios[criterioIndex])
         prevCriterios[rubricaIndex].criterios[criterioIndex].opciones.push(opcion.nombreOpcion)
-        console.log(prevCriterios)
 
         setFormValues({...formValues, criteriosEvaluacion: prevCriterios})
         setOpcion({
             nombreOpcion: '',
         })
+        cerrarModal()
         
     }
 
@@ -42,9 +43,24 @@ const OpcionesModal = (props) => {
         }
     }
 
+    const handleDeleteOpcion = (e, nombreOpcion) => {
+        e.preventDefault()
+        const prevCriterios = [...formValues.criteriosEvaluacion]
+        const rubricaIndex = prevCriterios.findIndex(rubrica => rubrica.nombreRubrica === rubrica.nombreRubrica);
+        const criterioIndex = prevCriterios[rubricaIndex].criterios.findIndex(criterio => criterio.nombre === criterio.nombre);
+        const opcionIndex =  prevCriterios[rubricaIndex].criterios[criterioIndex].opciones.findIndex(opcion => opcion === nombreOpcion)
+
+        prevCriterios[rubricaIndex].criterios[criterioIndex].opciones = prevCriterios[rubricaIndex].criterios[criterioIndex].opciones.filter((_, index) => index !== opcionIndex);
+        
+        setFormValues({...formValues, criteriosEvaluacion: prevCriterios})
+        setOpcion({
+            nombreOpcion: '',
+        })
+    }
+
     return (
         <div>
-            
+            <OpcionesTable handleDeleteOpcion={handleDeleteOpcion} criterio={criterio} />
             <h2>Datos de la Opción</h2>
             <InputField
                 label='Nombre: ' 
@@ -54,7 +70,6 @@ const OpcionesModal = (props) => {
                 onBlur={onBlurField}
                 value={opcion.nombreOpcion}
                 errors={errors.nombreOpcion}
-                required={true}
             />
             <Button 
                 text={'Agregar'} 

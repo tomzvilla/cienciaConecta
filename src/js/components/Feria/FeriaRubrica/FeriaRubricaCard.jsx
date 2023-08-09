@@ -9,7 +9,7 @@ import { useFormValidator } from "../../../hooks/useFormValidator"
 
 const FeriaRubricaCard = (props) => {
 
-    const { rubrica, handleDeleteRubrica, formValues, setFormValues } = props
+    const { rubrica, handleDeleteRubrica, formValues, setFormValues, abrirOpciones } = props
 
     const [rubricaValues, setRubricaValues] = useState({
         nombreCriterio: '',
@@ -41,8 +41,9 @@ const FeriaRubricaCard = (props) => {
     const handleDeleteCriterio = (e, nombreCriterio) => {
         e.preventDefault()
         const prevCriterios = [...formValues.criteriosEvaluacion]
-        const rubricaIndex = prevCriterios.findIndex(rubrica => rubrica.nombreRubrica === rubrica.nombreRubrica);
+        const rubricaIndex = prevCriterios.findIndex(rbr => rbr.nombreRubrica === rubrica.nombreRubrica);
         const criterioIndex = prevCriterios[rubricaIndex].criterios.findIndex(criterio => criterio.nombre === nombreCriterio);
+        console.log(prevCriterios)
       
         prevCriterios[rubricaIndex].criterios = prevCriterios[rubricaIndex].criterios.filter((_, index) => index !== criterioIndex);
         
@@ -68,7 +69,7 @@ const FeriaRubricaCard = (props) => {
     return (
         <div>
             <h2>{rubrica.nombreRubrica}</h2>
-            <CriteriosTable rubrica={rubrica} handleDeleteCriterio={handleDeleteCriterio} formValues={formValues}  setFormValues={setFormValues}/>
+            <CriteriosTable abrirOpciones={abrirOpciones} rubrica={rubrica} handleDeleteCriterio={handleDeleteCriterio} formValues={formValues}  setFormValues={setFormValues}/>
             <button onClick={handleDeleteRubrica}> Borrar </button>
             <div className='edit-project-form__input'>
                 <InputField
@@ -79,7 +80,6 @@ const FeriaRubricaCard = (props) => {
                     onBlur={onBlurField}
                     value={rubricaValues.nombreCriterio}
                     errors={errors.nombreCriterio}
-                    required={true}
                 />
             </div>
             <div className='edit-project-form__input'>
@@ -91,7 +91,6 @@ const FeriaRubricaCard = (props) => {
                     onBlur={onBlurField}
                     value={rubricaValues.ponderacion}
                     errors={errors.ponderacion}
-                    required={true}
                 />
             </div>
             <Button 
