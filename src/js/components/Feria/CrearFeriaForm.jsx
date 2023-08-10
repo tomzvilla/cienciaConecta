@@ -9,7 +9,7 @@ import RubricasFeriaForm from "./RubricasFeriaForm";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useFormValidator } from "../../hooks/useFormValidator";
-
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 export const ETAPAS = {
     Datos: '1',
     Instancias: '2',
@@ -33,6 +33,10 @@ const CrearFeriaForm = () => {
         fechaFinExposicionRegional: '',
         fechaInicioEvaluacionProvincial: '',
         fechaFinEvaluacionProvincial: '',
+        fechaInicioPostulacionEvaluadores: '',
+        fechaFinPostulacionEvaluadores: '',
+        fechaInicioAsignacionProyectos: '',
+        fechaFinAsignacionProyectos: '',
         departamento: '',
         localidad: '',
         establecimientos: [],
@@ -43,23 +47,28 @@ const CrearFeriaForm = () => {
         cuposProvincial: [],
         criteriosEvaluacion: [],
         nombreRubrica: '',
+        errorSumaPonderacion: false,
+        errorRubrica:  false,
     })
 
-    const [etapaActual, setEtapaActual] = useState(ETAPAS.SedesRegionales)
+    const [etapaActual, setEtapaActual] = useState(ETAPAS.Datos)
     const navigate = useNavigate()
     const location = useLocation()
     const from = location.state?.from?.pathname || '/myprojects'
      
     const {errors, validateForm, onBlurField} = useFormValidator(formValues)
+    const axiosPrivate = useAxiosPrivate()
 
     const cambiarVista = (e) => {
         e.preventDefault()
         console.log(formValues)
         let fieldsToExclude = []
-        if(etapaActual === ETAPAS.Datos) fieldsToExclude = ['fechaInicioInstanciaEscolar', 'fechaFinInstanciaEscolar','fechaInicioEvaluacionRegional', 'fechaFinEvaluacionRegional', 'fechaInicioExposicionRegional', 'fechaFinExposicionRegional', 'fechaInicioEvaluacionProvincial',  'fechaFinEvaluacionProvincial']
-        if(etapaActual === ETAPAS.Instancias) fieldsToExclude = []
-        if(etapaActual === ETAPAS.SedesRegionales) setEtapaActual(ETAPAS.SedeProvincial) // borrar despues, solo para pruebas
-        if(etapaActual === ETAPAS.SedeProvincial) setEtapaActual(ETAPAS.Criterios) // borrar despues, solo para pruebas
+        if(etapaActual === ETAPAS.Datos) fieldsToExclude = ['fechaInicioInstanciaEscolar', 'fechaFinInstanciaEscolar','fechaInicioEvaluacionRegional', 'fechaFinEvaluacionRegional', 'fechaInicioExposicionRegional', 'fechaFinExposicionRegional', 
+        'fechaInicioEvaluacionProvincial',  'fechaFinEvaluacionProvincial', 'fechaInicioPostulacionEvaluadores', 'fechaFinPostulacionEvaluadores', 'fechaInicioAsignacionProyectos','fechaFinAsignacionProyectos', 'cupos', 'criteriosEvaluacion', 'nombreRubrica']
+        if(etapaActual === ETAPAS.Instancias) fieldsToExclude = ['cupos', 'criteriosEvaluacion', 'nombreRubrica']
+        if(etapaActual === ETAPAS.SedesRegionales) fieldsToExclude = ['criteriosEvaluacion', 'nombreRubrica']
+        if(etapaActual === ETAPAS.SedeProvincial) fieldsToExclude = ['criteriosEvaluacion', 'nombreRubrica']
+        if(etapaActual === ETAPAS.Criterios) fieldsToExclude = []
         const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true, fieldsToExclude: fieldsToExclude})
         if(etapaActual === ETAPAS.Datos & isValid) setEtapaActual(ETAPAS.Instancias)
         if(etapaActual === ETAPAS.Instancias & isValid) setEtapaActual(ETAPAS.SedesRegionales)
@@ -92,17 +101,162 @@ const CrearFeriaForm = () => {
             validateForm({form: nextFormValueState, errors, name})
         }
     }
+
+    const handleDateChange = (e) => {
+        const {name, value} = e.target
+        let fecha = new Date(value)
+        if(name.includes('Fin')) {
+            fecha.setHours(23,59,59)
+        }
+        const nextFormValueState = {
+            ...formValues,
+            [name]: fecha.toISOString()
+        }
+        setFormValues(nextFormValueState)
+        if (errors[name].dirty) {
+            validateForm({form: nextFormValueState, errors, name})
+        }
+    }
+
+    const validarCriteriosEvaluacion = (criteriosEvaluacion) => {
+        let errorMessage = ''
+        criteriosEvaluacion.forEach(rubrica => {
+            if(rubrica.criterios.length === 0){
+                errorMessage = `La rúbrica ${rubrica.nombreRubrica} debe tener al menos 1 criterio`
+                return
+            }
+
+        })
+
+        if(errorMessage !== '') return errorMessage
+
+        criteriosEvaluacion.forEach(rubrica => {
+            rubrica.criterios.forEach(criterio => {
+                if(criterio.opciones.length < 2) {
+                    errorMessage = `El criterio ${criterio.nombre} de la rúbrica ${rubrica.nombreRubrica} debe tener al menos 2 opciones`
+                    return
+                }
+            })
+        })
+
+        return errorMessage
+
+    }
     
     const handleSubmit = async (e) => {
         e.preventDefault()
         const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true})
 
         if(!isValid) return
+        if(formValues.errorSumaPonderacion) return
+        const messageError = validarCriteriosEvaluacion(formValues.criteriosEvaluacion)
+        if(messageError !== '') {
+            console.log(messageError)
+            return
+        }
+        console.log(formValues.errorSumaPonderacion)
 
         try {
             console.log('Entro al try')
+            const { 
+                nombreFeria, 
+                descripcionFeria, 
+                logo, 
+                fechaInicioFeria, 
+                fechaFinFeria, 
+                fechaInicioInstanciaEscolar, 
+                fechaFinInstanciaEscolar, 
+                fechaInicioEvaluacionRegional,
+                fechaFinEvaluacionRegional,
+                fechaInicioExposicionRegional,
+                fechaFinExposicionRegional,
+                fechaInicioEvaluacionProvincial,
+                fechaFinEvaluacionProvincial,
+                fechaInicioPostulacionEvaluadores,
+                fechaFinPostulacionEvaluadores,
+                fechaInicioAsignacionProyectos,
+                fechaFinAsignacionProyectos,
+                cupos,
+                sedeProvincial,
+                cuposProvincial,
+                criteriosEvaluacion,
+             } = formValues
+            const sedesRegional = new Set(cupos.map(c => { 
+                return c.sede
+            }))
+            console.log(sedesRegional)
+            const response = await axiosPrivate.post('/feria', 
+            JSON.stringify({ 
+                nombre: nombreFeria, 
+                descripcion: descripcionFeria, 
+                logo: 'www.logo.com', 
+                fechaInicioFeria: fechaInicioFeria, 
+                fechaFinFeria: fechaFinFeria, 
+                instancias: {
+                    instanciaEscolar: {
+                        fechaInicioInstancia: fechaInicioInstanciaEscolar,
+                        fechaFinInstancia: fechaFinInstanciaEscolar,
+                    },
+                    instanciaRegional: {
+                        fechaInicioEvaluacionTeorica: fechaInicioEvaluacionRegional,
+                        fechaFinEvaluacionTeorica: fechaFinEvaluacionRegional,
+                        fechaInicioEvaluacionPresencial: fechaInicioExposicionRegional,
+                        fechaFinEvaluacionPresencial: fechaFinExposicionRegional,
+                        cupos,
+                        sedes: Array.from(sedesRegional)
+                    },
+                    instanciaProvincial: {
+                        fechaInicioEvaluacionPresencial: fechaInicioEvaluacionProvincial,
+                        fechaFinEvaluacionPresencial: fechaFinEvaluacionProvincial,
+                        cupos: cuposProvincial,
+                        sede: sedeProvincial._id
+                    }
+                }, 
+                fechaInicioPostulacionEvaluadores, 
+                fechaFinPostulacionEvaluadores,
+                fechaInicioAsignacionProyectos,
+                fechaFinAsignacionProyectos,
+                criteriosEvaluacion,
+            }),
+            {
+                headers: {'Content-Type': 'application/json'},
+                withCredentials: true
+            }
+            )
+            console.log(JSON.stringify(response?.data))
+
+            setFormValues({
+                nombreFeria: '',
+                descripcionFeria: '',
+                logo: '',
+                fechaInicioFeria: '',
+                fechaFinFeria: '',
+                fechaInicioInstanciaEscolar: '',
+                fechaFinInstanciaEscolar: '',
+                fechaInicioEvaluacionRegional: '',
+                fechaFinEvaluacionRegional: '',
+                fechaInicioExposicionRegional: '',
+                fechaFinExposicionRegional: '',
+                fechaInicioEvaluacionProvincial: '',
+                fechaFinEvaluacionProvincial: '',
+                fechaInicioPostulacionEvaluadores: '',
+                fechaFinPostulacionEvaluadores: '',
+                fechaInicioAsignacionProyectos: '',
+                fechaFinAsignacionProyectos: '',
+                departamento: '',
+                localidad: '',
+                establecimientos: [],
+                cupos: [],
+                sedeProvincialDpto: '',
+                sedeProvincialLocalidad: '',
+                sedeProvincial: null,
+                cuposProvincial: [],
+                criteriosEvaluacion: [],
+                nombreRubrica: '',
+            })
             
         } catch (err) {
+            console.log(err)
             if(!err?.response){
                 console.log('El servidor no respondio')
             } else if(err.response?.status === 403) {
@@ -169,13 +323,14 @@ const CrearFeriaForm = () => {
             <h2 className='edit-project-form__title'> Registrar Feria de Ciencias y Tecnologia </h2>
             {etapaActual === ETAPAS.Datos && <DatosFeriaForm
                 handleChange={handleChange}
+                handleDateChange={handleDateChange}
                 handleFileChange={handleFileChange}
                 onBlurField={onBlurField}
                 formValues={formValues}
                 errors={errors}
             />}
             {etapaActual === ETAPAS.Instancias && <InstanciasFeriaForm
-                handleChange={handleChange}
+                handleDateChange={handleDateChange}
                 onBlurField={onBlurField}
                 formValues={formValues}
                 errors={errors}

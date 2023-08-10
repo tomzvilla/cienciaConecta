@@ -22,6 +22,7 @@ const CriteriosTable = (props) => {
                 <tbody>
                     {rubrica.criterios.map((c, index) =>
                         (
+                            
                             <tr key={index}>
                                 <td>{c.nombre} </td> 
                                 <td>{c.ponderacion} </td> 
