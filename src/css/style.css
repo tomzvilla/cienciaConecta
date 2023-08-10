@@ -281,33 +281,18 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .login-form {
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
-  min-width: 45rem;
-  min-height: 45rem;
-  border-radius: 4px;
-  padding: 2rem 0rem;
-  justify-content: space-around;
-  align-items: flex-start;
-  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
-}
-.login-form__title {
-  margin-bottom: 2rem;
-  font-size: 4rem;
-  text-align: center;
-  font-weight: 500;
 }
 .login-form__input {
   width: 80%;
   align-self: center;
-}
-.login-form__input--first {
-  margin-top: 2rem;
+  padding-top: 3rem;
 }
 .login-form__button {
-  margin-top: 1rem;
+  padding-top: 3rem;
   align-self: center;
 }
 .login-form__link-container {
+  padding-top: 3rem;
   align-self: center;
 }
 
@@ -324,6 +309,56 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .login-form-link__link {
   color: #00ACE6;
   font-size: 2rem;
+}
+
+.modal {
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 100vw;
+  height: 100vh;
+  z-index: 50;
+  position: absolute;
+}
+
+.modal-card {
+  display: flex;
+  flex-direction: column;
+  z-index: 99;
+  background-color: #ffffff;
+  width: 45rem;
+  height: 45rem;
+  border-radius: 2rem;
+  padding-bottom: 2rem;
+  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal-header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-self: start;
+  align-items: center;
+  background-color: #00ACE6;
+  padding: 2rem 0;
+  border-radius: 2rem 2rem 2rem 0;
+}
+.modal-header__title {
+  align-self: center;
+  padding-left: 3rem;
+  font-weight: 500;
+  color: white;
+  font-size: 3rem;
+}
+.modal-header__img {
+  cursor: pointer;
+  width: 3rem;
+  height: 3rem;
+  margin-left: auto;
+  padding-right: 3rem;
+  filter: brightness(100) saturate(100%);
 }
 
 .select-field {
@@ -490,12 +525,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 
 .login {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #96CADC;
-  font-size: 1em;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .signup {
