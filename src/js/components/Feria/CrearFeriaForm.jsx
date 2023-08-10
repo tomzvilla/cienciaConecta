@@ -3,17 +3,19 @@ import DatosFeriaForm from "./DatosFeriaForm"
 import InstanciasFeriaForm from "./InstanciasFeriaForm";
 import SedesFeriaForm from "./SedesFeriaForm";
 import Button from "../Button/Button";
+import SedeProvincialForm from "./SedeProvincialForm";
+import RubricasFeriaForm from "./RubricasFeriaForm";
 // hooks
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useFormValidator } from "../../hooks/useFormValidator";
-import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 export const ETAPAS = {
     Datos: '1',
     Instancias: '2',
-    Sedes: '3',
-    Criterios: '4',
+    SedesRegionales: '3',
+    SedeProvincial: '4',
+    Criterios: '5',
   };
 
 const CrearFeriaForm = () => {
@@ -33,10 +35,17 @@ const CrearFeriaForm = () => {
         fechaFinEvaluacionProvincial: '',
         departamento: '',
         localidad: '',
-        establecimiento: ''
+        establecimientos: [],
+        cupos: [],
+        sedeProvincialDpto: '',
+        sedeProvincialLocalidad: '',
+        sedeProvincial: null,
+        cuposProvincial: [],
+        criteriosEvaluacion: [],
+        nombreRubrica: '',
     })
 
-    const [etapaActual, setEtapaActual] = useState(ETAPAS.Sedes)
+    const [etapaActual, setEtapaActual] = useState(ETAPAS.SedesRegionales)
     const navigate = useNavigate()
     const location = useLocation()
     const from = location.state?.from?.pathname || '/myprojects'
@@ -45,14 +54,17 @@ const CrearFeriaForm = () => {
 
     const cambiarVista = (e) => {
         e.preventDefault()
+        console.log(formValues)
         let fieldsToExclude = []
         if(etapaActual === ETAPAS.Datos) fieldsToExclude = ['fechaInicioInstanciaEscolar', 'fechaFinInstanciaEscolar','fechaInicioEvaluacionRegional', 'fechaFinEvaluacionRegional', 'fechaInicioExposicionRegional', 'fechaFinExposicionRegional', 'fechaInicioEvaluacionProvincial',  'fechaFinEvaluacionProvincial']
         if(etapaActual === ETAPAS.Instancias) fieldsToExclude = []
-        if(etapaActual === ETAPAS.Sedes) setEtapaActual(ETAPAS.Criterios)
+        if(etapaActual === ETAPAS.SedesRegionales) setEtapaActual(ETAPAS.SedeProvincial) // borrar despues, solo para pruebas
+        if(etapaActual === ETAPAS.SedeProvincial) setEtapaActual(ETAPAS.Criterios) // borrar despues, solo para pruebas
         const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true, fieldsToExclude: fieldsToExclude})
         if(etapaActual === ETAPAS.Datos & isValid) setEtapaActual(ETAPAS.Instancias)
-        if(etapaActual === ETAPAS.Instancias & isValid) setEtapaActual(ETAPAS.Sedes)
-        if(etapaActual === ETAPAS.Sedes & isValid) setEtapaActual(ETAPAS.Criterios)
+        if(etapaActual === ETAPAS.Instancias & isValid) setEtapaActual(ETAPAS.SedesRegionales)
+        if(etapaActual === ETAPAS.SedesRegionales & isValid) setEtapaActual(ETAPAS.SedeProvincial)
+        if(etapaActual === ETAPAS.SedeProvincial & isValid) setEtapaActual(ETAPAS.Criterios)
     }
 
     const handleChange = (e) => {
@@ -120,9 +132,38 @@ const CrearFeriaForm = () => {
             navigate(from, { replace: true })
         }
         if(etapaActual === ETAPAS.Instancias) setEtapaActual(ETAPAS.Datos)
-        if(etapaActual === ETAPAS.Sedes) setEtapaActual(ETAPAS.Instancias)
-        if(etapaActual === ETAPAS.Criterios) setEtapaActual(ETAPAS.Sedes)
+        if(etapaActual === ETAPAS.SedesRegionales) setEtapaActual(ETAPAS.Instancias)
+        if(etapaActual === ETAPAS.SedeProvincial) setEtapaActual(ETAPAS.SedesRegionales)
+        if(etapaActual === ETAPAS.Criterios) setEtapaActual(ETAPAS.SedeProvincial)
     }
+
+    const handleDeleteSede = (nombreSede) => {
+        setFormValues({...formValues, establecimientos: formValues.establecimientos.filter(obj => obj.nombre !== nombreSede)})
+    }
+
+    const handleDeleteSedeProvincial = () => {
+        setFormValues({...formValues, sedeProvincial: null})
+        console.log(formValues.sedeProvincial)
+    }
+
+    const handleAddRubrica = (rubrica) => {
+        // crear objeto 
+        const newRubrica = {
+            nombreRubrica: rubrica.nombre,
+            criterios: [],
+        }
+        setFormValues({...formValues, criteriosEvaluacion: [...formValues.criteriosEvaluacion, newRubrica]})
+        console.log(formValues.criteriosEvaluacion)
+    }
+
+    const handleDeleteRubrica = (nombreRubrica) => {
+        setFormValues({
+            ...formValues, 
+            nombreRubrica: '',
+            criteriosEvaluacion: formValues.criteriosEvaluacion.filter(r => r.nombreRubrica !== nombreRubrica)
+        })
+    }
+
     return (
         <form className='edit-project-form'>
             <h2 className='edit-project-form__title'> Registrar Feria de Ciencias y Tecnologia </h2>
@@ -139,13 +180,31 @@ const CrearFeriaForm = () => {
                 formValues={formValues}
                 errors={errors}
             />}
-            {etapaActual === ETAPAS.Sedes && <SedesFeriaForm
+            {etapaActual === ETAPAS.SedesRegionales && <SedesFeriaForm
+                handleChange={handleChange}
+                handleDeleteSede={handleDeleteSede}
+                onBlurField={onBlurField}
+                formValues={formValues}
+                setFormValues={setFormValues}
+                errors={errors}
+            />}
+            {etapaActual === ETAPAS.SedeProvincial && <SedeProvincialForm
+                handleChange={handleChange}
+                handleDeleteSedeProvincial={handleDeleteSedeProvincial}
+                onBlurField={onBlurField}
+                formValues={formValues}
+                setFormValues={setFormValues}
+                errors={errors}
+            />}
+            {etapaActual === ETAPAS.Criterios && <RubricasFeriaForm 
                 handleChange={handleChange}
                 onBlurField={onBlurField}
                 formValues={formValues}
+                handleAddRubrica={handleAddRubrica}
+                handleDeleteRubrica={handleDeleteRubrica}
+                setFormValues={setFormValues}
                 errors={errors}
             />}
-            {etapaActual === ETAPAS.Criterios && <p>Criterios</p>}
             <div className='edit-project-form__button'>
                 <Button 
                     text='Volver' 
