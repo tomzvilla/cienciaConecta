@@ -391,6 +391,43 @@ export const useFormValidator = (form) => {
             if (!!fechaFinEvaluacionProvincialMessage) isValid = false;
         }
 
+        if (nextErrors.fechaInicioPostulacionEvaluadores?.dirty && (field ? field === "fechaInicioPostulacionEvaluadores" : true)) {
+            const fechaInicioPostulacionEvaluadoresMessage = dateValidator({fecha:form.fechaInicioPostulacionEvaluadores, nombre: 'Inicio postulación de evaluadores'},{fecha:form.fechaInicioEvaluacionRegional, nombre: 'Inicio evaluación regional'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            nextErrors.fechaInicioPostulacionEvaluadores.error = !!fechaInicioPostulacionEvaluadoresMessage;
+            nextErrors.fechaInicioPostulacionEvaluadores.message = fechaInicioPostulacionEvaluadoresMessage;
+            if (!!fechaInicioPostulacionEvaluadoresMessage) isValid = false;
+        }
+
+        if (nextErrors.fechaFinPostulacionEvaluadores?.dirty && (field ? field === "fechaFinPostulacionEvaluadores" : true)) {
+            let fechaFinPostulacionEvaluadoresMessage = dateValidator({fecha:form.fechaInicioPostulacionEvaluadores, nombre: 'Inicio postulación de evaluadores'}, {fecha:form.fechaFinPostulacionEvaluadores, nombre: 'Fin postulación de evaluadores'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            if(fechaFinPostulacionEvaluadoresMessage === ""){
+                fechaFinPostulacionEvaluadoresMessage = dateValidator({fecha:form.fechaFinPostulacionEvaluadores, nombre: 'Fin postulación de evaluadores'}, {fecha:form.fechaInicioEvaluacionRegional, nombre: 'Inicio evaluación regional'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            }
+            nextErrors.fechaFinPostulacionEvaluadores.error = !!fechaFinPostulacionEvaluadoresMessage;
+            nextErrors.fechaFinPostulacionEvaluadores.message = fechaFinPostulacionEvaluadoresMessage;
+            if (!!fechaFinPostulacionEvaluadoresMessage) isValid = false;
+        }
+
+        if (nextErrors.fechaInicioAsignacionProyectos?.dirty && (field ? field === "fechaInicioAsignacionProyectos" : true)) {
+            let fechaInicioAsignacionProyectosMessage = dateValidator({fecha:form.fechaFinPostulacionEvaluadores, nombre: 'Fin postulación de evaluadores'}, {fecha:form.fechaInicioAsignacionProyectos, nombre: 'Inicio asignación de proyectos'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            if(fechaInicioAsignacionProyectosMessage === ""){
+                fechaInicioAsignacionProyectosMessage = dateValidator({fecha:form.fechaInicioAsignacionProyectos, nombre: 'Inicio asignación de proyectos'}, {fecha:form.fechaInicioEvaluacionRegional, nombre: 'Inicio evaluación regional'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            }
+            nextErrors.fechaInicioAsignacionProyectos.error = !!fechaInicioAsignacionProyectosMessage;
+            nextErrors.fechaInicioAsignacionProyectos.message = fechaInicioAsignacionProyectosMessage;
+            if (!!fechaInicioAsignacionProyectosMessage) isValid = false;
+        }
+
+        if (nextErrors.fechaFinAsignacionProyectos?.dirty && (field ? field === "fechaFinAsignacionProyectos" : true)) {
+            let fechaFinAsignacionProyectosMessage = dateValidator({fecha:form.fechaInicioAsignacionProyectos, nombre: 'Inicio asignación de proyectos'}, {fecha:form.fechaFinAsignacionProyectos, nombre: 'Fin asignación de proyectos'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            if(fechaFinAsignacionProyectosMessage === ""){
+                fechaFinAsignacionProyectosMessage = dateValidator({fecha:form.fechaFinAsignacionProyectos, nombre: 'Fin asignación de proyectos'}, {fecha:form.fechaInicioEvaluacionRegional, nombre: 'Inicio evaluación regional'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            }
+            nextErrors.fechaFinAsignacionProyectos.error = !!fechaFinAsignacionProyectosMessage;
+            nextErrors.fechaFinAsignacionProyectos.message = fechaFinAsignacionProyectosMessage;
+            if (!!fechaFinAsignacionProyectosMessage) isValid = false;
+        }
+
         if (nextErrors.nombreCriterio?.dirty && (field ? field === "nombreCriterio" : true)) {
             const nombreCriterioMessage = criterioValidator(nombreCriterio, form);
             nextErrors.nombreCriterio.error = !!nombreCriterioMessage;

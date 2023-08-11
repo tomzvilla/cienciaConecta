@@ -43,6 +43,8 @@ function App() {
               <Route path='projects/:id' element={<VisualizarProyecto/>}/>
               <Route path='editProjects/:id' element={<ActualizarProyecto/>}/>
               <Route path='myprojects' element={<VisualizarListadoProyectos/>}/>
+            </Route>
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]}/>}>
               {/* Rutas para feria */}
               <Route path='feria' element={<CrearFeria/>}/>
             </Route>

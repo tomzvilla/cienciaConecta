@@ -3,7 +3,7 @@ import InputField from "../InputField/InputField"
 import FileField from "../FileField/FileField"
 
 const DatosFeriaForm = (props) => {
-    const {handleChange, handleFileChange, onBlurField, formValues, errors} = props
+    const {handleChange, handleDateChange, handleFileChange, onBlurField, formValues, errors} = props
     return (
         <>
             <h2>Datos de la Feria</h2>
@@ -47,9 +47,9 @@ const DatosFeriaForm = (props) => {
                     label='Fecha inicio de la feria' 
                     name='fechaInicioFeria'
                     type='date'
-                    onChange={handleChange}
+                    onChange={handleDateChange}
                     onBlur={onBlurField}
-                    value={formValues.fechaInicioFeria}
+                    value={formValues.fechaInicioFeria.split("T")[0]}
                     errors={errors.fechaInicioFeria}
                     required={true}
                 />
@@ -59,9 +59,9 @@ const DatosFeriaForm = (props) => {
                     label='Fecha fin de la feria' 
                     name='fechaFinFeria'
                     type='date'
-                    onChange={handleChange}
+                    onChange={handleDateChange}
                     onBlur={onBlurField}
-                    value={formValues.fechaFinFeria}
+                    value={formValues.fechaFinFeria.split("T")[0]}
                     errors={errors.fechaFinFeria}
                     required={true}
                 />

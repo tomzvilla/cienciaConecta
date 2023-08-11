@@ -2,7 +2,8 @@
 import InputField from "../InputField/InputField"
 
 const InstanciasFeriaForm = (props) => {
-    const {handleChange, onBlurField, formValues, errors} = props
+    const {handleDateChange, onBlurField, formValues, errors} = props
+
     return (
         <>
             <h2>Instancias</h2>
@@ -12,9 +13,9 @@ const InstanciasFeriaForm = (props) => {
                     label='Fecha de inicio: ' 
                     name='fechaInicioInstanciaEscolar'
                     type='date'
-                    onChange={handleChange}
+                    onChange={handleDateChange}
                     onBlur={onBlurField}
-                    value={formValues.fechaInicioInstanciaEscolar}
+                    value={formValues.fechaInicioInstanciaEscolar.split("T")[0]}
                     errors={errors.fechaInicioInstanciaEscolar}
                     required={true}
                 />
@@ -24,9 +25,9 @@ const InstanciasFeriaForm = (props) => {
                     label='Fecha de fin: ' 
                     name='fechaFinInstanciaEscolar'
                     type='date'
-                    onChange={handleChange}
+                    onChange={handleDateChange}
                     onBlur={onBlurField}
-                    value={formValues.fechaFinInstanciaEscolar}
+                    value={formValues.fechaFinInstanciaEscolar.split("T")[0]}
                     errors={errors.fechaFinInstanciaEscolar}
                     required={true}
                 />
@@ -38,9 +39,9 @@ const InstanciasFeriaForm = (props) => {
                     label='Fecha de inicio: ' 
                     name='fechaInicioEvaluacionRegional'
                     type='date'
-                    onChange={handleChange}
+                    onChange={handleDateChange}
                     onBlur={onBlurField}
-                    value={formValues.fechaInicioEvaluacionRegional}
+                    value={formValues.fechaInicioEvaluacionRegional.split("T")[0]}
                     errors={errors.fechaInicioEvaluacionRegional}
                     required={true}
                 />
@@ -50,9 +51,9 @@ const InstanciasFeriaForm = (props) => {
                     label='Fecha de fin: ' 
                     name='fechaFinEvaluacionRegional'
                     type='date'
-                    onChange={handleChange}
+                    onChange={handleDateChange}
                     onBlur={onBlurField}
-                    value={formValues.fechaFinEvaluacionRegional}
+                    value={formValues.fechaFinEvaluacionRegional.split("T")[0]}
                     errors={errors.fechaFinEvaluacionRegional}
                     required={true}
                 />
@@ -63,9 +64,9 @@ const InstanciasFeriaForm = (props) => {
                     label='Fecha de inicio: ' 
                     name='fechaInicioExposicionRegional'
                     type='date'
-                    onChange={handleChange}
+                    onChange={handleDateChange}
                     onBlur={onBlurField}
-                    value={formValues.fechaInicioExposicionRegional}
+                    value={formValues.fechaInicioExposicionRegional.split("T")[0]}
                     errors={errors.fechaInicioExposicionRegional}
                     required={true}
                 />
@@ -75,9 +76,9 @@ const InstanciasFeriaForm = (props) => {
                     label='Fecha de fin: ' 
                     name='fechaFinExposicionRegional'
                     type='date'
-                    onChange={handleChange}
+                    onChange={handleDateChange}
                     onBlur={onBlurField}
-                    value={formValues.fechaFinExposicionRegional}
+                    value={formValues.fechaFinExposicionRegional.split("T")[0]}
                     errors={errors.fechaFinExposicionRegional}
                     required={true}
                 />
@@ -88,9 +89,9 @@ const InstanciasFeriaForm = (props) => {
                     label='Fecha de inicio: ' 
                     name='fechaInicioEvaluacionProvincial'
                     type='date'
-                    onChange={handleChange}
+                    onChange={handleDateChange}
                     onBlur={onBlurField}
-                    value={formValues.fechaInicioEvaluacionProvincial}
+                    value={formValues.fechaInicioEvaluacionProvincial.split("T")[0]}
                     errors={errors.fechaInicioEvaluacionProvincial}
                     required={true}
                 />
@@ -100,10 +101,60 @@ const InstanciasFeriaForm = (props) => {
                     label='Fecha de fin: ' 
                     name='fechaFinEvaluacionProvincial'
                     type='date'
-                    onChange={handleChange}
+                    onChange={handleDateChange}
                     onBlur={onBlurField}
-                    value={formValues.fechaFinEvaluacionProvincial}
+                    value={formValues.fechaFinEvaluacionProvincial.split("T")[0]}
                     errors={errors.fechaFinEvaluacionProvincial}
+                    required={true}
+                />
+            </div>
+            <h3> Postulacion de Evaluadores </h3>
+            <div className='edit-project-form__input'>
+                <InputField
+                    label='Fecha de inicio: ' 
+                    name='fechaInicioPostulacionEvaluadores'
+                    type='date'
+                    onChange={handleDateChange}
+                    onBlur={onBlurField}
+                    value={formValues.fechaInicioPostulacionEvaluadores.split("T")[0]}
+                    errors={errors.fechaInicioPostulacionEvaluadores}
+                    required={true}
+                />
+            </div>
+            <div className='edit-project-form__input'>
+                <InputField
+                    label='Fecha de fin: ' 
+                    name='fechaFinPostulacionEvaluadores'
+                    type='date'
+                    onChange={handleDateChange}
+                    onBlur={onBlurField}
+                    value={formValues.fechaFinPostulacionEvaluadores.split("T")[0]}
+                    errors={errors.fechaFinPostulacionEvaluadores}
+                    required={true}
+                />
+            </div>
+            <h3> Asignación de Proyectos </h3>
+            <div className='edit-project-form__input'>
+                <InputField
+                    label='Fecha de inicio: ' 
+                    name='fechaInicioAsignacionProyectos'
+                    type='date'
+                    onChange={handleDateChange}
+                    onBlur={onBlurField}
+                    value={formValues.fechaInicioAsignacionProyectos.split("T")[0]}
+                    errors={errors.fechaInicioAsignacionProyectos}
+                    required={true}
+                />
+            </div>
+            <div className='edit-project-form__input'>
+                <InputField
+                    label='Fecha de fin: ' 
+                    name='fechaFinAsignacionProyectos'
+                    type='date'
+                    onChange={handleDateChange}
+                    onBlur={onBlurField}
+                    value={formValues.fechaFinAsignacionProyectos.split("T")[0]}
+                    errors={errors.fechaFinAsignacionProyectos}
                     required={true}
                 />
             </div>
