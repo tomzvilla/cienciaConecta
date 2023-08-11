@@ -21,7 +21,7 @@ const VisualizarListadoProyectos = () => {
     const {data: categories} = useAxiosFetch('/categoria', axiosPrivate)
     const {data: levels} = useAxiosFetch('/nivel', axiosPrivate)
     let proyectos = []
-    if(data && categories && levels)
+    if(data && categories && levels) {
 
       proyectos = data.proyectos.map(obj => {
         const category = categories.categoria.find(element => element._id === obj.categoria)
