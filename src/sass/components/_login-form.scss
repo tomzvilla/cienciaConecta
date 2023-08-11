@@ -1,24 +1,21 @@
 .login-form {
     display: flex;
     flex-direction: column;
-
+    height: min-content;
+    align-items: center;
+    padding: 1rem 4rem;
 
     &__input {
-        width: 80%;
-        align-self: center;
-        padding-top: 3rem;
-
+        padding-top: 4rem;
+        width: 90%;
     }
 
     &__button {
-        padding-top: 3rem;
-        align-self: center;
+        padding-top: 4rem;
     }
 
     
     &__link-container {
-        padding-top: 3rem;
-        align-self: center;
-        
+        padding-top: 4rem;  
     }
 }

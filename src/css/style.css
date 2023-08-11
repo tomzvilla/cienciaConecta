@@ -97,14 +97,13 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .input-field {
   display: flex;
   flex-direction: column;
+  margin-left: auto;
+  font-size: 2rem;
 }
 .input-field:focus-within .input-field__label {
   color: #00ACE6;
 }
 .input-field__label {
-  display: flex;
-  flex-direction: column;
-  font-size: 2rem;
   color: #757575;
 }
 .input-field__label--error {
@@ -128,7 +127,40 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   color: #E63B0B;
   font-size: 1.5rem;
   margin-top: 1rem;
+  width: 30rem;
   text-overflow: ellipsis;
+}
+
+.password-input {
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  font-size: 2rem;
+  border-bottom: 1px solid #757575;
+  width: 100%;
+  align-items: center;
+}
+.password-input--error {
+  border-bottom: 2px solid #E63B0B;
+}
+.password-input:focus {
+  border-bottom: 2px solid #00ACE6;
+  transition: all 50ms linear;
+}
+.password-input:focus-within .input-field__label {
+  color: #00ACE6;
+}
+.password-input__input {
+  font-size: 2rem;
+  height: 4rem;
+  border: 0px;
+  outline: none;
+}
+.password-input__img {
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
+  margin-left: auto;
 }
 
 .navbar {
@@ -281,34 +313,33 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .login-form {
   display: flex;
   flex-direction: column;
+  height: min-content;
+  align-items: center;
+  padding: 1rem 4rem;
 }
 .login-form__input {
-  width: 80%;
-  align-self: center;
-  padding-top: 3rem;
+  padding-top: 4rem;
+  width: 90%;
 }
 .login-form__button {
-  padding-top: 3rem;
-  align-self: center;
+  padding-top: 4rem;
 }
 .login-form__link-container {
-  padding-top: 3rem;
-  align-self: center;
+  padding-top: 4rem;
 }
 
 .login-form-link {
   display: flex;
+  font-size: 1.8rem;
   align-items: center;
   margin: auto;
 }
 .login-form-link__text {
   color: #757575;
-  font-size: 2rem;
   margin-right: 0.5rem;
 }
 .login-form-link__link {
   color: #00ACE6;
-  font-size: 2rem;
 }
 
 .modal {
@@ -316,7 +347,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   width: 100vw;
   height: 100vh;
   z-index: 50;
-  position: absolute;
+  position: fixed;
 }
 
 .modal-card {
@@ -324,8 +355,8 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   flex-direction: column;
   z-index: 99;
   background-color: #ffffff;
-  width: 45rem;
-  height: 45rem;
+  min-width: min-content;
+  min-height: min-content;
   border-radius: 2rem;
   padding-bottom: 2rem;
   box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
@@ -522,6 +553,58 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .image-link__image {
   width: 8rem;
   filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
+}
+
+.crear-feria-form {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  margin: auto;
+  max-width: 75rem;
+  height: min-content;
+  align-items: center;
+  border-radius: 2rem;
+  padding-bottom: 2rem;
+  margin-top: 5rem;
+  justify-content: space-around;
+  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+}
+.crear-feria-form__title {
+  width: 100%;
+  font-size: 3rem;
+  font-weight: 500;
+  text-align: center;
+  background-color: #00ACE6;
+  color: #ffffff;
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+  border-radius: 2rem 2rem 2rem 0;
+}
+.crear-feria-form__input {
+  padding-top: 4rem;
+  width: 90%;
+}
+.crear-feria-form__button {
+  width: 100%;
+  display: flex;
+  padding-top: 3rem;
+  justify-content: space-around;
+}
+
+.sedes-feria-form {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  padding: 0 6rem;
+}
+.sedes-feria-form__title {
+  padding-top: 3rem;
+  font-size: 3.5rem;
+  align-self: flex-start;
+}
+.sedes-feria-form__input {
+  padding-top: 1rem;
+  width: 90%;
 }
 
 .login {

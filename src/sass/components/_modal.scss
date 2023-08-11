@@ -1,19 +1,12 @@
 .modal {
-
-  
         background-color: rgba(0, 0, 0, 0.2);
         width: 100vw;
         height: 100vh;
         z-index: 50;
-        position: absolute;
+        position: fixed;
     
-
-        
-
-
+        //transition: all 600ms ease-out;
         //display: flex;
         //justify-content: center;
         //align-items: center;
-    
-
 }

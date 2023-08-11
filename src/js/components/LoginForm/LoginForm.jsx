@@ -86,7 +86,7 @@ const LoginForm = () => {
     return (
         <form onSubmit={handleSubmit} className='login-form'>
 
-            <div className='login-form__input login-form__input--first'>
+            <div className='login-form__input '>
                 <InputField
                 label='CUIL' 
                 name='cuil'

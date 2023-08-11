@@ -1,7 +1,8 @@
 .input-field {
     display: flex;
     flex-direction: column;
-
+    margin-left: auto;
+    font-size: 2rem;
 
     &:focus-within {
         .input-field__label {
@@ -10,11 +11,6 @@
     }
 
     &__label {
-        display: flex;
-        flex-direction: column;
-        
-        //margin-bottom: 1rem;
-        font-size: 2rem;
         color: $color-grey-dark;
         
         &--error {
@@ -29,7 +25,9 @@
         height: 4rem;
         border: 0px;
         border-bottom: 1px solid $color-grey-dark;
+        //padding: .5rem 3rem;
         outline: none;
+        
         
 
         &:focus {
@@ -54,7 +52,8 @@
         color: $color-red;
         font-size: 1.5rem;
         margin-top: 1rem;
-        text-overflow:ellipsis;
+        width: 30rem;
+        text-overflow: ellipsis;
     }
 
 

@@ -2,6 +2,8 @@
 import SelectField from "../SelectField/SelectField"
 import Autocomplete from "../Autocomplete/Autocomplete";
 import CuposModal from "./CuposModal";
+import SeleccionSedes from "./SeleccionSedes";
+
 // hooks
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
@@ -164,43 +166,14 @@ const SedesFeriaForm = (props) => {
     }
 
     return (
-        <>
+        <div className="sedes-feria-form">
             {showModal && <CuposModal getCupos={(idSede) => getCupos(idSede)} getSede={() => getSede(selectedSede)} cerrarModal={cerrarModal} confirmarCupo={confirmarCupo}/>}
-            <h2>Sedes seleccionadas</h2>
-            {formValues.establecimientos.length === 0 ? (<p> No hay sedes cargadas </p>) : (<div>
-                <table className="table">
-                    <thead className="headBg">
-                        <tr>
-                            <th scope="col">Establecimiento</th>
-                            <th scope="col">CUE</th>
-                            <th scope="col">Cupos</th>
-                            <th scope="col">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {formValues.establecimientos && formValues.establecimientos.map((item, index) => {
-                        return (
-                            <tr key={index}>
-                                <td>{item.nombre} </td> 
-                                <td>{item.cue} </td> 
-                                <td> 
-                                    <button onClick={(e) => handleCupos(e, item.nombre)}>
-                                        Cupos
-                                    </button>
-                                </td> 
-                                <td>
-                                    <button onClick={(e) => handleDelete(e, item.nombre)}>
-                                        Borrar
-                                    </button>
-                                </td>
-                            </tr>
-                        )
-                        })}
-                    </tbody>
-                </table>
-            </div>)}
-            <h2>Datos de la Sede</h2>
-            <div className='edit-project-form__input'>
+            <SeleccionSedes  handleCupos={handleCupos} handleDelete={handleDelete} establecimientos={formValues.establecimientos} />
+
+
+
+            <h2 className='sedes-feria-form__title'>Seleccionar Sede: </h2>
+            <div className='sedes-feria-form__input'>
                 <SelectField
                     label='Deparamento: ' 
                     name='departamento'
@@ -212,7 +185,7 @@ const SedesFeriaForm = (props) => {
                     required={true}
                 />
             </div>
-            <div className='edit-project-form__input'>
+            <div className='sedes-feria-form__input'>
                 <SelectField
                     label='Localidad: ' 
                     name='localidad'
@@ -225,7 +198,7 @@ const SedesFeriaForm = (props) => {
                     disabled={!formValues.departamento}
                 />
             </div>
-            <div className='edit-project-form__input'>
+            <div className='sedes-feria-form__input'>
                 <Autocomplete 
                     results={results} 
                     onChange={handleFilter} 
@@ -235,7 +208,7 @@ const SedesFeriaForm = (props) => {
                     renderItem={(item) => <p> {item.nombre} </p>}
                 />
             </div>
-        </>
+        </div>
     )
 }
 

@@ -165,8 +165,8 @@ const CrearFeriaForm = () => {
     }
 
     return (
-        <form className='edit-project-form'>
-            <h2 className='edit-project-form__title'> Registrar Feria de Ciencias y Tecnologia </h2>
+        <form className='crear-feria-form'>
+            <h2 className='crear-feria-form__title'> Registrar Feria de Ciencias y Tecnologia </h2>
             {etapaActual === ETAPAS.Datos && <DatosFeriaForm
                 handleChange={handleChange}
                 handleFileChange={handleFileChange}
@@ -205,7 +205,7 @@ const CrearFeriaForm = () => {
                 setFormValues={setFormValues}
                 errors={errors}
             />}
-            <div className='edit-project-form__button'>
+            <div className='crear-feria-form__button'>
                 <Button 
                     text='Volver' 
                     onClickHandler={handleVolver}
