@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
-const FileField = ({ value, label, name, onChange, onBlur, errors, required = false }) => {
+const FileField = ({ value, label, name, onChange, onBlur, errors, accept, required = false }) => {
 
     const [fileName, setFileName] = useState("")
     const modifier = !fileName ? "" : errors.error ? "--error" :"--loaded"
@@ -28,7 +28,7 @@ const FileField = ({ value, label, name, onChange, onBlur, errors, required = fa
             <input
                 className='file-field__select'
                 type="file"
-                accept='.pdf'
+                accept={accept}
                 name={name}
                 onChange={onChangeHandler}
                 onBlur={onBlur}

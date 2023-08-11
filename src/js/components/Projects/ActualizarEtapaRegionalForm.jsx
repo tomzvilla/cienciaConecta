@@ -40,6 +40,7 @@ const ActualizarEtapaRegionalForm = (props) => {
                     onChange={handleFileChange}
                     onBlur={onBlurField}
                     errors={errors.carpetaCampo}
+                    accept={'.pdf'}
                     required={true}
                 />
             </div>
@@ -50,6 +51,7 @@ const ActualizarEtapaRegionalForm = (props) => {
                     onChange={handleFileChange}
                     onBlur={onBlurField}
                     errors={errors.informeTrabajo}
+                    accept={'.pdf'}
                     required={true}
                 />
             </div>
@@ -60,6 +62,7 @@ const ActualizarEtapaRegionalForm = (props) => {
                     onChange={handleFileChange}
                     onBlur={onBlurField}
                     errors={errors.registroPedagogico}
+                    accept={'.pdf'}
                     required={true}
                 />
             </div>
@@ -70,6 +73,7 @@ const ActualizarEtapaRegionalForm = (props) => {
                     onChange={handleFileChange}
                     onBlur={onBlurField}
                     errors={errors.autorizacionImagen}
+                    accept={'.pdf'}
                     required={true}
                 />
             </div>

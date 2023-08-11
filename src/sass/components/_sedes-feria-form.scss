@@ -1,0 +1,26 @@
+.sedes-feria-form {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    padding: 0 6rem;
+
+    &__title {
+        padding-top: 3rem;
+        font-size: 3.5rem;
+        align-self: flex-start;
+        
+        
+
+
+    }
+
+
+
+
+    &__input {
+        padding-top: 1rem;
+        width: 90%;
+        
+    }
+
+}

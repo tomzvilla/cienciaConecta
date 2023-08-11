@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-const useAxiosFetch = (url, axios) => {
+const useAxiosFetch = (url, axios, disabled = false) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -21,11 +21,11 @@ const useAxiosFetch = (url, axios) => {
         }
       }
     };
-    fetchData();
+    if(!disabled) fetchData();
     return () => {
       mounted = false;
     };
-  },[]);
+  },[url]);
 
   return { data, isLoading, error };
 };

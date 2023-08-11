@@ -2,7 +2,7 @@
 import Button  from '../Button/Button'
 import InputField from '../InputField/InputField'
 import LoginFormLink from '../LoginFormLink/LoginFormLink'
-
+import ModalHeader from '../Modal/ModalHeader'
 // hooks
 import { useState } from 'react'
 import { useFormValidator } from '../../hooks/useFormValidator'
@@ -11,6 +11,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 
 import axios from '../../../api/axios'
 import Swal from 'sweetalert2'
+
 
 
 const LOGIN_URL = '/auth/login'
@@ -90,9 +91,8 @@ const LoginForm = () => {
 
     return (
         <form onSubmit={handleSubmit} className='login-form'>
-            {/* <h2 className='login-form__title'> Iniciar Sesión </h2> */}
 
-            <div className='login-form__input login-form__input--first'>
+            <div className='login-form__input '>
                 <InputField
                 label='CUIL' 
                 name='cuil'
