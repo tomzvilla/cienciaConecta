@@ -102,17 +102,53 @@ const CrearFeriaForm = () => {
         }
     }
 
+    // convertir fecha a la timezone 
+
+    const dateWithTimezone = (date) => {
+        let offsetUTC = date.getTimezoneOffset()
+        date.setMinutes(date.getMinutes() - offsetUTC)
+        console.log(date.toISOString())
+        offsetUTC = {
+            // positive sign unless offset is at least -00:30 minutes:
+            "s": offsetUTC < 30 ? '+' : '-',
+            // local time offset in unsigned hours:
+            "h": Math.floor(Math.abs(offsetUTC) / 60),
+            // local time offset minutes in unsigned integers:
+            "m": ~~Math.abs(offsetUTC) % 60
+        };
+        offsetUTC = offsetUTC.s + // explicit offset sign
+            // unsigned hours in HH, dividing colon:
+            ('0'+Math.abs(offsetUTC.h)+':').slice(-3) +
+            // minutes are represented as either 00 or 30:
+            ('0'+(offsetUTC.m < 30 ? 0 : 30)).slice(-2);
+        
+        return date.toISOString().replace('Z', offsetUTC)
+    }
+
+    const dateWithGMT3 = (date) => {
+        let nuevaFecha = date.toISOString().slice(0,22)
+        let zonaHoraria = "-03:00"
+        return nuevaFecha + zonaHoraria
+    }
+
     const handleDateChange = (e) => {
         const {name, value} = e.target
+        console.log(value)
         let fecha = new Date(value)
+        
         if(name.includes('Fin')) {
-            fecha.setHours(23,59,59)
+            fecha.setHours(44,59,59,59)
+        } else {
+            console.log(fecha)
+            // fecha.setHours(0,0,0,0)
         }
+        console.log(dateWithGMT3(fecha))
         const nextFormValueState = {
             ...formValues,
-            [name]: fecha.toISOString()
+            [name]: dateWithGMT3(fecha)
         }
         setFormValues(nextFormValueState)
+        console.log(fecha)
         if (errors[name].dirty) {
             validateForm({form: nextFormValueState, errors, name})
         }
