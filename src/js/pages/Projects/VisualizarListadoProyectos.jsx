@@ -1,5 +1,5 @@
 // Components
-import Table from "../../components/Table/Table"
+import TableCard from "../../components/Table/TableCard"
 import Spinner from "../../components/Spinner/Spinner"
 
 // Hooks
@@ -16,11 +16,13 @@ const headers = [
 
 const VisualizarListadoProyectos = () => {
     const axiosPrivate = useAxiosPrivate()
+
     const {data, isLoading} = useAxiosFetch('/proyecto/misProyectos', axiosPrivate)
     const {data: categories} = useAxiosFetch('/categoria', axiosPrivate)
     const {data: levels} = useAxiosFetch('/nivel', axiosPrivate)
     let proyectos = []
     if(data && categories && levels)
+
       proyectos = data.proyectos.map(obj => {
         const category = categories.categoria.find(element => element._id === obj.categoria)
         const level = levels.nivel.find(element => element._id === obj.nivel)
@@ -30,12 +32,16 @@ const VisualizarListadoProyectos = () => {
           return null
         }
       }).filter(project => project !== null)
-      console.log(data)
+
+    }
+
 
     return (
       <>
           {/* <Navbar/> */}
-          {isLoading ? (<Spinner />) : proyectos.length === 0 ? (<p>El usuario no tiene proyectos</p>) : (<Table headers={headers} data={proyectos} viewPath={'/projects'} editPath={'/editProjects'} />)}
+
+          {isLoading ? (<Spinner />) : proyectos.length === 0 ? (<p>El usuario no tiene proyectos</p>) : (<TableCard title="Mis Proyectos" headers={headers} data={proyectos} viewPath={'/projects'} editPath={'/editProjects'} />)}
+
           
   
       {/* <Footer/> */}

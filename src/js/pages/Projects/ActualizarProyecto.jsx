@@ -12,6 +12,7 @@ const ActualizarProyecto = () => {
     const { id } = useParams()
     const { data } = useAxiosFetch(`/proyecto/${id}`, axiosPrivate)
 
+
     return (
         <div>
             {!data ? <Spinner/> : <ActualizarProyectoForm formData={data.proyecto}/>}

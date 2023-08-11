@@ -1,0 +1,20 @@
+.table-body-row {
+    border-bottom: 1px solid black;
+
+
+    &__td {
+        font-size: 2rem;
+        text-align: center;
+        color: $color-grey-dark;
+        padding: 2rem 0rem;
+        
+
+        &--actions {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        
+    }
+
+}

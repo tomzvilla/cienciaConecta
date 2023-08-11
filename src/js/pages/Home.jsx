@@ -2,9 +2,9 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 import Navbar from "../components/Navbar/Navbar"
-import HeroContent from "../components/HeroContent/HeroContent"
-import HeroImage from "../components/HeroImage/HeroImage"
-import ComoEmpiezo from '../components/ComoEmpiezo/ComoEmpiezo'
+import HeroContent from "../components/Home/HeroContent"
+import HeroImage from "../components/Home/HeroImage"
+import ComoEmpiezo from '../components/Home/ComoEmpiezo'
 import Footer from "../components/Footer/Footer"
 import { useState } from "react"
 import Modal from '../components/Modal/Modal'
@@ -23,7 +23,6 @@ const Home = () => {
     const closeModal = () => {
         setIsOpen(false)
     }
-
   return (
     <>
       {modalIsOpen ? <Modal title="Iniciar Sesión" component={<LoginForm />} setIsOpen={closeModal} /> : ""}

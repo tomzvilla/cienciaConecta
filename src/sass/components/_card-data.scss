@@ -1,0 +1,23 @@
+.card-data {
+    font-weight: 400;
+    color: $color-grey-dark;
+    width: 90%;
+
+    border-bottom: 1px solid $color-grey-dark;
+    padding: .5rem 0rem;
+    margin-bottom: 1rem;
+
+
+    &__title {
+        font-size: 2rem;
+        margin-bottom: .5rem;
+
+    }
+
+    &__value {
+        font-size: 2rem;
+        
+    }
+  
+
+}

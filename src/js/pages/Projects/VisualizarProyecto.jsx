@@ -29,6 +29,7 @@ const VisualizarProyecto = () => {
 
         project = {
             ...data.proyecto, 
+
             categoria: category.nombre,
             nivel: level.nombre, 
         }

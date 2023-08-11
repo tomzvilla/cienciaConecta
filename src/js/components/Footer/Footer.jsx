@@ -1,6 +1,6 @@
-import FooterLinks from "../FooterLinks/FooterLinks";
-import FooterImagenes from "../FooterImagenes/FooterImagenes";
-import FooterRedes from "../FooterRedes/FooterRedes";
+import FooterLinks from "./FooterLinks";
+import FooterImagenes from "./FooterImagenes";
+import FooterRedes from "./FooterRedes";
 
 const linksip = [ {"titulo":"Gestión Abierta", "link":"https://gestionabierta.cba.gov.ar/"}, 
                     {"titulo": "Portal de Transparencia", "link": "https://transparencia.cba.gov.ar/"},

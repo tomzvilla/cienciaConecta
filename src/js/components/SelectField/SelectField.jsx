@@ -20,7 +20,9 @@ const SelectField = ({ value, label, name, onChange, onBlur, errors, dataValues,
             disabled={disabled}
         >
             {dataValues?.map((el) => {
-              return (<option className={`select-field__option select-field__option${modifier}`} key={el._id} value={el._id}>{el.nombre}</option>)
+
+            return (<option className={`select-field__option select-field__option${modifier}`} key={el._id} value={el._id}>{el.nombre}</option>)
+
             })}
             
         </select>

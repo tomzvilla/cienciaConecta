@@ -4,9 +4,15 @@
     flex-direction: row;
     padding:  2rem 0 ;
     z-index: 10;
+    background-color: $color-primary;
+
+    &--home {
+        position: absolute;
+        background-color: transparent;
+    }
 
     // o fixeD?
-    position: absolute;
+    
     
 
     &__logo {

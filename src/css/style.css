@@ -115,6 +115,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   border: 0px;
   border-bottom: 1px solid #757575;
   outline: none;
+  color: #757575;
 }
 .input-field__input:focus {
   border-bottom: 2px solid #00ACE6;
@@ -169,7 +170,11 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   flex-direction: row;
   padding: 2rem 0;
   z-index: 10;
+  background-color: #00ACE6;
+}
+.navbar--home {
   position: absolute;
+  background-color: transparent;
 }
 .navbar__logo {
   margin-left: 5rem;
@@ -397,6 +402,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   flex-direction: column;
   font-size: 2rem;
   color: #757575;
+
 }
 .select-field--error {
   color: #E63B0B;
@@ -431,6 +437,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   font-size: 2rem;
   padding-left: 0.5rem;
 }
+
 .select-field__error {
   color: #E63B0B;
   font-size: 1.5rem;
@@ -613,27 +620,28 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 
 .signup {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #96CADC;
+  background-color: #ffffff;
   font-size: 1em;
 }
-.signup__form {
-  min-width: 450px;
-  min-height: 450px;
-  padding: 1.5em;
-  margin: auto;
-  background-color: #FFF;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 2px 4px 15px 0px rgba(0, 0, 0, 0.52);
+.signup__navbar {
+  width: 100%;
+  align-self: flex-start;
+  margin-bottom: 0rem;
+  top: 0;
 }
 .signup__title {
-  margin-bottom: 2em;
-  font-size: 42px;
-  text-align: center;
+  font-size: 4rem;
+  text-align: left;
   font-weight: 500;
+  align-self: flex-start;
+}
+.signup__text {
+  font-size: 2.5rem;
+  align-self: flex-start;
 }
 
 .home {
