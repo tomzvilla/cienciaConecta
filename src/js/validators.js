@@ -106,7 +106,7 @@ export const titleValidator = (title) => {
 
 export const descriptionValidator = (description) => {
   if (!description) {
-    return "Debe ingresar una descripción para el proyecto";
+    return "Debe ingresar una descripción";
   } else if (description.length > 500) {
     return "La descripción debe ser inferior a 500 caracteres"
   }
@@ -152,11 +152,14 @@ export const urlValidator = (url) => {
   return "";
 };
 
-export const fileValidator = (file, form, msg) => {
+export const fileValidator = (file, msg, format) => {
+  let formato = '*'
+  if(format === 'PDF') formato = 'application/pdf'
+  else if(format === 'imágen') formato = 'image/'
   if (!file) {
     return "Tenés que subir " + msg; 
-  } else if (file.type !== 'application/pdf'){
-    return "El archivo se debe subir en PDF"
+  } else if (!file.type?.startsWith(formato)){
+    return "El archivo se debe subir en formato " + format 
   }
   else if (file.size > 10240000) { // 10 MB
     return "El tamaño del archivo debe ser menor a 10 MB"
@@ -178,5 +181,46 @@ export const groupValidator = (group) => {
   return "";
 };
 
+export const nombreFeriaValidator = (nombreFeria) => {
+  if (!nombreFeria) {
+    return "El nombre de la feria debe estar definido";
+  } else if (nombreFeria.length > 100) {
+    return "El nombre de la feria no puede contener mas de 100 caracteres"
+  }
+  return "";
+};
+
+export const dateValidator = (fechaAnterior, fechaPosterior, fechaFinal='') => {
+  if (!fechaPosterior || !fechaAnterior || fechaAnterior.fecha === '' || fechaPosterior.fecha === '') {
+    return "Debe ingresar una fecha";
+  } else if (fechaAnterior.fecha > fechaPosterior.fecha) {
+    return `La fecha ${fechaPosterior.nombre} debe ser posterior a la fecha ${fechaAnterior.nombre} `
+  } else if (fechaFinal !== '' & fechaPosterior.fecha > fechaFinal.fecha ) {
+    return `La fecha ${fechaPosterior.nombre} debe ser anterior a la fecha ${fechaFinal.nombre} `
+  }
+  return "";
+};
+
+export const criterioValidator = (nombreCriterio) => {
+  if (!nombreCriterio) {
+    return "El nombre del criterio debe estar definido";
+  }
+  return "";
+};
+
+export const rubricaValidator = (nombreRubrica) => {
+  if (!nombreRubrica) {
+    return "El nombre de la rúbrica debe estar definido";
+  }
+  return "";
+};
 
 
+export const ponderacionValidator = (ponderacion) => {
+  if (!ponderacion) {
+    return "Se debe ingresar una ponderación";
+  } else if(parseInt(ponderacion) > 1 || parseInt(ponderacion) < 0) {
+    return "La ponderación debe estar entre 0 y 1"
+  }
+  return "";
+};

@@ -22,6 +22,11 @@ import {
     fileValidator,
     sedeValidator,
     groupValidator,
+    nombreFeriaValidator,
+    dateValidator,
+    rubricaValidator,
+    ponderacionValidator,
+    criterioValidator,
 } from '../validators'
 
 const touchErrors = (errors, fieldsToExclude) => {
@@ -79,7 +84,41 @@ export const useFormValidator = (form) => {
             nextErrors = touchErrors(errors, fieldsToExclude);
         }
 
-        const { email, password, name, lastname, dni, cuil, position, phoneNumber, cue, title, description, schoolName, schoolEmail, schoolCue, category, level, privateSchool, videoPresentacion, carpetaCampo, informeTrabajo, registroPedagogico, autorizacionImagen, sede, grupoProyecto} = form;
+        const { email, 
+            password, 
+            name, 
+            lastname, 
+            dni, 
+            cuil, 
+            position, 
+            phoneNumber, 
+            cue,
+            title, 
+            description, 
+            schoolName, 
+            schoolEmail, 
+            schoolCue, 
+            category, 
+            level, 
+            privateSchool, 
+            videoPresentacion, 
+            carpetaCampo, 
+            informeTrabajo,
+            registroPedagogico, 
+            autorizacionImagen,
+            sede, 
+            grupoProyecto, 
+            nombreFeria, 
+            descripcionFeria, 
+            logo, 
+            fechaInicioFeria, 
+            fechaFinFeria, 
+            fechaInicioInstanciaEscolar,
+            fechaFinInstanciaEscolar,
+            nombreRubrica,
+            nombreCriterio,
+            ponderacion,
+        } = form;
 
         if (nextErrors.email?.dirty && (field ? field === "email" || field === 'schoolEmail' : true)) {
             const emailMessage = emailValidator(email, form);
@@ -208,14 +247,14 @@ export const useFormValidator = (form) => {
         }
 
         if (nextErrors.carpetaCampo?.dirty && (field ? field === "carpetaCampo" : true)) {
-            const carpetaCampoMessage = fileValidator(carpetaCampo, form, " la carpeta de campo");
+            const carpetaCampoMessage = fileValidator(carpetaCampo, " la carpeta de campo", 'PDF', form);
             nextErrors.carpetaCampo.error = !!carpetaCampoMessage;
             nextErrors.carpetaCampo.message = carpetaCampoMessage;
             if (!!carpetaCampoMessage) isValid = false;
         }
 
         if (nextErrors.informeTrabajo?.dirty && (field ? field === "informeTrabajo" : true)) {
-            const informeTrabajoMessage = fileValidator(informeTrabajo, form, " el informe de trabajo");
+            const informeTrabajoMessage = fileValidator(informeTrabajo, " el informe de trabajo",'PDF', form);
             nextErrors.informeTrabajo.error = !!informeTrabajoMessage;
             nextErrors.informeTrabajo.message = informeTrabajoMessage;
             if (!!informeTrabajoMessage) isValid = false;
@@ -223,14 +262,14 @@ export const useFormValidator = (form) => {
         }
 
         if (nextErrors.registroPedagogico?.dirty && (field ? field === "registroPedagogico" : true)) {
-            const registroPedagogicoMessage = fileValidator(registroPedagogico, form, " el registro pedagógico");
+            const registroPedagogicoMessage = fileValidator(registroPedagogico, " el registro pedagógico", 'PDF', form);
             nextErrors.registroPedagogico.error = !!registroPedagogicoMessage;
             nextErrors.registroPedagogico.message = registroPedagogicoMessage;
             if (!!registroPedagogicoMessage) isValid = false;
         }
 
         if (nextErrors.autorizacionImagen?.dirty && (field ? field === "autorizacionImagen" : true)) {
-            const autorizacionImagenMessage = fileValidator(autorizacionImagen, form, " la autorización de uso de imágen");
+            const autorizacionImagenMessage = fileValidator(autorizacionImagen, " la autorización de uso de imágen", 'PDF', form);
             nextErrors.autorizacionImagen.error = !!autorizacionImagenMessage;
             nextErrors.autorizacionImagen.message = autorizacionImagenMessage;
             if (!!autorizacionImagenMessage) isValid = false;
@@ -248,6 +287,159 @@ export const useFormValidator = (form) => {
             nextErrors.grupoProyecto.error = !!grupoProyectoMessage;
             nextErrors.grupoProyecto.message = grupoProyectoMessage;
             if (!!grupoProyectoMessage) isValid = false;
+        }
+
+        if (nextErrors.nombreFeria?.dirty && (field ? field === "nombreFeria" : true)) {
+            const nombreFeriaMessage = nombreFeriaValidator(nombreFeria, form);
+            nextErrors.nombreFeria.error = !!nombreFeriaMessage;
+            nextErrors.nombreFeria.message = nombreFeriaMessage;
+            if (!!nombreFeriaMessage) isValid = false;
+        }
+
+        if (nextErrors.nombreRubrica?.dirty && (field ? field === "nombreRubrica" : true)) {
+            const nombreRubricaMessage = rubricaValidator(nombreRubrica, form);
+            nextErrors.nombreRubrica.error = !!nombreRubricaMessage;
+            nextErrors.nombreRubrica.message = nombreRubricaMessage;
+            if (!!nombreRubricaMessage) isValid = false;
+        }
+
+        if (nextErrors.descripcionFeria?.dirty && (field ? field === "descripcionFeria" : true)) {
+            const descripcionFeriaMessage = descriptionValidator(descripcionFeria, form);
+            nextErrors.descripcionFeria.error = !!descripcionFeriaMessage;
+            nextErrors.descripcionFeria.message = descripcionFeriaMessage;
+            if (!!descripcionFeriaMessage) isValid = false;
+        }
+
+        if (nextErrors.logo?.dirty && (field ? field === "logo" : true)) {
+            const logoMessage = fileValidator(logo, " el logo de la feria", 'imágen', form);
+            nextErrors.logo.error = !!logoMessage;
+            nextErrors.logo.message = logoMessage;
+            if (!!logoMessage) isValid = false;
+        }
+
+        // formatear la fecha
+        const fecha = new Date()
+        const fechaActual = `${fecha.getFullYear()}-${String(fecha.getMonth() + 1).padStart(2, '0')}-${String(fecha.getDate()).padStart(2, '0')}`
+
+        if (nextErrors.fechaInicioFeria?.dirty && (field ? field === "fechaInicioFeria" : true)) {
+            const fechaInicioFeriaMessage = dateValidator( {fecha: fechaActual, nombre: 'actual'}, {fecha: fechaInicioFeria, nombre: 'Inicio de la feria'}, form);
+            nextErrors.fechaInicioFeria.error = !!fechaInicioFeriaMessage;
+            nextErrors.fechaInicioFeria.message = fechaInicioFeriaMessage;
+            if (!!fechaInicioFeriaMessage) isValid = false;
+        }
+
+        if (nextErrors.fechaFinFeria?.dirty && (field ? field === "fechaFinFeria" : true)) {
+            const fechaFinFeriaMessage = dateValidator({fecha: fechaInicioFeria, nombre: 'Inicio de la feria'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'}, form);
+            nextErrors.fechaFinFeria.error = !!fechaFinFeriaMessage;
+            nextErrors.fechaFinFeria.message = fechaFinFeriaMessage;
+            if (!!fechaFinFeriaMessage) isValid = false;
+        }
+
+        if (nextErrors.fechaInicioInstanciaEscolar?.dirty && (field ? field === "fechaInicioInstanciaEscolar" : true)) {
+            const fechaInicioInstanciaEscolarMessage = dateValidator({fecha: fechaInicioFeria, nombre: 'Inicio de la feria'}, {fecha: fechaInicioInstanciaEscolar, nombre: 'Inicio instancia escolar'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'}, form);
+            nextErrors.fechaInicioInstanciaEscolar.error = !!fechaInicioInstanciaEscolarMessage;
+            nextErrors.fechaInicioInstanciaEscolar.message = fechaInicioInstanciaEscolarMessage;
+            if (!!fechaInicioInstanciaEscolarMessage) isValid = false;
+        }
+
+        if (nextErrors.fechaFinInstanciaEscolar?.dirty && (field ? field === "fechaFinInstanciaEscolar" : true)) {
+            const fechaFinInstanciaEscolarMessage = dateValidator({fecha: fechaInicioInstanciaEscolar, nombre: 'Inicio instancia escolar'}, {fecha: fechaFinInstanciaEscolar, nombre: 'Fin instancia escolar'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'}, form);
+            nextErrors.fechaFinInstanciaEscolar.error = !!fechaFinInstanciaEscolarMessage;
+            nextErrors.fechaFinInstanciaEscolar.message = fechaFinInstanciaEscolarMessage;
+            if (!!fechaFinInstanciaEscolarMessage) isValid = false;
+        }
+
+        if (nextErrors.fechaInicioEvaluacionRegional?.dirty && (field ? field === "fechaInicioEvaluacionRegional" : true)) {
+            const fechaInicioEvaluacionRegionalMessage = dateValidator({fecha: form.fechaFinInstanciaEscolar, nombre: 'Fin instancia escolar'}, {fecha:form.fechaInicioEvaluacionRegional, nombre: 'Inicio evaluación regional'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            nextErrors.fechaInicioEvaluacionRegional.error = !!fechaInicioEvaluacionRegionalMessage;
+            nextErrors.fechaInicioEvaluacionRegional.message = fechaInicioEvaluacionRegionalMessage;
+            if (!!fechaInicioEvaluacionRegionalMessage) isValid = false;
+        }
+
+        if (nextErrors.fechaFinEvaluacionRegional?.dirty && (field ? field === "fechaFinEvaluacionRegional" : true)) {
+            const fechaFinEvaluacionRegionalMessage = dateValidator({fecha:form.fechaInicioEvaluacionRegional, nombre: 'Inicio evaluación regional'}, {fecha:form.fechaFinEvaluacionRegional, nombre: 'Fin evaluación regional'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            nextErrors.fechaFinEvaluacionRegional.error = !!fechaFinEvaluacionRegionalMessage;
+            nextErrors.fechaFinEvaluacionRegional.message = fechaFinEvaluacionRegionalMessage;
+            if (!!fechaFinEvaluacionRegionalMessage) isValid = false;
+        }
+
+        if (nextErrors.fechaInicioExposicionRegional?.dirty && (field ? field === "fechaInicioExposicionRegional" : true)) {
+            const fechaInicioExposicionRegionalMessage = dateValidator({fecha:form.fechaFinEvaluacionRegional, nombre: 'Fin evaluación regional'}, {fecha:form.fechaInicioExposicionRegional, nombre: 'Inicio exposición regional'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            nextErrors.fechaInicioExposicionRegional.error = !!fechaInicioExposicionRegionalMessage;
+            nextErrors.fechaInicioExposicionRegional.message = fechaInicioExposicionRegionalMessage;
+            if (!!fechaInicioExposicionRegionalMessage) isValid = false;
+        }
+
+        if (nextErrors.fechaFinExposicionRegional?.dirty && (field ? field === "fechaFinExposicionRegional" : true)) {
+            const fechaFinExposicionRegionalMessage = dateValidator({fecha:form.fechaInicioExposicionRegional, nombre: 'Inicio exposición regional'}, {fecha:form.fechaFinExposicionRegional, nombre: 'Fin exposición regional'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            nextErrors.fechaFinExposicionRegional.error = !!fechaFinExposicionRegionalMessage;
+            nextErrors.fechaFinExposicionRegional.message = fechaFinExposicionRegionalMessage;
+            if (!!fechaFinExposicionRegionalMessage) isValid = false;
+        }
+
+        if (nextErrors.fechaInicioEvaluacionProvincial?.dirty && (field ? field === "fechaInicioEvaluacionProvincial" : true)) {
+            const fechaInicioEvaluacionProvincialMessage = dateValidator({fecha:form.fechaFinExposicionRegional, nombre: 'Fin exposición regional'}, {fecha:form.fechaInicioEvaluacionProvincial, nombre: 'Inicio evaluación provincial'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            nextErrors.fechaInicioEvaluacionProvincial.error = !!fechaInicioEvaluacionProvincialMessage;
+            nextErrors.fechaInicioEvaluacionProvincial.message = fechaInicioEvaluacionProvincialMessage;
+            if (!!fechaInicioEvaluacionProvincialMessage) isValid = false;
+        }
+
+        if (nextErrors.fechaFinEvaluacionProvincial?.dirty && (field ? field === "fechaFinEvaluacionProvincial" : true)) {
+            const fechaFinEvaluacionProvincialMessage = dateValidator({fecha:form.fechaInicioEvaluacionProvincial, nombre: 'Inicio evaluación provincial'}, {fecha:form.fechaFinEvaluacionProvincial, nombre: 'Fin evaluación provincial'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            nextErrors.fechaFinEvaluacionProvincial.error = !!fechaFinEvaluacionProvincialMessage;
+            nextErrors.fechaFinEvaluacionProvincial.message = fechaFinEvaluacionProvincialMessage;
+            if (!!fechaFinEvaluacionProvincialMessage) isValid = false;
+        }
+
+        if (nextErrors.fechaInicioPostulacionEvaluadores?.dirty && (field ? field === "fechaInicioPostulacionEvaluadores" : true)) {
+            const fechaInicioPostulacionEvaluadoresMessage = dateValidator({fecha:form.fechaInicioPostulacionEvaluadores, nombre: 'Inicio postulación de evaluadores'},{fecha:form.fechaInicioEvaluacionRegional, nombre: 'Inicio evaluación regional'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            nextErrors.fechaInicioPostulacionEvaluadores.error = !!fechaInicioPostulacionEvaluadoresMessage;
+            nextErrors.fechaInicioPostulacionEvaluadores.message = fechaInicioPostulacionEvaluadoresMessage;
+            if (!!fechaInicioPostulacionEvaluadoresMessage) isValid = false;
+        }
+
+        if (nextErrors.fechaFinPostulacionEvaluadores?.dirty && (field ? field === "fechaFinPostulacionEvaluadores" : true)) {
+            let fechaFinPostulacionEvaluadoresMessage = dateValidator({fecha:form.fechaInicioPostulacionEvaluadores, nombre: 'Inicio postulación de evaluadores'}, {fecha:form.fechaFinPostulacionEvaluadores, nombre: 'Fin postulación de evaluadores'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            if(fechaFinPostulacionEvaluadoresMessage === ""){
+                fechaFinPostulacionEvaluadoresMessage = dateValidator({fecha:form.fechaFinPostulacionEvaluadores, nombre: 'Fin postulación de evaluadores'}, {fecha:form.fechaInicioEvaluacionRegional, nombre: 'Inicio evaluación regional'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            }
+            nextErrors.fechaFinPostulacionEvaluadores.error = !!fechaFinPostulacionEvaluadoresMessage;
+            nextErrors.fechaFinPostulacionEvaluadores.message = fechaFinPostulacionEvaluadoresMessage;
+            if (!!fechaFinPostulacionEvaluadoresMessage) isValid = false;
+        }
+
+        if (nextErrors.fechaInicioAsignacionProyectos?.dirty && (field ? field === "fechaInicioAsignacionProyectos" : true)) {
+            let fechaInicioAsignacionProyectosMessage = dateValidator({fecha:form.fechaFinPostulacionEvaluadores, nombre: 'Fin postulación de evaluadores'}, {fecha:form.fechaInicioAsignacionProyectos, nombre: 'Inicio asignación de proyectos'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            if(fechaInicioAsignacionProyectosMessage === ""){
+                fechaInicioAsignacionProyectosMessage = dateValidator({fecha:form.fechaInicioAsignacionProyectos, nombre: 'Inicio asignación de proyectos'}, {fecha:form.fechaInicioEvaluacionRegional, nombre: 'Inicio evaluación regional'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            }
+            nextErrors.fechaInicioAsignacionProyectos.error = !!fechaInicioAsignacionProyectosMessage;
+            nextErrors.fechaInicioAsignacionProyectos.message = fechaInicioAsignacionProyectosMessage;
+            if (!!fechaInicioAsignacionProyectosMessage) isValid = false;
+        }
+
+        if (nextErrors.fechaFinAsignacionProyectos?.dirty && (field ? field === "fechaFinAsignacionProyectos" : true)) {
+            let fechaFinAsignacionProyectosMessage = dateValidator({fecha:form.fechaInicioAsignacionProyectos, nombre: 'Inicio asignación de proyectos'}, {fecha:form.fechaFinAsignacionProyectos, nombre: 'Fin asignación de proyectos'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            if(fechaFinAsignacionProyectosMessage === ""){
+                fechaFinAsignacionProyectosMessage = dateValidator({fecha:form.fechaFinAsignacionProyectos, nombre: 'Fin asignación de proyectos'}, {fecha:form.fechaInicioEvaluacionRegional, nombre: 'Inicio evaluación regional'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            }
+            nextErrors.fechaFinAsignacionProyectos.error = !!fechaFinAsignacionProyectosMessage;
+            nextErrors.fechaFinAsignacionProyectos.message = fechaFinAsignacionProyectosMessage;
+            if (!!fechaFinAsignacionProyectosMessage) isValid = false;
+        }
+
+        if (nextErrors.nombreCriterio?.dirty && (field ? field === "nombreCriterio" : true)) {
+            const nombreCriterioMessage = criterioValidator(nombreCriterio, form);
+            nextErrors.nombreCriterio.error = !!nombreCriterioMessage;
+            nextErrors.nombreCriterio.message = nombreCriterioMessage;
+            if (!!nombreCriterioMessage) isValid = false;
+        }
+
+        if (nextErrors.ponderacion?.dirty && (field ? field === "ponderacion" : true)) {
+            const ponderacionMessage = ponderacionValidator(ponderacion, form);
+            nextErrors.ponderacion.error = !!ponderacionMessage;
+            nextErrors.ponderacion.message = ponderacionMessage;
+            if (!!ponderacionMessage) isValid = false;
         }
 
         setErrors(nextErrors);

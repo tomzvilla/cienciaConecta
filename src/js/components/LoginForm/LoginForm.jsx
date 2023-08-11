@@ -12,6 +12,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 
 import axios from '../../../api/axios'
 
+import ModalHeader from '../Modal/ModalHeader'
 
 
 const LOGIN_URL = '/auth/login'
@@ -84,9 +85,8 @@ const LoginForm = () => {
 
     return (
         <form onSubmit={handleSubmit} className='login-form'>
-            {/* <h2 className='login-form__title'> Iniciar Sesión </h2> */}
 
-            <div className='login-form__input login-form__input--first'>
+            <div className='login-form__input '>
                 <InputField
                 label='CUIL' 
                 name='cuil'

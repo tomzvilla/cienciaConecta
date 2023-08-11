@@ -1,20 +1,16 @@
 // Components
 
-import Footer from '../components/Footer/Footer'
-import Navbar from '../components/Navbar/Navbar'
+import { useState } from 'react'
 import LoginForm from '../components/LoginForm/LoginForm'
+import Modal from '../components/Modal/Modal'
 
 const Login = () => {
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div className='login'>
-        {/* <Navbar/> */}
-
-        <LoginForm />
-
-
-    {/* <Footer/> */}
-    </div>
+    <>
+      <Modal title="Iniciar Sesión" component={<LoginForm />} setIsOpen={setIsOpen}/>    
+    </>
   )
 }
 
