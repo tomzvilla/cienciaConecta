@@ -41,6 +41,10 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+// FIX PARA SWAL
+.swal2-popup {
+  font-size: 1.6rem !important;
+}
 
 html {
     box-sizing: border-box;

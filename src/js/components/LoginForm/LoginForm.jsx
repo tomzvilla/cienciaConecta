@@ -1,17 +1,16 @@
-// Components
+// components
 import Button  from '../Button/Button'
 import InputField from '../InputField/InputField'
 import LoginFormLink from '../LoginFormLink/LoginFormLink'
 
-
-// Other imports
+// hooks
 import { useState } from 'react'
 import { useFormValidator } from '../../hooks/useFormValidator'
 import useAuth from '../../hooks/useAuth'
 import { useNavigate, useLocation } from 'react-router-dom'
 
 import axios from '../../../api/axios'
-
+import Swal from 'sweetalert2'
 
 
 const LOGIN_URL = '/auth/login'
@@ -67,18 +66,25 @@ const LoginForm = () => {
           })
           navigate(from, { replace: true })
         } catch (err) {
+          console.log(err.response)
+          let msg = ''
           if(!err?.response){
-            console.log('El servidor no respondio')
+            msg = 'El servidor no respondió'
           } else if(err.response?.status === 403) {
-            console.log('Datos incorrectos intente nuevamente')
+            msg = 'Datos incorrectos intente nuevamente'
           } else if(err.response?.status === 401) {
-            console.log('No estas autorizado para realizar esta operacion')
+            msg = 'No estas autorizado para realizar esta operación'
           } else {
-            console.log('Fallo el logueo')
+            msg = `Falló el logueo <br> ${err.response.data.errors[0].msg}`
           }
-    
+          Swal.fire({
+            html: msg,
+            title: 'No se pudo autenticar al usuario',
+            icon: 'error',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#00ACE6',
+          })
         }
-        console.log('Se mando XD')
       }
 
 
