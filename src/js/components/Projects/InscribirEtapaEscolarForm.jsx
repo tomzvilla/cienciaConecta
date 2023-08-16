@@ -29,7 +29,7 @@ const [formValues, setFormValues] = useState({
 const axiosPrivate = useAxiosPrivate()
 const navigate = useNavigate()
 const location = useLocation()
-const from = location.state?.from?.pathname || '/dashboard'
+const from = location.state?.from?.pathname || 'dashboard'
 
 const {errors, validateForm, onBlurField} = useFormValidator(formValues)
 
@@ -98,7 +98,14 @@ const handleSubmit = async (e) => {
                         privateSchool: '',
                         schoolEmail: ''
                     })
-                    navigate(from, { replace: true })
+                    const newRoles = location.state.userRoles.roles
+                    newRoles.push('2')
+                    console.log(newRoles)
+                    location.state.setUserRoles({
+                        roles: newRoles
+                    })
+                    navigate('/dashboard', {replace: true })
+                    
                 }
             })
       }})

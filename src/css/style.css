@@ -664,6 +664,58 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   width: 4.5rem;
 }
 
+.crear-feria-form {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  margin: auto;
+  max-width: 75rem;
+  height: min-content;
+  align-items: center;
+  border-radius: 2rem;
+  padding-bottom: 2rem;
+  margin-top: 5rem;
+  justify-content: space-around;
+  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+}
+.crear-feria-form__title {
+  width: 100%;
+  font-size: 3rem;
+  font-weight: 500;
+  text-align: center;
+  background-color: #00ACE6;
+  color: #ffffff;
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+  border-radius: 2rem 2rem 2rem 0;
+}
+.crear-feria-form__input {
+  padding-top: 4rem;
+  width: 90%;
+}
+.crear-feria-form__button {
+  width: 100%;
+  display: flex;
+  padding-top: 3rem;
+  justify-content: space-around;
+}
+
+.sedes-feria-form {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  padding: 0 6rem;
+}
+.sedes-feria-form__title {
+  padding-top: 3rem;
+  font-size: 3.5rem;
+  align-self: flex-start;
+}
+.sedes-feria-form__input {
+  padding-top: 1rem;
+  width: 90%;
+}
+
 .image-button {
   width: 4rem;
   cursor: pointer;
@@ -799,58 +851,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   display: flex;
   flex-direction: column;
   align-self: center;
-}
-
-.crear-feria-form {
-  display: flex;
-  flex-direction: column;
-  background-color: #ffffff;
-  margin: auto;
-  max-width: 75rem;
-  height: min-content;
-  align-items: center;
-  border-radius: 2rem;
-  padding-bottom: 2rem;
-  margin-top: 5rem;
-  justify-content: space-around;
-  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
-}
-.crear-feria-form__title {
-  width: 100%;
-  font-size: 3rem;
-  font-weight: 500;
-  text-align: center;
-  background-color: #00ACE6;
-  color: #ffffff;
-  padding: 2rem 0;
-  margin-bottom: 2rem;
-  border-radius: 2rem 2rem 2rem 0;
-}
-.crear-feria-form__input {
-  padding-top: 4rem;
-  width: 90%;
-}
-.crear-feria-form__button {
-  width: 100%;
-  display: flex;
-  padding-top: 3rem;
-  justify-content: space-around;
-}
-
-.sedes-feria-form {
-  display: flex;
-  flex-direction: column;
-  align-self: flex-start;
-  padding: 0 6rem;
-}
-.sedes-feria-form__title {
-  padding-top: 3rem;
-  font-size: 3.5rem;
-  align-self: flex-start;
-}
-.sedes-feria-form__input {
-  padding-top: 1rem;
-  width: 90%;
 }
 
 .login {

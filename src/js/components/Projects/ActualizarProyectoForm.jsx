@@ -62,6 +62,7 @@ const ActualizarProyectoForm = ({ formData }) => {
     const navigate = useNavigate()
     const location = useLocation()
     const from = location.state?.from?.pathname || '/myprojects'
+    console.log(location)
 
     const {errors, validateForm, onBlurField} = useFormValidator(formValues)
 
