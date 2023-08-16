@@ -5,8 +5,6 @@ import imagenEvaluador from "../../../assets/evaluador_PLACEHOLDER.png"
 
 const DashboardInicioFeria = (props) => {
 
-    const { userRoles, setUserRoles} = props
-
     return (
         <div>
             <p> A continuación, elegí como querés empezar: </p>
@@ -15,8 +13,6 @@ const DashboardInicioFeria = (props) => {
                     src={imagenProyecto}
                     title={'Inscribí tu proyecto'}
                     link={'/projects'}
-                    userRoles={userRoles}
-                    setUserRoles={setUserRoles}
                 />
                 <DashboardCard 
                     src={imagenEvaluador}

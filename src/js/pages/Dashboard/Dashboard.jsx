@@ -17,23 +17,29 @@ const Dashboard = () => {
 
     const location = useLocation()
     console.log(location)
-    // useEffect(() => {
-    //   if(location.state === '2' && !userRoles.roles.includes('2')) {
-    //     const newRoles = [...userRoles.roles]
-    //     newRoles.push('2')
-    //     setUserRoles({
-    //         roles: newRoles
-    //     })
-    //   }
-    // }, [location, userRoles])
+
+    useEffect(() => {
+        if(location?.state?.newRol !== '') {
+            if(location?.state?.newRol === '2' && !userRoles.roles.includes('2')) {
+                const newRoles = [...userRoles.roles]
+                newRoles.push('2')
+                setUserRoles({
+                    roles: newRoles
+                })
+                location.state.newRol = ''
+            }
+        }
+      
+    })
     
 
     console.log(userRoles)
 
+
     return (
         <div>
             <h1>Feria de Ciencia y Tecnologia {new Date().getFullYear()}</h1>
-            {!rolesInicial.some(role => userRoles.roles.includes(role)) && <DashboardInicioFeria userRoles={userRoles} setUserRoles={setUserRoles}/>}
+            {!rolesInicial.some(role => userRoles.roles.includes(role)) && <DashboardInicioFeria />}
             {userRoles.roles.includes('2') &&  <DashboardResponsable />}
             {userRoles.roles.includes('5') && <p>Es la comision asesora</p>}
             {userRoles.roles.includes('3') && <p>Es un evaluador</p>}
