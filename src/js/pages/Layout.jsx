@@ -1,12 +1,29 @@
 import { Outlet } from "react-router-dom"
 import LinkPage from "./LinkPage"
+import Navbar from "../components/Navbar/Navbar"
+import Footer from "../components/Footer/Footer"
 
-const Layout = () => {
+import { useState } from "react"
+
+const Layout = (props) => {
+  const [modalIsOpen, setIsOpen] = useState(false)
+
+  const openModal = () => {
+      console.log('entro al open')
+      setIsOpen(true)
+  }
+
+  const closeModal = () => {
+      setIsOpen(false)
+  }
   return (
-    <main className="App">
+    <>
+      <Navbar openModal={openModal} closeModal={closeModal}/>
+      <main className="App">
         {/* <LinkPage /> */}
-        <Outlet />
-    </main>
+        <Outlet context={[openModal, closeModal, modalIsOpen]}/>
+      </main>
+    </>
   )
 }
 
