@@ -2,6 +2,9 @@
 import Autocomplete from "../Autocomplete/Autocomplete"
 import SelectField from "../SelectField/SelectField"
 import CuposModal from "./CuposModal"
+import Modal from "../Modal/Modal"
+import SeleccionSedes from "./SeleccionSedes"
+
 // hooks
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
@@ -171,13 +174,83 @@ const SedeProvincialForm = (props) => {
         }
     }
 
-
+    console.log(formValues)
     return (
         <>
+            {showModal && 
+            <Modal
+            title="Cupos"
+            setIsOpen={setShowModal}
+            component={
+                <CuposModal getCupos={(idSede) => getCupos(idSede)} getSede={() => getSede(selectedSede)} 
+                cerrarModal={cerrarModal} confirmarCupo={confirmarCupo}/>
+            }
+            />
+            }
+            <div className="sedes-feria-form">
+        
+                <SeleccionSedes  handleCupos={handleCupos} handleDelete={handleDelete} establecimientos={[formValues.sedeProvincial]} />
+
+
+
+            <h2 className='sedes-feria-form__title'>Seleccionar Sede: </h2>
+            <div className='sedes-feria-form__input'>
+            <SelectField
+                    label='Deparamento: ' 
+                    name='sedeProvincialDpto'
+                    dataValues={departamentos}
+                    onChange={handleChangeDpto}
+                    onBlur={onBlurField}
+                    value={formValues.sedeProvincialDpto}
+                    errors={null}
+                    required={true}
+                />
+            </div>
+            <div className='sedes-feria-form__input'>
+            <SelectField
+                    label='Localidad: ' 
+                    name='sedeProvincialLocalidad'
+                    dataValues={localidades}
+                    onChange={handleChangeLocalidad}
+                    onBlur={onBlurField}
+                    value={formValues.sedeProvincialLocalidad}
+                    errors={null}
+                    required={true}
+                    disabled={!formValues.sedeProvincialDpto}
+                />
+            </div>
+            <div className='sedes-feria-form__input'>
+            <Autocomplete 
+                    results={results} 
+                    onChange={handleFilter} 
+                    onFocus={handleFocus}
+                    onSelect={(item) => handleSelect(item)}
+                    disabled={!isSelected}
+                    renderItem={(item) => <p> {item.nombre} </p>}
+                />
+            </div>
+        </div>
+        
+        </>
+        
+)
+}
+
+export default SedeProvincialForm
+
+
+
+
+
+
+{/* <>
             {showModal && <CuposModal getCupos={(idSede) => getCupos(idSede)} getSede={() => getSede(selectedSede)} cerrarModal={cerrarModal} confirmarCupo={confirmarCupo}/>}
+            
             <h2>Sede Provincial</h2>
             {formValues.sedeProvincial === null ? (<p> No hay sede provincial seleccionada </p>) : (
-            <table className="table">
+            
+            
+                <table className="table">
                 <thead className="headBg">
                     <tr>
                         <th scope="col">Establecimiento</th>
@@ -204,44 +277,6 @@ const SedeProvincialForm = (props) => {
                 </tbody>
             </table>
             )}
-            <h2>Datos de la Sede</h2>
-            <div className='edit-project-form__input'>
-                <SelectField
-                    label='Deparamento: ' 
-                    name='sedeProvincialDpto'
-                    dataValues={departamentos}
-                    onChange={handleChangeDpto}
-                    onBlur={onBlurField}
-                    value={formValues.sedeProvincialDpto}
-                    errors={null}
-                    required={true}
-                />
-            </div>
-            <div className='edit-project-form__input'>
-                <SelectField
-                    label='Localidad: ' 
-                    name='sedeProvincialLocalidad'
-                    dataValues={localidades}
-                    onChange={handleChangeLocalidad}
-                    onBlur={onBlurField}
-                    value={formValues.sedeProvincialLocalidad}
-                    errors={null}
-                    required={true}
-                    disabled={!formValues.sedeProvincialDpto}
-                />
-            </div>
-            <div className='edit-project-form__input'>
-                <Autocomplete 
-                    results={results} 
-                    onChange={handleFilter} 
-                    onFocus={handleFocus}
-                    onSelect={(item) => handleSelect(item)}
-                    disabled={!isSelected}
-                    renderItem={(item) => <p> {item.nombre} </p>}
-                />
-            </div>
-        </>
-)
-}
-
-export default SedeProvincialForm
+            
+            
+        </> */}

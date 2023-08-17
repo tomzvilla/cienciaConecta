@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
 import ImageLink from "../ImageLink/ImageLink";
 import ImageButton from "../ImageButton/ImageButton";
+import Button from "../Button/Button";
 
 // Recibe un viewPath y un editPath para editar y ver proyectos en la lista de proyectos
 // Polimorficamente si no recibe estos path, y recibe un callback, muesta un icono x
 
 const TableBodyRow = (props) => {
 
-  const borrar = props.callback ? true : false;
+  const showBorrar = props.callback ? true : false;
+  const showCupos = props.cupos ? true : false;
 
     return (
         
@@ -16,15 +18,27 @@ const TableBodyRow = (props) => {
                 <tr key={item._id} className="table-body-row">
                   {
                     props.headers.map((header, index) =>{
-                      return (<td key={index} className="table-body-row__td" >{item[`${header.value}`]}</td> )
+                      return (<td key={index} className="table-body-row__td" >{item[`${header?.value}`]}</td> )
                     })
                   }
-                  <td key={index} className="table-body-row__td table-body-row__td--actions">
+
+                  {showBorrar & showCupos ?
+                        <>
+                            <td key={index} className="table-body-row__td">
+                              <Button activo={true} text={"Cupos"} onClickHandler={props.cupos} small={true}/>
+                            </td>
+
+                            <td key={index+1} className="table-body-row__td">
+                              <ImageButton small={true} alt="Borrar" linkto={""} callback={props.callback} src={require("../../../assets/x.png")}/>
+                            </td>
+                        </>
+                    : 
+                    
+                    
+                    <td key={index} className="table-body-row__td table-body-row__td--actions">
                     {
-                      borrar ?
-
+                      showBorrar ? 
                       <ImageButton small={true} alt="Borrar" linkto={""} callback={props.callback} src={require("../../../assets/x.png")}/>
-
                       :
                     <>
                       <ImageLink small={true} alt="Ver" linkto={`${props.viewPath}/${item._id}`} src={require("../../../assets/ver.png")}/>
@@ -33,6 +47,9 @@ const TableBodyRow = (props) => {
                     }
 
                   </td>
+                }
+
+                  
                 </tr>
               )
             })

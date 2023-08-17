@@ -5,9 +5,9 @@ import FileField from "../FileField/FileField"
 const DatosFeriaForm = (props) => {
     const {handleChange, handleDateChange, handleFileChange, onBlurField, formValues, errors} = props
     return (
-        <>
-            <h2>Datos de la Feria</h2>
-            <div className='edit-project-form__input edit-project-form__input--first'>
+        <div className="datos-feria-form">
+            <h2 className="datos-feria-form__title">Datos de la Feria</h2>
+            <div className='datos-feria-form__input'>
                 <InputField
                     label='Nombre de la Feria: ' 
                     name='nombreFeria'
@@ -19,7 +19,7 @@ const DatosFeriaForm = (props) => {
                     required={true}
                 />
             </div>
-            <div className='edit-project-form__input'>
+            <div className='datos-feria-form__input'>
                 <InputField
                     label='Descripcion de la feria: ' 
                     name='descripcionFeria'
@@ -31,7 +31,7 @@ const DatosFeriaForm = (props) => {
                     required={true}
                 />
             </div>
-            <div className='edit-project-form__input'>
+            <div className='datos-feria-form__input'>
                 <FileField
                     label='Logotipo de la feria: ' 
                     name='logo'
@@ -42,7 +42,7 @@ const DatosFeriaForm = (props) => {
                     required={true}
                 />
             </div>
-            <div className='edit-project-form__input'>
+            <div className='datos-feria-form__input'>
                 <InputField
                     label='Fecha inicio de la feria' 
                     name='fechaInicioFeria'
@@ -54,7 +54,7 @@ const DatosFeriaForm = (props) => {
                     required={true}
                 />
             </div>
-            <div className='edit-project-form__input'>
+            <div className='datos-feria-form__input'>
                 <InputField
                     label='Fecha fin de la feria' 
                     name='fechaFinFeria'
@@ -66,7 +66,7 @@ const DatosFeriaForm = (props) => {
                     required={true}
                 />
             </div>
-        </>
+        </div>
     )
 }
 

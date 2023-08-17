@@ -1,11 +1,6 @@
 .file-field {
     display: flex;
     flex-direction: column;
-    
-
-    
-    
-
 
     &__label {
         border: 1px solid $color-grey-dark;
@@ -14,7 +9,7 @@
         font-size: 2rem;
         color: $color-grey-dark;
         display: flex;
-        width: 100%;
+        //width: 90%;
         cursor: pointer;
 
         &:hover {

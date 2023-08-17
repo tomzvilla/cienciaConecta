@@ -1,0 +1,19 @@
+.cupos-modal {
+    padding: 0 4rem;
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+
+    &__nivel {
+        padding: 1rem 2rem;
+
+    }
+    
+
+
+    &__button {
+        padding-top: 3rem;
+        align-self: center;
+    }
+
+}
