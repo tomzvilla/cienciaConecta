@@ -16,6 +16,7 @@ import VisualizarListadoProyectos from './js/pages/Projects/VisualizarListadoPro
 import ActualizarProyecto from './js/pages/Projects/ActualizarProyecto'
 import VisualizarProyecto from './js/pages/Projects/VisualizarProyecto'
 import CrearFeria from './js/pages/Ferias/CrearFeria'
+import VisualizarFeriaActual from './js/pages/Ferias/VisualizarFeriaActual'
 
 // ROLES
 
@@ -47,6 +48,7 @@ function App() {
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]}/>}>
               {/* Rutas para feria */}
               <Route path='feria' element={<CrearFeria/>}/>
+              <Route path='verFeria' element={<VisualizarFeriaActual/>}/>
             </Route>
           </Route>
 
