@@ -3,20 +3,26 @@ import ActionsGroup from "../../components/Table/ActionsGroup"
 import TableHeader from "./TableHeader";
 import TableBodyRow from "./TableBodyRow";
 
-const Table = ({ headers, data, viewPath, editPath, callback, cupos}) => {
+const Table = ({ headers, data, viewPath, editPath, callback, modal, modalTitle}) => {
 
     return (
         <table className="table">
           <thead className="table__header">
-            {cupos ? 
-            <TableHeader headers={headers} cupos={true}/>:
+            {modal ? 
+            <TableHeader headers={headers} modal={true} modalTitle={modalTitle}/>:
             <TableHeader headers={headers}/>
           }
             
           </thead>
-          <tbody className="table__body">
-              <TableBodyRow data={data} viewPath={viewPath} editPath={editPath} cupos={cupos} callback={callback} headers={headers}/>
-          </tbody>
+
+          {
+            data ?  <tbody className="table__body">
+            <TableBodyRow data={data} viewPath={viewPath} editPath={editPath} modal={modal} callback={callback} headers={headers} modalTitle={modalTitle}/>
+        </tbody> : ""
+
+          }
+
+          
 
 
       </table>

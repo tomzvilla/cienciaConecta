@@ -32,7 +32,7 @@ const SeleccionSedes = (props) => {
         <div className="seleccion-sedes">
             <h2 className="seleccion-sedes__title">Sedes seleccionadas</h2>
                 {show ?
-                <Table headers={headers} callback={handleBorrar} cupos={handleCupos} data={props.establecimientos}/>       
+                <Table modalTitle="Cupos" headers={headers} callback={handleBorrar} modal={handleCupos} data={props.establecimientos}/>       
                  :
                 (<p className="seleccion-sedes__blank"> No hay sedes cargadas </p>)   
             }

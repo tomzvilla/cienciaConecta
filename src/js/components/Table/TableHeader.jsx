@@ -10,10 +10,10 @@ const TableHeader = (props) => {
                 );
               })}
 
-              { props.cupos ? 
+              { props.modal ? 
               <>
                 <th  scope="col"  className="table-header__head">
-                  Cupos
+                  {props.modalTitle}
                 </th> 
                 <th scope="col" className="table-header__head">
                   Acciones

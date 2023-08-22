@@ -9,7 +9,7 @@ import Button from "../Button/Button";
 const TableBodyRow = (props) => {
 
   const showBorrar = props.callback ? true : false;
-  const showCupos = props.cupos ? true : false;
+  const showModal = props.modal ? true : false;
 
     return (
         
@@ -22,10 +22,10 @@ const TableBodyRow = (props) => {
                     })
                   }
 
-                  {showBorrar & showCupos ?
+                  {showBorrar & showModal ?
                         <>
                             <td key={index} className="table-body-row__td">
-                              <Button activo={true} text={"Cupos"} onClickHandler={props.cupos} small={true}/>
+                              <Button activo={true} text={props.modalTitle} onClickHandler={props.modal} small={true}/>
                             </td>
 
                             <td key={index+1} className="table-body-row__td">

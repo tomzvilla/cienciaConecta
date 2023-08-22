@@ -1,0 +1,29 @@
+.add-opcion {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0rem;
+    margin-top: 2rem;
+
+    //width: 95%;
+    align-self: center;
+    border-collapse: collapse;
+
+
+
+    &__opcion {
+        margin: auto;
+        font-size: 2rem;
+        width: 40%;
+        
+
+        color: $color-grey-dark;
+        padding: 2rem 0rem;
+
+
+        &:last-child {
+            width: min-content;
+        }
+
+    }
+
+}
