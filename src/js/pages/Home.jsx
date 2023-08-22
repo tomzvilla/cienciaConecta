@@ -1,5 +1,5 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useOutletContext } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 import Navbar from "../components/Navbar/Navbar"
 import HeroContent from "../components/Home/HeroContent"
@@ -10,27 +10,24 @@ import { useState } from "react"
 import Modal from '../components/Modal/Modal'
 import LoginForm from '../components/LoginForm/LoginForm'
 
-const Home = () => {
-  const {auth} = useAuth()
-  console.log(auth)
+const Home = (props) => {
 
-  const [modalIsOpen, setIsOpen] = useState(false)
+  // const [modalIsOpen, setIsOpen] = useState(false)
 
-    const openModal = () => {
-        setIsOpen(true)
-    }
+  //   const openModal = () => {
+  //       setIsOpen(true)
+  //   }
 
-    const closeModal = () => {
-        setIsOpen(false)
-    }
+  //   const closeModal = () => {
+  //       setIsOpen(false)
+  //   }
+  const [openModal, closeModal, modalIsOpen] = useOutletContext()
   return (
     <>
       {modalIsOpen ? <Modal title="Iniciar Sesión" component={<LoginForm />} setIsOpen={closeModal} /> : ""}
-
       <div className='home'>
         
         <header>
-          <Navbar openModal={openModal} closeModal={closeModal} home={true}/>
           <HeroContent/>
           <HeroImage/>
           

@@ -1,5 +1,6 @@
 import './css/style.css'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, Navigate } from 'react-router-dom'
+import useAuth from './js/hooks/useAuth'
 
 // Import components
 import RequireAuth from './js/components/RequireAuth/RequireAuth'
@@ -16,6 +17,7 @@ import VisualizarListadoProyectos from './js/pages/Projects/VisualizarListadoPro
 import ActualizarProyecto from './js/pages/Projects/ActualizarProyecto'
 import VisualizarProyecto from './js/pages/Projects/VisualizarProyecto'
 import CrearFeria from './js/pages/Ferias/CrearFeria'
+import Dashboard from './js/pages/Dashboard/Dashboard'
 
 // ROLES
 
@@ -29,12 +31,13 @@ export const ROLES = {
 };
 
 function App() {
+  const { auth } = useAuth()
   return (
       <Routes>
-        <Route path='/' element={<Layout/>}>
-          <Route path='login' element={<Login/>}/>
-          <Route path='home' element={<Home/>}/>
-          <Route path='signup' element={<Signup/>}/>
+        <Route path='/' element={<Layout />}>
+          <Route path='login' element={auth ? <Login/> : <Navigate  to={'/dashboard'}/>}/>
+          <Route path='home' element={auth ? <Home/> :<Navigate  to={'/dashboard'}/>}/>
+          <Route path='signup' element={auth ? <Signup/> : <Navigate  to={'/dashboard'}/> }/>
           <Route path='unauthorized' element={<Unauthorized/>}/>
           <Route element={<PersistLogin />}>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]}/>}>
@@ -43,6 +46,7 @@ function App() {
               <Route path='projects/:id' element={<VisualizarProyecto/>}/>
               <Route path='editProjects/:id' element={<ActualizarProyecto/>}/>
               <Route path='myprojects' element={<VisualizarListadoProyectos/>}/>
+              <Route path='dashboard' element={<Dashboard/>}/>
             </Route>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]}/>}>
               {/* Rutas para feria */}

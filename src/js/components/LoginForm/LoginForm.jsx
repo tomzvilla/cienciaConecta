@@ -27,7 +27,7 @@ const LoginForm = () => {
       const {errors, validateForm, onBlurField} = useFormValidator(formValues)
       const navigate = useNavigate()
       const location = useLocation()
-      const from = location.state?.from?.pathname || '/home'
+      const from = location.state?.from?.pathname || '/dashboard'
     
       const handleChange = (e) => {
         const {name, value} = e.target

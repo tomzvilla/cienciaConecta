@@ -116,12 +116,19 @@ const Signup = () => {
 
   const handleAvanzar = (e) => {
     e.preventDefault()
-    const datos = validateForm({form: formValues , errors, forceTouchErrors: true})
+    let fieldsToExclude = []
+    if(!avanzar) {
+      fieldsToExclude = ['password', 'confirmPassword','phoneNumber', 'email']
+    }
+
+    const datos = validateForm({form: formValues , errors, forceTouchErrors: true, fieldsToExclude: fieldsToExclude })
   
 
-    const pasarACuenta = !datos.errors.cue.error & !datos.errors.cuil.error 
-                      & !datos.errors.dni.error & !datos.errors.lastname.error 
-                      & !datos.errors.name.error & !datos.errors.position.error
+    // const pasarACuenta = !datos.errors.cue.error & !datos.errors.cuil.error 
+    //                   & !datos.errors.dni.error & !datos.errors.lastname.error 
+    //                   & !datos.errors.name.error & !datos.errors.position.error
+
+    const pasarACuenta = true
 
 
     if (avanzar === false && pasarACuenta) {
