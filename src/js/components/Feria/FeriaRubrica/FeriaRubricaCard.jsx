@@ -2,10 +2,13 @@
 import InputField from "../../InputField/InputField"
 import CriteriosTable from "./CriteriosTable"
 import Button from "../../Button/Button"
+import ImageButton from "../../ImageButton/ImageButton"
 
 // hooks
 import { useState } from "react"
 import { useFormValidator } from "../../../hooks/useFormValidator"
+import Table from "../../Table/Table"
+import NuevoCriterio from "./NuevoCriterio"
 
 const FeriaRubricaCard = (props) => {
 
@@ -19,6 +22,11 @@ const FeriaRubricaCard = (props) => {
     const [sumaPonderacion, setSumaPonderacion ] = useState(0)
  
     const { validateForm, onBlurField, errors} = useFormValidator(rubricaValues)
+
+    const headers = [
+        {name: 'Criterios', value: 'nombre'},
+        {name: 'Ponderación', value: 'ponderacion'},
+      ]
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -82,39 +90,62 @@ const FeriaRubricaCard = (props) => {
         }
     }
 
+    const handleBorrar = (e) => {
+        const nombre = e.target.parentNode.parentNode.parentNode.children[0].firstChild.data
+        e.preventDefault()
+        handleDeleteCriterio(e, nombre)
+    }
+
+    const handleBorrarRubrica = (e) => {
+        const nombre = e.target.parentNode.parentNode.firstChild.innerText
+        //const nombre = e.target.parentNode.parentNode.parentNode.children[0].firstChild.data
+        console.log(rubrica.criterios)
+        e.preventDefault()
+        handleDeleteRubrica(e, nombre)
+    }
+
     return (
-        <div>
-            <h2>{rubrica.nombreRubrica}</h2>
-            <CriteriosTable abrirOpciones={abrirOpciones} rubrica={rubrica} handleDeleteCriterio={handleDeleteCriterio} formValues={formValues}  setFormValues={setFormValues}/>
-            <button onClick={handleDeleteRubrica}> Borrar </button>
-            {rubrica.criterios.length >= 1 && sumaPonderacion !== parseFloat('1').toFixed(3) ? <p>La suma de la ponderación de los criterios debe dar 1</p> : null}
-            <div className='edit-project-form__input'>
-                <InputField
-                    label='Criterio: ' 
-                    name='nombreCriterio'
-                    type={'text'}
-                    onChange={handleChange}
-                    onBlur={onBlurField}
-                    value={rubricaValues.nombreCriterio}
-                    errors={errors.nombreCriterio}
+        <div className="feria-rubrica-card">
+            
+            <div className="feria-rubrica-card__header">
+                <h2 >{rubrica.nombreRubrica}</h2>
+                <ImageButton
+                    alt="Eliminar Rúbrica"
+                    callback={handleBorrarRubrica} 
+                    src={require("../../../../assets/cancel.png")}
+                    small={true}
                 />
             </div>
-            <div className='edit-project-form__input'>
-                <InputField
-                    label='Ponderacion: ' 
-                    name='ponderacion'
-                    type={'number'}
-                    onChange={handleChange}
-                    onBlur={onBlurField}
-                    value={rubricaValues.ponderacion}
-                    errors={errors.ponderacion}
+            
+            <div className="feria-rubrica-card__table-container">
+                <Table
+                    modal={abrirOpciones}
+                    modalTitle="Opciones"
+                    callback={handleBorrar}
+                    headers={headers}
+                    data={rubrica.criterios}
                 />
             </div>
-            <Button 
-                text={'Agregar'} 
-                onClickHandler={handleSubmit} 
-                activo={true}
-            />
+
+            
+
+            
+            {rubrica.criterios.length >= 1 && sumaPonderacion !== parseFloat('1').toFixed(3) ? 
+            <p className="feria-rubrica-card__error">La suma de la ponderación de los criterios debe dar 1</p> : null}
+
+
+            <div className="feria-rubrica-card__nuevo-container">
+                <NuevoCriterio
+                    handleSubmit={handleSubmit} handleChange={handleChange} 
+                    onBlurField={onBlurField} nombreCriterio={rubricaValues.nombreCriterio} 
+                    ponderacion={rubricaValues.ponderacion}
+                    errors={errors}
+                />
+
+
+            </div>
+            
+            
         </div>
     )
 }

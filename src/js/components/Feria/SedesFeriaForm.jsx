@@ -3,6 +3,7 @@ import SelectField from "../SelectField/SelectField"
 import Autocomplete from "../Autocomplete/Autocomplete";
 import CuposModal from "./CuposModal";
 import SeleccionSedes from "./SeleccionSedes";
+import Modal from "../Modal/Modal";
 
 // hooks
 import useAxiosFetch from "../../hooks/useAxiosFetch"
@@ -118,7 +119,7 @@ const SedesFeriaForm = (props) => {
     const handleCupos = (e, nombreSede) => {
         e.preventDefault()
         setSelectedSede(nombreSede)
-        setShowModal(true)
+        abrirModal()
     }
 
     const getSede = (nombreSede) => {
@@ -127,6 +128,10 @@ const SedesFeriaForm = (props) => {
 
     const cerrarModal = () => {
         setShowModal(false)
+    }
+
+    const abrirModal = () => {
+        setShowModal(true)
     }
 
     const confirmarCupo = (cupos) => {
@@ -166,11 +171,20 @@ const SedesFeriaForm = (props) => {
     }
 
     return (
-        <div className="sedes-feria-form">
-            {showModal && <CuposModal getCupos={(idSede) => getCupos(idSede)} getSede={() => getSede(selectedSede)} cerrarModal={cerrarModal} confirmarCupo={confirmarCupo}/>}
+        <>
+            {showModal && 
+            <Modal
+            title="Cupos"
+            setIsOpen={setShowModal}
+            component={
+                <CuposModal getCupos={(idSede) => getCupos(idSede)} getSede={() => getSede(selectedSede)} 
+                    cerrarModal={cerrarModal} confirmarCupo={confirmarCupo}/>
+            }
+            />
+            }
+            <div className="sedes-feria-form">
+        
             <SeleccionSedes  handleCupos={handleCupos} handleDelete={handleDelete} establecimientos={formValues.establecimientos} />
-
-
 
             <h2 className='sedes-feria-form__title'>Seleccionar Sede: </h2>
             <div className='sedes-feria-form__input'>
@@ -209,6 +223,11 @@ const SedesFeriaForm = (props) => {
                 />
             </div>
         </div>
+        
+        </>
+
+
+        
     )
 }
 

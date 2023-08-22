@@ -61,7 +61,8 @@ const ActualizarProyectoForm = ({ formData }) => {
     const axiosPrivate = useAxiosPrivate()
     const navigate = useNavigate()
     const location = useLocation()
-    const from = location.state?.from?.pathname || '/myprojects'
+    const from = location.state?.from || '/myprojects'
+    console.log(location)
 
     const {errors, validateForm, onBlurField} = useFormValidator(formValues)
 
@@ -164,7 +165,7 @@ const ActualizarProyectoForm = ({ formData }) => {
                     confirmButtonColor: '#00ACE6',
                 }).then((result) => {
                     if(result.isConfirmed || result.isDismissed) {
-                        navigate(from, { replace: true })
+                        navigate(from, {replace: true, state: {newRol:'2', from:`${location.pathname}`}})
                     }
                 })
             }
@@ -267,7 +268,7 @@ const ActualizarProyectoForm = ({ formData }) => {
     const handleVolver = (e) => {
         e.preventDefault()
         if(etapaActual === ETAPAS.Escolar){
-            navigate(from, { replace: true })
+            navigate(from, {replace: true, state: {newRol:'2', from:`${location.pathname}`}})
         }
         if(etapaActual === ETAPAS.Regional) setEtapaActual(ETAPAS.Escolar)
         if(etapaActual === ETAPAS.Grupo) setEtapaActual(ETAPAS.Regional)
