@@ -30,7 +30,7 @@ const Home = () => {
       <div className='home'>
         
         <header>
-          <Navbar openModal={openModal} closeModal={closeModal}/>
+          <Navbar openModal={openModal} closeModal={closeModal} home={true}/>
           <HeroContent/>
           <HeroImage/>
           

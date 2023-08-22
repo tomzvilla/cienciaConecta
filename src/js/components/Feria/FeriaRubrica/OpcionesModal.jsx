@@ -2,6 +2,9 @@
 import InputField from "../../InputField/InputField"
 import Button from "../../Button/Button"
 import OpcionesTable from "./OpcionesTable"
+import AddOpcion from "./AddOpcion"
+import Table from "../../Table/Table"
+
 // hooks
 import { useState } from "react"
 import { useFormValidator } from "../../../hooks/useFormValidator"
@@ -15,14 +18,20 @@ const OpcionesModal = (props) => {
 
     const { validateForm, onBlurField, errors} = useFormValidator(opcion)
 
+
+    const headers = [
+        {name: 'Criterio', value: 'criterio'},
+
+      ]
+
     const handleSubmit = (e) => {
         e.preventDefault()
         const { isValid } = validateForm({form: opcion, errors, forceTouchErrors: true})
         if(!isValid) return
         const prevCriterios = [...formValues.criteriosEvaluacion]
-        const rubricaIndex = prevCriterios.findIndex(rbr => rbr.nombreRubrica === rubrica.nombreRubrica);
-        const criterioIndex = prevCriterios[rubricaIndex].criterios.findIndex(crit => crit.nombre === criterio.nombre);
-        prevCriterios[rubricaIndex].criterios[criterioIndex].opciones.push(opcion.nombreOpcion)
+        const rubricaIndex = prevCriterios.findIndex(rbr => rbr.nombreRubrica === rubrica?.nombreRubrica);
+        const criterioIndex = prevCriterios[rubricaIndex]?.criterios.findIndex(crit => crit.nombre === criterio.nombre);
+        prevCriterios[rubricaIndex]?.criterios[criterioIndex].opciones.push(opcion.nombreOpcion)
 
         setFormValues({...formValues, criteriosEvaluacion: prevCriterios})
         setOpcion({
@@ -60,8 +69,7 @@ const OpcionesModal = (props) => {
 
     return (
         <div>
-            <OpcionesTable handleDeleteOpcion={handleDeleteOpcion} criterio={criterio} />
-            <h2>Datos de la Opción</h2>
+            {/* <OpcionesTable handleDeleteOpcion={handleDeleteOpcion} criterio={criterio} />
             <InputField
                 label='Nombre: ' 
                 name='nombreOpcion'
@@ -75,7 +83,10 @@ const OpcionesModal = (props) => {
                 text={'Agregar'} 
                 onClickHandler={handleSubmit} 
                 activo={true}
-            />
+            /> */}
+
+            <Table data={criterio?.opciones} headers={headers} callback={handleDeleteOpcion}/>
+            <AddOpcion handleChange={handleChange} onBlurField={onBlurField} opcion={opcion} errors={errors} handleAdd={handleSubmit}/>
         </div>
     )
 

@@ -1,0 +1,28 @@
+.seleccion-sedes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 3rem;
+    padding-left: 3rem;
+    width: 90%;
+
+
+    &__title {
+        font-size: 3rem;
+        //text-align: center;
+        font-weight: 500;
+        //padding: 2rem 0rem;
+        margin-top: 1rem;
+        align-self: flex-start;
+    }
+
+    &__blank {
+        font-size: 2rem;
+        //text-align: center;
+        color: $color-grey-dark;
+        font-weight: 500;
+        //padding: 2rem 0rem;
+        align-self: flex-start;
+    }
+
+}

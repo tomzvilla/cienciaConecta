@@ -1,41 +1,47 @@
 // components
 import InputField from "../InputField/InputField"
+import GrupoFechas from "./GrupoFechas"
 
 const InstanciasFeriaForm = (props) => {
     const {handleDateChange, onBlurField, formValues, errors} = props
 
+
+
     return (
-        <>
-            <h2>Instancias</h2>
-            <h3>Instancia Escolar</h3>
-            <div className='edit-project-form__input edit-project-form__input--first'>
-                <InputField
-                    label='Fecha de inicio: ' 
-                    name='fechaInicioInstanciaEscolar'
-                    type='date'
-                    onChange={handleDateChange}
-                    onBlur={onBlurField}
-                    value={formValues.fechaInicioInstanciaEscolar.split("T")[0]}
-                    errors={errors.fechaInicioInstanciaEscolar}
-                    required={true}
-                />
-            </div>
-            <div className='edit-project-form__input'>
-                <InputField
-                    label='Fecha de fin: ' 
-                    name='fechaFinInstanciaEscolar'
-                    type='date'
-                    onChange={handleDateChange}
-                    onBlur={onBlurField}
-                    value={formValues.fechaFinInstanciaEscolar.split("T")[0]}
-                    errors={errors.fechaFinInstanciaEscolar}
-                    required={true}
-                />
-            </div>
-            <h3>Instancia Regional</h3>
-            <h4> Evaluacion de los Proyectos</h4>
-            <div className='edit-project-form__input'>
-                <InputField
+        <div className="instancias-feria-form">
+            <h2 className="instancias-feria-form__title">Instancias</h2>
+            
+            <GrupoFechas title={"Instancia Escolar"} 
+            date1={<InputField
+                label='Fecha de inicio: ' 
+                name='fechaInicioInstanciaEscolar'
+                type='date'
+                onChange={handleDateChange}
+                onBlur={onBlurField}
+                value={formValues.fechaInicioInstanciaEscolar.split("T")[0]}
+                errors={errors.fechaInicioInstanciaEscolar}
+                required={true}
+            />}
+
+            date2={<InputField
+                label='Fecha de fin: ' 
+                name='fechaFinInstanciaEscolar'
+                type='date'
+                onChange={handleDateChange}
+                onBlur={onBlurField}
+                value={formValues.fechaFinInstanciaEscolar.split("T")[0]}
+                errors={errors.fechaFinInstanciaEscolar}
+                required={true}
+            />}
+            />
+
+            
+            <GrupoFechas 
+                title="Instancia Regional"
+                sub1="Evaluacion de los Proyectos"
+                sub2="Exposición de los Proyectos"
+
+                date1={<InputField
                     label='Fecha de inicio: ' 
                     name='fechaInicioEvaluacionRegional'
                     type='date'
@@ -44,10 +50,8 @@ const InstanciasFeriaForm = (props) => {
                     value={formValues.fechaInicioEvaluacionRegional.split("T")[0]}
                     errors={errors.fechaInicioEvaluacionRegional}
                     required={true}
-                />
-            </div>
-            <div className='edit-project-form__input'>
-                <InputField
+                />}
+                date2={<InputField
                     label='Fecha de fin: ' 
                     name='fechaFinEvaluacionRegional'
                     type='date'
@@ -56,11 +60,8 @@ const InstanciasFeriaForm = (props) => {
                     value={formValues.fechaFinEvaluacionRegional.split("T")[0]}
                     errors={errors.fechaFinEvaluacionRegional}
                     required={true}
-                />
-            </div>
-            <h4> Exposición de los Proyectos</h4>
-            <div className='edit-project-form__input'>
-                <InputField
+                />}
+                date3={<InputField
                     label='Fecha de inicio: ' 
                     name='fechaInicioExposicionRegional'
                     type='date'
@@ -69,10 +70,8 @@ const InstanciasFeriaForm = (props) => {
                     value={formValues.fechaInicioExposicionRegional.split("T")[0]}
                     errors={errors.fechaInicioExposicionRegional}
                     required={true}
-                />
-            </div>
-            <div className='edit-project-form__input'>
-                <InputField
+                />}
+                date4={<InputField
                     label='Fecha de fin: ' 
                     name='fechaFinExposicionRegional'
                     type='date'
@@ -81,11 +80,13 @@ const InstanciasFeriaForm = (props) => {
                     value={formValues.fechaFinExposicionRegional.split("T")[0]}
                     errors={errors.fechaFinExposicionRegional}
                     required={true}
-                />
-            </div>
-            <h3> Instancia Provincial</h3>
-            <div className='edit-project-form__input'>
-                <InputField
+                />}
+            />
+
+
+            <GrupoFechas 
+                title="Instancia Provincial"
+                date1={<InputField
                     label='Fecha de inicio: ' 
                     name='fechaInicioEvaluacionProvincial'
                     type='date'
@@ -94,10 +95,8 @@ const InstanciasFeriaForm = (props) => {
                     value={formValues.fechaInicioEvaluacionProvincial.split("T")[0]}
                     errors={errors.fechaInicioEvaluacionProvincial}
                     required={true}
-                />
-            </div>
-            <div className='edit-project-form__input'>
-                <InputField
+                />}
+                date2={<InputField
                     label='Fecha de fin: ' 
                     name='fechaFinEvaluacionProvincial'
                     type='date'
@@ -106,11 +105,12 @@ const InstanciasFeriaForm = (props) => {
                     value={formValues.fechaFinEvaluacionProvincial.split("T")[0]}
                     errors={errors.fechaFinEvaluacionProvincial}
                     required={true}
-                />
-            </div>
-            <h3> Postulacion de Evaluadores </h3>
-            <div className='edit-project-form__input'>
-                <InputField
+                />}
+            />
+
+            <GrupoFechas 
+                title="Postulacion de Evaluadores"
+                date1={<InputField
                     label='Fecha de inicio: ' 
                     name='fechaInicioPostulacionEvaluadores'
                     type='date'
@@ -119,10 +119,8 @@ const InstanciasFeriaForm = (props) => {
                     value={formValues.fechaInicioPostulacionEvaluadores.split("T")[0]}
                     errors={errors.fechaInicioPostulacionEvaluadores}
                     required={true}
-                />
-            </div>
-            <div className='edit-project-form__input'>
-                <InputField
+                />}
+                date2={<InputField
                     label='Fecha de fin: ' 
                     name='fechaFinPostulacionEvaluadores'
                     type='date'
@@ -131,11 +129,12 @@ const InstanciasFeriaForm = (props) => {
                     value={formValues.fechaFinPostulacionEvaluadores.split("T")[0]}
                     errors={errors.fechaFinPostulacionEvaluadores}
                     required={true}
-                />
-            </div>
-            <h3> Asignación de Proyectos </h3>
-            <div className='edit-project-form__input'>
-                <InputField
+                />}
+            />
+
+            <GrupoFechas 
+                title="Asignación de Proyectos"
+                date1={<InputField
                     label='Fecha de inicio: ' 
                     name='fechaInicioAsignacionProyectos'
                     type='date'
@@ -144,10 +143,8 @@ const InstanciasFeriaForm = (props) => {
                     value={formValues.fechaInicioAsignacionProyectos.split("T")[0]}
                     errors={errors.fechaInicioAsignacionProyectos}
                     required={true}
-                />
-            </div>
-            <div className='edit-project-form__input'>
-                <InputField
+                />}
+                date2={<InputField
                     label='Fecha de fin: ' 
                     name='fechaFinAsignacionProyectos'
                     type='date'
@@ -156,9 +153,9 @@ const InstanciasFeriaForm = (props) => {
                     value={formValues.fechaFinAsignacionProyectos.split("T")[0]}
                     errors={errors.fechaFinAsignacionProyectos}
                     required={true}
-                />
-            </div>
-        </>
+                />}
+            />
+        </div>
     )
 }
 

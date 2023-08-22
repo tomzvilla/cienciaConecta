@@ -9,9 +9,25 @@ const TableHeader = (props) => {
                   </th>
                 );
               })}
-              <th colSpan={2} className="table-header__head">
-                Acciones
-              </th>
+
+              { props.modal ? 
+              <>
+                <th  scope="col"  className="table-header__head">
+                  {props.modalTitle}
+                </th> 
+                <th scope="col" className="table-header__head">
+                  Acciones
+                </th>
+              </>
+            : 
+            
+            <th colSpan={2} className="table-header__head">
+              Acciones
+            </th> 
+          }
+            
+
+              
         </tr>
     )
 }

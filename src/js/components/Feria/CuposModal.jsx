@@ -76,11 +76,10 @@ const CuposModal = (props) => {
 
 
     return (
-        <div>
-            <h1>Cupos</h1>
+        <div className="cupos-modal">
             {niveles && niveles.map((nivel) => 
                 nivel._id !== 0 ? (
-                    <div key={nivel._id}> 
+                    <div key={nivel._id} className="cupos-modal__nivel"> 
                         <InputField
                             label={nivel.nombre} 
                             name={nivel._id} 
@@ -94,13 +93,9 @@ const CuposModal = (props) => {
                             required={true}
                         />
                     </div>
-                ) : null
+                ) : ""
             )}
-            <div className='edit-project-form__button'>
-                <Button 
-                    text='Cancelar' 
-                    onClickHandler={handleCancelar}
-                />
+            <div className="cupos-modal__button">
                 <Button 
                     text={'Confirmar'} 
                     onClickHandler={handleConfirmarCupos} activo={true}

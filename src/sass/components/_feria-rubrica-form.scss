@@ -1,0 +1,28 @@
+.feria-rubrica-form {
+
+    //height: 80vh;
+    max-height: 60vh;
+    overflow-y: scroll;
+    width: 100%;
+
+    padding-bottom: 6rem;
+
+
+    &__title {
+        font-size: 3rem;
+
+        font-weight: 500;
+
+        margin-top: 1rem;
+        padding-left: 3rem;
+    }
+
+    &__blank {
+        padding-left: 3rem;
+        margin-right: auto;
+        font-size: 2rem;
+        color: $color-grey-dark;
+    }
+
+
+}

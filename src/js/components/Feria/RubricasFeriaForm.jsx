@@ -2,10 +2,12 @@
 import FeriaRubricaCard from "./FeriaRubrica/FeriaRubricaCard"
 import Button from "../Button/Button"
 import InputField from "../InputField/InputField"
+import Modal from "../Modal/Modal"
 import OpcionesModal from "./FeriaRubrica/OpcionesModal"
 
 // hooks
 import { useState } from "react"
+import NuevaRubrica from "./FeriaRubrica/NuevaRubrica"
 const RubricasFeriaForm = (props) => {
 
     const { handleChange, onBlurField, errors, formValues, setFormValues, handleAddRubrica, handleDeleteRubrica } = props
@@ -37,10 +39,21 @@ const RubricasFeriaForm = (props) => {
         handleDeleteRubrica(nombreRubrica)
     }
 
+    
+
     return (
-        <div>
-            {showModal && (<OpcionesModal formValues={formValues} setFormValues={setFormValues} cerrarModal={cerrarModal} criterio={selectedCriterio} rubrica={selectedRubrica} />)}
-            {!rubricas ? (<p>No hay rubricas para la feria</p>) : rubricas.map(r => 
+        <>
+
+        {showModal && 
+            <Modal
+                title="Datos de la Opción"
+                component={<OpcionesModal formValues={formValues} setFormValues={setFormValues} cerrarModal={cerrarModal} criterio={selectedCriterio} rubrica={selectedRubrica} />}
+                setIsOpen={setShowModal}
+            />}
+
+        <div className="feria-rubrica-form">
+        <h2 className='feria-rubrica-form__title'>Rúbricas </h2>
+            {rubricas?.length === 0 ? (<p className="feria-rubrica-form__blank">No hay rúbricas para la feria</p>) : rubricas.map(r => 
                 (
                     <FeriaRubricaCard 
                         rubrica={r} 
@@ -50,29 +63,23 @@ const RubricasFeriaForm = (props) => {
                         formValues={formValues}
                         setFormValues={setFormValues}
                         errors={errors}
-                        handleDeleteRubrica={(e) => handleDelete(e, r.nombreRubrica)}
+                        handleDeleteRubrica={handleDelete}
                     />
                 )
             )}
-            <h2>Datos de la rubrica</h2>
-            <div className='edit-project-form__input'>
-                <InputField
-                    label='Nombre: ' 
-                    name={`nombreRubrica`}
-                    onChange={handleChange}
-                    onBlur={(onBlurField)}
-                    value={formValues.nombreRubrica}
-                    errors={errors.nombreRubrica}
-                    onFocusOut
-                    required={true}
-                />
-            </div>
-            <Button 
-                text={'Agregar'} 
-                onClickHandler={handleSubmit} 
-                activo={true}
-            />
+
+
+            
+            
         </div>
+
+
+        <NuevaRubrica  
+            handleSubmit={handleSubmit} handleChange={handleChange} 
+            onBlurField={onBlurField} nombreRubrica={formValues.nombreRubrica} 
+            errors={errors.nombreRubrica}
+        />
+        </>
     )
 }
 
