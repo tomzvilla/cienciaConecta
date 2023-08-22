@@ -1,14 +1,17 @@
-// Import Components
+// components
 
 import InputField from "../InputField/InputField"
 import SelectField from "../SelectField/SelectField"
 import Button from "../Button/Button"
 
-// Import hooks
+// hooks
 import { useState } from "react"
+import { useNavigate, useLocation } from "react-router-dom"
 import { useFormValidator } from "../../hooks/useFormValidator"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
+
+import Swal from "sweetalert2"
 
 const InscribirEtapaEscolarForm = () => {
     
@@ -24,6 +27,9 @@ const [formValues, setFormValues] = useState({
 })
 
 const axiosPrivate = useAxiosPrivate()
+const navigate = useNavigate()
+const location = useLocation()
+const from = location.state?.from?.pathname || '/dashboard'
 
 const {errors, validateForm, onBlurField} = useFormValidator(formValues)
 
@@ -62,42 +68,77 @@ const handleSubmit = async (e) => {
 
     if(!isValid) return
 
-    try {
-        const { title, description, level, category, schoolName, schoolCue, privateSchool, schoolEmail } = formValues
-        const response = await axiosPrivate.post('/proyecto', 
-        JSON.stringify({ titulo: title, descripcion: description, nivel: level, categoria: category, nombreEscuela: schoolName, cueEscuela: schoolCue, privada: privateSchool, emailEscuela: schoolEmail}),
-        {
-            headers: {'Content-Type': 'application/json'},
-            withCredentials: true
-        }
-        )
-        console.log(JSON.stringify(response?.data))
+    Swal.fire({
+        title: '¿Deseas inscribir tu proyecto a la etapa escolar?',
+        icon: 'question',
+        showCancelButton: true,
+        reverseButtons: true,
+        confirmButtonText: 'Inscribir',
+        confirmButtonColor: '#00ACE6',
+        cancelButtonText: 'Cancelar',
+        cancelButtonColor: '#D4272D',
+    }).then(async (result) => {
+        if(result.isConfirmed) {
+            const success = await inscribirProyecto()
+            if(success) Swal.fire({
+                title: '¡Proyecto Inscripto!',
+                text: 'Inscribiste tu proyecto con éxito',
+                icon: 'success',
+                confirmButtonText: 'Ok',
+                confirmButtonColor: '#00ACE6',
+            }).then((result) => {
+                if(result.isConfirmed || result.isDismissed) {
+                    setFormValues({
+                        title: '',
+                        description: '',
+                        level: '',
+                        category: '',
+                        schoolName: '',
+                        schoolCue: '',
+                        privateSchool: '',
+                        schoolEmail: ''
+                    })
+                    navigate(from, { replace: true })
+                }
+            })
+      }})
 
-        setFormValues({
-            title: '',
-            description: '',
-            level: '',
-            category: '',
-            schoolName: '',
-            schoolCue: '',
-            privateSchool: '',
-            schoolEmail: ''
-        })
-
-    } catch (err) {
-        if(!err?.response){
-            console.log('El servidor no respondio')
-        } else if(err.response?.status === 403) {
-            console.log('Datos incorrectos intente nuevamente')
-        } else if(err.response?.status === 401) {
-            console.log('No estas autorizado para realizar esta operacion')
-        } else {
-            console.log('Fallo la inscripcion del proyecto')
-        }
-        console.log(err)
+    const inscribirProyecto = async () => {
+        try {
+            const { title, description, level, category, schoolName, schoolCue, privateSchool, schoolEmail } = formValues
+            const response = await axiosPrivate.post('/proyecto', 
+            JSON.stringify({ titulo: title, descripcion: description, nivel: level, categoria: category, nombreEscuela: schoolName, cueEscuela: schoolCue, privada: privateSchool, emailEscuela: schoolEmail}),
+            {
+                headers: {'Content-Type': 'application/json'},
+                withCredentials: true
+            }
+            )
+            return true
+    
+        } 
+        catch (err) {
+            let msg = ''
+            console.log(JSON.stringify(err.response.data))
+            if(!err?.response){
+              msg = 'El servidor no respondió'
+            } else if(err.response?.status === 403) {
+              msg = 'Datos incorrectos intente nuevamente'
+            } else if(err.response?.status === 401) {
+              msg = 'No estas autorizado para realizar esta operación'
+            } else {
+              msg = `Falló la inscripción <br> ${err.response.data.error}`
+            }
+            Swal.fire({
+              html: msg,
+              title: 'Fallo la inscripción',
+              icon: 'error',
+              confirmButtonText: 'OK',
+              confirmButtonColor: '#00ACE6',
+            })
         }
         
-        console.log('Se mando XD')
+    }
+
 }
   
 

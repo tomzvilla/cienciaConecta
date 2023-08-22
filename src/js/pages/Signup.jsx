@@ -1,3 +1,4 @@
+// hooks
 import { useState } from 'react'
 import { useFormValidator } from '../hooks/useFormValidator'
 import { useNavigate } from 'react-router-dom'
@@ -6,9 +7,10 @@ import { useNavigate } from 'react-router-dom'
 import SignupForm from '../components/Signup/SignupForm'
 import SignupProgress from '../components/Signup/SignupProgress'
 import Navbar from '../components/Navbar/Navbar'
+import SignupConfirm from '../components/Signup/SignupConfirm'
 
 import axios from '../../api/axios'
-import SignupConfirm from '../components/Signup/SignupConfirm'
+import Swal from 'sweetalert2'
 const SIGNUP_URL = '/auth/register'
 
 const Signup = () => {
@@ -52,6 +54,7 @@ const Signup = () => {
 
     try {
       const { name, lastname, email, password, cuil, dni, cue, phoneNumber, position } = formValues
+
       const response = await axios.post(SIGNUP_URL, 
         JSON.stringify({ nombre: name, apellido: lastname, email, password, cuil, dni, cue, telefono: phoneNumber, cargo: position}),
           {
@@ -59,8 +62,20 @@ const Signup = () => {
             withCredentials: true
           }
       )
-      console.log(JSON.stringify(response?.data))
       
+      if(response.status === 201) {
+        Swal.fire({
+          title: 'Registro confirmado',
+          text: '¡Te registraste con éxito en CienciaConecta! Ahora debes esperar que un administrador autorice tu cuenta',
+          icon: 'success',
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#00ACE6',
+        }).then((result) => {
+          if(result.isConfirmed || result.isDismissed) {
+            navigate('/home')
+          }
+        })
+      }
 
       setFormValues({
         name: '',
@@ -75,20 +90,26 @@ const Signup = () => {
         position: ''
       })
 
-      navigate('/home')
-    } catch (err) {
-      if(!err?.response){
-        console.log('El servidor no respondio')
-      } else if(err.response?.status === 403) {
-        console.log('Datos incorrectos intente nuevamente')
-      } else if(err.response?.status === 401) {
-        console.log('No estas autorizado para realizar esta operacion')
-      } else {
-        console.log('Fallo el logueo')
-      }
 
+    } catch (err) {
+      let msg = ''
+      if(!err?.response){
+        msg = 'El servidor no respondió'
+      } else if(err.response?.status === 403) {
+        msg = 'Datos incorrectos intente nuevamente'
+      } else if(err.response?.status === 401) {
+        msg = 'No estas autorizado para realizar esta operación'
+      } else {
+        msg = `Falló el registro <br> ${err.response.data.errors[0].msg}`
+      }
+      Swal.fire({
+        html: msg,
+        title: 'Registro NO confirmado',
+        icon: 'error',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#00ACE6',
+      })
     }
-    console.log('Se mando XD')
 
   }
 

@@ -11,6 +11,8 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import { useNavigate, useLocation } from 'react-router-dom'
 
+import Swal from "sweetalert2"
+
 export const ETAPAS = {
     Escolar: '1',
     Regional: '2',
@@ -142,78 +144,112 @@ const ActualizarProyectoForm = ({ formData }) => {
 
         if(!isValid) return
 
-        try {
-            console.log('Entro al try')
-            const { title, description, level, category, schoolName, schoolCue, privateSchool, schoolEmail, sede, videoPresentacion, carpetaCampo, informeTrabajo, registroPedagogico, autorizacionImagen, grupoProyecto } = formValues
-            let response = {}
-            if(instanciaActual === INSTANCIA.Escolar){
-                response = await axiosPrivate.patch(`/proyecto/${formData._id}`, 
-                JSON.stringify({ 
-                    titulo: title,
-                    descripcion: description, 
-                    nivel: level, 
-                    categoria: category, 
-                    nombreEscuela: schoolName, 
-                    cueEscuela: schoolCue, 
-                    privada: privateSchool, 
-                    emailEscuela: schoolEmail
-                }),
-                    {
-                        headers: {'Content-Type': 'application/json'},
-                        withCredentials: true
+        Swal.fire({
+            title: '¿Deseas actualizar los datos de tu proyecto?',
+            icon: 'question',
+            showCancelButton: true,
+            reverseButtons: true,
+            confirmButtonText: 'Actualizar',
+            confirmButtonColor: '#00ACE6',
+            cancelButtonText: 'Cancelar',
+            cancelButtonColor: '#D4272D',
+        }).then(async (result) => {
+            if(result.isConfirmed) {
+                const success = await actualizarProyecto()
+                if(success) Swal.fire({
+                    title: '¡Proyecto Actualizado!',
+                    text: 'Actualizaste tu proyecto con éxito',
+                    icon: 'success',
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: '#00ACE6',
+                }).then((result) => {
+                    if(result.isConfirmed || result.isDismissed) {
+                        navigate(from, { replace: true })
                     }
-                )
-            } else {
-                const grupo = grupoProyecto.map(alumno => {
-                    return {
-                      nombre: alumno.name,
-                      apellido: alumno.lastname,
-                      dni: alumno.dni
-                    };
-                });
-                console.log(sede)
-                console.log(registroPedagogico)
-                response = await axiosPrivate.patch(`/proyecto/regional/${formData._id}`, 
-                JSON.stringify({ 
-                    titulo: title, 
-                    descripcion: description, 
-                    nivel: level, 
-                    categoria: category, 
-                    nombreEscuela: schoolName, 
-                    cueEscuela: schoolCue, 
-                    privada: privateSchool, 
-                    emailEscuela: schoolEmail,
-                    videoPresentacion: videoPresentacion,
-                    registroPedagogico: registroPedagogico.path || 'www.google.com',
-                    carpetaCampo: carpetaCampo.path || 'www.google.com',
-                    informeTrabajo: informeTrabajo.path || 'www.google.com',
-                    autorizacionImagen: true,
-                    grupoProyecto: grupo,
-                    sede: sede
-                }),
-                    {
-                        headers: {'Content-Type': 'application/json'},
-                        withCredentials: true
-                    }
-                )
+                })
             }
-            
-            console.log(JSON.stringify(response?.data))
-            console.log(formValues)
+        })
 
-        } catch (err) {
-            if(!err?.response){
-                console.log('El servidor no respondio')
-            } else if(err.response?.status === 403) {
-                console.log('Datos incorrectos intente nuevamente')
-            } else if(err.response?.status === 401) {
-                console.log('No estas autorizado para realizar esta operacion')
-            } else {
-                console.log('Fallo la actualizacion del proyecto')
+
+        const actualizarProyecto = async () => {
+            try {
+                const { title, description, level, category, schoolName, schoolCue, privateSchool, schoolEmail, sede, videoPresentacion, carpetaCampo, informeTrabajo, registroPedagogico, autorizacionImagen, grupoProyecto } = formValues
+                let response = {}
+                if(instanciaActual === INSTANCIA.Escolar){
+                    response = await axiosPrivate.patch(`/proyecto/${formData._id}`, 
+                    JSON.stringify({ 
+                        titulo: title,
+                        descripcion: description, 
+                        nivel: level, 
+                        categoria: category, 
+                        nombreEscuela: schoolName, 
+                        cueEscuela: schoolCue, 
+                        privada: privateSchool, 
+                        emailEscuela: schoolEmail
+                    }),
+                        {
+                            headers: {'Content-Type': 'application/json'},
+                            withCredentials: true
+                        }
+                    )
+                } else {
+                    const grupo = grupoProyecto.map(alumno => {
+                        return {
+                          nombre: alumno.name,
+                          apellido: alumno.lastname,
+                          dni: alumno.dni
+                        };
+                    });
+                    response = await axiosPrivate.patch(`/proyecto/regional/${formData._id}`, 
+                    JSON.stringify({ 
+                        titulo: title, 
+                        descripcion: description, 
+                        nivel: level, 
+                        categoria: category, 
+                        nombreEscuela: schoolName, 
+                        cueEscuela: schoolCue, 
+                        privada: privateSchool, 
+                        emailEscuela: schoolEmail,
+                        videoPresentacion: videoPresentacion,
+                        registroPedagogico: registroPedagogico.path || 'www.google.com',
+                        carpetaCampo: carpetaCampo.path || 'www.google.com',
+                        informeTrabajo: informeTrabajo.path || 'www.google.com',
+                        autorizacionImagen: true,
+                        grupoProyecto: grupo,
+                        sede: sede
+                    }),
+                        {
+                            headers: {'Content-Type': 'application/json'},
+                            withCredentials: true
+                        }
+                    )
+                }
+
+                return true
+    
+            }  
+            catch (err) {
+                let msg = ''
+                if(!err?.response){
+                  msg = 'El servidor no respondió'
+                } else if(err.response?.status === 403) {
+                  msg = 'Datos incorrectos intente nuevamente'
+                } else if(err.response?.status === 401) {
+                  msg = 'No estas autorizado para realizar esta operación'
+                } else {
+                  msg = `Falló la actualización del proyecto <br> ${err.response.data.error}`
+                }
+                Swal.fire({
+                  html: msg,
+                  title: 'Fallo la actualización',
+                  icon: 'error',
+                  confirmButtonText: 'OK',
+                  confirmButtonColor: '#00ACE6',
+                })
             }
+
         }
-            
-        console.log('Se mando XD')
+
     }
 
     const handleDelete = async (e) => {
