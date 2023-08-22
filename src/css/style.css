@@ -10,6 +10,10 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+.swal2-popup {
+  font-size: 1.6rem !important;
+}
+
 html {
   box-sizing: border-box;
   font-size: 62.5%;
