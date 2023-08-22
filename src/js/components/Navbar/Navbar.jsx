@@ -16,11 +16,11 @@ const Navbar = (props) => {
         navigate('/home')
     }
 
-    console.log(auth)
+
+    const modifier = props.home ? "--home" : ""
     
-    return (
-        <div className="navbar">
-            
+    return ( 
+        <div className={`navbar navbar${modifier}`}>
             <h1 className="navbar__logo">CienciaConecta</h1>
             <div className="navbar__button-container">
                 { auth?.cuil ?

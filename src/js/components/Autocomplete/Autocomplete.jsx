@@ -26,16 +26,18 @@ const Autocomplete  = (props) => {
     }, [])
     
     return (
-        <div>
-            <div onBlur={resetSearchComplete}>
-                <input disabled={disabled} type="text" onChange={onChange} onFocus={onFocus} placeholder="Ingresa un establecimiento..."/>
-                { showResults && (<div>
+        
+            <div onBlur={resetSearchComplete} className="autocomplete">
+                <label className="autocomplete__label">Establecimiento: </label>
+                <input disabled={disabled} className="autocomplete__input" type="text" onChange={onChange} onFocus={onFocus} placeholder="Ingresa un establecimiento..."/>
+                { showResults && (<div className="autocomplete__container">
                     {results?.map((item, index) => {
                         if (index < 150) {
                         return ( 
                             <div 
                                 onMouseDown={() => handleSelection(index)}
                                 key={index}
+                                className="autocomplete__auto"
                             >
                                 {renderItem(item)}
                             </div>
@@ -43,7 +45,7 @@ const Autocomplete  = (props) => {
                     }})}
                 </div>)}
             </div>
-        </div>
+        
     )
 
 }
