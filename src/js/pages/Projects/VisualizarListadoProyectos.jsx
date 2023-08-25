@@ -32,7 +32,7 @@ const VisualizarListadoProyectos = () => {
           return null
         }
       }).filter(project => project !== null)
-
+    }
     
 
 
@@ -48,6 +48,7 @@ const VisualizarListadoProyectos = () => {
       </>
     )
   
-  }
   
-  export default VisualizarListadoProyectos
+}
+
+export default VisualizarListadoProyectos

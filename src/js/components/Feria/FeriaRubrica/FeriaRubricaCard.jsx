@@ -44,7 +44,6 @@ const FeriaRubricaCard = (props) => {
         })
         if(parseFloat(sumaPonderada).toFixed(3) !== parseFloat('1').toFixed(3) ) error = true 
         setSumaPonderacion(parseFloat(sumaPonderada).toFixed(3))
-        console.log(sumaPonderada)
         setFormValues({...formValues, criteriosEvaluacion: prevCriterios, errorSumaPonderada: error})
         setRubricaValues({
             nombreCriterio: '',
@@ -68,7 +67,6 @@ const FeriaRubricaCard = (props) => {
         })
 
         if(parseFloat(sumaPonderada).toFixed(3) !== parseFloat('1').toFixed(3) ) error = true
-        console.log(parseFloat(sumaPonderada).toFixed(3))
         setSumaPonderacion(parseFloat(sumaPonderada).toFixed(3))
         
         setFormValues({...formValues, criteriosEvaluacion: prevCriterios, errorSumaPonderada: error})
@@ -99,7 +97,6 @@ const FeriaRubricaCard = (props) => {
     const handleBorrarRubrica = (e) => {
         const nombre = e.target.parentNode.parentNode.firstChild.innerText
         //const nombre = e.target.parentNode.parentNode.parentNode.children[0].firstChild.data
-        console.log(rubrica.criterios)
         e.preventDefault()
         handleDeleteRubrica(e, nombre)
     }

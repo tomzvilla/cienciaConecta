@@ -11,6 +11,13 @@ const TableBodyRow = (props) => {
   const showBorrar = props.callback ? true : false;
   const showModal = props.modal ? true : false;
 
+  const enviarDatos = (e, nombreSede) => {
+    props.modal(e, nombreSede)
+  }
+  const borrarDatos = (e, nombreSede) => {
+    props.callback(e, nombreSede)
+  }
+
     return (
         
             props.data.map((item, index) => {
@@ -25,11 +32,11 @@ const TableBodyRow = (props) => {
                   {showBorrar & showModal ?
                         <>
                             <td key={index} className="table-body-row__td">
-                              <Button activo={true} text={props.modalTitle} onClickHandler={props.modal} small={true}/>
+                              <Button activo={true} text={props.modalTitle} onClickHandler={(e) => enviarDatos(e, item[`${props.headers[0].value}`])} small={true}/>
                             </td>
 
                             <td key={index+1} className="table-body-row__td">
-                              <ImageButton small={true} alt="Borrar" linkto={""} callback={props.callback} src={require("../../../assets/x.png")}/>
+                              <ImageButton small={true} alt="Borrar" linkto={""} callback={(e) => borrarDatos(e, item[`${props.headers[0].value}`])} src={require("../../../assets/x.png")}/>
                             </td>
                         </>
                     : 

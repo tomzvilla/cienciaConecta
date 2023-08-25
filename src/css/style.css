@@ -492,6 +492,9 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .register-project-form__button {
   margin-top: 2rem;
   align-self: center;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
 }
 
 .signup-form {
@@ -620,6 +623,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .edit-project-form__button {
   width: 100%;
   display: flex;
+  justify-content: space-around;
   margin-top: 2rem;
 }
 

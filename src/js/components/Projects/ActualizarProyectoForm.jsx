@@ -62,7 +62,6 @@ const ActualizarProyectoForm = ({ formData }) => {
     const navigate = useNavigate()
     const location = useLocation()
     const from = location.state?.from || '/myprojects'
-    console.log(location)
 
     const {errors, validateForm, onBlurField} = useFormValidator(formValues)
 
@@ -201,6 +200,10 @@ const ActualizarProyectoForm = ({ formData }) => {
                           dni: alumno.dni
                         };
                     });
+                    const pdfs = new FormData()
+                    pdfs.append('registroPedagogicopdf', registroPedagogico)
+                    pdfs.append('carpetaCampo', carpetaCampo)
+                    pdfs.append('informeTrabajo', informeTrabajo)
                     response = await axiosPrivate.patch(`/proyecto/regional/${formData._id}`, 
                     JSON.stringify({ 
                         titulo: title, 
@@ -212,9 +215,9 @@ const ActualizarProyectoForm = ({ formData }) => {
                         privada: privateSchool, 
                         emailEscuela: schoolEmail,
                         videoPresentacion: videoPresentacion,
-                        registroPedagogico: registroPedagogico.path || 'www.google.com',
-                        carpetaCampo: carpetaCampo.path || 'www.google.com',
-                        informeTrabajo: informeTrabajo.path || 'www.google.com',
+                        carpetaCampo: 'www.google.com',
+                        informeTrabajo: 'www.google.com',
+                        registroPedagogico: 'www.google.com',
                         autorizacionImagen: true,
                         grupoProyecto: grupo,
                         sede: sede
@@ -224,6 +227,15 @@ const ActualizarProyectoForm = ({ formData }) => {
                             withCredentials: true
                         }
                     )
+                    console.log(response)
+                    if(response.status === 200){
+                        const responseArchivos = await axiosPrivate.post(`/proyecto/regional/upload/${formData._id}`, pdfs,
+                        {headers: {'Content-Type': 'multipart/form-data'}})
+
+                        console.log('entro al if')
+                        console.log(responseArchivos)
+                    }
+                    
                 }
 
                 return true
@@ -286,7 +298,6 @@ const ActualizarProyectoForm = ({ formData }) => {
             grupoProyecto: alumnos
         })
         if(alumnos.length >= 1) {
-            console.log('entro aca')
             errors.grupoProyecto = {
                 dirty: true,
                 errors: false,

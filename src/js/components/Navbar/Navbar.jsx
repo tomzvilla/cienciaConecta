@@ -23,7 +23,7 @@ const Navbar = (props) => {
         <div className={`navbar navbar${modifier}`}>
             <h1 className="navbar__logo">CienciaConecta</h1>
             <div className="navbar__button-container">
-                { auth?.cuil ?
+                { auth?.roles ?
                     <Button text="Salir" onClickHandler={signOut}/>
                     :
                     <Button text="Ingresá" onClickHandler={props.openModal}/>

@@ -156,22 +156,16 @@ const Signup = () => {
  
   return (
     <div className='signup'>
-      <div className='signup__navbar'>
-        <Navbar />
-      </div>
-      
       
       <SignupProgress avanzar={avanzar} confirmar={confirmar}/>
       
-
-
       {!confirmar ?
       <SignupForm personal={!avanzar} handleChange={handleChange} onBlurField={onBlurField} 
                   formValues={formValues}
                   errors={errors} onSubmit={handleSubmit} handleAvanzar={handleAvanzar} handleVolver={handleVolver}/>
                   : <SignupConfirm  formValues={formValues} handleVolver={handleVolver} handleSubmit={handleSubmit}/>
       }
-      </div>
+    </div>
   )
 }
 
