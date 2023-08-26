@@ -24,13 +24,16 @@ const PersistLogin = () => {
         }
     
         !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false)
-
         return () => isMounted = false
       
     }, [isLoading])
   return (
     <>
-        {isLoading ? <Spinner /> : <Outlet context={[openModal, closeModal, modalIsOpen]}/>}
+        {isLoading 
+            ? <Spinner /> 
+              : 
+              <Outlet context={[openModal, closeModal, modalIsOpen]}/>
+        }
     </>
   )
 }

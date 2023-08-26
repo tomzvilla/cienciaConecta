@@ -232,7 +232,6 @@ const ActualizarProyectoForm = ({ formData }) => {
                         const responseArchivos = await axiosPrivate.post(`/proyecto/regional/upload/${formData._id}`, pdfs,
                         {headers: {'Content-Type': 'multipart/form-data'}})
 
-                        console.log('entro al if')
                         console.log(responseArchivos)
                     }
                     

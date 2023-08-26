@@ -8,7 +8,6 @@ const useLogout= () => {
     const logout = async () => {
         setAuth({})
         try {
-            console.log('Iniciando deslogueo')
             const response = await axios('/auth/logout', {
                 withCredentials: true
             })

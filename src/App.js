@@ -1,6 +1,5 @@
 import './css/style.css'
-import { Route, Routes, Navigate } from 'react-router-dom'
-import useAuth from './js/hooks/useAuth'
+import { Route, Routes } from 'react-router-dom'
 
 // Import components
 import RequireAuth from './js/components/RequireAuth/RequireAuth'
@@ -33,16 +32,15 @@ export const ROLES = {
 };
 
 function App() {
-  const { auth } = useAuth()
-  console.log(auth)
-  console.log('Desde al app.js')
   return (
       <Routes>
         <Route path='/' element={<Layout />}>
-          <Route path='login' element={<Login/>}/>
-          <Route path='home' element={<Home/>}/>
-          <Route path='signup' element={<Signup/>}/>
-          <Route path='unauthorized' element={<Unauthorized/>}/>
+          <Route element={<PersistLoginInverse />}>
+            <Route path='login' element={<Login/>}/>
+            <Route path='home' element={<Home/>}/>
+            <Route path='signup' element={<Signup/>}/>
+            <Route path='unauthorized' element={<Unauthorized/>}/>
+          </Route>
           <Route element={<PersistLogin />}>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]}/>}>
               {/* Rutas para proyectos */}

@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom"
-import LinkPage from "./LinkPage"
 import Navbar from "../components/Navbar/Navbar"
 import Footer from "../components/Footer/Footer"
 
@@ -9,7 +8,6 @@ const Layout = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false)
 
   const openModal = () => {
-      console.log('entro al open')
       setIsOpen(true)
   }
 
@@ -20,7 +18,6 @@ const Layout = (props) => {
     <>
       <Navbar openModal={openModal} closeModal={closeModal}/>
       <main className="App">
-        {/* <LinkPage /> */}
         <Outlet context={[openModal, closeModal, modalIsOpen]}/>
       </main>
     </>

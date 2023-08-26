@@ -4,7 +4,7 @@ import InputField from '../InputField/InputField'
 import LoginFormLink from '../LoginFormLink/LoginFormLink'
 import ModalHeader from '../Modal/ModalHeader'
 // hooks
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useFormValidator } from '../../hooks/useFormValidator'
 import useAuth from '../../hooks/useAuth'
 import { useNavigate, useLocation } from 'react-router-dom'
@@ -29,26 +29,47 @@ const LoginForm = () => {
       const from = location.state?.from?.pathname || '/dashboard'
     
       const handleChange = (e) => {
-        const {name, value} = e.target
+        let {name, value} = e.target
+        if(name === 'cuil'){
+          value = formatCuil(value)
+        }
         const nextFormValueState = {
           ...formValues,
           [name]: value
         }
+        
         setFormValues(nextFormValueState)
         if (errors[name].dirty){
           validateForm({form: nextFormValueState, errors, name})
         }
       }
+
+      const formatCuil = (input) => {
+        // Eliminar todos los caracteres no numéricos
+        const numericInput = input.replace(/\D/g, '');
+        console.log(numericInput)
+    
+        // Aplicar el formato con guiones
+        if (numericInput.length <= 2) {
+          return numericInput;
+        } else if (numericInput.length <= 10) {
+          console.log(`${numericInput.slice(0, 2)}-${numericInput.slice(2)}`)
+          return `${numericInput.slice(0, 2)}-${numericInput.slice(2)}`;
+        } else {
+          return `${numericInput.slice(0, 2)}-${numericInput.slice(2, 10)}-${numericInput.slice(10, 11)}`;
+        }
+      };
     
       const handleSubmit = async (e) => {
         e.preventDefault()
         const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true})
         if(!isValid) return
-    
+
         try {
           const { cuil, password } = formValues
+          const numericCuil = cuil.replace(/\D/g, '');
           const response = await axios.post(LOGIN_URL, 
-            JSON.stringify({cuil, password}),
+            JSON.stringify({cuil: numericCuil, password}),
               {
                 headers: {'Content-Type': 'application/json'},
                 withCredentials: true
@@ -97,7 +118,7 @@ const LoginForm = () => {
                 label='CUIL' 
                 name='cuil'
                 placeholder="CUIL"
-                type='number'
+                type='text'
                 onChange={handleChange}
                 onBlur={onBlurField}
                 value={formValues.cuil}

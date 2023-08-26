@@ -41,11 +41,12 @@ export const lastnameValidator = (lastname) => {
 };
 
 export const cuilValidator = (cuil) => {
+  const notFormattedCuil = cuil.replace(/\D/g, '');
   if (!cuil) {
     return "Tenés que ingresar un CUIL";
-  } else if (cuil.length > 11 || cuil.length < 10) {
+  } else if (notFormattedCuil.length > 11 || notFormattedCuil.length < 10) {
     return "El CUIL que ingresaste no es válido"
-  } else if (!/^[0-9]+$/.test(cuil)) {
+  } else if (!/^[0-9]+$/.test(notFormattedCuil)) {
     return "El CUIL no puede tener letras"
   }
   return "";
