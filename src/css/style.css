@@ -41,6 +41,41 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   border: 0;
 }
 
+.sidebar {
+  width: 30rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #D9D9D9;
+  padding-top: 4rem;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+}
+.sidebar-link:hover {
+  background-color: #D9D9D9;
+  color: #00ACE6;
+}
+.sidebar-link:hover .sidebar-link__image {
+  width: 4rem;
+  filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
+}
+.sidebar-link:active {
+  color: #00ACE6;
+  filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
+  background-color: #D9D9D9;
+}
+.sidebar-link__image {
+  width: 4rem;
+  filter: brightness(0);
+}
+.sidebar-link__text {
+  padding-left: 1rem;
+}
+
 .button {
   display: flex;
   align-items: center;
@@ -492,6 +527,9 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .register-project-form__button {
   margin-top: 2rem;
   align-self: center;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }
 
 .signup-form {
@@ -592,9 +630,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
-  margin: auto;
   max-width: 75rem;
-  margin-top: 5rem;
   padding-bottom: 4rem;
   justify-content: space-around;
   align-items: flex-start;
@@ -620,16 +656,17 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .edit-project-form__button {
   width: 100%;
   display: flex;
+  justify-content: space-around;
   margin-top: 2rem;
 }
 
 .project-card {
   background-color: #ffffff;
-  width: 60%;
+  width: 70%;
   padding: 4rem;
   box-shadow: 0px 45px 77px 27px rgba(0, 0, 0, 0.25);
   border-radius: 2rem;
-  margin: auto;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(1fr, 2);
   grid-template-rows: repeat(1fr, 2);
@@ -673,13 +710,11 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
-  margin: auto;
   max-width: 75rem;
   height: min-content;
   align-items: center;
   border-radius: 2rem;
   padding-bottom: 2rem;
-  margin-top: 5rem;
   justify-content: space-around;
   box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
 }
@@ -755,8 +790,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   width: 80%;
   box-shadow: 0px 45px 77px 27px rgba(0, 0, 0, 0.25);
   border-radius: 2rem;
-  margin: auto;
-  margin-top: 10rem;
   padding-bottom: 4rem;
   display: flex;
   flex-direction: column;
@@ -1225,6 +1258,36 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   background-color: blue;
   height: 100vh;
   width: 100vw;
+}
+
+.layout {
+  display: grid;
+  grid-template-rows: repeat(4, max-content);
+  min-height: 100vh;
+  max-width: 100vw;
+}
+.layout__nav {
+  grid-row: 1/2;
+  grid-column: 1/3;
+}
+.layout__side {
+  grid-row: 2/3;
+  grid-column: 1/2;
+}
+.layout__main {
+  grid-row: 2/3;
+  grid-column: 2/3;
+  padding: 5rem 0;
+  min-height: 70vh;
+}
+.layout__main--full-width {
+  padding: 0;
+  grid-row: 2/3;
+  grid-column: 1/3;
+}
+.layout__footer {
+  grid-row: 3/4;
+  grid-column: 1/3;
 }
 
 /*# sourceMappingURL=style.css.map */

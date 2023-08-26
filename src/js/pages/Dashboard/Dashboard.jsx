@@ -37,8 +37,8 @@ const Dashboard = () => {
 
 
     return (
-        <div>
-            <h1>Feria de Ciencia y Tecnologia {new Date().getFullYear()}</h1>
+        <div className="dashboard">
+            <h1 className="dashboard__title">Feria de Ciencia y Tecnologia {new Date().getFullYear()}</h1>
             {!rolesInicial.some(role => userRoles.roles.includes(role)) && <DashboardInicioFeria />}
             {userRoles.roles.includes('2') &&  <DashboardResponsable />}
             {userRoles.roles.includes('5') && <p>Es la comision asesora</p>}

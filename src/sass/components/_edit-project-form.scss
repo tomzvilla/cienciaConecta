@@ -3,14 +3,11 @@
     display: flex;
     flex-direction: column;
     background-color: $color-white;
-    margin: auto;
+    //margin: auto;
 
     max-width: 75rem;
 
-
-
-
-    margin-top: 5rem;
+    //margin-top: 5rem;
     padding-bottom: 4rem;
 
     justify-content: space-around;
@@ -47,6 +44,7 @@
     &__button {
         width: 100%;
         display: flex;
+        justify-content: space-around;
 
         margin-top: 2rem;
 

@@ -49,5 +49,6 @@ const VisualizarListadoProyectos = () => {
     )
   
   }
+}
   
-  export default VisualizarListadoProyectos
+export default VisualizarListadoProyectos;
