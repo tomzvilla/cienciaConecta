@@ -13,15 +13,13 @@ const SeleccionSedes = (props) => {
         props.handleDelete(e, nombre)
     }
 
-    const handleCupos = (e, nombreSede) => {
+    const handleCupos = (e, item) => {
         e.preventDefault()
-        const nombre = nombreSede
-        props.handleCupos(e, nombre)
+        props.handleCupos(e, item.nombre)
     }
 
 
     const show = props.establecimientos[0] === null ? false : props.establecimientos?.length === 0 ? false : true 
-
 
     return (
         <div className="seleccion-sedes">

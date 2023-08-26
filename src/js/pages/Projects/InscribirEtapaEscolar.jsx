@@ -5,12 +5,7 @@ import InscribirEtapaEscolarForm from "../../components/Projects/InscribirEtapaE
 const InscribirEtapaEscolar = () => {
   return (
     <>
-        {/* <Navbar/> */}
-
         <InscribirEtapaEscolarForm />
-
-
-    {/* <Footer/> */}
     </>
   )
 

@@ -12,8 +12,6 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import axios from '../../../api/axios'
 import Swal from 'sweetalert2'
 
-
-
 const LOGIN_URL = '/auth/login'
 
 

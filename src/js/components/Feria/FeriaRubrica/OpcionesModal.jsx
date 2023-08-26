@@ -13,14 +13,14 @@ const OpcionesModal = (props) => {
 
     const { rubrica, criterio, formValues, setFormValues, cerrarModal } = props 
     const [opcion, setOpcion] = useState({
-        nombreOpcion: ''
+        'nombreOpcion': ""
     })
 
     const { validateForm, onBlurField, errors} = useFormValidator(opcion)
-
+    
 
     const headers = [
-        {name: 'Criterio', value: 'criterio'},
+        {name: 'Opción', value: 'opciones'},
 
       ]
 
@@ -32,6 +32,9 @@ const OpcionesModal = (props) => {
         const rubricaIndex = prevCriterios.findIndex(rbr => rbr.nombreRubrica === rubrica?.nombreRubrica);
         const criterioIndex = prevCriterios[rubricaIndex]?.criterios.findIndex(crit => crit.nombre === criterio.nombre);
         prevCriterios[rubricaIndex]?.criterios[criterioIndex].opciones.push(opcion.nombreOpcion)
+        
+        // console.log(rubricaIndex)
+
 
         setFormValues({...formValues, criteriosEvaluacion: prevCriterios})
         setOpcion({
@@ -84,7 +87,6 @@ const OpcionesModal = (props) => {
                 onClickHandler={handleSubmit} 
                 activo={true}
             /> */}
-
             <Table data={criterio?.opciones} headers={headers} callback={handleDeleteOpcion}/>
             <AddOpcion handleChange={handleChange} onBlurField={onBlurField} opcion={opcion} errors={errors} handleAdd={handleSubmit}/>
         </div>

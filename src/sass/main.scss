@@ -6,6 +6,7 @@
 // IMPORTAR SCSS DE COMPONENTES
 
 @import 'components/sidebar';
+@import 'components/sidebar-link';
 @import 'components/button';
 @import 'components/input-field';
 @import 'components/password-input';
@@ -53,6 +54,7 @@
 @import 'components/feria-rubrica-card';
 @import 'components/feria-rubrica-form';
 @import 'components/add-opcion';
+@import 'components/dashboard';
 
 // IMPORTAR SCSS DE PAGINAS
 
@@ -62,3 +64,4 @@
 @import 'pages/unauthorized';
 @import 'pages/not-found';
 @import 'pages/projects';
+@import 'pages/layout';

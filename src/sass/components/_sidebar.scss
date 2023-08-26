@@ -1,0 +1,13 @@
+.sidebar {
+    width: 30rem;
+    height: 100%;
+
+
+    display: flex;
+    flex-direction: column;
+
+    border-right: 1px solid $color-grey-light;
+
+    padding-top: 4rem;
+
+}

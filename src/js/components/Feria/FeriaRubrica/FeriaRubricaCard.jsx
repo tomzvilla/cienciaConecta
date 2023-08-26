@@ -101,6 +101,13 @@ const FeriaRubricaCard = (props) => {
         handleDeleteRubrica(e, nombre)
     }
 
+
+    const handleOpciones = (e, criterio) => {
+        e.preventDefault()
+        abrirOpciones(e, rubrica, criterio)
+
+    }
+
     return (
         <div className="feria-rubrica-card">
             
@@ -116,7 +123,7 @@ const FeriaRubricaCard = (props) => {
             
             <div className="feria-rubrica-card__table-container">
                 <Table
-                    modal={abrirOpciones}
+                    modal={handleOpciones}
                     modalTitle="Opciones"
                     callback={handleBorrar}
                     headers={headers}

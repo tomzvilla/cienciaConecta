@@ -26,25 +26,14 @@ const Home = (props) => {
     <>
       <div className='home'>
         {modalIsOpen ? <Modal title="Iniciar Sesión" component={<LoginForm />} setIsOpen={closeModal} /> : ""}
-          <header>
-            <HeroContent/>
-            <HeroImage/>
-            
-          </header>
-          
-          <main>
-            <ComoEmpiezo openModal={openModal} closeModal={closeModal}/>
-            
-          </main>
+           
+          <HeroContent/>
+          <HeroImage/>
 
-          <footer>
-            <Footer/>
-          </footer>
-          <Outlet/>
-        </div>
-        
-      
-    
+          <ComoEmpiezo openModal={openModal} closeModal={closeModal}/>
+         
+        <Outlet/>
+      </div>
     
     </>
     

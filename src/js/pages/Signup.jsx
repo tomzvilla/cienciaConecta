@@ -156,7 +156,6 @@ const Signup = () => {
  
   return (
     <div className='signup'>
-      
       <SignupProgress avanzar={avanzar} confirmar={confirmar}/>
       
       {!confirmar ?

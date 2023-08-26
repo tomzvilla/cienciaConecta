@@ -11,13 +11,6 @@ const TableBodyRow = (props) => {
   const showBorrar = props.callback ? true : false;
   const showModal = props.modal ? true : false;
 
-  const enviarDatos = (e, nombreSede) => {
-    props.modal(e, nombreSede)
-  }
-  const borrarDatos = (e, nombreSede) => {
-    props.callback(e, nombreSede)
-  }
-
     return (
         
             props.data.map((item, index) => {
@@ -25,6 +18,7 @@ const TableBodyRow = (props) => {
                 <tr key={item._id} className="table-body-row">
                   {
                     props.headers.map((header, index) =>{
+                      console.log(header)
                       return (<td key={index} className="table-body-row__td" >{item[`${header?.value}`]}</td> )
                     })
                   }
@@ -32,7 +26,7 @@ const TableBodyRow = (props) => {
                   {showBorrar & showModal ?
                         <>
                             <td key={index} className="table-body-row__td">
-                              <Button activo={true} text={props.modalTitle} onClickHandler={(e) => enviarDatos(e, item[`${props.headers[0].value}`])} small={true}/>
+                              <Button activo={true} text={props.modalTitle} onClickHandler={(e) => props.modal(e, item)} small={true}/>
                             </td>
 
                             <td key={index+1} className="table-body-row__td">

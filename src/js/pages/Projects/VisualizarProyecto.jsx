@@ -36,10 +36,10 @@ const VisualizarProyecto = () => {
     }
 
     return (
-        <div>
-            <h1> Feria de Ciencia y Tecnologia 2024</h1>
+        <>
+            {/* <h1> Feria de Ciencia y Tecnologia 2024</h1> */}
             {!data ? <Spinner/> : <ProjectCard formData={project}/>}
-        </div>
+        </>
     )
 }
 
