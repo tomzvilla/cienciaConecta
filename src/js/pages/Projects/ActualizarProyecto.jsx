@@ -14,9 +14,9 @@ const ActualizarProyecto = () => {
 
 
     return (
-        <div>
+        <>
             {!data ? <Spinner/> : <ActualizarProyectoForm formData={data.proyecto}/>}
-        </div>
+        </>
     )
 
 }

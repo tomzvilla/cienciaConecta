@@ -14,18 +14,16 @@ const SeleccionSedes = (props) => {
         props.handleDelete(e, nombre)
     }
 
-    const handleCupos = (e) => {
-        const nombre = e.target.parentNode.parentNode.parentNode.children[0].firstChild.data
-
+    const handleCupos = (e, item) => {
         e.preventDefault()
-        props.handleCupos(e, nombre)
+        props.handleCupos(e, item.nombre)
     }
 
 
     const show = props.establecimientos[0] === null ? false : props.establecimientos?.length === 0 ? false : true 
 
-    console.log(show)
-    console.log(props.establecimientos)
+    // console.log(show)
+    // console.log(props.establecimientos)
 
 
     return (

@@ -6,7 +6,9 @@ const Sidebar = () => {
     return (
         <nav className="sidebar">
             <div className="sidebar__link-container">
-                <SidebarLink />
+                <SidebarLink img={require("../../../assets/trofeo.png")} text="Inicio"/>
+                <SidebarLink img={require("../../../assets/evaluador.png")} text="Proyectos"/>
+                <SidebarLink img={require("../../../assets/user.png")} text="Postulaciones"/>
             </div>
             
         </nav>

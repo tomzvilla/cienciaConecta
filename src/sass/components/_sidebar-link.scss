@@ -1,0 +1,40 @@
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    //argin-top: 1rem;
+    padding: 1rem;
+
+    &:hover {
+        background-color: $color-grey-light;
+        color: $color-primary;
+    }
+
+    &:hover &__image {
+        width: 4rem;
+        filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
+        
+    }
+
+    &:active {
+        color: $color-primary;
+        filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
+        background-color: $color-grey-light;
+
+    }
+
+
+
+
+    &__image {
+        width: 4rem;
+        filter: brightness(0);
+
+    }
+
+    &__text {
+        padding-left: 1rem;
+
+        
+    }
+
+}

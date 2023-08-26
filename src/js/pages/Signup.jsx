@@ -156,11 +156,6 @@ const Signup = () => {
  
   return (
     <div className='signup'>
-      <div className='signup__navbar'>
-        <Navbar />
-      </div>
-      
-      
       <SignupProgress avanzar={avanzar} confirmar={confirmar}/>
       
 
