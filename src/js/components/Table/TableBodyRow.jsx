@@ -18,7 +18,6 @@ const TableBodyRow = (props) => {
                 <tr key={item._id} className="table-body-row">
                   {
                     props.headers.map((header, index) =>{
-                      console.log(header)
                       return (<td key={index} className="table-body-row__td" >{item[`${header?.value}`]}</td> )
                     })
                   }
@@ -48,7 +47,7 @@ const TableBodyRow = (props) => {
                     }
 
                   </td>
-                }
+                  }
 
                   
                 </tr>

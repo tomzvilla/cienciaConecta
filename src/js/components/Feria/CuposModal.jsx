@@ -81,6 +81,7 @@ const CuposModal = (props) => {
                 nivel._id !== 0 ? (
                     <div key={nivel._id} className="cupos-modal__nivel"> 
                         <InputField
+                            key={nivel._id}
                             label={nivel.nombre} 
                             name={nivel._id} 
                             type='number'

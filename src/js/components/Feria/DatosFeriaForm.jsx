@@ -9,7 +9,7 @@ const DatosFeriaForm = (props) => {
             <h2 className="datos-feria-form__title">Datos de la Feria</h2>
             <div className='datos-feria-form__input'>
                 <InputField
-                    label='Nombre de la Feria: ' 
+                    label='Nombre: ' 
                     name='nombreFeria'
                     type='text'
                     onChange={handleChange}
@@ -21,7 +21,7 @@ const DatosFeriaForm = (props) => {
             </div>
             <div className='datos-feria-form__input'>
                 <InputField
-                    label='Descripcion de la feria: ' 
+                    label='Descripcion: ' 
                     name='descripcionFeria'
                     type='textarea'
                     onChange={handleChange}
@@ -33,7 +33,7 @@ const DatosFeriaForm = (props) => {
             </div>
             <div className='datos-feria-form__input'>
                 <FileField
-                    label='Logotipo de la feria: ' 
+                    label='Logotipo: ' 
                     name='logo'
                     onChange={handleFileChange}
                     onBlur={onBlurField}
@@ -44,7 +44,7 @@ const DatosFeriaForm = (props) => {
             </div>
             <div className='datos-feria-form__input'>
                 <InputField
-                    label='Fecha inicio de la feria' 
+                    label='Fecha inicio' 
                     name='fechaInicioFeria'
                     type='date'
                     onChange={handleDateChange}
@@ -56,7 +56,7 @@ const DatosFeriaForm = (props) => {
             </div>
             <div className='datos-feria-form__input'>
                 <InputField
-                    label='Fecha fin de la feria' 
+                    label='Fecha fin' 
                     name='fechaFinFeria'
                     type='date'
                     onChange={handleDateChange}

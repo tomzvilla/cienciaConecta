@@ -1,5 +1,4 @@
 // Components
-import ActionsGroup from "../../components/Table/ActionsGroup"
 import TableHeader from "./TableHeader";
 import TableBodyRow from "./TableBodyRow";
 

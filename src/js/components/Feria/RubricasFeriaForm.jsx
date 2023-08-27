@@ -53,9 +53,10 @@ const RubricasFeriaForm = (props) => {
 
         <div className="feria-rubrica-form">
         <h2 className='feria-rubrica-form__title'>Rúbricas </h2>
-            {rubricas?.length === 0 ? (<p className="feria-rubrica-form__blank">No hay rúbricas para la feria</p>) : rubricas.map(r => 
+            {rubricas?.length === 0 ? (<p className="feria-rubrica-form__blank">No hay rúbricas para la feria</p>) : rubricas.map((r,index) => 
                 (
                     <FeriaRubricaCard 
+                        key={index}
                         rubrica={r} 
                         handleChange={handleChange}
                         abrirOpciones={abrirOpciones}

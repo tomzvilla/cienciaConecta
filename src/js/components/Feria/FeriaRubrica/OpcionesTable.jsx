@@ -22,8 +22,8 @@ const OpcionesTable = (props) => {
                     {criterio.opciones.map((o, index) =>
                         (
                             <tr key={index}>
-                                <td>{o} </td> 
-                                <td>
+                                <td key={index}>{o} </td> 
+                                <td key={index}>
                                     <button onClick={(e) => handleDeleteOpcion(e, o)}>
                                         Borrar
                                     </button>
