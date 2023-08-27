@@ -6,7 +6,7 @@ import RequireAuth from './js/components/RequireAuth/RequireAuth'
 import PersistLogin from './js/components/PersistLogin/PersistLogin'
 import PersistLoginInverse from './js/components/PersistLogin/PersistLoginInverse'
 
-import Login from './js/pages/Login'
+import LoginPage from './js/pages/LoginPage'
 import Signup from './js/pages/Signup'
 import Home from './js/pages/Home'
 import Layout from './js/pages/Layout'
@@ -38,7 +38,7 @@ function App() {
           <Route element={<PersistLoginInverse />}>
             <Route path='/' element={<Home/>}/>
             <Route path='home' element={<Home/>}/>
-            <Route path='login' element={<Login/>}/>
+            <Route path='login' element={<LoginPage/>}/>
             <Route path='signup' element={<Signup/>}/>
             <Route path='unauthorized' element={<Unauthorized/>}/>
           </Route>
