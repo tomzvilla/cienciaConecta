@@ -7,8 +7,10 @@ const SignupConfirm = (props) => {
     const primeraTitulos = ["CUIL", "DNI", "Apellido", "Nombre", "CUE", "Cargo"]
     const segundaTitulos = ["Teléfono", "Email", "Contraseña"]
 
+    const password = '*'.repeat(props.formValues.password.length);
+
     const primeraDatos = [props.formValues.cuil, props.formValues.dni, props.formValues.lastname, props.formValues.name, props.formValues.cue ,props.formValues.position]
-    const segundaDatos = [props.formValues.phoneNumber, props.formValues.email, props.formValues.password]
+    const segundaDatos = [props.formValues.phoneNumber, props.formValues.email, password]
 
 
     return (

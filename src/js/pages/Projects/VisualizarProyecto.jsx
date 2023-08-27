@@ -5,7 +5,6 @@ import useAxiosFetch from "../../hooks/useAxiosFetch"
 
 // components
 import ProjectCard from "../../components/Projects/ProjectCard"
-import Navbar from "../../components/Navbar/Navbar"
 import Spinner from "../../components/Spinner/Spinner"
 
 const VisualizarProyecto = () => {

@@ -45,13 +45,11 @@ const LoginForm = () => {
       const formatCuil = (input) => {
         // Eliminar todos los caracteres no numéricos
         const numericInput = input.replace(/\D/g, '');
-        console.log(numericInput)
     
         // Aplicar el formato con guiones
         if (numericInput.length <= 2) {
           return numericInput;
         } else if (numericInput.length <= 10) {
-          console.log(`${numericInput.slice(0, 2)}-${numericInput.slice(2)}`)
           return `${numericInput.slice(0, 2)}-${numericInput.slice(2)}`;
         } else {
           return `${numericInput.slice(0, 2)}-${numericInput.slice(2, 10)}-${numericInput.slice(10, 11)}`;

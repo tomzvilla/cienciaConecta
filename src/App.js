@@ -36,8 +36,9 @@ function App() {
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route element={<PersistLoginInverse />}>
-            <Route path='login' element={<Login/>}/>
+            <Route path='/' element={<Home/>}/>
             <Route path='home' element={<Home/>}/>
+            <Route path='login' element={<Login/>}/>
             <Route path='signup' element={<Signup/>}/>
             <Route path='unauthorized' element={<Unauthorized/>}/>
           </Route>

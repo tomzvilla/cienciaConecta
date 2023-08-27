@@ -13,24 +13,11 @@ const SignupForm = (props) => {
             <InputField
                 label='CUIL' 
                 name='cuil'
-                type='number'
+                type='text'
                 onChange={props.handleChange}
                 onBlur={props.onBlurField}
                 value={props.formValues.cuil}
                 errors={props.errors.cuil}
-                required={true}
-            />
-          </div>
-
-          <div className='signup-form__input'>
-            <InputField
-                label='DNI' 
-                name='dni'
-                type='number'
-                onChange={props.handleChange}
-                onBlur={props.onBlurField}
-                value={props.formValues.dni}
-                errors={props.errors.dni}
                 required={true}
             />
           </div>
@@ -50,29 +37,17 @@ const SignupForm = (props) => {
 
           <div className='signup-form__input'>
             <InputField
-                        label='Nombre: ' 
-                        name='name'
-                        type='text'
-                        onChange={props.handleChange}
-                        onBlur={props.onBlurField}
-                        value={props.formValues.name}
-                        errors={props.errors.name}
-                        required={true}
+                label='Nombre: ' 
+                name='name'
+                type='text'
+                onChange={props.handleChange}
+                onBlur={props.onBlurField}
+                value={props.formValues.name}
+                errors={props.errors.name}
+                required={true}
             />     
           </div>
 
-          <div className='signup-form__input'>
-            <InputField
-                label='CUE' 
-                name='cue'
-                type='number'
-                onChange={props.handleChange}
-                onBlur={props.onBlurField}
-                value={props.formValues.cue}
-                errors={props.errors.cue}
-                required={true}
-            />
-          </div>
           <div className='signup-form__input'>
             <InputField
                 label='Cargo' 
