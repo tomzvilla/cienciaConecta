@@ -32,7 +32,7 @@ const VisualizarListadoProyectos = () => {
           return null
         }
       }).filter(project => project !== null)
-
+    }
     
 
 

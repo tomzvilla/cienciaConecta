@@ -61,7 +61,6 @@ const CrearFeriaForm = () => {
 
     const cambiarVista = (e) => {
         e.preventDefault()
-        console.log(formValues)
         let fieldsToExclude = []
         if(etapaActual === ETAPAS.Datos) fieldsToExclude = ['fechaInicioInstanciaEscolar', 'fechaFinInstanciaEscolar','fechaInicioEvaluacionRegional', 'fechaFinEvaluacionRegional', 'fechaInicioExposicionRegional', 'fechaFinExposicionRegional', 
         'fechaInicioEvaluacionProvincial',  'fechaFinEvaluacionProvincial', 'fechaInicioPostulacionEvaluadores', 'fechaFinPostulacionEvaluadores', 'fechaInicioAsignacionProyectos','fechaFinAsignacionProyectos', 'cupos', 'criteriosEvaluacion', 'nombreRubrica']
@@ -91,7 +90,6 @@ const CrearFeriaForm = () => {
     const handleFileChange = (e) => {
         const {name} = e.target
         const file = e.target.files[0]
-        console.log(file)
         const nextFormValueState = {
             ...formValues,
             [name]: file
@@ -107,7 +105,6 @@ const CrearFeriaForm = () => {
     const dateWithTimezone = (date) => {
         let offsetUTC = date.getTimezoneOffset()
         date.setMinutes(date.getMinutes() - offsetUTC)
-        console.log(date.toISOString())
         offsetUTC = {
             // positive sign unless offset is at least -00:30 minutes:
             "s": offsetUTC < 30 ? '+' : '-',
@@ -133,22 +130,18 @@ const CrearFeriaForm = () => {
 
     const handleDateChange = (e) => {
         const {name, value} = e.target
-        console.log(value)
         let fecha = new Date(value)
         
         if(name.includes('Fin')) {
             fecha.setHours(44,59,59,59)
         } else {
-            console.log(fecha)
             // fecha.setHours(0,0,0,0)
         }
-        console.log(dateWithGMT3(fecha))
         const nextFormValueState = {
             ...formValues,
             [name]: dateWithGMT3(fecha)
         }
         setFormValues(nextFormValueState)
-        console.log(fecha)
         if (errors[name].dirty) {
             validateForm({form: nextFormValueState, errors, name})
         }
@@ -190,10 +183,8 @@ const CrearFeriaForm = () => {
             console.log(messageError)
             return
         }
-        console.log(formValues.errorSumaPonderacion)
 
         try {
-            console.log('Entro al try')
             const { 
                 nombreFeria, 
                 descripcionFeria, 
@@ -220,7 +211,6 @@ const CrearFeriaForm = () => {
             const sedesRegional = new Set(cupos.map(c => { 
                 return c.sede
             }))
-            console.log(sedesRegional)
             const response = await axiosPrivate.post('/feria', 
             JSON.stringify({ 
                 nombre: nombreFeria, 
@@ -333,7 +323,6 @@ const CrearFeriaForm = () => {
 
     const handleDeleteSedeProvincial = () => {
         setFormValues({...formValues, sedeProvincial: null})
-        console.log(formValues.sedeProvincial)
     }
 
     const handleAddRubrica = (rubrica) => {

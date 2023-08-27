@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom"
-import LinkPage from "./LinkPage"
 import Navbar from "../components/Navbar/Navbar"
 import Footer from "../components/Footer/Footer"
 import Sidebar from "../components/Sidebar/Sidebar"
@@ -12,7 +11,6 @@ const Layout = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false)
 
   const openModal = () => {
-      console.log('entro al open')
       setIsOpen(true)
   }
 

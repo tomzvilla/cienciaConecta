@@ -1,10 +1,10 @@
 import './css/style.css'
-import { Route, Routes, Navigate } from 'react-router-dom'
-import useAuth from './js/hooks/useAuth'
+import { Route, Routes } from 'react-router-dom'
 
 // Import components
 import RequireAuth from './js/components/RequireAuth/RequireAuth'
 import PersistLogin from './js/components/PersistLogin/PersistLogin'
+import PersistLoginInverse from './js/components/PersistLogin/PersistLoginInverse'
 
 import Login from './js/pages/Login'
 import Signup from './js/pages/Signup'
@@ -32,14 +32,15 @@ export const ROLES = {
 };
 
 function App() {
-  const { auth } = useAuth()
   return (
       <Routes>
         <Route path='/' element={<Layout />}>
-          <Route path='login' element={auth ? <Login/> : <Navigate  to={'/dashboard'}/>}/>
-          <Route path='home' element={auth ? <Home/> :<Navigate  to={'/dashboard'}/>}/>
-          <Route path='signup' element={auth ? <Signup/> : <Navigate  to={'/dashboard'}/> }/>
-          <Route path='unauthorized' element={<Unauthorized/>}/>
+          <Route element={<PersistLoginInverse />}>
+            <Route path='login' element={<Login/>}/>
+            <Route path='home' element={<Home/>}/>
+            <Route path='signup' element={<Signup/>}/>
+            <Route path='unauthorized' element={<Unauthorized/>}/>
+          </Route>
           <Route element={<PersistLogin />}>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]}/>}>
               {/* Rutas para proyectos */}
@@ -52,7 +53,8 @@ function App() {
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]}/>}>
               {/* Rutas para feria */}
               <Route path='feria' element={<CrearFeria/>}/>
-              <Route path='verFeria' element={<VisualizarFeriaActual/>}/> // colocar en dashboard
+              <Route path='verFeria' element={<VisualizarFeriaActual/>}/> 
+              {/* // colocar en dashboard */}
             </Route>
           </Route>
 

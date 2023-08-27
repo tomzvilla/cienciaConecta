@@ -84,10 +84,10 @@ const SedeProvincialForm = (props) => {
     };
 
     const handleSelect = (item) => {
-        console.log(item)
         setFormValues({
             ...formValues, 
-            sedeProvincial: item
+            sedeProvincial: item,
+            cuposProvincial: []
         })
         
     }
@@ -167,14 +167,11 @@ const SedeProvincialForm = (props) => {
                 const { nivel, cantidad} = cupo
                 newCupos = {...newCupos, [nivel]: cantidad }
             })
-            console.log(newCupos)
             return newCupos
         } else {
             return []
         }
     }
-
-    console.log(formValues)
     return (
         <>
             {showModal && 

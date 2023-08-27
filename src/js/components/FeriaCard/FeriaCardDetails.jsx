@@ -19,7 +19,6 @@ const FeriaCardDetails = (props) => {
                 const fecha = new Date(instancia[propiedad]);
                 console.log({fecha, fechaActual, mayor: fecha > fechaActual})
                 if (fecha > fechaActual && fecha < proximaFecha) {
-                    console.log('entro al if')
                     proximaFecha = fecha;
               }
             }

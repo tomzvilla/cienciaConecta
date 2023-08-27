@@ -11,8 +11,6 @@ const TableBodyRow = (props) => {
   const showBorrar = props.callback ? true : false;
   const showModal = props.modal ? true : false;
 
-  
-
     return (
         
             props.data.map((item, index) => {
@@ -32,7 +30,7 @@ const TableBodyRow = (props) => {
                             </td>
 
                             <td key={index+1} className="table-body-row__td">
-                              <ImageButton small={true} alt="Borrar" linkto={""} callback={props.callback} src={require("../../../assets/x.png")}/>
+                              <ImageButton small={true} alt="Borrar" linkto={""} callback={(e) => borrarDatos(e, item[`${props.headers[0].value}`])} src={require("../../../assets/x.png")}/>
                             </td>
                         </>
                     : 

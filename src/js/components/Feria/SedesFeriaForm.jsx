@@ -100,13 +100,11 @@ const SedesFeriaForm = (props) => {
     const handleChangeDpto = (e) => {
         setIsSelected(false)
         setResults([])
-        console.log(results)
         handleChange(e)
     }
 
     const handleChangeLocalidad = (e) => {
         setIsSelected(true)
-        console.log(results)
         setResults([])
         handleChange(e)
     }
@@ -163,7 +161,6 @@ const SedesFeriaForm = (props) => {
                 const { nivel, cantidad} = cupo
                 newCupos = {...newCupos, [nivel]: cantidad }
             })
-            console.log(newCupos)
             return newCupos
         } else {
             return []

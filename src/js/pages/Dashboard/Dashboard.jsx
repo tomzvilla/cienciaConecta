@@ -4,7 +4,7 @@ import DashboardResponsable from "../../components/Dashboard/DashboardResponsabl
 
 // hooks
 import useAuth from "../../hooks/useAuth"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 import { useEffect, useState } from "react"
 
 const rolesInicial = ['2', '3', '4', '5']
@@ -16,7 +16,6 @@ const Dashboard = () => {
     })
 
     const location = useLocation()
-    console.log(location)
 
     useEffect(() => {
         if(location?.state?.newRol !== '') {
