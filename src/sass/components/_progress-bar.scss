@@ -1,0 +1,30 @@
+.progress-bar {
+    
+        display: flex;
+        padding: 2rem 0rem;
+        margin: auto;
+        margin-bottom: 2rem;
+        width: max-content;
+    
+        &__barra {
+            display: flex;
+    
+            background-color: $color-grey-light;
+            color: white;
+            font-size: 2rem;
+            font: $font-primary ;       
+            padding: 2rem 4rem; 
+            
+            margin-right: 1rem;
+    
+            transition: all 400ms ease-out;
+
+            
+            
+            &--fill {
+                background-color: $color-primary;
+            }
+            
+    
+        }
+}

@@ -8,11 +8,13 @@
 
     &__image {
         width: 8rem;
+        height: 8rem;
         filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
         
 
         &--small {
             width: 3.4rem;
+            height: 3.4rem;
         }
     }
 }

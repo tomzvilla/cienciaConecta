@@ -7,10 +7,9 @@ const SeleccionSedes = (props) => {
         {name: 'CUE', value: 'cue'},
     ]
 
-    const handleDelete = (e, nombreSede) => {
+    const handleDelete = (e, item) => {
         e.preventDefault()
-        const nombre = nombreSede
-        props.handleDelete(e, nombre)
+        props.handleDelete(e, item.nombre)
     }
 
     const handleCupos = (e, item) => {

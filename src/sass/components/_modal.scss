@@ -1,9 +1,13 @@
 .modal {
-        background-color: rgba(0, 0, 0, 0.2);
-        width: 100vw;
-        height: 100vh;
-        z-index: 50;
-        position: absolute;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.2); /* Adjust opacity as needed */
+        z-index: 50; /* Higher than other content */
+
     
         //transition: all 600ms ease-out;
         //display: flex;

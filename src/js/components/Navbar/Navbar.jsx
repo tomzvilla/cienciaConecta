@@ -4,7 +4,7 @@ import Button from "../Button/Button"
 // hooks
 import useAuth from "../../hooks/useAuth";
 import useLogout from "../../hooks/useLogout";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
 const Navbar = (props) => {
     const {auth} = useAuth()
@@ -16,12 +16,17 @@ const Navbar = (props) => {
         navigate('/home')
     }
 
+    const navigateHome =  () => {
+        navigate('/home')
+    }
+
 
     const modifier = props.home ? "--home" : ""
     
     return ( 
         <div className={`navbar navbar${modifier}`}>
-            <h1 className="navbar__logo">CienciaConecta</h1>
+                <h1 className="navbar__logo" onClick={navigateHome}>CienciaConecta</h1>
+            
             <div className="navbar__button-container">
                 { auth?.roles ?
                     <Button text="Salir" onClickHandler={signOut}/>

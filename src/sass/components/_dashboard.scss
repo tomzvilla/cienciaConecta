@@ -1,3 +1,13 @@
 .dashboard {
+    display: flex;
+    flex-direction: column;
+
+
+    &__title {
+        font-size: 5.5rem;
+        color: $color-primary;
+        margin-bottom: 5rem;
+        align-self: flex-start;
+    }
     
 }

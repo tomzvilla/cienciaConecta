@@ -18,7 +18,6 @@ const TableBodyRow = (props) => {
                 <tr key={item._id} className="table-body-row">
                   {
                     props.headers.map((header, index) =>{
-                      console.log(header)
                       return (<td key={index} className="table-body-row__td" >{item[`${header?.value}`]}</td> )
                     })
                   }
@@ -39,7 +38,7 @@ const TableBodyRow = (props) => {
                     <td key={index} className="table-body-row__td table-body-row__td--actions">
                     {
                       showBorrar ? 
-                      <ImageButton small={true} alt="Borrar" linkto={""} callback={props.callback} src={require("../../../assets/x.png")}/>
+                      <ImageButton small={true} alt="Borrar" linkto={""} callback={(e) => props.callback(e, item)} src={require("../../../assets/x.png")}/>
                       :
                     <>
                       <ImageLink small={true} alt="Ver" linkto={`${props.viewPath}/${item._id}`} src={require("../../../assets/ver.png")}/>

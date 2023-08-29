@@ -6,7 +6,7 @@ import Button from "../Button/Button";
 import SedeProvincialForm from "./SedeProvincialForm";
 import RubricasFeriaForm from "./RubricasFeriaForm";
 // hooks
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useFormValidator } from "../../hooks/useFormValidator";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
@@ -18,7 +18,7 @@ export const ETAPAS = {
     Criterios: '5',
   };
 
-const CrearFeriaForm = () => {
+const CrearFeriaForm = (props) => {
     const [formValues, setFormValues] = useState({
         nombreFeria: '',
         descripcionFeria: '',
@@ -59,6 +59,13 @@ const CrearFeriaForm = () => {
     const {errors, validateForm, onBlurField} = useFormValidator(formValues)
     const axiosPrivate = useAxiosPrivate()
 
+
+    useEffect(() => {
+        props.getEtapa(etapaActual)
+    }, [etapaActual])
+
+
+
     const cambiarVista = (e) => {
         e.preventDefault()
         let fieldsToExclude = []
@@ -73,6 +80,7 @@ const CrearFeriaForm = () => {
         if(etapaActual === ETAPAS.Instancias & isValid) setEtapaActual(ETAPAS.SedesRegionales)
         if(etapaActual === ETAPAS.SedesRegionales & isValid) setEtapaActual(ETAPAS.SedeProvincial)
         if(etapaActual === ETAPAS.SedeProvincial & isValid) setEtapaActual(ETAPAS.Criterios)
+
     }
 
     const handleChange = (e) => {
