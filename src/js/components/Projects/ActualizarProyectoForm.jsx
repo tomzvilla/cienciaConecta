@@ -204,6 +204,7 @@ const ActualizarProyectoForm = ({ formData }) => {
                     pdfs.append('registroPedagogicopdf', registroPedagogico)
                     pdfs.append('carpetaCampo', carpetaCampo)
                     pdfs.append('informeTrabajo', informeTrabajo)
+                    pdfs.append('autorizacionImagen', autorizacionImagen)
                     response = await axiosPrivate.patch(`/proyecto/regional/${formData._id}`, 
                     JSON.stringify({ 
                         titulo: title, 
@@ -215,10 +216,6 @@ const ActualizarProyectoForm = ({ formData }) => {
                         privada: privateSchool, 
                         emailEscuela: schoolEmail,
                         videoPresentacion: videoPresentacion,
-                        carpetaCampo: 'www.google.com',
-                        informeTrabajo: 'www.google.com',
-                        registroPedagogico: 'www.google.com',
-                        autorizacionImagen: true,
                         grupoProyecto: grupo,
                         sede: sede
                     }),

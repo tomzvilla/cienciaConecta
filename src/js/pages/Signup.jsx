@@ -69,16 +69,10 @@ const Signup = () => {
     if(!isValid) return
 
     try {
-      // cambiar a const cuando se arregle lo de abajo
-      let { name, lastname, email, password, cuil, dni, cue, phoneNumber, position } = formValues
-      // borrar esto a futuro
-      if(!dni || !cue){
-        dni = 11222333
-        cue = 1231231
-      }
+      const { name, lastname, email, password, cuil, phoneNumber, position } = formValues
       const numericCuil = cuil.replace(/\D/g, '')
       const response = await axios.post(SIGNUP_URL, 
-        JSON.stringify({ nombre: name, apellido: lastname, email, password, cuil: numericCuil, dni, cue, telefono: phoneNumber, cargo: position}),
+        JSON.stringify({ nombre: name, apellido: lastname, email, password, cuil: numericCuil, telefono: phoneNumber, cargo: position}),
           {
             headers: {'Content-Type': 'application/json'},
             withCredentials: true
