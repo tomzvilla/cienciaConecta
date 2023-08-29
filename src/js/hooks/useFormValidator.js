@@ -5,6 +5,7 @@ import { useState } from 'react'
 import {
     emailValidator,
     passwordValidator,
+    confirmPasswordValidator,
     nameValidator,
     lastnameValidator,
     cuilValidator,
@@ -85,7 +86,8 @@ export const useFormValidator = (form) => {
         }
 
         const { email, 
-            password, 
+            password,
+            confirmPassword,
             name, 
             lastname, 
             dni, 
@@ -132,6 +134,13 @@ export const useFormValidator = (form) => {
             nextErrors.password.error = !!passwordMessage;
             nextErrors.password.message = passwordMessage;
             if (!!passwordMessage) isValid = false;
+        }
+
+        if (nextErrors.confirmPassword?.dirty && (field ? field === "confirmPassword" : true)) {
+            const confirmPasswordMessage = confirmPasswordValidator(password, confirmPassword, form);
+            nextErrors.confirmPassword.error = !!confirmPasswordMessage;
+            nextErrors.confirmPassword.message = confirmPasswordMessage;
+            if (!!confirmPasswordMessage) isValid = false;
         }
 
         if (nextErrors.name?.dirty && (field ? field === "name" : true)) {

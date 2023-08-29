@@ -12,7 +12,6 @@ const SidebarLink = (props) => {
                 <img className="sidebar-link__image" src={props.img} alt="" />
                 <p className="sidebar-link__text">{props.text}</p>
             </Link>
-            
         </div>
     )
 

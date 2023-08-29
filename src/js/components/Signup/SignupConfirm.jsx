@@ -4,11 +4,13 @@ import SignupConfirmColumn from "./SignupConfirmColumn";
 
 const SignupConfirm = (props) => {
 
-    const primeraTitulos = ["CUIL", "DNI", "Apellido", "Nombre", "CUE", "Cargo"]
+    const primeraTitulos = ["CUIL", "Apellido", "Nombre", "Cargo"]
     const segundaTitulos = ["Teléfono", "Email", "Contraseña"]
 
-    const primeraDatos = [props.formValues.cuil, props.formValues.dni, props.formValues.lastname, props.formValues.name, props.formValues.cue ,props.formValues.position]
-    const segundaDatos = [props.formValues.phoneNumber, props.formValues.email, props.formValues.password]
+    const password = '*'.repeat(props.formValues.password.length);
+
+    const primeraDatos = [props.formValues.cuil, props.formValues.lastname, props.formValues.name ,props.formValues.position]
+    const segundaDatos = [props.formValues.phoneNumber, props.formValues.email, password]
 
 
     return (

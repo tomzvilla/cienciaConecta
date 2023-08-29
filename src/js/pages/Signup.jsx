@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom'
 // Components
 import SignupForm from '../components/Signup/SignupForm'
 import SignupProgress from '../components/Signup/SignupProgress'
-import Navbar from '../components/Navbar/Navbar'
 import SignupConfirm from '../components/Signup/SignupConfirm'
 
 import axios from '../../api/axios'
@@ -21,8 +20,6 @@ const Signup = () => {
     password: '',
     confirmPassword: '',
     cuil: '',
-    dni: '',
-    cue: '',
     phoneNumber: '',
     position: ''
   })
@@ -35,7 +32,10 @@ const Signup = () => {
   const {errors, validateForm, onBlurField} = useFormValidator(formValues)
     
   const handleChange = (e) => {
-    const {name, value} = e.target
+    let {name, value} = e.target
+    if(name === 'cuil'){
+      value = formatCuil(value)
+    }
     const nextFormValueState = {
       ...formValues,
       [name]: value
@@ -45,6 +45,22 @@ const Signup = () => {
       validateForm({form: nextFormValueState, errors, name})
     }
   }
+
+  const formatCuil = (input) => {
+    // Eliminar todos los caracteres no numéricos
+    const numericInput = input.replace(/\D/g, '');
+    console.log(numericInput)
+
+    // Aplicar el formato con guiones
+    if (numericInput.length <= 2) {
+      return numericInput;
+    } else if (numericInput.length <= 10) {
+      console.log(`${numericInput.slice(0, 2)}-${numericInput.slice(2)}`)
+      return `${numericInput.slice(0, 2)}-${numericInput.slice(2)}`;
+    } else {
+      return `${numericInput.slice(0, 2)}-${numericInput.slice(2, 10)}-${numericInput.slice(10, 11)}`;
+    }
+  };
     
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -53,10 +69,10 @@ const Signup = () => {
     if(!isValid) return
 
     try {
-      const { name, lastname, email, password, cuil, dni, cue, phoneNumber, position } = formValues
-
+      const { name, lastname, email, password, cuil, phoneNumber, position } = formValues
+      const numericCuil = cuil.replace(/\D/g, '')
       const response = await axios.post(SIGNUP_URL, 
-        JSON.stringify({ nombre: name, apellido: lastname, email, password, cuil, dni, cue, telefono: phoneNumber, cargo: position}),
+        JSON.stringify({ nombre: name, apellido: lastname, email, password, cuil: numericCuil, telefono: phoneNumber, cargo: position}),
           {
             headers: {'Content-Type': 'application/json'},
             withCredentials: true
@@ -84,8 +100,6 @@ const Signup = () => {
         password: '',
         confirmPassword: '',
         cuil: '',
-        dni: '',
-        cue: '',
         phoneNumber: '',
         position: ''
       })

@@ -38,7 +38,7 @@ const InstanciasFeriaForm = (props) => {
             
             <GrupoFechas 
                 title="Instancia Regional"
-                sub1="Evaluacion de los Proyectos"
+                sub1="Evaluación de los Proyectos"
                 sub2="Exposición de los Proyectos"
 
                 date1={<InputField
@@ -109,7 +109,7 @@ const InstanciasFeriaForm = (props) => {
             />
 
             <GrupoFechas 
-                title="Postulacion de Evaluadores"
+                title="Postulación de Evaluadores"
                 date1={<InputField
                     label='Fecha de inicio: ' 
                     name='fechaInicioPostulacionEvaluadores'

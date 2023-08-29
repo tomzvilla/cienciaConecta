@@ -47,7 +47,7 @@ const TableBodyRow = (props) => {
                     }
 
                   </td>
-                }
+                  }
 
                   
                 </tr>

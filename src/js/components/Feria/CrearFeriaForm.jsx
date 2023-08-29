@@ -10,6 +10,9 @@ import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useFormValidator } from "../../hooks/useFormValidator";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+
+import Swal from 'sweetalert2'
+
 export const ETAPAS = {
     Datos: '1',
     Instancias: '2',
@@ -54,7 +57,7 @@ const CrearFeriaForm = (props) => {
     const [etapaActual, setEtapaActual] = useState(ETAPAS.Datos)
     const navigate = useNavigate()
     const location = useLocation()
-    const from = location.state?.from?.pathname || '/myprojects'
+    const from = location.state?.from?.pathname || '/dashboard'
      
     const {errors, validateForm, onBlurField} = useFormValidator(formValues)
     const axiosPrivate = useAxiosPrivate()
@@ -78,9 +81,22 @@ const CrearFeriaForm = (props) => {
         const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true, fieldsToExclude: fieldsToExclude})
         if(etapaActual === ETAPAS.Datos & isValid) setEtapaActual(ETAPAS.Instancias)
         if(etapaActual === ETAPAS.Instancias & isValid) setEtapaActual(ETAPAS.SedesRegionales)
-        if(etapaActual === ETAPAS.SedesRegionales & isValid) setEtapaActual(ETAPAS.SedeProvincial)
-        if(etapaActual === ETAPAS.SedeProvincial & isValid) setEtapaActual(ETAPAS.Criterios)
-
+        if(etapaActual === ETAPAS.SedesRegionales & isValid) {
+            setFormValues({
+                ...formValues,
+                departamento: '',
+                localidad: '',
+            })
+            setEtapaActual(ETAPAS.SedeProvincial)
+        }
+        if(etapaActual === ETAPAS.SedeProvincial & isValid){
+            setFormValues({
+                ...formValues,
+                sedeProvincialDpto: '',
+                sedeProvincialLocalidad: '',
+            })
+            setEtapaActual(ETAPAS.Criterios)
+        } 
     }
 
     const handleChange = (e) => {
@@ -188,122 +204,161 @@ const CrearFeriaForm = (props) => {
         if(formValues.errorSumaPonderacion) return
         const messageError = validarCriteriosEvaluacion(formValues.criteriosEvaluacion)
         if(messageError !== '') {
-            console.log(messageError)
+            Swal.fire({
+                text: messageError,
+                title: 'Falló el registro de la feria',
+                icon: 'error',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#00ACE6',
+            })
             return
         }
 
-        try {
-            const { 
-                nombreFeria, 
-                descripcionFeria, 
-                logo, 
-                fechaInicioFeria, 
-                fechaFinFeria, 
-                fechaInicioInstanciaEscolar, 
-                fechaFinInstanciaEscolar, 
-                fechaInicioEvaluacionRegional,
-                fechaFinEvaluacionRegional,
-                fechaInicioExposicionRegional,
-                fechaFinExposicionRegional,
-                fechaInicioEvaluacionProvincial,
-                fechaFinEvaluacionProvincial,
-                fechaInicioPostulacionEvaluadores,
-                fechaFinPostulacionEvaluadores,
-                fechaInicioAsignacionProyectos,
-                fechaFinAsignacionProyectos,
-                cupos,
-                sedeProvincial,
-                cuposProvincial,
-                criteriosEvaluacion,
-             } = formValues
-            const sedesRegional = new Set(cupos.map(c => { 
-                return c.sede
-            }))
-            const response = await axiosPrivate.post('/feria', 
-            JSON.stringify({ 
-                nombre: nombreFeria, 
-                descripcion: descripcionFeria, 
-                logo: 'www.logo.com', 
-                fechaInicioFeria: fechaInicioFeria, 
-                fechaFinFeria: fechaFinFeria, 
-                instancias: {
-                    instanciaEscolar: {
-                        fechaInicioInstancia: fechaInicioInstanciaEscolar,
-                        fechaFinInstancia: fechaFinInstanciaEscolar,
-                    },
-                    instanciaRegional: {
-                        fechaInicioEvaluacionTeorica: fechaInicioEvaluacionRegional,
-                        fechaFinEvaluacionTeorica: fechaFinEvaluacionRegional,
-                        fechaInicioEvaluacionPresencial: fechaInicioExposicionRegional,
-                        fechaFinEvaluacionPresencial: fechaFinExposicionRegional,
-                        cupos,
-                        sedes: Array.from(sedesRegional)
-                    },
-                    instanciaProvincial: {
-                        fechaInicioEvaluacionPresencial: fechaInicioEvaluacionProvincial,
-                        fechaFinEvaluacionPresencial: fechaFinEvaluacionProvincial,
-                        cupos: cuposProvincial,
-                        sede: sedeProvincial._id
+        Swal.fire({
+            title: '¿Deseas registrar una nueva feria?',
+            icon: 'question',
+            showCancelButton: true,
+            reverseButtons: true,
+            confirmButtonText: 'Registrar',
+            confirmButtonColor: '#00ACE6',
+            cancelButtonText: 'Cancelar',
+            cancelButtonColor: '#D4272D',
+        }).then(async (result) => {
+            if(result.isConfirmed) {
+                const success = await registrarFeria()
+                if(success) Swal.fire({
+                    title: 'Feria Registrada!',
+                    text: 'Registraste una feria con éxito',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#00ACE6',
+                }).then((result) => {
+                    if(result.isConfirmed || result.isDismissed) {
+                        setFormValues({
+                            nombreFeria: '',
+                            descripcionFeria: '',
+                            logo: '',
+                            fechaInicioFeria: '',
+                            fechaFinFeria: '',
+                            fechaInicioInstanciaEscolar: '',
+                            fechaFinInstanciaEscolar: '',
+                            fechaInicioEvaluacionRegional: '',
+                            fechaFinEvaluacionRegional: '',
+                            fechaInicioExposicionRegional: '',
+                            fechaFinExposicionRegional: '',
+                            fechaInicioEvaluacionProvincial: '',
+                            fechaFinEvaluacionProvincial: '',
+                            fechaInicioPostulacionEvaluadores: '',
+                            fechaFinPostulacionEvaluadores: '',
+                            fechaInicioAsignacionProyectos: '',
+                            fechaFinAsignacionProyectos: '',
+                            departamento: '',
+                            localidad: '',
+                            establecimientos: [],
+                            cupos: [],
+                            sedeProvincialDpto: '',
+                            sedeProvincialLocalidad: '',
+                            sedeProvincial: null,
+                            cuposProvincial: [],
+                            criteriosEvaluacion: [],
+                            nombreRubrica: '',
+                        })
+                        navigate(from, {replace: true, state: {newRol:'2', from:'/feria'}})
+                        
                     }
-                }, 
-                fechaInicioPostulacionEvaluadores, 
-                fechaFinPostulacionEvaluadores,
-                fechaInicioAsignacionProyectos,
-                fechaFinAsignacionProyectos,
-                criteriosEvaluacion,
-            }),
-            {
-                headers: {'Content-Type': 'application/json'},
-                withCredentials: true
+                })
             }
-            )
-            console.log(JSON.stringify(response?.data))
-
-            setFormValues({
-                nombreFeria: '',
-                descripcionFeria: '',
-                logo: '',
-                fechaInicioFeria: '',
-                fechaFinFeria: '',
-                fechaInicioInstanciaEscolar: '',
-                fechaFinInstanciaEscolar: '',
-                fechaInicioEvaluacionRegional: '',
-                fechaFinEvaluacionRegional: '',
-                fechaInicioExposicionRegional: '',
-                fechaFinExposicionRegional: '',
-                fechaInicioEvaluacionProvincial: '',
-                fechaFinEvaluacionProvincial: '',
-                fechaInicioPostulacionEvaluadores: '',
-                fechaFinPostulacionEvaluadores: '',
-                fechaInicioAsignacionProyectos: '',
-                fechaFinAsignacionProyectos: '',
-                departamento: '',
-                localidad: '',
-                establecimientos: [],
-                cupos: [],
-                sedeProvincialDpto: '',
-                sedeProvincialLocalidad: '',
-                sedeProvincial: null,
-                cuposProvincial: [],
-                criteriosEvaluacion: [],
-                nombreRubrica: '',
-            })
-            
-        } catch (err) {
-            console.log(err)
-            if(!err?.response){
-                console.log('El servidor no respondio')
-            } else if(err.response?.status === 403) {
-                console.log('Datos incorrectos intente nuevamente')
-            } else if(err.response?.status === 401) {
-                console.log('No estas autorizado para realizar esta operacion')
-            } else {
-                console.log('Fallo la creación de la feria')
-            }
+        })
+        const registrarFeria = async () => {
+            try {
+                const { 
+                    nombreFeria, 
+                    descripcionFeria, 
+                    logo, 
+                    fechaInicioFeria, 
+                    fechaFinFeria, 
+                    fechaInicioInstanciaEscolar, 
+                    fechaFinInstanciaEscolar, 
+                    fechaInicioEvaluacionRegional,
+                    fechaFinEvaluacionRegional,
+                    fechaInicioExposicionRegional,
+                    fechaFinExposicionRegional,
+                    fechaInicioEvaluacionProvincial,
+                    fechaFinEvaluacionProvincial,
+                    fechaInicioPostulacionEvaluadores,
+                    fechaFinPostulacionEvaluadores,
+                    fechaInicioAsignacionProyectos,
+                    fechaFinAsignacionProyectos,
+                    cupos,
+                    sedeProvincial,
+                    cuposProvincial,
+                    criteriosEvaluacion,
+                 } = formValues
+                const sedesRegional = new Set(cupos.map(c => { 
+                    return c.sede
+                }))
+                const response = await axiosPrivate.post('/feria', 
+                JSON.stringify({ 
+                    nombre: nombreFeria, 
+                    descripcion: descripcionFeria, 
+                    logo: 'www.logo.com', 
+                    fechaInicioFeria: fechaInicioFeria, 
+                    fechaFinFeria: fechaFinFeria, 
+                    instancias: {
+                        instanciaEscolar: {
+                            fechaInicioInstancia: fechaInicioInstanciaEscolar,
+                            fechaFinInstancia: fechaFinInstanciaEscolar,
+                        },
+                        instanciaRegional: {
+                            fechaInicioEvaluacionTeorica: fechaInicioEvaluacionRegional,
+                            fechaFinEvaluacionTeorica: fechaFinEvaluacionRegional,
+                            fechaInicioEvaluacionPresencial: fechaInicioExposicionRegional,
+                            fechaFinEvaluacionPresencial: fechaFinExposicionRegional,
+                            cupos,
+                            sedes: Array.from(sedesRegional)
+                        },
+                        instanciaProvincial: {
+                            fechaInicioEvaluacionPresencial: fechaInicioEvaluacionProvincial,
+                            fechaFinEvaluacionPresencial: fechaFinEvaluacionProvincial,
+                            cupos: cuposProvincial,
+                            sede: sedeProvincial._id
+                        }
+                    }, 
+                    fechaInicioPostulacionEvaluadores, 
+                    fechaFinPostulacionEvaluadores,
+                    fechaInicioAsignacionProyectos,
+                    fechaFinAsignacionProyectos,
+                    criteriosEvaluacion,
+                }),
+                {
+                    headers: {'Content-Type': 'application/json'},
+                    withCredentials: true
+                }
+                )
+                
+            } catch (err) {
+                let msg = ''
+                console.log(JSON.stringify(err.response.data))
+                if(!err?.response){
+                msg = 'El servidor no respondió'
+                } else if(err.response?.status === 403) {
+                msg = 'Datos incorrectos intente nuevamente'
+                } else if(err.response?.status === 401) {
+                msg = 'No estas autorizado para realizar esta operación'
+                } else {
+                msg = `Falló el registro de la feria <br> ${err.response.data.error}`
+                }
+                Swal.fire({
+                    html: msg,
+                    title: 'Falló el registro de la feria',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#00ACE6',
+                })
+            } 
         }
-            
-        console.log('Se mando XD')
-    }
+
+        }
 
     const handleDelete = async (e) => {
         try {
@@ -353,7 +408,7 @@ const CrearFeriaForm = (props) => {
 
     return (
         <form className='crear-feria-form'>
-            <h2 className='crear-feria-form__title'> Registrar Feria de Ciencias y Tecnologia </h2>
+            <h2 className='crear-feria-form__title'> Registrar Feria de Ciencias y Tecnología </h2>
             {etapaActual === ETAPAS.Datos && <DatosFeriaForm
                 handleChange={handleChange}
                 handleDateChange={handleDateChange}

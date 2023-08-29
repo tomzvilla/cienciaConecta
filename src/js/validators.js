@@ -18,6 +18,15 @@ export const passwordValidator = (password) => {
     return "";
 };
 
+export const confirmPasswordValidator = (password, confirmPassword) => {
+  if (!confirmPassword) {
+      return "Tenés que ingresar nuevamente tu contraseña";
+  } else if (confirmPassword !== password) {
+    return "Las contraseñas deben ser iguales"
+  } 
+  return "";
+};
+
 export const nameValidator = (name) => {
   if (!name) {
     return "Tenés que ingresar un nombre";
