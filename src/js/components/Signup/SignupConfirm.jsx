@@ -4,7 +4,7 @@ import SignupConfirmColumn from "./SignupConfirmColumn";
 
 const SignupConfirm = (props) => {
 
-    const primeraTitulos = ["CUIL", "DNI", "Apellido", "Nombre", "CUE", "Cargo"]
+    const primeraTitulos = ["CUIL", "Apellido", "Nombre", "Cargo"]
     const segundaTitulos = ["Teléfono", "Email", "Contraseña"]
 
     const password = '*'.repeat(props.formValues.password.length);
