@@ -1,0 +1,13 @@
+.dashboard-inicio-feria {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 10rem;
+
+    justify-content: space-around;
+
+    &__text{ 
+        width: 100%;
+        padding-bottom: 7rem;
+    }
+
+}

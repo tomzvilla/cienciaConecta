@@ -7,7 +7,7 @@ const ActualizarEtapaEscolarForm = (props) => {
 
     return (
         <>
-            <div className='edit-project-form__input edit-project-form__input--first'>
+            <div className='edit-project-form__input'>
                 <InputField
                     label='Titulo del proyecto: ' 
                     name='title'

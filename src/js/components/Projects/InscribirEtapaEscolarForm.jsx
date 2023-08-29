@@ -275,7 +275,7 @@ const InscribirEtapaEscolarForm = () => {
             </div>
             <div className='register-project-form__button'>
                     <Button text='Volver' onClickHandler={handleVolver}/>
-                    <Button text='Ingresar' activo={true}/>
+                    <Button text='Continuar' activo={true}/>
             </div>
         </form>
     )

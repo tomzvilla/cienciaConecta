@@ -25,6 +25,8 @@ const OpcionesModal = (props) => {
       ]
 
     const handleSubmit = (e) => {
+        
+
         e.preventDefault()
         const { isValid } = validateForm({form: opcion, errors, forceTouchErrors: true})
         if(!isValid) return
@@ -45,6 +47,7 @@ const OpcionesModal = (props) => {
     }
 
     const handleChange = (e) => {
+        e.preventDefault()
         const {name, value} = e.target
         const nextOpcion = {
             [name]: value
@@ -56,11 +59,12 @@ const OpcionesModal = (props) => {
     }
 
     const handleDeleteOpcion = (e, nombreOpcion) => {
-        e.preventDefault()
+        const nombre = nombreOpcion.opciones
+
         const prevCriterios = [...formValues.criteriosEvaluacion]
         const rubricaIndex = prevCriterios.findIndex(rubrica => rubrica.nombreRubrica === rubrica.nombreRubrica);
         const criterioIndex = prevCriterios[rubricaIndex].criterios.findIndex(criterio => criterio.nombre === criterio.nombre);
-        const opcionIndex =  prevCriterios[rubricaIndex].criterios[criterioIndex].opciones.findIndex(opcion => opcion === nombreOpcion)
+        const opcionIndex =  prevCriterios[rubricaIndex].criterios[criterioIndex].opciones.findIndex(opcion => opcion === nombre)
 
         prevCriterios[rubricaIndex].criterios[criterioIndex].opciones = prevCriterios[rubricaIndex].criterios[criterioIndex].opciones.filter((_, index) => index !== opcionIndex);
         
@@ -72,22 +76,7 @@ const OpcionesModal = (props) => {
 
     return (
         <div>
-            {/* <OpcionesTable handleDeleteOpcion={handleDeleteOpcion} criterio={criterio} />
-            <InputField
-                label='Nombre: ' 
-                name='nombreOpcion'
-                type={'text'}
-                onChange={handleChange}
-                onBlur={onBlurField}
-                value={opcion.nombreOpcion}
-                errors={errors.nombreOpcion}
-            />
-            <Button 
-                text={'Agregar'} 
-                onClickHandler={handleSubmit} 
-                activo={true}
-            /> */}
-            <Table data={criterio?.opciones} headers={headers} callback={handleDeleteOpcion}/>
+            <Table data={criterio?.opciones.map(value => ({ opciones: value }))} headers={headers} callback={handleDeleteOpcion}/>
             <AddOpcion handleChange={handleChange} onBlurField={onBlurField} opcion={opcion} errors={errors} handleAdd={handleSubmit}/>
         </div>
     )

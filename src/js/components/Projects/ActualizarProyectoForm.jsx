@@ -5,7 +5,7 @@ import ActualizarEtapaEscolarForm from "./ActualizarEtapaEscolarForm"
 import ActualizarGrupoProyecto from "./ActualizarGrupoProyecto"
 
 // Import hooks
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useFormValidator } from "../../hooks/useFormValidator"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
@@ -25,7 +25,7 @@ const INSTANCIA = {
     Provincial: '3',
 }
 
-const ActualizarProyectoForm = ({ formData }) => {
+const ActualizarProyectoForm = ({ formData, getEtapa }) => {
     let isPrivate = '1'
     if(formData.privada === false){
         isPrivate = '0'
@@ -55,6 +55,7 @@ const ActualizarProyectoForm = ({ formData }) => {
         }),
     })
 
+
     const [etapaActual, setEtapaActual] = useState(ETAPAS.Escolar)
     const [instanciaActual, setInstanciaActual] = useState(INSTANCIA.Regional)
 
@@ -64,6 +65,10 @@ const ActualizarProyectoForm = ({ formData }) => {
     const from = location.state?.from || '/myprojects'
 
     const {errors, validateForm, onBlurField} = useFormValidator(formValues)
+
+    useEffect(() => {
+        getEtapa(etapaActual)
+    }, [etapaActual])
 
     const { data: categoriesData} = useAxiosFetch('/categoria', axiosPrivate)
     const { data: levelsData} = useAxiosFetch('/nivel', axiosPrivate)

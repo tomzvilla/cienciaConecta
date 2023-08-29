@@ -7,12 +7,14 @@ const DashboardCard = (props) => {
     const location = useLocation()
 
     return (
-        <div>
-            <img src={src} alt="imagen de card" />
-            <Link to={link} state={{from: `${location.pathname}`}} >
-                <h2> {title} </h2>
-            </Link>
-        </div>
+        <Link to={link} state={{from: `${location.pathname}`}} className="dashboard-card__link">
+            <div className="dashboard-card">
+                <img src={src} alt="imagen de card" className="dashboard-card__img"/>
+            
+                    <h6 className="dashboard-card__text"> {title} </h6>
+                
+            </div>
+        </Link>
     )
 
 }

@@ -9,7 +9,7 @@ const ActualizarEtapaRegionalForm = (props) => {
 
     return (
         <>
-            <div className='edit-project-form__input edit-project-form__input--first'>
+            <div className='edit-project-form__input'>
                 <SelectField
                     label='Sede del Proyecto: ' 
                     name='sede'
