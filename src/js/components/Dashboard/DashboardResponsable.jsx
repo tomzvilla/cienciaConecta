@@ -6,6 +6,8 @@ import Spinner from "../Spinner/Spinner"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 
+import capitalizeEachLetter from "../../utils/utils"
+
 const DashboardResponsable = () => {
     const axiosPrivate = useAxiosPrivate()
 
@@ -19,23 +21,27 @@ const DashboardResponsable = () => {
     let level = {
         nombre: ''
     }
-    let project = {}
+    let proyectos = []
 
-    if(categoriesData && levelsData && data) {
-        category = categoriesData.categoria.find((category) => category._id === data.proyectos[0].categoria)
-        level = levelsData.nivel.find((level) => level._id === data.proyectos[0].nivel)
+    if(data && categoriesData && levelsData) {
 
-        project = {
-            ...data.proyectos[0], 
-
-            categoria: category.nombre,
-            nivel: level.nombre, 
+      proyectos = data.proyectos.map(obj => {
+        const category = categoriesData.categoria.find(element => element._id === obj.categoria)
+        const level = levelsData.nivel.find(element => element._id === obj.nivel)
+        if(obj.estado !== '6') {
+          return {...obj, categoria: category.nombre, nivel: level.nombre, nombreEscuela: capitalizeEachLetter(obj.establecimientoEducativo.nombre)}
+        } else {
+          return null
         }
+      }).filter(project => project !== null)
     }
+
 
     return (
         <div>
-            {!data ? <Spinner/> : <ProjectCard formData={project}/>}
+            {!data ? <Spinner/> : 
+            proyectos.map((proyecto, index) => <ProjectCard key={index} formData={proyecto}/>)
+            }
         </div>
     )
 

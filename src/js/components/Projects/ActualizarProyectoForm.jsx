@@ -36,8 +36,9 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
         description: formData.descripcion,
         level: formData.nivel,
         category: formData.categoria,
-        schoolName: formData.nombreEscuela,
-        schoolCue: formData.cueEscuela,
+        departamento: '',
+        localidad: '',
+        establecimientoSeleccionado: formData.establecimientoEducativo,
         privateSchool: isPrivate,
         schoolEmail: formData.emailEscuela,
         sede: formData.sede,
@@ -67,6 +68,7 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
     const {errors, validateForm, onBlurField} = useFormValidator(formValues)
 
     useEffect(() => {
+        console.log(formValues)
         getEtapa(etapaActual)
     }, [etapaActual])
 
@@ -75,23 +77,6 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
     // const { data: sedesData} = useAxiosFetch('/sedes', axiosPrivate) no esta listo el endpoint
     let categories = []
     let levels = []
-    let sedes = [
-        {
-            _id: '0',
-            nombre: "",
-            cue: '0',
-        },
-        {
-            _id: '64c968478ba2bc52bd12cc82',
-            nombre: "Sede Monserrat",
-            cue: '1231234',
-        },
-        {
-            _id: '64c9688f8ba2bc52bd12cc83',
-            nombre: "Sede PIO XII",
-            cue: '1234567',
-        }
-    ]
 
     if(categoriesData){
         categories = [{_id: 0, nombre: ""}, ...categoriesData.categoria]
@@ -107,6 +92,69 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
           });
     }
 
+    const [results, setResults] = useState([])
+    const [autocompleteValue, setAutocompleteValue] = useState(formData.establecimientoEducativo)
+
+    let search = {
+        departamentos: [{_id: '', nombre: ''}],
+        localidades: [{_id: '', nombre: ''}],
+        establecimientos: [{_id: '', nombre: ''}],
+    }
+
+    const { data: dptoData } = useAxiosFetch('/departamento', axiosPrivate)
+    if(dptoData) {
+        const sigDepartamentos = dptoData.departamentos.map((dpto) => {
+           return { 
+            _id: dpto,
+            nombre: dpto,
+        }
+        }).sort((dpto1, dpto2) => {
+            if (dpto1.nombre < dpto2.nombre) {
+              return -1; 
+            } else if (dpto1.nombre > dpto2.nombre) {
+              return 1;
+            }
+            return 0;
+        });
+        sigDepartamentos.unshift(search.departamentos)
+        search = {
+            departamentos: sigDepartamentos,
+            localidades: [{_id: '', nombre: ''}],
+            establecimientos: [{_id: '', nombre: ''}]
+        }
+    }
+
+    const { data: localData } = useAxiosFetch(`/localidad/${formValues.departamento}`, axiosPrivate)
+    if(localData) {
+        const sigLocalidades = localData.localidades.map((localidad) => {
+            return { 
+            _id: localidad,
+            nombre: localidad 
+        }
+        }).sort((local1, local2) => {
+            if (local1.nombre < local2.nombre) {
+              return -1; 
+            } else if (local1.nombre > local2.nombre) {
+              return 1;
+            }
+            return 0;
+        });
+        sigLocalidades.unshift(search.localidades)
+        search = {
+            departamentos: search.departamentos,
+            localidades: sigLocalidades,
+            establecimientos: [{_id: '', nombre: ''}]
+        }
+    }
+
+    const { data: establecimientosData } = useAxiosFetch(`/establecimiento/${formValues.localidad}`, axiosPrivate)
+    if(establecimientosData){
+        search = {
+            ...search,
+            establecimientos: establecimientosData.establecimientos
+        }
+    }
+
     const cambiarVista = (e) => {
         e.preventDefault()
         let fieldsToExclude = []
@@ -119,9 +167,28 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
 
     const handleChange = (e) => {
         const {name, value} = e.target
-        const nextFormValueState = {
+        let nextFormValueState = {
             ...formValues,
             [name]: value
+        }
+        if(name === 'departamento') {
+            search = {
+                ...search,
+                localidades: [{_id: '', nombre: ''}],
+                establecimientos: [{_id: '', nombre: ''}]
+            }
+            nextFormValueState = {
+                ...formValues,
+                localidad: '',
+                [name]: value,
+            }
+            setResults([])
+        }
+        if(name === 'localidad') {
+            search = {
+                ...search,
+                establecimientos: [{_id: '', nombre: ''}]
+            }
         }
         setFormValues(nextFormValueState)
         if (errors[name].dirty) {
@@ -309,6 +376,28 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
     const handleDeleteAlumno = (dni) => {
         setFormValues({...formValues, grupoProyecto: formValues.grupoProyecto.filter(obj => obj.dni !== dni)})
     }
+
+    const handleFilter = (e) => {
+        if(!e.target.value.trim()) return setResults([])
+        const filteredValue = search.establecimientos.filter((sede) => {
+            return sede.nombre.toLowerCase().includes(e.target.value.toLowerCase())
+        })
+        setResults(filteredValue)
+    }
+
+    const handleSelect = (item) => {
+        setFormValues({
+            ...formValues, 
+            establecimientoSeleccionado: item
+        })
+        setAutocompleteValue(item)
+        
+    }
+
+    const handleFocus = () => {
+        setAutocompleteValue(undefined)
+        setResults(search.establecimientos)
+    }
   
 
 return (
@@ -321,6 +410,12 @@ return (
             errors={errors}
             levels={levels}
             categories={categories}
+            handleSelect={handleSelect}
+            handleFilter={handleFilter}
+            handleFocus={handleFocus}
+            results={results}
+            autocompleteValue={autocompleteValue}
+            search={search}
         />}
         { etapaActual === ETAPAS.Regional && <ActualizarEtapaRegionalForm 
             handleChange={handleChange}
@@ -328,7 +423,6 @@ return (
             onBlurField={onBlurField}
             formValues={formValues}
             errors={errors}
-            sedes={sedes}
         />}
         { etapaActual === ETAPAS.Grupo && <ActualizarGrupoProyecto
             handleAddAlumno={handleAddAlumno}

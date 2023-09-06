@@ -7,6 +7,8 @@ import useAxiosFetch from "../../hooks/useAxiosFetch"
 import ProjectCard from "../../components/Projects/ProjectCard"
 import Spinner from "../../components/Spinner/Spinner"
 
+import capitalizeEachLetter from "../../utils/utils"
+
 const VisualizarProyecto = () => {
     const axiosPrivate = useAxiosPrivate()
     const { id } = useParams()
@@ -28,7 +30,7 @@ const VisualizarProyecto = () => {
 
         project = {
             ...data.proyecto, 
-
+            nombreEscuela: capitalizeEachLetter(data.proyecto.establecimientoEducativo.nombre),
             categoria: category.nombre,
             nivel: level.nombre, 
         }

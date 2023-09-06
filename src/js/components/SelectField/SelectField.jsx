@@ -1,9 +1,6 @@
-import { data } from "autoprefixer"
 
 const SelectField = ({ value, label, name, onChange, onBlur, errors, dataValues, required = false, disabled = false }) => {
     
-    let setRequired = false
-    if(required) setRequired = true
 
     const modifier = errors?.error ? "--error" : ""
 
@@ -19,9 +16,17 @@ const SelectField = ({ value, label, name, onChange, onBlur, errors, dataValues,
             value={value}
             disabled={disabled}
         >
-            {dataValues?.map((el) => {
+            {dataValues?.map((el, index) => {
 
-            return (<option className={`select-field__option select-field__option${modifier}`} key={el._id} value={el._id}>{el.nombre}</option>)
+            return (
+                <option 
+                    key={index} 
+                    className={`select-field__option select-field__option${modifier}`} 
+                    value={el._id}
+                >
+                    {el.nombre}
+                </option>
+            )
 
             })}
             
