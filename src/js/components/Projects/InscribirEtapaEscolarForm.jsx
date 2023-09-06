@@ -3,7 +3,7 @@
 import InputField from "../InputField/InputField"
 import SelectField from "../SelectField/SelectField"
 import Button from "../Button/Button"
-
+import Autocomplete from "../Autocomplete/Autocomplete"
 // hooks
 import { useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
@@ -20,10 +20,11 @@ const InscribirEtapaEscolarForm = () => {
         description: '',
         level: '',
         category: '',
-        schoolName: '',
-        schoolCue: '',
         privateSchool: '',
-        schoolEmail: ''
+        schoolEmail: '',
+        departamento: '',
+        localidad: '',
+        establecimientoSeleccionado: '',
     })
 
     const axiosPrivate = useAxiosPrivate()
@@ -50,15 +51,97 @@ const InscribirEtapaEscolarForm = () => {
             return 0;
         });
     }
+
+    const [results, setResults] = useState([])
+    const [autocompleteValue, setAutocompleteValue] = useState('')
+    let search = {
+        departamentos: [{_id: '', nombre: ''}],
+        localidades: [{_id: '', nombre: ''}],
+        establecimientos: [{_id: '', nombre: ''}],
+    }
+
+    const { data: dptoData } = useAxiosFetch('/departamento', axiosPrivate)
+    if(dptoData) {
+        const sigDepartamentos = dptoData.departamentos.map((dpto) => {
+           return { 
+            _id: dpto,
+            nombre: dpto,
+        }
+        }).sort((dpto1, dpto2) => {
+            if (dpto1.nombre < dpto2.nombre) {
+              return -1; 
+            } else if (dpto1.nombre > dpto2.nombre) {
+              return 1;
+            }
+            return 0;
+        });
+        sigDepartamentos.unshift(search.departamentos)
+        search = {
+            departamentos: sigDepartamentos,
+            localidades: [{_id: '', nombre: ''}],
+            establecimientos: [{_id: '', nombre: ''}]
+        }
+    }
+
+    const { data: localData } = useAxiosFetch(`/localidad/${formValues.departamento}`, axiosPrivate)
+    if(localData) {
+        const sigLocalidades = localData.localidades.map((localidad) => {
+            return { 
+            _id: localidad,
+            nombre: localidad 
+        }
+        }).sort((local1, local2) => {
+            if (local1.nombre < local2.nombre) {
+              return -1; 
+            } else if (local1.nombre > local2.nombre) {
+              return 1;
+            }
+            return 0;
+        });
+        sigLocalidades.unshift(search.localidades)
+        search = {
+            departamentos: search.departamentos,
+            localidades: sigLocalidades,
+            establecimientos: [{_id: '', nombre: ''}]
+        }
+    }
+
+    const { data: establecimientosData } = useAxiosFetch(`/establecimiento/${formValues.localidad}`, axiosPrivate)
+    if(establecimientosData){
+        search = {
+            ...search,
+            establecimientos: establecimientosData.establecimientos
+        }
+    }
+
     const handleChange = (e) => {
         const {name, value} = e.target
-        const nextFormValueState = {
-        ...formValues,
-        [name]: value
+        let nextFormValueState = {
+            ...formValues,
+            [name]: value
+        }
+        if(name === 'departamento') {
+            search = {
+                ...search,
+                localidades: [{_id: '', nombre: ''}],
+                establecimientos: [{_id: '', nombre: ''}]
+            }
+            nextFormValueState = {
+                ...formValues,
+                localidad: '',
+                [name]: value,
+            }
+            setResults([])
+        }
+        if(name === 'localidad') {
+            search = {
+                ...search,
+                establecimientos: [{_id: '', nombre: ''}]
+            }
         }
         setFormValues(nextFormValueState)
         if (errors[name].dirty){
-        validateForm({form: nextFormValueState, errors, name})
+            validateForm({form: nextFormValueState, errors, name})
         }
     }
     
@@ -93,10 +176,11 @@ const InscribirEtapaEscolarForm = () => {
                             description: '',
                             level: '',
                             category: '',
-                            schoolName: '',
-                            schoolCue: '',
                             privateSchool: '',
-                            schoolEmail: ''
+                            schoolEmail: '',
+                            departamento: '',
+                            localidad: '',
+                            establecimientoSeleccionado: '',
                         })
                         // const newRoles = location.state.userRoles.roles
                         // newRoles.push('2')
@@ -112,9 +196,9 @@ const InscribirEtapaEscolarForm = () => {
     
         const inscribirProyecto = async () => {
             try {
-                const { title, description, level, category, schoolName, schoolCue, privateSchool, schoolEmail } = formValues
-                const response = await axiosPrivate.post('/proyecto', 
-                JSON.stringify({ titulo: title, descripcion: description, nivel: level, categoria: category, nombreEscuela: schoolName, cueEscuela: schoolCue, privada: privateSchool, emailEscuela: schoolEmail}),
+                const { title, description, level, category, establecimientoSeleccionado, privateSchool, schoolEmail } = formValues
+                await axiosPrivate.post('/proyecto', 
+                JSON.stringify({ titulo: title, descripcion: description, nivel: level, categoria: category, establecimientoEducativo: establecimientoSeleccionado._id, privada: privateSchool, emailEscuela: schoolEmail}),
                 {
                     headers: {'Content-Type': 'application/json'},
                     withCredentials: true
@@ -150,6 +234,28 @@ const InscribirEtapaEscolarForm = () => {
     const handleVolver = (e) => {
         e.preventDefault()
         navigate(from, {replace: true, state: {newRol:'', from:'/projects'}})
+    }
+
+    const handleFilter = (e) => {
+        if(!e.target.value.trim()) return setResults([])
+        const filteredValue = search.establecimientos.filter((sede) => {
+            return sede.nombre.toLowerCase().includes(e.target.value.toLowerCase())
+        })
+        setResults(filteredValue)
+    }
+
+    const handleSelect = (item) => {
+        setFormValues({
+            ...formValues, 
+            establecimientoSeleccionado: item
+        })
+        setAutocompleteValue(item)
+        
+    }
+
+    const handleFocus = () => {
+        setAutocompleteValue(undefined)
+        setResults(search.establecimientos)
     }
   
 
@@ -225,28 +331,41 @@ const InscribirEtapaEscolarForm = () => {
                     />
                 }
             </div>
-            <div className='register-project-form__input'>
-                <InputField
-                    label='Nombre de la escuela' 
-                    name='schoolName'
-                    type='text'
+            <h2 className='sedes-feria-form__title'>Datos del establecimiento educativo: </h2>
+            <div className='sedes-feria-form__input'>
+                <SelectField
+                    label='Deparamento: ' 
+                    name='departamento'
+                    dataValues={search.departamentos}
                     onChange={handleChange}
                     onBlur={onBlurField}
-                    value={formValues.schoolName}
-                    errors={errors.schoolName}
+                    value={formValues.departamento}
+                    errors={errors.departamento}
                     required={true}
                 />
             </div>
-            <div className='register-project-form__input'>
-                <InputField
-                    label='CUE de la escuela' 
-                    name='schoolCue'
-                    type='number'
+            <div className='sedes-feria-form__input'>
+                <SelectField
+                    label='Localidad: ' 
+                    name='localidad'
+                    dataValues={search.localidades}
                     onChange={handleChange}
                     onBlur={onBlurField}
-                    value={formValues.schoolCue}
-                    errors={errors.schoolCue}
+                    value={formValues.localidad}
+                    errors={errors.localidad}
                     required={true}
+                    disabled={!formValues.departamento}
+                />
+            </div>
+            <div className='sedes-feria-form__input'>
+                <Autocomplete 
+                    results={results} 
+                    onChange={handleFilter} 
+                    onFocus={handleFocus}
+                    onSelect={(item) => handleSelect(item)}
+                    disabled={!formValues.localidad}
+                    renderItem={(item) => <p> {item.nombre} </p>}
+                    value={autocompleteValue?.nombre}
                 />
             </div>
             <div className='register-project-form__input'>

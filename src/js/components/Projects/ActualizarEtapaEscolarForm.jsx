@@ -1,9 +1,10 @@
 // components
 import InputField from "../InputField/InputField"
 import SelectField from "../SelectField/SelectField"
+import Autocomplete from "../Autocomplete/Autocomplete"
 const ActualizarEtapaEscolarForm = (props) => {
 
-    const {handleChange, onBlurField, formValues, errors, levels, categories} = props
+    const {handleChange, onBlurField, formValues, errors, levels, categories, search, results, handleFilter, handleFocus, handleSelect, autocompleteValue} = props
 
     return (
         <>
@@ -55,28 +56,41 @@ const ActualizarEtapaEscolarForm = (props) => {
                     required={true}
                 />
             </div>
-            <div className='edit-project-form__input'>
-                <InputField
-                    label='Nombre de la escuela' 
-                    name='schoolName'
-                    type='text'
+            <h2 className='sedes-feria-form__title'>Datos del establecimiento educativo: </h2>
+            <div className='sedes-feria-form__input'>
+                <SelectField
+                    label='Deparamento: ' 
+                    name='departamento'
+                    dataValues={search?.departamentos}
                     onChange={handleChange}
                     onBlur={onBlurField}
-                    value={formValues.schoolName}
-                    errors={errors.schoolName}
+                    value={formValues.departamento}
+                    errors={errors.departamento}
                     required={true}
                 />
             </div>
-            <div className='edit-project-form__input'>
-                <InputField
-                    label='CUE de la escuela' 
-                    name='schoolCue'
-                    type='number'
+            <div className='sedes-feria-form__input'>
+                <SelectField
+                    label='Localidad: ' 
+                    name='localidad'
+                    dataValues={search?.localidades}
                     onChange={handleChange}
                     onBlur={onBlurField}
-                    value={formValues.schoolCue}
-                    errors={errors.schoolCue}
+                    value={formValues.localidad}
+                    errors={errors.localidad}
                     required={true}
+                    disabled={!formValues.departamento}
+                />
+            </div>
+            <div className='sedes-feria-form__input'>
+                <Autocomplete 
+                    results={results} 
+                    onChange={handleFilter} 
+                    onFocus={handleFocus}
+                    onSelect={(item) => handleSelect(item)}
+                    disabled={!formValues.localidad}
+                    renderItem={(item) => <p> {item.nombre} </p>}
+                    value={autocompleteValue?.nombre}
                 />
             </div>
             <div className='edit-project-form__input'>

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react"
 
 const Autocomplete  = (props) => {
-    const {results, renderItem, onChange, onSelect, onFocus, disabled} = props
+    const {results, renderItem, onChange, onSelect, onFocus, disabled, value} = props
     const [showResults, setShowResults] = useState(false)
 
     useEffect(() => {
@@ -29,7 +29,7 @@ const Autocomplete  = (props) => {
         
             <div onBlur={resetSearchComplete} className="autocomplete">
                 <label className="autocomplete__label">Establecimiento: </label>
-                <input disabled={disabled} className="autocomplete__input" type="text" onChange={onChange} onFocus={onFocus} placeholder="Ingresa un establecimiento..."/>
+                <input disabled={disabled} className="autocomplete__input" type="text" onChange={onChange} onFocus={onFocus} value={value} placeholder= {"Ingresa un establecimiento..."}/>
                 { showResults && (<div className="autocomplete__container">
                     {results?.map((item, index) => {
                         if (index < 150) {

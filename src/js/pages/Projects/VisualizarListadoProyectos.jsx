@@ -6,6 +6,7 @@ import Spinner from "../../components/Spinner/Spinner"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 
+import capitalizeEachLetter from "../../utils/utils"
 const headers = [
   {name: 'Título', value: 'titulo'},
   {name: 'Categoría', value: 'categoria'},
@@ -21,20 +22,20 @@ const VisualizarListadoProyectos = () => {
     const {data: categories} = useAxiosFetch('/categoria', axiosPrivate)
     const {data: levels} = useAxiosFetch('/nivel', axiosPrivate)
     let proyectos = []
+
     if(data && categories && levels) {
 
       proyectos = data.proyectos.map(obj => {
         const category = categories.categoria.find(element => element._id === obj.categoria)
         const level = levels.nivel.find(element => element._id === obj.nivel)
         if(obj.estado !== '6') {
-          return {...obj, categoria: category.nombre, nivel: level.nombre, }
+          return {...obj, categoria: category.nombre, nivel: level.nombre, nombreEscuela: capitalizeEachLetter(obj.establecimientoEducativo.nombre)}
         } else {
           return null
         }
       }).filter(project => project !== null)
     }
     
-
 
     return (
       <>

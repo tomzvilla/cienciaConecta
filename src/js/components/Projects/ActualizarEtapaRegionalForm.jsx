@@ -3,9 +3,27 @@ import InputField from "../InputField/InputField"
 import SelectField from "../SelectField/SelectField"
 import FileField from "../FileField/FileField"
 
+// hooks
+import useAxiosFetch from "../../hooks/useAxiosFetch"
+import useAxiosPrivate from "../../hooks/useAxiosPrivate"
+
 const ActualizarEtapaRegionalForm = (props) => {
 
-    const {handleChange, handleFileChange, onBlurField, formValues, errors, sedes} = props
+    const {handleChange, handleFileChange, onBlurField, formValues, errors} = props
+
+    const axiosPrivate = useAxiosPrivate()
+    const { data: sedesData} = useAxiosFetch('/establecimiento/sedes', axiosPrivate)
+    let sedes = []
+    if(sedesData){
+        sedes = [{_id: 0, nombre: ""}, ...sedesData.sedes].sort((sede1, sede2) => {
+            if (sede1.nombre < sede2.nombre) {
+              return -1; 
+            } else if (sede1.nombre > sede2.nombre) {
+              return 1;
+            }
+            return 0;
+          });
+    }
 
     return (
         <>
