@@ -18,10 +18,18 @@ const FeriaRubricaCard = (props) => {
         nombreCriterio: '',
         ponderacion: ''
     })
+    let suma = 0
+    if(rubrica.criterios.length !== 0){
+        rubrica.criterios.forEach(c => {
+            suma += c.ponderacion
+        })
+    }
+    
 
-    const [sumaPonderacion, setSumaPonderacion ] = useState(0)
+    const [sumaPonderacion, setSumaPonderacion ] = useState(suma)
  
     const { validateForm, onBlurField, errors} = useFormValidator(rubricaValues)
+    console.log(errors)
 
     const headers = [
         {name: 'Criterios', value: 'nombre'},
@@ -42,6 +50,7 @@ const FeriaRubricaCard = (props) => {
                 r.criterios.forEach((criterio) => {sumaPonderada += criterio.ponderacion})
             }
         })
+        console.log('paso el foreach')
         if(parseFloat(sumaPonderada).toFixed(3) !== parseFloat('1').toFixed(3) ) error = true 
         setSumaPonderacion(parseFloat(sumaPonderada).toFixed(3))
         setFormValues({...formValues, criteriosEvaluacion: prevCriterios, errorSumaPonderada: error})
@@ -133,8 +142,7 @@ const FeriaRubricaCard = (props) => {
 
             
 
-            
-            {rubrica.criterios.length >= 1 && sumaPonderacion !== parseFloat('1').toFixed(3) ? 
+            {rubrica.criterios.length >= 1 && parseFloat(sumaPonderacion).toFixed(3) !== parseFloat('1').toFixed(3) ? 
             <p className="feria-rubrica-card__error">La suma de la ponderación de los criterios debe dar 1</p> : null}
 
 
