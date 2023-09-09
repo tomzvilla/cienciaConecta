@@ -24,7 +24,6 @@ export const ETAPAS = {
 
 const ActualizarFeriaForm = (props) => {
     const {formData, sedes, sedeProvincial} = props
-    console.log(formData)
     const axiosPrivate = useAxiosPrivate()
     
     const [formValues, setFormValues] = useState({
@@ -79,7 +78,6 @@ const ActualizarFeriaForm = (props) => {
                 }
             }
         }
-        console.log(fields)
         setFieldsToDisable(fields)
     }
 
@@ -96,14 +94,12 @@ const ActualizarFeriaForm = (props) => {
             fieldsToExclude = fieldsToExclude.concat(['fechaInicioInstanciaEscolar', 'fechaFinInstanciaEscolar','fechaInicioEvaluacionRegional', 'fechaFinEvaluacionRegional', 'fechaInicioExposicionRegional', 'fechaFinExposicionRegional', 
             'fechaInicioEvaluacionProvincial',  'fechaFinEvaluacionProvincial', 'fechaInicioPostulacionEvaluadores', 'fechaFinPostulacionEvaluadores', 'fechaInicioAsignacionProyectos','fechaFinAsignacionProyectos', 'cupos', 'criteriosEvaluacion', 'nombreRubrica'
             ])
-            console.log(fieldsToExclude)
         }
         if(etapaActual === ETAPAS.Instancias) fieldsToExclude = fieldsToExclude.concat(['cupos', 'criteriosEvaluacion', 'nombreRubrica'])
         if(etapaActual === ETAPAS.SedesRegionales) fieldsToExclude = fieldsToExclude.concat(['criteriosEvaluacion', 'nombreRubrica'])
         if(etapaActual === ETAPAS.SedeProvincial) fieldsToExclude = fieldsToExclude.concat(['criteriosEvaluacion', 'nombreRubrica'])
         if(etapaActual === ETAPAS.Criterios) fieldsToExclude = fieldsToExclude.concat([])
         const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true, fieldsToExclude: fieldsToExclude})
-        console.log(errors)
         if(etapaActual === ETAPAS.Datos & isValid) setEtapaActual(ETAPAS.Instancias)
         if(etapaActual === ETAPAS.Instancias & isValid) setEtapaActual(ETAPAS.SedesRegionales)
         if(etapaActual === ETAPAS.SedesRegionales & isValid) {
@@ -204,7 +200,6 @@ const ActualizarFeriaForm = (props) => {
         const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true, fieldsToExclude: fieldsToDisable})
         if(!isValid) return
         if(formValues.errorSumaPonderacion) return
-        console.log('paso los errores')
         const messageError = validarCriteriosEvaluacion(formValues.criteriosEvaluacion)
         if(messageError !== '') {
             Swal.fire({
@@ -370,7 +365,6 @@ const ActualizarFeriaForm = (props) => {
             criterios: [],
         }
         setFormValues({...formValues, criteriosEvaluacion: [...formValues.criteriosEvaluacion, newRubrica]})
-        console.log(formValues.criteriosEvaluacion)
     }
 
     const handleDeleteRubrica = (nombreRubrica) => {
