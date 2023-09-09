@@ -23,7 +23,7 @@ export const ETAPAS = {
   };
 
 const ActualizarFeriaForm = (props) => {
-    const {formData, sedes} = props
+    const {formData, sedes, sedeProvincial} = props
     console.log(formData)
     const axiosPrivate = useAxiosPrivate()
     
@@ -51,7 +51,7 @@ const ActualizarFeriaForm = (props) => {
         cupos: [...formData.instancias.instanciaRegional.cupos],
         sedeProvincialDpto: '',
         sedeProvincialLocalidad: '',
-        sedeProvincial: sedes[0],
+        sedeProvincial: sedeProvincial,
         cuposProvincial: [...formData.instancias.instanciaProvincial.cupos],
         criteriosEvaluacion: [...formData.criteriosEvaluacion],
         nombreRubrica: '',
@@ -271,7 +271,7 @@ const ActualizarFeriaForm = (props) => {
                 const sedesRegional = new Set(cupos.map(c => { 
                     return c.sede
                 }))
-                const response = await axiosPrivate.post('/feria', 
+                const response = await axiosPrivate.patch(`/feria/${formData._id}`, 
                 JSON.stringify({ 
                     nombre: nombreFeria, 
                     descripcion: descripcionFeria, 
@@ -309,6 +309,7 @@ const ActualizarFeriaForm = (props) => {
                     withCredentials: true
                 }
                 )
+                if(response.status === 200) return true
                 
             } catch (err) {
                 let msg = ''

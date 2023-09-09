@@ -56,7 +56,7 @@ function App() {
               {/* Rutas para feria */}
               <Route path='feria' element={<CrearFeria/>}/>
               <Route path='verFeria' element={<VisualizarFeriaActual/>}/> 
-              <Route path='editFeria/:id' element={<ActualizarFeria/>}/> 
+              <Route path='editarFeria' element={<ActualizarFeria/>}/> 
               {/* // colocar en dashboard */}
             </Route>
           </Route>

@@ -9,10 +9,9 @@ import { useParams } from "react-router-dom"
 const ActualizarFeria = () => {
 
     const axiosPrivate = useAxiosPrivate()
-    const { id } = useParams()
-    const { data } = useAxiosFetch('/feria', axiosPrivate) 
-    const { data: sedesData} = useAxiosFetch('/establecimiento/sedes', axiosPrivate)
-    const { data: sedeProvincialData } = useAxiosFetch(`/establecimiento/${data?.ferias[0].instancias.instanciaProvincial.sede}`, axiosPrivate, !data)
+    const { data } = useAxiosFetch('/feria/activa', axiosPrivate) 
+    const { data: sedesData} = useAxiosFetch('/establecimiento/sedes/regional', axiosPrivate)
+    const { data: sedeProvincialData } = useAxiosFetch(`/establecimiento/sedes/provincial`, axiosPrivate)
     let sedes = []
     if(sedesData){
         sedes = [...sedesData.sedes].sort((sede1, sede2) => {
@@ -24,12 +23,8 @@ const ActualizarFeria = () => {
             return 0;
         });
     }
-    console.log(sedeProvincialData)
-    // el endpoint no esta listo
-    //const { data } = useAxiosFetch(`/feria/${id}`, axiosPrivate)
-
     return (
-        !data || !sedesData || !sedeProvincialData ? (<Spinner />) : (<ActualizarFeriaForm formData={data?.ferias[0]} sedes={sedes} sedeProvincial={sedeProvincialData}/>)
+        !data || !sedesData || !sedeProvincialData ? (<Spinner />) : (<ActualizarFeriaForm formData={data?.feriaActiva} sedes={sedes} sedeProvincial={sedeProvincialData.sede}/>)
     )
 }
 
