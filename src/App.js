@@ -41,6 +41,7 @@ function App() {
             <Route path='login' element={<LoginPage/>}/>
             <Route path='signup' element={<Signup/>}/>
             <Route path='unauthorized' element={<Unauthorized/>}/>
+            {/* <Route path='*' element={<Home/>}/> */}
           </Route>
           <Route element={<PersistLogin />}>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]}/>}>
@@ -57,9 +58,8 @@ function App() {
               <Route path='verFeria' element={<VisualizarFeriaActual/>}/> 
               {/* // colocar en dashboard */}
             </Route>
+            <Route path='*' element={<NotFound/>}/>
           </Route>
-
-          <Route path='*' element={<NotFound/>}/>
         </Route>
       </Routes>
   );
