@@ -77,7 +77,6 @@ export const useFormValidator = (form) => {
 
     const validateForm = ({form, field, errors, forceTouchErrors = false, fieldsToExclude=[]}) => {
         let isValid = true
-
         // Create a deep copy of the errors
         let nextErrors = JSON.parse(JSON.stringify(errors));
 
@@ -120,6 +119,7 @@ export const useFormValidator = (form) => {
             nombreRubrica,
             nombreCriterio,
             ponderacion,
+            curriculum,
         } = form;
 
         if (nextErrors.email?.dirty && (field ? field === "email" || field === 'schoolEmail' : true)) {
@@ -451,6 +451,13 @@ export const useFormValidator = (form) => {
             if (!!ponderacionMessage) isValid = false;
         }
 
+        if (nextErrors.curriculum?.dirty && (field ? field === "curriculum" : true)) {
+            const curriculumMessage = fileValidator(curriculum, " el CV", 'PDF', form);
+            nextErrors.curriculum.error = !!curriculumMessage;
+            nextErrors.curriculum.message = curriculumMessage;
+            if (!!curriculumMessage) isValid = false;
+        }
+
         setErrors(nextErrors);
 
         return {
@@ -463,7 +470,6 @@ export const useFormValidator = (form) => {
     const onBlurField = (e) => {
         const field = e.target.name
         const fieldError = errors[field]
-
         if(fieldError.dirty) return
 
         const updatedErrors = {
