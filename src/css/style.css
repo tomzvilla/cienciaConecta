@@ -1352,9 +1352,39 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 
 .unauthorized {
-  background-color: red;
-  height: 100vh;
-  width: 100vw;
+  width: 70%;
+  height: 70%;
+  margin: 0 auto;
+  margin-top: 3rem;
+  background-color: #ffffff;
+  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3.5rem;
+}
+.unauthorized__title {
+  font-weight: 600;
+  font-size: 4rem;
+  margin: 3rem;
+}
+.unauthorized__text {
+  font-size: 2rem;
+  max-width: 90rem;
+  text-align: center;
+  color: #757575;
+}
+.unauthorized__img {
+  height: 125px;
+  width: 125px;
+  margin-top: 3rem;
+}
+.unauthorized__buttons {
+  margin-top: 6rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .not-found {

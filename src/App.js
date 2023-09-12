@@ -38,13 +38,12 @@ function App() {
   return (
       <Routes>
         <Route path='/' element={<Layout />}>
+          <Route path='unauthorized' element={<Unauthorized/>}/>
           <Route element={<PersistLoginInverse />}>
             <Route path='/' element={<Home/>}/>
             <Route path='home' element={<Home/>}/>
             <Route path='login' element={<LoginPage/>}/>
             <Route path='signup' element={<Signup/>}/>
-            <Route path='unauthorized' element={<Unauthorized/>}/>
-            {/* <Route path='*' element={<Home/>}/> */}
           </Route>
           <Route element={<PersistLogin />}>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]}/>}>
