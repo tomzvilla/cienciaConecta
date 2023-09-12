@@ -344,6 +344,13 @@ export const useFormValidator = (form) => {
             if (!!fechaFinFeriaMessage) isValid = false;
         }
 
+        if (nextErrors.fechaFinFeria?.dirty && (field ? field === "fechaFinFeria" : true)) {
+            const fechaFinFeriaMessage = dateValidator( {fecha: fechaActual, nombre: 'actual'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'}, form);
+            nextErrors.fechaFinFeria.error = !!fechaFinFeriaMessage;
+            nextErrors.fechaFinFeria.message = fechaFinFeriaMessage;
+            if (!!fechaFinFeriaMessage) isValid = false;
+        }
+
         if (nextErrors.fechaInicioInstanciaEscolar?.dirty && (field ? field === "fechaInicioInstanciaEscolar" : true)) {
             const fechaInicioInstanciaEscolarMessage = dateValidator({fecha: fechaInicioFeria, nombre: 'Inicio de la feria'}, {fecha: fechaInicioInstanciaEscolar, nombre: 'Inicio instancia escolar'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'}, form);
             nextErrors.fechaInicioInstanciaEscolar.error = !!fechaInicioInstanciaEscolarMessage;

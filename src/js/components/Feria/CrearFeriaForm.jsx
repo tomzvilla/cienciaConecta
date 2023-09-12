@@ -395,7 +395,6 @@ const CrearFeriaForm = (props) => {
             criterios: [],
         }
         setFormValues({...formValues, criteriosEvaluacion: [...formValues.criteriosEvaluacion, newRubrica]})
-        console.log(formValues.criteriosEvaluacion)
     }
 
     const handleDeleteRubrica = (nombreRubrica) => {
