@@ -12,7 +12,7 @@ const ActualizarEtapaRegionalForm = (props) => {
     const {handleChange, handleFileChange, onBlurField, formValues, errors} = props
 
     const axiosPrivate = useAxiosPrivate()
-    const { data: sedesData} = useAxiosFetch('/establecimiento/sedes', axiosPrivate)
+    const { data: sedesData} = useAxiosFetch('/establecimiento/sedes/regional', axiosPrivate)
     let sedes = []
     if(sedesData){
         sedes = [{_id: 0, nombre: ""}, ...sedesData.sedes].sort((sede1, sede2) => {

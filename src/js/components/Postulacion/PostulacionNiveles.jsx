@@ -1,0 +1,79 @@
+// components
+import SelectField from "../SelectField/SelectField"
+import Table from "../Table/Table"
+
+// hooks
+import useAxiosPrivate from "../../hooks/useAxiosPrivate"
+import useAxiosFetch from "../../hooks/useAxiosFetch"
+
+const headers = [
+    {name: 'Nivel', value: 'nombre'}
+]
+
+const PostulacionNiveles = (props) => {
+
+    const {formValues, setFormValues, error, setError} = props
+
+    const axiosPrivate = useAxiosPrivate()
+
+    let niveles = []
+    const { data: levelsData} = useAxiosFetch('/nivel', axiosPrivate)
+    if(levelsData){
+        niveles = [{_id: 0, nombre: "", codigo: '0'}, ...levelsData.nivel].sort((level1, level2) => {
+            if (level1.codigo < level2.codigo) {
+              return -1; 
+            } else if (level1.codigo > level2.codigo) {
+              return 1;
+            }
+            return 0;
+        });
+    }
+
+    const handleChange = (e) => {
+        e.preventDefault()
+        const nivelesElegidos = [...formValues.niveles]
+        const nivelParaAgregar = niveles.find(lvl => lvl._id === e.target.value)
+        if(!nivelParaAgregar) return
+        if(nivelesElegidos.find(lvl => lvl._id === e.target.value)) {
+            setError({
+                error: true,
+                msg: 'No podés seleccionar dos veces el mismo nivel'
+            })
+            return 
+        } else setError({ error: false, msg: ''})
+        nivelesElegidos.push(nivelParaAgregar)
+        setFormValues({
+            ...formValues,
+            niveles: nivelesElegidos,
+        })
+    }
+
+    const handleDelete = (e, item) => {
+        e.preventDefault()
+        const nivelesFiltrados = formValues.niveles.filter(lvl => lvl.nombre !== item.nombre)
+        setFormValues({
+            ...formValues,
+            niveles: nivelesFiltrados,
+        })
+    } 
+    return(
+        <>
+            <h2>Elige los niveles que quieras evaluar</h2>
+            <Table data={formValues.niveles} headers={headers} callback={handleDelete}/>
+            <div className='sedes-feria-form__input'>
+                <SelectField
+                    label='Niveles: ' 
+                    name='niveles'
+                    dataValues={niveles}
+                    onChange={handleChange}
+                    onBlur={() => {}}
+                    errors={null}
+                    required={true}
+                />
+                {error.error && (<small> {error.msg} </small>)}
+            </div>
+        </>
+    )
+}
+
+export default PostulacionNiveles
