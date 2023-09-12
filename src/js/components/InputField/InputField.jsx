@@ -1,7 +1,7 @@
 import React from 'react'
 import PasswordInput from "./PasswordInput"
 
-const InputField = ({ value, label, name, type, onChange, onBlur, errors, required = false }) => {
+const InputField = ({ value, label, name, type, onChange, onBlur, errors, required = false, disabled = false }) => {
     
     const modifier = errors?.error ? "--error" : ""
     const pass = type === 'password' ? false : true;
@@ -19,6 +19,7 @@ const InputField = ({ value, label, name, type, onChange, onBlur, errors, requir
                 onBlur={onBlur}
                 value={value}
                 required={required}
+                disabled={disabled}
             />
             :
             <PasswordInput 

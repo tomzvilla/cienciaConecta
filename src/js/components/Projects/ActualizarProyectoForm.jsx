@@ -296,12 +296,10 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
                             withCredentials: true
                         }
                     )
-                    console.log(response)
                     if(response.status === 200){
                         const responseArchivos = await axiosPrivate.post(`/proyecto/regional/upload/${formData._id}`, pdfs,
                         {headers: {'Content-Type': 'multipart/form-data'}})
 
-                        console.log(responseArchivos)
                     }
                     
                 }

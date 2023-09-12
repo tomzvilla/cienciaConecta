@@ -8,10 +8,10 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 const VisualizarFeriaActual = () => {
 
     const axiosPrivate = useAxiosPrivate()
-    const { data } = useAxiosFetch('/feria', axiosPrivate)
+    const { data } = useAxiosFetch('/feria/activa', axiosPrivate)
 
     return (
-        !data ? (<Spinner />) : (<FeriaCard formData={data?.ferias[0]} />)
+        !data ? (<Spinner />) : (<FeriaCard formData={data?.feriaActiva} />)
     )
 }
 

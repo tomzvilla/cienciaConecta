@@ -9,7 +9,7 @@ const FeriaCard = ({ formData }) => {
             <h2 className="project-card__titulo"> {formData.nombre}</h2>
 
             <div className="project-card__edit">
-                <ImageLink src={require("../../../assets/edit.png")} linkto={`/editFeria/${formData._id}`} alt="Editar Feria"/>
+                <ImageLink src={require("../../../assets/edit.png")} linkto={`/editarFeria`} alt="Editar Feria"/>
             </div>
 
             <FeriaCardDetails datos={formData}/>
