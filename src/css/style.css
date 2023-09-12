@@ -1314,6 +1314,16 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   background-color: #00ACE6;
 }
 
+.badge {
+  display: block;
+  padding: 3px;
+  width: 15rem;
+  border-radius: 20px;
+  color: white;
+  text-align: center;
+  margin: 1rem;
+}
+
 .login {
   background-color: rgba(0, 0, 0, 0.3);
 }
