@@ -17,7 +17,6 @@ const FeriaCardDetails = (props) => {
           for (const propiedad in instancia) {
             if (propiedad.includes("fecha")) {
                 const fecha = new Date(instancia[propiedad]);
-                console.log({fecha, fechaActual, mayor: fecha > fechaActual})
                 if (fecha > fechaActual && fecha < proximaFecha) {
                     proximaFecha = fecha;
               }
