@@ -29,7 +29,7 @@ const VisualizarListadoProyectos = () => {
         const category = categories.categoria.find(element => element._id === obj.categoria)
         const level = levels.nivel.find(element => element._id === obj.nivel)
         if(obj.estado !== '6') {
-          return {...obj, categoria: category.nombre, nivel: level.nombre, nombreEscuela: capitalizeEachLetter(obj.establecimientoEducativo.nombre)}
+          return {...obj, categoria: category.nombre, nivel: level.nombre, nombreEscuela: capitalizeEachLetter(obj.nombreEscuela)}
         } else {
           return null
         }
