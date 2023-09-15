@@ -1,10 +1,15 @@
 // components
 import Spinner from "../../components/Spinner/Spinner"
 import TablaPostulantes from "../../components/TablaPostulantes/TablaPostulantes"
+import BlankState from "../../components/BlankState/BlankState"
 // hooks
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import { useLocation } from "react-router-dom"
+
+// state
+import { postulacionesActions } from "../../../store/postulaciones-slice"
+import { useDispatch } from "react-redux"
 
 const headers = [
     {name: 'Nombre', value: 'nombre'},
@@ -18,15 +23,16 @@ const SeleccionPostulantes = () => {
 
     const axiosPrivate = useAxiosPrivate()
     const location = useLocation()
+    const dispatch = useDispatch()
 
     let postulaciones = []
-    let categoria = []
-    const {data} = useAxiosFetch('/evaluador/postulaciones', axiosPrivate)
+    const {data, isLoading} = useAxiosFetch('/evaluador/postulaciones', axiosPrivate)
     const {data: categoriaData} = useAxiosFetch('/categoria', axiosPrivate)
     const {data: nivelesData} = useAxiosFetch('/nivel', axiosPrivate)
 
-    if(data && categoriaData && nivelesData){
-        postulaciones = data.postulaciones.map(p => {
+    if(!isLoading && categoriaData && nivelesData){
+        console.log('Entro al data')
+        postulaciones = data?.postulaciones?.map(p => {
             const nombre = p.datos_docente.nombre
             const apellido = p.datos_docente.apellido
             const cuil = p.datos_docente.cuil
@@ -51,15 +57,19 @@ const SeleccionPostulantes = () => {
                 niveles: nivelesCompletos,
             }
         })
+
+        dispatch(postulacionesActions.cargarPostulaciones(postulaciones))
     }
 
     return(
         <div>
             <h2>Selecciona los postulantes que serán evaluadores durante la feria</h2>
-            {!data || !categoriaData ? 
+            {isLoading || !categoriaData || !nivelesData ? 
                 <Spinner/> 
-                : 
-                <TablaPostulantes location={location} data={postulaciones} headers={headers}/>
+                : !postulaciones ?
+                <BlankState msg={"Actualmente no hay ninguna postulación. Vuelva más tarde."} />
+                :
+                <TablaPostulantes location={location} headers={headers}/>
             }
         </div>
     )
