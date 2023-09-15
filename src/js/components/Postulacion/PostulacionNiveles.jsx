@@ -57,10 +57,10 @@ const PostulacionNiveles = (props) => {
         })
     } 
     return(
-        <>
-            <h2>Elige los niveles que quieras evaluar</h2>
+        <div className="postulacion-form">
+            <h5 className="postulacion-form__title">Elegí los niveles que querés evaluar</h5>
             <Table data={formValues.niveles} headers={headers} callback={handleDelete}/>
-            <div className='sedes-feria-form__input'>
+            <div className="postulacion-form__input">
                 <SelectField
                     label='Niveles: ' 
                     name='niveles'
@@ -70,9 +70,9 @@ const PostulacionNiveles = (props) => {
                     errors={null}
                     required={true}
                 />
-                {error.error && (<small> {error.msg} </small>)}
+                {error.error && (<small className="postulacion-form__error"> {error.msg} </small>)}
             </div>
-        </>
+        </div>
     )
 }
 

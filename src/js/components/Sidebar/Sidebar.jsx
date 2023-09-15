@@ -13,6 +13,7 @@ const Sidebar = () => {
                 <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/feria'} text="Feria"/>
 
                 <SidebarLink img={require("../../../assets/user.png")} linkto={'/postulacion'} text="Postulaciones"/>
+                <SidebarLink img={require("../../../assets/user.png")} linkto={'/seleccionarPostulantes'} text="Lista Postulantes"/>
 
             </div>
             

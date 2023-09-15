@@ -22,7 +22,10 @@ import VisualizarListadoFerias from './js/pages/Ferias/VisualizarListadoFerias'
 import Dashboard from './js/pages/Dashboard/Dashboard'
 import ActualizarFeria from './js/pages/Ferias/ActualizarFeria'
 import Postulacion from './js/pages/Evaluadores/Postulacion'
+import SeleccionPostulantes from './js/pages/Evaluadores/SeleccionPostulantes'
 
+// DEV
+import Card from './js/components/Card/Card'
 
 // ROLES
 
@@ -62,6 +65,7 @@ function App() {
               <Route path='verFeria' element={<VisualizarFeriaActual/>}/> 
               <Route path='verListaFerias' element={<VisualizarListadoFerias/>}/>
               <Route path='editarFeria' element={<ActualizarFeria/>}/> 
+              <Route path='seleccionarPostulantes' element={<SeleccionPostulantes/>}/> 
               {/* // colocar en dashboard */}
             </Route>
             <Route path='*' element={<NotFound/>}/>

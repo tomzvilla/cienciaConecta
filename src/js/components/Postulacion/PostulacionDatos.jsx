@@ -21,16 +21,20 @@ const PostulacionDatos = (props) => {
     }
 
     return(
-        <div className='sedes-feria-form__input'>
-            <FileField
-                label='Curriculum Vitae: ' 
-                name='curriculum'
-                onChange={handleFileChange}
-                onBlur={onBlurField}
-                errors={errors.curriculum}
-                accept={'.pdf'}
-                required={true}
-            />
+        <div className='postulacion-form'>
+            <div className='postulacion-form__input'>
+                <FileField
+                    label='Curriculum Vitae: ' 
+                    name='curriculum'
+                    onChange={handleFileChange}
+                    onBlur={onBlurField}
+                    errors={errors.curriculum}
+                    accept={'.pdf'}
+                    required={true}
+                />
+
+            </div>
+            
         </div>
         
     )

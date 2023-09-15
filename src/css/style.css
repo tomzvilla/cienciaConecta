@@ -505,6 +505,9 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   color: #757575;
   font-size: 2rem;
   padding-left: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .select-field__error {
   color: #E63B0B;
@@ -518,14 +521,14 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   flex-direction: column;
   background-color: #ffffff;
   margin: auto;
-  max-width: 75rem;
-  min-height: 4rem;
-  border-radius: 2rem;
+
+  width: 100%;
+
+
   padding-bottom: 2rem;
-  margin-top: 5rem;
+  margin-top: 3rem;
   justify-content: space-around;
   align-items: flex-start;
-  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
 }
 .register-project-form__title {
   margin-bottom: 2rem;
@@ -742,25 +745,9 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
-  margin: 0 auto;
-  max-width: 75rem;
+  width: 100%;
   height: min-content;
   align-items: center;
-  border-radius: 2rem;
-  padding-bottom: 2rem;
-  justify-content: space-around;
-  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
-}
-.crear-feria-form__title {
-  width: 100%;
-  font-size: 3rem;
-  font-weight: 500;
-  text-align: center;
-  background-color: #00ACE6;
-  color: #ffffff;
-  padding: 2rem 0;
-  margin-bottom: 2rem;
-  border-radius: 2rem 2rem 2rem 0;
 }
 .crear-feria-form__input {
   padding-top: 4rem;
@@ -919,6 +906,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   padding: 1rem 0rem;
   margin-top: 2rem;
   align-self: center;
+  margin: auto;
   border-collapse: collapse;
 }
 .add-alumno__alumno {
@@ -926,10 +914,18 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   font-size: 2rem;
   width: 20%;
   color: #757575;
-  padding: 2rem 0rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 .add-alumno__alumno:last-child {
   width: min-content;
+}
+.add-alumno__alumno--antecedentes {
+  width: max-content;
+  margin-right: 3rem;
+}
+.add-alumno__alumno--antecedentes:last-child {
+  margin-top: auto;
 }
 
 .actualizar-grupo {
@@ -1323,6 +1319,103 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 .progress-bar__barra--fill {
   background-color: #00ACE6;
+}
+
+.badge {
+  display: block;
+  padding: 3px;
+  width: 15rem;
+  border-radius: 20px;
+  color: white;
+  text-align: center;
+  margin: 1rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  margin: auto;
+  width: 90%;
+  max-width: 75rem;
+  height: min-content;
+  min-height: 30rem;
+  align-items: center;
+  justify-items: center;
+  border-radius: 2rem;
+  padding-bottom: 2.5rem;
+  margin-top: 3rem;
+  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14);
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: opacity 0.3s ease-in-out, transform 0.8s ease-in-out;
+}
+.card--animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-header {
+  width: 100%;
+  grid-row: 1/2;
+  grid-column: 1/3;
+  font-size: 2.5rem;
+  background-color: #00ACE6;
+  color: #ffffff;
+  padding: 1.5rem 0;
+  border-radius: 2rem 2rem 0rem 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  align-self: flex-start;
+}
+.card-header__title {
+  font-weight: 300;
+}
+
+.docente-evaluador {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #757575;
+  margin: auto;
+}
+.docente-evaluador__title {
+  font-size: 3.5rem;
+  font-weight: 500;
+  margin-bottom: 5rem;
+}
+.docente-evaluador__buttons {
+  display: flex;
+}
+.docente-evaluador__buttons button:first-child {
+  margin-right: 5rem;
+}
+
+.postulacion-form {
+  width: 100%;
+  color: #757575;
+  display: flex;
+  flex-direction: column;
+  padding-top: 2rem;
+}
+.postulacion-form__title {
+  font-size: 3rem;
+  color: #757575;
+  padding-left: 3rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+.postulacion-form__input {
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+  width: 80%;
+  max-width: 80%;
+  padding-left: 6rem;
+}
+.postulacion-form__error {
+  font-size: 2rem;
+  color: #E63B0B;
 }
 
 .login {

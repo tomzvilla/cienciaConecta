@@ -5,6 +5,7 @@
     margin-top: 2rem;
 
     align-self: center;
+    margin: auto;
     border-collapse: collapse;
 
 
@@ -13,16 +14,30 @@
         margin: auto auto;
         font-size: 2rem;
         width: 20%;
-        
 
         color: $color-grey-dark;
-        padding: 2rem 0rem;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
 
 
         &:last-child {
             width: min-content;
         }
 
+        &--antecedentes {
+            width: max-content;
+            margin-right: 3rem;
+
+            &:last-child {
+                
+                margin-top: auto;
+                
+            }    
+
+        }
+
     }
+
+    
 
 }
