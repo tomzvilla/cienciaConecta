@@ -3,7 +3,7 @@ import InputField from "../InputField/InputField"
 import GrupoFechas from "./GrupoFechas"
 
 const InstanciasFeriaForm = (props) => {
-    const {handleDateChange, onBlurField, formValues, errors} = props
+    const {handleDateChange, onBlurField, formValues, errors, disabled = {}} = props
 
 
 
@@ -21,6 +21,7 @@ const InstanciasFeriaForm = (props) => {
                 value={formValues.fechaInicioInstanciaEscolar.split("T")[0]}
                 errors={errors.fechaInicioInstanciaEscolar}
                 required={true}
+                disabled={disabled ?? disabled.fechaInicioInstanciaEscolar}
             />}
 
             date2={<InputField
@@ -32,6 +33,7 @@ const InstanciasFeriaForm = (props) => {
                 value={formValues.fechaFinInstanciaEscolar.split("T")[0]}
                 errors={errors.fechaFinInstanciaEscolar}
                 required={true}
+                disabled={disabled ?? disabled.fechaFinInstanciaEscolar}
             />}
             />
 
@@ -50,6 +52,7 @@ const InstanciasFeriaForm = (props) => {
                     value={formValues.fechaInicioEvaluacionRegional.split("T")[0]}
                     errors={errors.fechaInicioEvaluacionRegional}
                     required={true}
+                    disabled={disabled ?? disabled.fechaInicioEvaluacionRegional}
                 />}
                 date2={<InputField
                     label='Fecha de fin: ' 
@@ -60,6 +63,7 @@ const InstanciasFeriaForm = (props) => {
                     value={formValues.fechaFinEvaluacionRegional.split("T")[0]}
                     errors={errors.fechaFinEvaluacionRegional}
                     required={true}
+                    disabled={disabled ?? disabled.fechaFinEvaluacionRegional}
                 />}
                 date3={<InputField
                     label='Fecha de inicio: ' 
@@ -70,6 +74,7 @@ const InstanciasFeriaForm = (props) => {
                     value={formValues.fechaInicioExposicionRegional.split("T")[0]}
                     errors={errors.fechaInicioExposicionRegional}
                     required={true}
+                    disabled={disabled ?? disabled.fechaInicioExposicionRegional}
                 />}
                 date4={<InputField
                     label='Fecha de fin: ' 
@@ -80,6 +85,7 @@ const InstanciasFeriaForm = (props) => {
                     value={formValues.fechaFinExposicionRegional.split("T")[0]}
                     errors={errors.fechaFinExposicionRegional}
                     required={true}
+                    disabled={disabled ?? disabled.fechaFinExposicionRegional}
                 />}
             />
 
@@ -95,6 +101,7 @@ const InstanciasFeriaForm = (props) => {
                     value={formValues.fechaInicioEvaluacionProvincial.split("T")[0]}
                     errors={errors.fechaInicioEvaluacionProvincial}
                     required={true}
+                    disabled={disabled ?? disabled.fechaInicioEvaluacionProvincial}
                 />}
                 date2={<InputField
                     label='Fecha de fin: ' 
@@ -105,6 +112,7 @@ const InstanciasFeriaForm = (props) => {
                     value={formValues.fechaFinEvaluacionProvincial.split("T")[0]}
                     errors={errors.fechaFinEvaluacionProvincial}
                     required={true}
+                    disabled={disabled ?? disabled.fechaFinEvaluacionProvincial}
                 />}
             />
 
@@ -119,6 +127,7 @@ const InstanciasFeriaForm = (props) => {
                     value={formValues.fechaInicioPostulacionEvaluadores.split("T")[0]}
                     errors={errors.fechaInicioPostulacionEvaluadores}
                     required={true}
+                    disabled={disabled ?? disabled.fechaInicioPostulacionEvaluadores}
                 />}
                 date2={<InputField
                     label='Fecha de fin: ' 
@@ -129,6 +138,7 @@ const InstanciasFeriaForm = (props) => {
                     value={formValues.fechaFinPostulacionEvaluadores.split("T")[0]}
                     errors={errors.fechaFinPostulacionEvaluadores}
                     required={true}
+                    disabled={disabled ?? disabled.fechaFinPostulacionEvaluadores}
                 />}
             />
 
@@ -143,6 +153,7 @@ const InstanciasFeriaForm = (props) => {
                     value={formValues.fechaInicioAsignacionProyectos.split("T")[0]}
                     errors={errors.fechaInicioAsignacionProyectos}
                     required={true}
+                    disabled={disabled ?? disabled.fechaInicioAsignacionProyectos}
                 />}
                 date2={<InputField
                     label='Fecha de fin: ' 
@@ -153,6 +164,7 @@ const InstanciasFeriaForm = (props) => {
                     value={formValues.fechaFinAsignacionProyectos.split("T")[0]}
                     errors={errors.fechaFinAsignacionProyectos}
                     required={true}
+                    disabled={disabled ?? disabled.fechaFinAsignacionProyectos}
                 />}
             />
         </div>

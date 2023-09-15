@@ -163,6 +163,7 @@ export const urlValidator = (url) => {
 };
 
 export const fileValidator = (file, msg, format) => {
+  console.log(file)
   let formato = '*'
   if(format === 'PDF') formato = 'application/pdf'
   else if(format === 'imágen') formato = 'image/'
@@ -201,8 +202,12 @@ export const nombreFeriaValidator = (nombreFeria) => {
 };
 
 export const dateValidator = (fechaAnterior, fechaPosterior, fechaFinal='') => {
+  const fecha = new Date()
+  const fechaActual = `${fecha.getFullYear()}-${String(fecha.getMonth() + 1).padStart(2, '0')}-${String(fecha.getDate()).padStart(2, '0')}`
   if (!fechaPosterior || !fechaAnterior || fechaAnterior.fecha === '' || fechaPosterior.fecha === '') {
     return "Debe ingresar una fecha";
+  } else if (fechaActual > fechaPosterior.fecha) {
+    return `La fecha ${fechaPosterior.nombre} debe ser posterior a la fecha actual `
   } else if (fechaAnterior.fecha > fechaPosterior.fecha) {
     return `La fecha ${fechaPosterior.nombre} debe ser posterior a la fecha ${fechaAnterior.nombre} `
   } else if (fechaFinal !== '' & fechaPosterior.fecha > fechaFinal.fecha ) {

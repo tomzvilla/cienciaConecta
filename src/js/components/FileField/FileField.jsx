@@ -12,7 +12,7 @@ const FileField = ({ value, label, name, onChange, onBlur, errors, accept, requi
     }
 
     const onChangeHandler = (e)=> {
-        setFileName(e.target.files[0].name)
+        setFileName(e.target.files[0]?.name)
         onChange(e)
     }
 

@@ -20,6 +20,9 @@ import CrearFeria from './js/pages/Ferias/CrearFeria'
 import VisualizarFeriaActual from './js/pages/Ferias/VisualizarFeriaActual'
 import VisualizarListadoFerias from './js/pages/Ferias/VisualizarListadoFerias'
 import Dashboard from './js/pages/Dashboard/Dashboard'
+import ActualizarFeria from './js/pages/Ferias/ActualizarFeria'
+import Postulacion from './js/pages/Evaluadores/Postulacion'
+
 
 // ROLES
 
@@ -36,12 +39,12 @@ function App() {
   return (
       <Routes>
         <Route path='/' element={<Layout />}>
+          <Route path='unauthorized' element={<Unauthorized/>}/>
           <Route element={<PersistLoginInverse />}>
             <Route path='/' element={<Home/>}/>
             <Route path='home' element={<Home/>}/>
             <Route path='login' element={<LoginPage/>}/>
             <Route path='signup' element={<Signup/>}/>
-            <Route path='unauthorized' element={<Unauthorized/>}/>
           </Route>
           <Route element={<PersistLogin />}>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]}/>}>
@@ -51,17 +54,18 @@ function App() {
               <Route path='editProjects/:id' element={<ActualizarProyecto/>}/>
               <Route path='myprojects' element={<VisualizarListadoProyectos/>}/>
               <Route path='dashboard' element={<Dashboard/>}/>
+              <Route path='postulacion' element={<Postulacion/>}/>
             </Route>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]}/>}>
               {/* Rutas para feria */}
               <Route path='feria' element={<CrearFeria/>}/>
               <Route path='verFeria' element={<VisualizarFeriaActual/>}/> 
               <Route path='verListaFerias' element={<VisualizarListadoFerias/>}/>
+              <Route path='editarFeria' element={<ActualizarFeria/>}/> 
               {/* // colocar en dashboard */}
             </Route>
+            <Route path='*' element={<NotFound/>}/>
           </Route>
-
-          <Route path='*' element={<NotFound/>}/>
         </Route>
       </Routes>
   );

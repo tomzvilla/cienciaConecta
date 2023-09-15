@@ -15,7 +15,7 @@ const TableBodyRow = (props) => {
         
             props.data.map((item, index) => {
               return (
-                <tr key={item._id} className="table-body-row">
+                <tr key={index} className="table-body-row">
                   {
                     props.headers.map((header, index) =>{
                       return (<td key={index} className="table-body-row__td" >{item[`${header?.value}`]}</td> )

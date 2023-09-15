@@ -35,7 +35,6 @@ const OpcionesModal = (props) => {
         const criterioIndex = prevCriterios[rubricaIndex]?.criterios.findIndex(crit => crit.nombre === criterio.nombre);
         prevCriterios[rubricaIndex]?.criterios[criterioIndex].opciones.push(opcion.nombreOpcion)
         
-        // console.log(rubricaIndex)
 
 
         setFormValues({...formValues, criteriosEvaluacion: prevCriterios})
