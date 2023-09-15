@@ -146,8 +146,8 @@ const PostulacionDocenteForm = (props) => {
                 docente: isDocente,
                 categorias: categorias, 
                 sede: sede,
-                antecedentes: antecedentes,
-                ...(isDocente && {niveles: niveles})
+                ...(antecedentes.length !== 0 && {antecedentes: antecedentes}),
+                ...(isDocente && {niveles: niveles}),
             })
             const response = await axiosPrivate.post('/evaluador/postular', body,
                 {
@@ -172,11 +172,11 @@ const PostulacionDocenteForm = (props) => {
                 } else if(err.response?.status === 401) {
                   msg = 'No estas autorizado para postularte, tenés que ser docente'
                 } else {
-                  msg = `Falló la postulación <br> ${err.response.data.errors[0].msg}`
+                  msg = `Falló la postulación <br> ${err.response.data.error}`
                 }
                 Swal.fire({
                   html: msg,
-                  title: 'Fallo la postulación',
+                  title: 'Falló la postulación',
                   icon: 'error',
                   confirmButtonText: 'OK',
                   confirmButtonColor: '#00ACE6',

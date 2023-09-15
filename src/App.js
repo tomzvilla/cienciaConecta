@@ -24,6 +24,10 @@ import ActualizarFeria from './js/pages/Ferias/ActualizarFeria'
 import Postulacion from './js/pages/Evaluadores/Postulacion'
 import SeleccionPostulantes from './js/pages/Evaluadores/SeleccionPostulantes'
 
+// DEV
+import Card from './js/components/Card/Card'
+
+
 // ROLES
 
 export const ROLES = {
