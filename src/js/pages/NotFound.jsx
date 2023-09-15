@@ -24,22 +24,22 @@ const NotFound = () => {
   return (
     auth?.accessToken ? 
     (<div className='not-found'>
-      <img className='not-found__img' src={notFound} alt='Imágen que representa página no encontrada'/>
-      <h2 className='not-found__title'>PÁGINA NO ENCONTRADA</h2>
-      <p className='not-found__text'>
-        La página que estás buscando no existe.
-      </p>
-      <div className='not-found__buttons'>
-        <Button 
-          text='Salir' 
-          onClickHandler={signOut}
-        />
-        <Button 
-          text='Inicio'
-          onClickHandler={volverInicio} 
-          activo={true}
-        />
-      </div>
+        <img className='not-found__img' src={notFound} alt='Imágen que representa página no encontrada'/>
+        <h2 className='not-found__title'>PÁGINA NO ENCONTRADA</h2>
+        <p className='not-found__text'>
+          La página que estás buscando no existe.
+        </p>
+        <div className='not-found__buttons'>
+          <Button 
+            text='Salir' 
+            onClickHandler={signOut}
+          />
+          <Button 
+            text='Inicio'
+            onClickHandler={volverInicio} 
+            activo={true}
+          />
+        </div>
     </div> )
     : 
     (<Navigate to='/home' state={{ from: location }} replace />)
