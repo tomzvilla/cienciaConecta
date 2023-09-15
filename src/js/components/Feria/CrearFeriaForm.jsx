@@ -12,6 +12,7 @@ import { useFormValidator } from "../../hooks/useFormValidator";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 import Swal from 'sweetalert2'
+import Card from "../Card/Card";
 
 export const ETAPAS = {
     Datos: '1',
@@ -406,8 +407,8 @@ const CrearFeriaForm = (props) => {
     }
 
     return (
-        <form className='crear-feria-form'>
-            <h2 className='crear-feria-form__title'> Registrar Feria de Ciencias y Tecnología </h2>
+        <Card title="Registrar Feria de Ciencias y Tecnología">
+            <form className='crear-feria-form'>
             {etapaActual === ETAPAS.Datos && <DatosFeriaForm
                 handleChange={handleChange}
                 handleDateChange={handleDateChange}
@@ -462,6 +463,11 @@ const CrearFeriaForm = (props) => {
                 />}
             </div>
         </form>
+
+        </Card>
+
+
+        
     )
 }
 

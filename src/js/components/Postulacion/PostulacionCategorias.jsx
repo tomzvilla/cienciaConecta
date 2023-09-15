@@ -50,10 +50,10 @@ const PostulacionCategorias = (props) => {
         })
     } 
     return(
-        <>
-            <h2>Elige las categorías que quieras evaluar</h2>
+        <div className="postulacion-form">
+            <h5 className="postulacion-form__title">Elegí las categorías que querés evaluar</h5>
             <Table data={formValues.categorias} headers={headers} callback={handleDelete}/>
-            <div className='sedes-feria-form__input'>
+            <div className="postulacion-form__input">
                 <SelectField
                     label='Categorías: ' 
                     name='categorias'
@@ -63,9 +63,9 @@ const PostulacionCategorias = (props) => {
                     errors={null}
                     required={true}
                 />
-                {error.error && (<small> {error.msg} </small>)}
+                {error.error && (<small className="postulacion-form__error"> {error.msg} </small>)}
             </div>
-        </>
+        </div>
     )
 }
 

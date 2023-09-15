@@ -13,6 +13,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 import Swal from "sweetalert2";
 import {ROLES} from './PostulacionAntecedentes'
+import Card from "../Card/Card";
 
 export const ETAPAS = {
     Categorias: '1',
@@ -185,13 +186,15 @@ const PostulacionDocenteForm = (props) => {
     }
 
     return(
-        <form className="edit-project-form">
-            <h2 className='edit-project-form__title'> Postularme como evaluador </h2>
+        <Card title="Postularme como Evaluador">
             {etapaActual === ETAPAS.Categorias && (<PostulacionCategorias formValues={formValues} setFormValues={setFormValues} error={error} setError={setError}/>)}
             {etapaActual === ETAPAS.Niveles && isDocente && (<PostulacionNiveles formValues={formValues} setFormValues={setFormValues} error={error} setError={setError}/>)}
             {etapaActual === ETAPAS.Sedes && (<PostulacionSedes formValues={formValues} setFormValues={setFormValues} error={error} setError={setError}/>)}
             {etapaActual === ETAPAS.Antecedentes && (<PostulacionAntecedentes formValues={formValues} setFormValues={setFormValues} error={error} setError={setError}/>)}
             {etapaActual === ETAPAS.Datos && (<PostulacionDatos formValues={formValues} setFormValues={setFormValues} errors={errors} validateForm={validateForm} onBlurField={onBlurField}/>)}
+            
+            
+            
             <div className='edit-project-form__button'>
                 <Button 
                     text='Atras' 
@@ -208,7 +211,9 @@ const PostulacionDocenteForm = (props) => {
                     activo={true}
                 />)}
             </div>
-        </form>
+
+
+        </Card>
     )
 }
 
