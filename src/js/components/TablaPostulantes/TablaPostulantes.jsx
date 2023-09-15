@@ -7,6 +7,7 @@ import Pagination from "../Pagination/Pagination"
 import { useState, useMemo } from "react"
 import { useNavigate } from "react-router-dom"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
+import { useNavigate } from "react-router-dom"
 
 import Swal from "sweetalert2"
 import { useSelector } from "react-redux"
@@ -81,7 +82,6 @@ const TablaPostulantes = (props) => {
                 })
             }
         })
-        console.log(selectedRows)
     }
 
     const handleVolver = () => {
