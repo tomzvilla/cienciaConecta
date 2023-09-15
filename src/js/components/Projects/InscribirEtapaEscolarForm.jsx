@@ -4,6 +4,7 @@ import InputField from "../InputField/InputField"
 import SelectField from "../SelectField/SelectField"
 import Button from "../Button/Button"
 import Autocomplete from "../Autocomplete/Autocomplete"
+import Card from "../Card/Card"
 // hooks
 import { useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
@@ -260,8 +261,8 @@ const InscribirEtapaEscolarForm = () => {
   
 
     return (
-        <form onSubmit={handleSubmit} className='register-project-form'>
-            <h2 className='register-project-form__title'> Inscribir proyecto a etapa escolar </h2>
+        <Card title="Inscribir proyecto a etapa escolar">
+            <form onSubmit={handleSubmit} className='register-project-form'>
             <div className='register-project-form__input'>
                 <InputField
                     label='Titulo del proyecto: ' 
@@ -397,6 +398,12 @@ const InscribirEtapaEscolarForm = () => {
                     <Button text='Continuar' activo={true}/>
             </div>
         </form>
+
+
+        </Card>
+
+
+        
     )
 }
 

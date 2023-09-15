@@ -79,11 +79,11 @@ const PostulacionAntecedentes = (props) => {
     }
 
     return(
-        <>
-            <h2>¿Participaste en años anteriores?</h2>
+        <div className="postulacion-form">
+            <h5 className="postulacion-form__title">Agregá tus antecedentes en años anteriores:</h5>
             <Table data={formValues.antecedentes} headers={headers} callback={handleDelete}/>
             <div className="add-alumno">
-                <div className="add-alumno__alumno">
+                <div className="add-alumno__alumno add-alumno__alumno--antecedentes">
                     <SelectField
                         label='Año: ' 
                         name='year'
@@ -94,7 +94,7 @@ const PostulacionAntecedentes = (props) => {
                         required={true}
                     />
                 </div>
-                <div className="add-alumno__alumno">
+                <div className="add-alumno__alumno add-alumno__alumno--antecedentes">
                     <SelectField
                         label='Rol: ' 
                         name='rol'
@@ -106,15 +106,15 @@ const PostulacionAntecedentes = (props) => {
                     />
                 </div>
 
-                <div className="add-alumno__alumno">
+                <div className="add-alumno__alumno add-alumno__alumno--antecedentes">
                     <ImageButton small={true} src={require("../../../assets/add.png")} callback={handleAdd} text="Añadir"/>
                 </div>
                 
                 
             </div>
-            {error.error && (<small> {error.msg} </small>)}
+            {error.error && (<small className="postulacion-form__error"> {error.msg} </small>)}
                 
-        </>
+        </div>
     )
 }
 

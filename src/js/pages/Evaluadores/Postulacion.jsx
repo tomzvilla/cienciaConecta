@@ -3,25 +3,13 @@ import PostulacionDocenteForm from "../../components/Postulacion/PostulacionDoce
 import Button from "../../components/Button/Button"
 // hooks
 import { useState } from "react"
+import DocenteEvaluadorCard from "./DocenteEvaluadorCard"
 const Postulacion = () => {
 
     const [isDocente, setIsDocente] = useState(null)
     return (
         <>
-            {isDocente === null && (
-            <div className='edit-project-form__button'>
-                <h2>¿Sos docente o investigador?</h2>
-                <Button 
-                    text='Docente' 
-                    onClickHandler={() => setIsDocente(true)}
-                    activo={true}
-                />
-                <Button 
-                    text='Investigador' 
-                    onClickHandler={() => setIsDocente(false)}
-                    activo={true}
-                />
-            </div>)}
+            {isDocente === null && <DocenteEvaluadorCard setIsDocente={setIsDocente} />}
             {isDocente !== null && (<PostulacionDocenteForm isDocente={isDocente}/>)}
         </>
     )
