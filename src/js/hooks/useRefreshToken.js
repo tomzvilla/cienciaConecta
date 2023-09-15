@@ -5,7 +5,7 @@ const useRefreshToken = () => {
 
   const { setAuth } = useAuth()
   const axiosRefresh = axios.create({
-    baseURL: 'http://localhost:3100/api/v1',
+    baseURL: 'http://localhost:5000/api/v1',
   })
 
   const refresh = async () => {
