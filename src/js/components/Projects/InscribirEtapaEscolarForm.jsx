@@ -332,8 +332,8 @@ const InscribirEtapaEscolarForm = () => {
                     />
                 }
             </div>
-            <h2 className='sedes-feria-form__title'>Datos del establecimiento educativo: </h2>
-            <div className='sedes-feria-form__input'>
+            <h2 className='register-project-form__subtitle'>Datos del establecimiento educativo: </h2>
+            <div className='register-project-form__input'>
                 <SelectField
                     label='Deparamento: ' 
                     name='departamento'
@@ -345,7 +345,7 @@ const InscribirEtapaEscolarForm = () => {
                     required={true}
                 />
             </div>
-            <div className='sedes-feria-form__input'>
+            <div className='register-project-form__input'>
                 <SelectField
                     label='Localidad: ' 
                     name='localidad'
@@ -358,7 +358,7 @@ const InscribirEtapaEscolarForm = () => {
                     disabled={!formValues.departamento}
                 />
             </div>
-            <div className='sedes-feria-form__input'>
+            <div className='register-project-form__input'>
                 <Autocomplete 
                     results={results} 
                     onChange={handleFilter} 

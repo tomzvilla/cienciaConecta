@@ -18,6 +18,7 @@ import ActualizarProyecto from './js/pages/Projects/ActualizarProyecto'
 import VisualizarProyecto from './js/pages/Projects/VisualizarProyecto'
 import CrearFeria from './js/pages/Ferias/CrearFeria'
 import VisualizarFeriaActual from './js/pages/Ferias/VisualizarFeriaActual'
+import VisualizarListadoFerias from './js/pages/Ferias/VisualizarListadoFerias'
 import Dashboard from './js/pages/Dashboard/Dashboard'
 import ActualizarFeria from './js/pages/Ferias/ActualizarFeria'
 import Postulacion from './js/pages/Evaluadores/Postulacion'
@@ -62,6 +63,7 @@ function App() {
               {/* Rutas para feria */}
               <Route path='feria' element={<CrearFeria/>}/>
               <Route path='verFeria' element={<VisualizarFeriaActual/>}/> 
+              <Route path='verListaFerias' element={<VisualizarListadoFerias/>}/>
               <Route path='editarFeria' element={<ActualizarFeria/>}/> 
               <Route path='seleccionarPostulantes' element={<SeleccionPostulantes/>}/> 
               {/* // colocar en dashboard */}
