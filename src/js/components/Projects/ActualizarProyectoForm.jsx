@@ -331,18 +331,6 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
 
     }
 
-    const handleDelete = async (e) => {
-        try {
-            e.preventDefault()
-            await axiosPrivate.delete(`/proyecto/${formData._id}`)
-        } catch (err) {
-            console.log(err)
-        }
-        setTimeout(() => {
-            navigate(from, { replace: true })
-          }, 2000);
-    }
-
     const handleVolver = (e) => {
         e.preventDefault()
         if(etapaActual === ETAPAS.Escolar){

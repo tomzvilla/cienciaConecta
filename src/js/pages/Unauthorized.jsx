@@ -21,7 +21,7 @@ const Unauthorized = () => {
 
   return (
     <div className='unauthorized'>
-        <img className='unauthorized__img' src={notAuthorized}/>
+        <img className='unauthorized__img' src={notAuthorized} alt='No autorizado'/>
         <h2 className='unauthorized__title'>USUARIO NO AUTORIZADO</h2>
         <p className='unauthorized__text'>
         No estás autorizado para entrar a esta pantalla. 

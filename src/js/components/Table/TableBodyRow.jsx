@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import ImageLink from "../ImageLink/ImageLink";
 import ImageButton from "../ImageButton/ImageButton";
 import Button from "../Button/Button";
