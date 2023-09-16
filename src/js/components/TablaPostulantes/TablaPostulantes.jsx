@@ -1,5 +1,5 @@
 // components
-import ImageLink from "../ImageLink/ImageLink"
+import ImageButton from "../ImageButton/ImageButton"
 import Button from "../Button/Button"
 import Badge from "../Badge/Badge"
 import Pagination from "../Pagination/Pagination"
@@ -87,7 +87,7 @@ const TablaPostulantes = (props) => {
         const from = props.location.state?.from || '/dashboard'
         navigate(from, {replace: true, state: {from:'/seleccionarPostulantes'}})
     }
-
+    
     const seleccionarPostulantes = async () => {
         try {
             const response = await axiosPrivate.post(`/evaluador/seleccionar`,
@@ -165,7 +165,7 @@ const TablaPostulantes = (props) => {
                                     <td key={header.name} className="table-body-row__td" >{postulacion[`${header?.value}`]}</td>
                                 )})}
                                 <td className="table-body-row__td table-body-row__td--actions">
-                                    <ImageLink small={true} alt="Ver" linkto={`${props.viewPath}/${postulacion._id}`} src={require("../../../assets/ver.png")}/>
+                                    <ImageButton callback={() => {}} small={true} alt="Ver" src={require("../../../assets/ver.png")}/>
                                 </td>
                                 <td className="table-body-row__td">
                                     <input

@@ -5,7 +5,7 @@ const useRefreshToken = () => {
 
   const { setAuth } = useAuth()
   const axiosRefresh = axios.create({
-    baseURL: 'http://localhost:5000/api/v1',
+    baseURL: process.env.REACT_APP_URL_API,
   })
 
   const refresh = async () => {

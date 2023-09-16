@@ -75,7 +75,9 @@ const LoginForm = () => {
 
           const accessToken = response?.data?.token
           const roles = response?.data?.roles
-    
+          const refreshExpiresIn = response?.data?.refreshExpiresIn
+          // save refresh expiration in local storage
+          localStorage.setItem("refreshExpiresIn",refreshExpiresIn);
           setAuth({cuil, password, roles, accessToken})
     
           setFormValues({
