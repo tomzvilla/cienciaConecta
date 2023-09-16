@@ -70,14 +70,16 @@ const ActualizarFeriaForm = (props) => {
     const verificarFechas = () => {
         let fields = []
         const fechaActual = new Date()
+        const prevDisabled = { ...disabled }
         for(const propiedad in formValues){
             if (propiedad.includes("fecha")) {
                 if(fechaActual > new Date(formValues[propiedad])) {
                     fields.push(propiedad)
-                    setDisabled({...disabled, [propiedad]: true})
+                    prevDisabled[propiedad] = true
                 }
             }
         }
+        setDisabled(prevDisabled)
         setFieldsToDisable(fields)
     }
 

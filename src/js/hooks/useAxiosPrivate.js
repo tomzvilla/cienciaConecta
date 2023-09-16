@@ -2,11 +2,18 @@ import { axiosPrivate } from "../../api/axios"
 import { useEffect } from "react"
 import useRefreshToken from "./useRefreshToken"
 import useAuth from "./useAuth"
+import useLogout from './useLogout'
+import { useNavigate } from "react-router-dom"
+
+import Swal from "sweetalert2"
 
 const useAxiosPrivate = () => {
 
   const refresh = useRefreshToken()
   const { auth } = useAuth()
+  const logout = useLogout()
+  const navigate = useNavigate()
+
   useEffect(() => {
     const requestIntercept = axiosPrivate.interceptors.request.use(
         config => {
@@ -21,11 +28,27 @@ const useAxiosPrivate = () => {
         response => response,
         async (error) => {
             const prevRequest = error?.config
-            if (error?.response.status === 403 && !prevRequest?.sent) {
+            if (error?.response.status === 401 && !prevRequest?.sent) {
                 prevRequest.sent = true
-                const newAcessToken = await refresh()
-                prevRequest.headers['Authorization'] = `Bearer ${newAcessToken}`
-                return axiosPrivate(prevRequest)
+                try {
+                  const newAcessToken = await refresh()
+                  prevRequest.headers['Authorization'] = `Bearer ${newAcessToken}`
+                  return axiosPrivate(prevRequest)
+                } catch (err) {
+                  Swal.fire({
+                    title: 'La sesion expiró',
+                    text: 'Por favor, inica sesión nuevamente',
+                    icon: 'warning',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#00ACE6',
+                }).then((result) => {
+                    if(result.isConfirmed || result.isDismissed) {
+                        logout()
+                        navigate('/home',{replace: true})
+                    }
+                  })
+                }
+
             }
             return Promise.reject(error)
         }
