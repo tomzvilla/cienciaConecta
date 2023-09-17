@@ -7,7 +7,8 @@
         padding: 1rem;
         border-radius: 1rem;
         font-size: 2rem;
-        color: $color-grey-dark;
+        text-overflow: ellipsis;
+        flex-wrap: wrap;
         display: flex;
         cursor: pointer;
 

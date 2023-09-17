@@ -856,7 +856,8 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   padding: 1rem;
   border-radius: 1rem;
   font-size: 2rem;
-  color: #757575;
+  text-overflow: ellipsis;
+  flex-wrap: wrap;
   display: flex;
   cursor: pointer;
 }
