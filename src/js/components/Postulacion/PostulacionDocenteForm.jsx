@@ -155,11 +155,11 @@ const PostulacionDocenteForm = (props) => {
                     withCredentials: true
                 }
             )
-            if(response.status === 200){
-                // endpoint para subir archivos no esta listo
-                const responseArchivos = await axiosPrivate.post('/evaluador/upload/cv', pdf,
-                 {headers: {'Content-Type': 'multipart/form-data'}})
-            }
+            // if(response.status === 200){
+            //     // endpoint para subir archivos no esta listo
+            //     const responseArchivos = await axiosPrivate.post('/evaluador/upload/cv', pdf,
+            //      {headers: {'Content-Type': 'multipart/form-data'}})
+            // }
     
             return true
         } catch(err) {
@@ -184,14 +184,13 @@ const PostulacionDocenteForm = (props) => {
     }
 
     return(
+       
         <Card title="Postularme como Evaluador">
             {etapaActual === ETAPAS.Categorias && (<PostulacionCategorias formValues={formValues} setFormValues={setFormValues} error={error} setError={setError}/>)}
             {etapaActual === ETAPAS.Niveles && isDocente && (<PostulacionNiveles formValues={formValues} setFormValues={setFormValues} error={error} setError={setError}/>)}
             {etapaActual === ETAPAS.Sedes && (<PostulacionSedes formValues={formValues} setFormValues={setFormValues} error={error} setError={setError}/>)}
             {etapaActual === ETAPAS.Antecedentes && (<PostulacionAntecedentes formValues={formValues} setFormValues={setFormValues} error={error} setError={setError}/>)}
             {etapaActual === ETAPAS.Datos && (<PostulacionDatos formValues={formValues} setFormValues={setFormValues} errors={errors} validateForm={validateForm} onBlurField={onBlurField}/>)}
-            
-            
             
             <div className='edit-project-form__button'>
                 <Button 
