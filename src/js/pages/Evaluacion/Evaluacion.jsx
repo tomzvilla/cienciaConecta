@@ -10,13 +10,15 @@ const projectId = '650629af81d643566c1c5c98'
 const Evaluacion = () => {
 
     const axiosPrivate = useAxiosPrivate()
-    const {data: evaluacionData, isLoading } = useAxiosFetch(`/evaluacion/${projectId}`, axiosPrivate)
-    if(evaluacionData) {
-        console.log(evaluacionData)
+    
+    const {data: evaluacionStructure, isLoading, errors, status} = useAxiosFetch(`/evaluacion/consultar/${projectId}`, axiosPrivate)
+    if(!isLoading){
+        // TODO manejar caso en que ya se este evaluando el proyecto
+
     }
 
     return (
-        isLoading ? <Spinner/> : <EvaluacionForm evaluacion={evaluacionData} />
+        isLoading && !evaluacionStructure ? <Spinner/> : <EvaluacionForm projectId={projectId} evaluacion={evaluacionStructure} />
     )
 
 }
