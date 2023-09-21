@@ -4,7 +4,6 @@ import ActualizarFeriaForm from "../../components/Feria/ActualizarFeriaForm"
 // hooks
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
-import { useParams } from "react-router-dom"
 
 const ActualizarFeria = () => {
 

@@ -52,7 +52,7 @@ const DatosFeriaForm = (props) => {
                     value={formValues.fechaInicioFeria.split("T")[0]}
                     errors={errors.fechaInicioFeria}
                     required={true}
-                    disabled={disabled ?? disabled.fechaInicioFeria}
+                    disabled={disabled?.fechaInicioFeria || false}
                 />
             </div>
             <div className='datos-feria-form__input'>
@@ -65,6 +65,7 @@ const DatosFeriaForm = (props) => {
                     value={formValues.fechaFinFeria.split("T")[0]}
                     errors={errors.fechaFinFeria}
                     required={true}
+                    disabled={disabled?.fechaFinFeria || false}
                 />
             </div>
         </div>

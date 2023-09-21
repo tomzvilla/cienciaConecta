@@ -336,7 +336,7 @@ const CrearFeriaForm = (props) => {
                     withCredentials: true
                 }
                 )
-                
+                return true
             } catch (err) {
                 let msg = ''
                 console.log(JSON.stringify(err.response.data))

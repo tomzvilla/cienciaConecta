@@ -3,7 +3,6 @@ import { Outlet, useOutletContext } from 'react-router-dom'
 import HeroContent from "../components/Home/HeroContent"
 import HeroImage from "../components/Home/HeroImage"
 import ComoEmpiezo from '../components/Home/ComoEmpiezo'
-import Footer from "../components/Footer/Footer"
 import Modal from '../components/Modal/Modal'
 import LoginForm from '../components/LoginForm/LoginForm'
 

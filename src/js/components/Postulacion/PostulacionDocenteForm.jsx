@@ -146,8 +146,8 @@ const PostulacionDocenteForm = (props) => {
                 docente: isDocente,
                 categorias: categorias, 
                 sede: sede,
-                antecedentes: antecedentes,
-                ...(isDocente && {niveles: niveles})
+                ...(antecedentes.length !== 0 && {antecedentes: antecedentes}),
+                ...(isDocente && {niveles: niveles}),
             })
             const response = await axiosPrivate.post('/evaluador/postular', body,
                 {
@@ -155,13 +155,11 @@ const PostulacionDocenteForm = (props) => {
                     withCredentials: true
                 }
             )
-    
-            if(response.status === 200){
-                // endpoint para subir archivos no esta listo
-                console.log('Se subieron archivos')
-                // const responseArchivos = await axiosPrivate.post(`/proyecto/regional/upload/${formData._id}`, pdf,
-                // {headers: {'Content-Type': 'multipart/form-data'}})
-            }
+            // if(response.status === 200){
+            //     // endpoint para subir archivos no esta listo
+            //     const responseArchivos = await axiosPrivate.post('/evaluador/upload/cv', pdf,
+            //      {headers: {'Content-Type': 'multipart/form-data'}})
+            // }
     
             return true
         } catch(err) {
@@ -172,11 +170,11 @@ const PostulacionDocenteForm = (props) => {
                 } else if(err.response?.status === 401) {
                   msg = 'No estas autorizado para postularte, tenés que ser docente'
                 } else {
-                  msg = `Falló la postulación <br> ${err.response.data.errors[0].msg}`
+                  msg = `Falló la postulación <br> ${err.response.data.error}`
                 }
                 Swal.fire({
                   html: msg,
-                  title: 'Fallo la postulación',
+                  title: 'Falló la postulación',
                   icon: 'error',
                   confirmButtonText: 'OK',
                   confirmButtonColor: '#00ACE6',
@@ -186,14 +184,13 @@ const PostulacionDocenteForm = (props) => {
     }
 
     return(
+       
         <Card title="Postularme como Evaluador">
             {etapaActual === ETAPAS.Categorias && (<PostulacionCategorias formValues={formValues} setFormValues={setFormValues} error={error} setError={setError}/>)}
             {etapaActual === ETAPAS.Niveles && isDocente && (<PostulacionNiveles formValues={formValues} setFormValues={setFormValues} error={error} setError={setError}/>)}
             {etapaActual === ETAPAS.Sedes && (<PostulacionSedes formValues={formValues} setFormValues={setFormValues} error={error} setError={setError}/>)}
             {etapaActual === ETAPAS.Antecedentes && (<PostulacionAntecedentes formValues={formValues} setFormValues={setFormValues} error={error} setError={setError}/>)}
             {etapaActual === ETAPAS.Datos && (<PostulacionDatos formValues={formValues} setFormValues={setFormValues} errors={errors} validateForm={validateForm} onBlurField={onBlurField}/>)}
-            
-            
             
             <div className='edit-project-form__button'>
                 <Button 

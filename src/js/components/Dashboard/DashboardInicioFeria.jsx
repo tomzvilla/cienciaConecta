@@ -16,7 +16,7 @@ const DashboardInicioFeria = (props) => {
             <DashboardCard 
                 src={imagenEvaluador}
                 title={'Postulate como evaluador'}
-                link={'/postulaciones'}
+                link={'/postulacion'}
             />
         </div>
     )

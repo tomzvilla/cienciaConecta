@@ -23,7 +23,13 @@ import Dashboard from './js/pages/Dashboard/Dashboard'
 import ActualizarFeria from './js/pages/Ferias/ActualizarFeria'
 import Postulacion from './js/pages/Evaluadores/Postulacion'
 import SeleccionPostulantes from './js/pages/Evaluadores/SeleccionPostulantes'
+
 import VisualizarPostulante from './js/components/Postulacion/VisualizarPostulante'
+
+// DEV
+import Card from './js/components/Card/Card'
+import AuthVerify from './js/components/PersistLogin/AuthVerify'
+
 
 // ROLES
 
@@ -38,6 +44,7 @@ export const ROLES = {
 
 function App() {
   return (
+    <>
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route path='unauthorized' element={<Unauthorized/>}/>
@@ -71,6 +78,8 @@ function App() {
           </Route>
         </Route>
       </Routes>
+      <AuthVerify />
+    </>
   );
 }
 

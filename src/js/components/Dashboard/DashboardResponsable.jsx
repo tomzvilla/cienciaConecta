@@ -28,6 +28,7 @@ const DashboardResponsable = () => {
       proyectos = data.proyectos.map(obj => {
         const category = categoriesData.categoria.find(element => element._id === obj.categoria)
         const level = levelsData.nivel.find(element => element._id === obj.nivel)
+        console.log(obj)
         if(obj.estado !== '6') {
           return {...obj, categoria: category.nombre, nivel: level.nombre, nombreEscuela: capitalizeEachLetter(obj.establecimientoEducativo.nombre)}
         } else {

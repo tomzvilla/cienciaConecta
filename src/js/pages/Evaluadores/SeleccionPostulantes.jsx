@@ -2,10 +2,15 @@
 import Card from "../../components/Card/Card"
 import Spinner from "../../components/Spinner/Spinner"
 import TablaPostulantes from "../../components/TablaPostulantes/TablaPostulantes"
+import BlankState from "../../components/BlankState/BlankState"
 // hooks
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import { useLocation } from "react-router-dom"
+
+// state
+import { postulacionesActions } from "../../../store/postulaciones-slice"
+import { useDispatch } from "react-redux"
 
 const headers = [
     {name: 'Nombre', value: 'nombre'},
@@ -19,15 +24,16 @@ const SeleccionPostulantes = () => {
 
     const axiosPrivate = useAxiosPrivate()
     const location = useLocation()
+    const dispatch = useDispatch()
 
     let postulaciones = []
-    let categoria = []
-    const {data} = useAxiosFetch('/evaluador/postulaciones', axiosPrivate)
+    const {data, isLoading} = useAxiosFetch('/evaluador/postulaciones', axiosPrivate)
     const {data: categoriaData} = useAxiosFetch('/categoria', axiosPrivate)
     const {data: nivelesData} = useAxiosFetch('/nivel', axiosPrivate)
 
-    if(data && categoriaData && nivelesData){
-        postulaciones = data.postulaciones.map(p => {
+    if(!isLoading && categoriaData && nivelesData){
+        console.log('Entro al data')
+        postulaciones = data?.postulaciones?.map(p => {
             const nombre = p.datos_docente.nombre
             const apellido = p.datos_docente.apellido
             const cuil = p.datos_docente.cuil
@@ -52,24 +58,22 @@ const SeleccionPostulantes = () => {
                 niveles: nivelesCompletos,
             }
         })
+
+        dispatch(postulacionesActions.cargarPostulaciones(postulaciones))
     }
 
-    return(
+    return (
         <div className="seleccion-postulantes">
             <Card title="Lista de Postulantes">
                 
                     <h6 className="seleccion-postulantes__text">Seleccioná los postulantes que serán evaluadores durante la feria</h6>
 
-                    {!data || !categoriaData ? 
+                    {isLoading || !categoriaData || !nivelesData ? 
                     <Spinner/> 
-                    : 
+                    : !postulaciones ?
+                    <BlankState msg={"Actualmente no hay ninguna postulación. Vuelva más tarde."} />
                     <TablaPostulantes location={location} data={postulaciones} headers={headers} viewPath={'/postulante'}/>
-                }
-
-
-                
-                
-                
+                    }
             </Card>
         </div>
     )
