@@ -1,4 +1,5 @@
 // components
+import Card from "../../components/Card/Card"
 import Spinner from "../../components/Spinner/Spinner"
 import TablaPostulantes from "../../components/TablaPostulantes/TablaPostulantes"
 // hooks
@@ -54,13 +55,22 @@ const SeleccionPostulantes = () => {
     }
 
     return(
-        <div>
-            <h2>Selecciona los postulantes que serán evaluadores durante la feria</h2>
-            {!data || !categoriaData ? 
-                <Spinner/> 
-                : 
-                <TablaPostulantes location={location} data={postulaciones} headers={headers}/>
-            }
+        <div className="seleccion-postulantes">
+            <Card title="Lista de Postulantes">
+                
+                    <h6 className="seleccion-postulantes__text">Seleccioná los postulantes que serán evaluadores durante la feria</h6>
+
+                    {!data || !categoriaData ? 
+                    <Spinner/> 
+                    : 
+                    <TablaPostulantes location={location} data={postulaciones} headers={headers} viewPath={'/postulante'}/>
+                }
+
+
+                
+                
+                
+            </Card>
         </div>
     )
 

@@ -86,7 +86,7 @@ const TablaPostulantes = (props) => {
                     })}
                 </tbody>
             </table>
-            <div>
+            {/* <div>
                 <Button 
                     text='Volver' 
                     onClickHandler={handleVolver}
@@ -96,7 +96,7 @@ const TablaPostulantes = (props) => {
                     onClickHandler={handleSeleccion}
                     activo={true}
                 />
-            </div>
+            </div> */}
         </>
     )
 

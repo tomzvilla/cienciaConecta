@@ -745,6 +745,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   width: 100%;
   height: min-content;
   align-items: center;
+  color: #757575;
 }
 .crear-feria-form__input {
   padding-top: 4rem;
@@ -1321,9 +1322,9 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 
 .badge {
   display: block;
-  padding: 3px;
+  padding: 0.3rem;
   width: 15rem;
-  border-radius: 20px;
+  border-radius: 2rem;
   color: white;
   text-align: center;
   margin: 1rem;
@@ -1360,7 +1361,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   font-size: 2.5rem;
   background-color: #00ACE6;
   color: #ffffff;
-  padding: 1.5rem 0;
+  padding: 1.5rem 0rem;
   border-radius: 2rem 2rem 0rem 0;
   display: flex;
   justify-content: space-around;
@@ -1369,6 +1370,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 .card-header__title {
   font-weight: 300;
+  padding: 0 3rem;
 }
 
 .docente-evaluador {
@@ -1414,6 +1416,28 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .postulacion-form__error {
   font-size: 2rem;
   color: #E63B0B;
+}
+
+.seleccion-postulantes {
+  color: #757575;
+}
+.seleccion-postulantes__text {
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #757575;
+  padding: 2rem;
+}
+
+.generic-badge {
+  display: flex;
+  padding: 1rem;
+  width: fit-content;
+  border-radius: 2rem;
+  color: white;
+  text-align: center;
+  margin: 1rem;
+  background-color: #72B8FF;
+  font-size: 2rem;
 }
 
 .login {

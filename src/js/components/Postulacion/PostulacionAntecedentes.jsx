@@ -80,7 +80,7 @@ const PostulacionAntecedentes = (props) => {
 
     return(
         <div className="postulacion-form">
-            <h5 className="postulacion-form__title">Agregá tus antecedentes en años anteriores:</h5>
+            <h5 className="postulacion-form__title">Agregá tus antecedentes en años anteriores</h5>
             <Table data={formValues.antecedentes} headers={headers} callback={handleDelete}/>
             <div className="add-alumno">
                 <div className="add-alumno__alumno add-alumno__alumno--antecedentes">
