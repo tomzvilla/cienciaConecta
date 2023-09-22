@@ -5,6 +5,7 @@ const initialState = {
     devoluciones: [],
     rubricas: [],
     rubricaActual: '',
+    listadoEvaluaciones: [],
 }
 
 const evaluacionSlice = createSlice({
@@ -74,6 +75,9 @@ const evaluacionSlice = createSlice({
             if(indexActual === 0) return
             state.rubricaActual = state.rubricas[indexActual - 1]
         },
+        cargarTablaEvaluacionesPendientes(state, action) {
+            state.listadoEvaluaciones = action.payload
+        }
     }
 })
 

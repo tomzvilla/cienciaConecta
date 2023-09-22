@@ -23,7 +23,7 @@ import Dashboard from './js/pages/Dashboard/Dashboard'
 import ActualizarFeria from './js/pages/Ferias/ActualizarFeria'
 import Postulacion from './js/pages/Evaluadores/Postulacion'
 import SeleccionPostulantes from './js/pages/Evaluadores/SeleccionPostulantes'
-import Evaluacion from './js/pages/Evaluacion/Evaluacion'
+import ListadoEvaluaciones from './js/pages/Evaluacion/ListadoEvaluaciones'
 // DEV
 import Card from './js/components/Card/Card'
 import AuthVerify from './js/components/PersistLogin/AuthVerify'
@@ -60,7 +60,7 @@ function App() {
               <Route path='myprojects' element={<VisualizarListadoProyectos/>}/>
               <Route path='dashboard' element={<Dashboard/>}/>
               <Route path='postulacion' element={<Postulacion/>}/>
-              <Route path='evaluar' element={<Evaluacion/>}/>
+              <Route path='evaluar' element={<ListadoEvaluaciones/>}/>
             </Route>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]}/>}>
               {/* Rutas para feria */}
