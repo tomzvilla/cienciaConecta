@@ -13,6 +13,8 @@ import { useDispatch } from "react-redux"
 import { evaluacionActions } from "../../../store/evaluacion-slice"
 import { useSelector } from "react-redux"
 
+import Swal from "sweetalert2"
+
 const EvaluacionForm = (props) => {
     
     const {evaluacion, projectId} = props
@@ -31,6 +33,7 @@ const EvaluacionForm = (props) => {
     const rubricaActual = useSelector(state => state.evaluacion.rubricaActual)
 
     const [emptyValueAdded, setEmptyValueAdded] = useState(false)
+    console.log(evaluacion)
 
     useEffect(()=> {
         const vacio = {_id: 0, nombre: ''}
@@ -40,12 +43,12 @@ const EvaluacionForm = (props) => {
         evaluacion.forEach((rubrica) => {
             const rubricaId = rubrica._id
             rubricas.push(rubricaId)
-            devoluciones.push({rubricaId, comentario: rubrica?.comentario?.comentario ?? ''})
+            devoluciones.push({rubricaId, comentario: rubrica?.comentario ?? ''})
             rubrica.criterios.forEach(criterio => {
                 if(!criterio.opciones.find(op => op._id === vacio._id))
                     criterio.opciones.unshift(vacio)
                 const criterioId = criterio._id
-                nombreCriterios.push({rubricaId, criterioId, opcionSeleccionada: criterio?.seleccionada?.opcionSeleccionada ?? ''})
+                nombreCriterios.push({rubricaId, criterioId, opcionSeleccionada: criterio?.seleccionada ?? ''})
             })
         })
         setEmptyValueAdded(true)
@@ -99,19 +102,68 @@ const EvaluacionForm = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        evaluarProyecto()
+        Swal.fire({
+            title: '¿Deseas evaluar este proyecto?',
+            icon: 'question',
+            showCancelButton: true,
+            reverseButtons: true,
+            confirmButtonText: 'Evaluar',
+            confirmButtonColor: '#00ACE6',
+            cancelButtonText: 'Cancelar',
+            cancelButtonColor: '#D4272D',
+        }).then(async (result) => {
+            if(result.isConfirmed) {
+                const success = await evaluarProyecto()
+                if(success) Swal.fire({
+                    title: '¡Proyecto Evaluado!',
+                    text: 'Evaluaste el proyecto con éxito',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#00ACE6',
+                }).then((result) => {
+                    if(result.isConfirmed || result.isDismissed) { 
+                        navigate(from, {replace: true, state: { from:`${location.pathname}`}})
+                        
+                    }
+                })
+            }
+        })
+       
     }
 
-    const evaluarProyecto = () => {
+    const evaluarProyecto = async () => {
 
         const body = {
             evaluacion: evaluaciones,
             comentarios: devoluciones
         }
         try {
-            axiosPrivate.post(`/evaluacion/${projectId}`, body)
+            const response = await axiosPrivate.post(`/evaluacion/${projectId}`, body, 
+            {
+                headers: {'Content-Type': 'application/json'},
+                withCredentials: true
+            })
+            console.log(response)
+            if(response.status === 200) return true
         } catch (err) {
-            console.log(err)
+            let msg = ''
+            console.log(JSON.stringify(err.response.data))
+            if(!err?.response){
+                msg = 'El servidor no respondió'
+            } else if(err.response?.status === 403) {
+                msg = 'Datos incorrectos intente nuevamente'
+            } else if(err.response?.status === 401) {
+                msg = 'No estas autorizado para realizar esta operación'
+            } else {
+                msg = `Falló la evaluación del proyecto <br> ${err.response.data.error}`
+            }
+            Swal.fire({
+                html: msg,
+                title: 'Falló la evaluación',
+                icon: 'error',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#00ACE6',
+            })
         }
     }
 
