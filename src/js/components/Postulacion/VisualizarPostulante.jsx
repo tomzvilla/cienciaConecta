@@ -13,29 +13,31 @@ const VisualizarPostulante = (props) => {
     const axiosPrivate = useAxiosPrivate()
 
 
-    //const postulacioes = useSelector(state => state.postulaciones.listadoPostulantes)
+    const data = useSelector(state => state.postulaciones.listadoPostulantes)
 
-    console.log(postulacioes)
+    // Cuando entro desde la tabla todos los datos OK. Pero cuando entro directamente a la pagina o la recargo, se rompe
 
-    let postulaciones = []
+   
+
     let categoria = []
     const { id } = useParams()
-    const {data} = useAxiosFetch('/evaluador/postulaciones', axiosPrivate)
-    const {data: categoriaData} = useAxiosFetch('/categoria', axiosPrivate)
-    const {data: nivelesData} = useAxiosFetch('/nivel', axiosPrivate)
+    const {categoriaData} = useAxiosFetch('/categoria', axiosPrivate)
+    const {nivelesData} = useAxiosFetch('/nivel', axiosPrivate)
+    
+    
+    const postulacion = data.find(obj => obj._id === id)
+    const nombre = postulacion.datos_docente.nombre + " " + postulacion.datos_docente.apellido
+    const cuil = postulacion.datos_docente.cuil
+
+
+    console.log(postulacion)
     
 
-    let postulacion, nombre, cuil;
+    
     let nivelesCompletos = []
     let categoriasCompletas = []
 
-    if(data && categoriaData && nivelesData){
-
-        postulacion = data.postulaciones.find(obj => obj._id === id)
-
-
-            nombre = postulacion.datos_docente.nombre + " " + postulacion.datos_docente.apellido
-            cuil = postulacion.datos_docente.cuil
+    if(categoriaData && nivelesData){
 
             categoriasCompletas = postulacion.categorias.map((categoriaId) => {
                 const categoria = categoriaData.categoria.find((c) => c._id === categoriaId);

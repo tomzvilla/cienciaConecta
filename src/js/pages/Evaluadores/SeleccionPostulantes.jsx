@@ -64,14 +64,14 @@ const SeleccionPostulantes = () => {
 
     return (
         <div className="seleccion-postulantes">
-            <Card title="Lista de Postulantes">
+            <Card title="Lista de Postulantes" wide={true}>
                 
                     <h6 className="seleccion-postulantes__text">Seleccioná los postulantes que serán evaluadores durante la feria</h6>
 
                     {isLoading || !categoriaData || !nivelesData ? 
                     <Spinner/> 
                     : !postulaciones ?
-                    <BlankState msg={"Actualmente no hay ninguna postulación. Vuelva más tarde."} />
+                    <BlankState msg={"Actualmente no hay ninguna postulación. Vuelva más tarde."} /> :
                     <TablaPostulantes location={location} data={postulaciones} headers={headers} viewPath={'/postulante'}/>
                     }
             </Card>

@@ -16,8 +16,8 @@ const Card = (props) => {
       }, []);
 
     return (
-        <div className={`card card--${animate ? 'animate' : ''}`}>
-            <CardHeader title={props.title}/>
+        <div className={`card card--${animate ? 'animate' : ''} card--${props.wide ? 'wide' : ''}`}>
+            <CardHeader title={props.title} wide={props.wide}/>
             {props.children}
         </div>
     );

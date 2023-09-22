@@ -13,6 +13,12 @@
         justify-content: space-around;
         align-items: center;
         align-self: flex-start;
+
+        &--wide {
+            margin-left: -3rem;
+            padding: 1.5rem 3rem;
+
+        }
     
     &__title {
         font-weight: 300;

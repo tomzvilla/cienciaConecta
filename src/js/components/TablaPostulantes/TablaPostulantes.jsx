@@ -1,5 +1,5 @@
 // components
-import ImageButton from "../ImageButton/ImageButton"
+import ImageLink from "../ImageLink/ImageLink"
 import Button from "../Button/Button"
 import Badge from "../Badge/Badge"
 import Pagination from "../Pagination/Pagination"
@@ -127,17 +127,18 @@ const TablaPostulantes = (props) => {
     return (
         <>
             <table className="table">
+
                 <thead className="table__header">
-                    <tr className="table-header">
-                        <th scope="col" className="table-header__head">Nombre</th>
-                        <th scope="col" className="table-header__head">Apellido</th>
-                        <th scope="col" className="table-header__head">CUIL</th>
-                        <th scope="col" className="table-header__head">Niveles</th>
-                        <th scope="col" className="table-header__head">Categorías</th>
+                        {props.headers.map(header => {
+                            return (
+                                <th scope="col" key={header.value} className="table-header__head">{header.name}</th>
+                                )
+                            })
+                        }
                         <th scope="col" className="table-header__head">Acciones</th>
                         <th scope="col" className="table-header__head">Seleccionar</th>
-                    </tr>
                 </thead>
+
                 <tbody className="table__body">
                     {postulaciones && currentTableData.map((postulacion, index) => {
                         const isChecked = selectedRows.includes(postulacion._id);
@@ -165,7 +166,7 @@ const TablaPostulantes = (props) => {
                                     <td key={header.name} className="table-body-row__td" >{postulacion[`${header?.value}`]}</td>
                                 )})}
                                 <td className="table-body-row__td table-body-row__td--actions">
-                                    <ImageButton callback={() => {}} small={true} alt="Ver" src={require("../../../assets/ver.png")}/>
+                                    <ImageLink linkto={`${props.viewPath}/${postulacion._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/>
                                 </td>
                                 <td className="table-body-row__td">
                                     <input
@@ -183,7 +184,7 @@ const TablaPostulantes = (props) => {
             </table>
 
             <Pagination currentPage={currentPage} totalCount={postulaciones.length} pageSize={pageSize} onPageChange={page => setCurrentPage(page)} />
-            <div>
+
 
                 
                 <div>
@@ -198,6 +199,7 @@ const TablaPostulantes = (props) => {
                         activo={true}
                     />
             </div>
+
         </>
     )
 
