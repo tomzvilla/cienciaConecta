@@ -8,4 +8,4 @@ const capitalizeEachLetter = (word) => {
   }
 
 
-export default capitalizeEachLetter
+export default capitalizeEachLetter;

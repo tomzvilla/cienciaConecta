@@ -187,7 +187,7 @@ const TablaPostulantes = (props) => {
 
 
                 
-                <div>
+                <div className="button-container">
 
                     <Button 
                         text='Volver' 
@@ -198,7 +198,7 @@ const TablaPostulantes = (props) => {
                         onClickHandler={handleSeleccion}
                         activo={true}
                     />
-            </div>
+                </div>
 
         </>
     )
