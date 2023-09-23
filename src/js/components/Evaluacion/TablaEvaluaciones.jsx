@@ -1,11 +1,14 @@
+// components
+import Badge from "../Badge/Badge";
+import ImageLink from "../ImageLink/ImageLink";
+import Button from "../Button/Button";
 
 import { useSelector } from "react-redux";
 
 
 const TablaEvaluaciones = (props) => {
 
-    const listadoEvaluaciones = useSelector(state => state.evaluaciones.listadoEvaluaciones) 
-
+    const listadoEvaluaciones = useSelector(state => state.evaluacion.listadoEvaluaciones)
 
     return(
         <>
@@ -28,48 +31,42 @@ const TablaEvaluaciones = (props) => {
                                     if(header.name === 'Categoría'){
                                         return (
                                             <td key={header.name} className="table-body-row__td table-body-row__td--badges">
-                                                {postulacion.categorias.map( c => (<Badge key={c._id} type={c} />)
-                                                )}
+                                                 <Badge key={proyecto.categoria._id} type={proyecto.categoria} />
                                             </td>
                                         )
                                     
                                     } 
-                                    if(header.name === 'Niveles'){
+                                    if(header.name === 'Nivel'){
                                         return (
                                             <td key={header.name} className="table-body-row__td table-body-row__td--badges">
-                                                {postulacion.niveles.map( n => (<Badge  key={n._id} type={n} />)
-                                                )}
+                                                 <Badge key={proyecto.nivel._id} type={proyecto.nivel} />
                                             </td>
                                         )
                                     }
                                     else return (
-                                    <td key={header.name} className="table-body-row__td" >{postulacion[`${header?.value}`]}</td>
+                                    <td key={header.name} className="table-body-row__td" >{proyecto[`${header?.value}`]}</td>
                                 )})}
                                 <td className="table-body-row__td table-body-row__td--actions">
-                                    <ImageButton callback={() => {}} small={true} alt="Ver" src={require("../../../assets/ver.png")}/>
+                                    <ImageLink small={true} src={require("../../../assets/pantalla.png")} linkto={`/evaluar/${proyecto._id}`} alt="Evaluar"/>
                                 </td>
                                 <td className="table-body-row__td">
-                                    <input
-                                        type="checkbox"
-                                        checked={isChecked}
-                                        onChange={() => toggleRowSelection(postulacion._id)}
-                                    />
-                                </td>   
+                                    0/2
+                                </td> 
                             </ tr>
                         )
                         
                     })}
                 </tbody>
             </table>
-            <Pagination currentPage={currentPage} totalCount={postulaciones.length} pageSize={pageSize} onPageChange={page => setCurrentPage(page)} />
+            {/* <Pagination currentPage={currentPage} totalCount={postulaciones.length} pageSize={pageSize} onPageChange={page => setCurrentPage(page)} /> */}
             <div>
                 <Button 
                     text='Volver' 
-                    onClickHandler={handleVolver}
+                    onClickHandler={() => {}}
                 />
                 <Button 
                     text='Seleccionar' 
-                    onClickHandler={handleSeleccion}
+                    onClickHandler={() => {}}
                     activo={true}
                 />
             </div>

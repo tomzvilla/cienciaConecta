@@ -76,7 +76,18 @@ const evaluacionSlice = createSlice({
             state.rubricaActual = state.rubricas[indexActual - 1]
         },
         cargarTablaEvaluacionesPendientes(state, action) {
-            state.listadoEvaluaciones = action.payload
+            const prevListado = [...state.listadoEvaluaciones];
+            const nuevasEvaluaciones = action.payload;
+        
+            nuevasEvaluaciones.forEach(e => {
+                const proyectoExiste = prevListado.some(p => p._id === e._id);
+        
+                if (!proyectoExiste) {
+                    prevListado.push(e);
+                }
+            });
+            state.listadoEvaluaciones = prevListado;
+        
         }
     }
 })
