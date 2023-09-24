@@ -1,4 +1,5 @@
 // components
+import Card from "../../components/Card/Card"
 import Spinner from "../../components/Spinner/Spinner"
 import TablaPostulantes from "../../components/TablaPostulantes/TablaPostulantes"
 import BlankState from "../../components/BlankState/BlankState"
@@ -61,16 +62,19 @@ const SeleccionPostulantes = () => {
         dispatch(postulacionesActions.cargarPostulaciones(postulaciones))
     }
 
-    return(
-        <div>
-            <h2>Selecciona los postulantes que serán evaluadores durante la feria</h2>
-            {isLoading || !categoriaData || !nivelesData ? 
-                <Spinner/> 
-                : !postulaciones ?
-                <BlankState msg={"Actualmente no hay ninguna postulación. Vuelva más tarde."} />
-                :
-                <TablaPostulantes location={location} headers={headers}/>
-            }
+    return (
+        <div className="seleccion-postulantes">
+            <Card title="Lista de Postulantes" wide={true}>
+                
+                    <h6 className="seleccion-postulantes__text">Seleccioná los postulantes que serán evaluadores durante la feria</h6>
+
+                    {isLoading || !categoriaData || !nivelesData ? 
+                    <Spinner/> 
+                    : !postulaciones ?
+                    <BlankState msg={"Actualmente no hay ninguna postulación. Vuelva más tarde."} /> :
+                    <TablaPostulantes location={location} data={postulaciones} headers={headers} viewPath={'/postulante'}/>
+                    }
+            </Card>
         </div>
     )
 

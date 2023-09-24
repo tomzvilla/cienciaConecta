@@ -1,9 +1,11 @@
 .badge {
     display: block;
-    padding: 3px;
-    width: 15rem;
-    border-radius: 20px;
+    padding: .5rem 2rem;
+    width: max-content;
+    border-radius: 2rem;
     color: white;
     text-align: center;
     margin: 1rem;
+
+    font-size: 2rem;
 }

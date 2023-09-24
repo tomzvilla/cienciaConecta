@@ -7,7 +7,7 @@ const AuthVerify = (props) => {
     const location = useLocation()
     const navigate = useNavigate()
     const logout = useLogout()
-    console.log('Entro al auth verify')
+    // console.log('Entro al auth verify')
     useEffect(() => {
         const expiration = localStorage.getItem("refreshExpiresIn");
 
