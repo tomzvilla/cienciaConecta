@@ -5,6 +5,7 @@ const initialState = {
     devoluciones: [],
     rubricas: [],
     rubricaActual: '',
+    listadoEvaluaciones: [],
 }
 
 const evaluacionSlice = createSlice({
@@ -74,6 +75,20 @@ const evaluacionSlice = createSlice({
             if(indexActual === 0) return
             state.rubricaActual = state.rubricas[indexActual - 1]
         },
+        cargarTablaEvaluacionesPendientes(state, action) {
+            const prevListado = [...state.listadoEvaluaciones];
+            const nuevasEvaluaciones = action.payload;
+        
+            nuevasEvaluaciones.forEach(e => {
+                const proyectoExiste = prevListado.some(p => p._id === e._id);
+        
+                if (!proyectoExiste) {
+                    prevListado.push(e);
+                }
+            });
+            state.listadoEvaluaciones = prevListado;
+        
+        }
     }
 })
 
