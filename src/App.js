@@ -23,9 +23,11 @@ import Dashboard from './js/pages/Dashboard/Dashboard'
 import ActualizarFeria from './js/pages/Ferias/ActualizarFeria'
 import Postulacion from './js/pages/Evaluadores/Postulacion'
 import SeleccionPostulantes from './js/pages/Evaluadores/SeleccionPostulantes'
+import VisualizarPostulante from './js/components/Postulacion/VisualizarPostulante'
 import ListadoEvaluaciones from './js/pages/Evaluacion/ListadoEvaluaciones'
 import EvaluacionCard from './js/components/Evaluacion/EvaluacionCard'
 import Evaluacion from './js/pages/Evaluacion/Evaluacion'
+
 // DEV
 import Card from './js/components/Card/Card'
 import AuthVerify from './js/components/PersistLogin/AuthVerify'
@@ -74,6 +76,7 @@ function App() {
               <Route path='verListaFerias' element={<VisualizarListadoFerias/>}/>
               <Route path='editarFeria' element={<ActualizarFeria/>}/> 
               <Route path='seleccionarPostulantes' element={<SeleccionPostulantes/>}/> 
+              <Route path='postulante/:id' element={<VisualizarPostulante/>}/>
               {/* // colocar en dashboard */}
             </Route>
             <Route path='*' element={<NotFound/>}/>
