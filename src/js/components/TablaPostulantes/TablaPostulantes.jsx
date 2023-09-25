@@ -23,6 +23,7 @@ const TablaPostulantes = (props) => {
 
     // state with redux
     const postulaciones = useSelector(state => state.postulaciones.listadoPostulantes)
+    console.log(postulaciones)
     const dispatch = useDispatch()
 
     // pagination state
