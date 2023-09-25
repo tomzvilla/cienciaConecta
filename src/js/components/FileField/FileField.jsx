@@ -17,12 +17,17 @@ const FileField = ({ value, label, name, onChange, onBlur, errors, accept, requi
     }
 
 
+
+
+    const displayName = fileName.length > 30 ? fileName.slice(0, 27) + "..." : fileName
+
+
     
     return (
     <div className={`file-field file-field${modifier}`}>
         <label className={`file-field__label file-field__label${modifier}`}>
 
-            {label + fileName}
+            {label + displayName}
             <img className='file-field__image' src={require("../../../assets/add.png")} alt="" />
             
             <input

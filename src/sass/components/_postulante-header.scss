@@ -1,0 +1,44 @@
+.postulante-header {
+    display: grid;
+    grid-template-columns: min-content max-content;
+    width: 100%;
+    grid-row: 1 / 2;
+    grid-column: 1 / 3;
+    font-size: 2.5rem;
+    background-color: $color-primary;
+    color: $color-white;
+    padding: 1.5rem 0rem;
+    border-radius: 2rem 2rem 0rem 0;
+
+    
+
+    &__title {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+        font-size: 3.5rem;
+
+    }
+
+    &__subtitle {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+        font-size: 2rem;
+        font-weight: normal;        
+    }
+
+    &__img {
+        filter: brightness(100);
+        
+        width: 5rem;
+        height: 5rem;
+        margin: auto 2rem;
+        padding-top: 1rem;
+    }
+
+    &__img-container {
+        grid-column: 1 / 2;
+        grid-row: 1 / 3;
+        cursor: pointer;
+    }
+
+}

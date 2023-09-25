@@ -22,10 +22,10 @@
             justify-content: space-around;
         }
 
-        // &--badges {
-        //     display: flex;
-        //     flex-direction: column;
-        // }
+        &--badges {
+            justify-content: center;
+            flex-direction: column;
+        }
         
         
     }
