@@ -13,7 +13,6 @@ const useAxiosPrivate = () => {
   const { auth } = useAuth()
   const logout = useLogout()
   const navigate = useNavigate()
-
   useEffect(() => {
     const requestIntercept = axiosPrivate.interceptors.request.use(
         config => {

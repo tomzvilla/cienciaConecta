@@ -3,18 +3,34 @@ import Card from "../Card/Card"
 import Badge from "../Badge/Badge"
 import Button from "../Button/Button"
 // hooks
-import { useParams } from "react-router"
+import { useParams, useNavigate, useLocation } from "react-router"
+import useAxiosFetch from "../../hooks/useAxiosFetch"
+import useAxiosPrivate from "../../hooks/useAxiosPrivate"
+import useCategoriasNiveles from "../../hooks/useCategoriasNiveles"
 import { useSelector } from "react-redux"
-import { useNavigate } from "react-router"
 
 const EvaluacionCard = () => {
     const { id } = useParams()
-    const proyecto = useSelector(state => state.evaluacion.listadoEvaluaciones.find(p => p._id === id))
+    const axiosPrivate = useAxiosPrivate()
+    const location = useLocation()
+
+    let proyecto = useSelector(state => state.evaluacion.listadoEvaluaciones.find(p => p._id === id))
+
+    // Si recarga la pagina se hacen estas consultas
+    const { data: proyectoData, isLoading } = useAxiosFetch(`/evaluacion/pendientes/${id}`, axiosPrivate, !!proyecto)
+    const { data: categoriasData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate, !!proyecto)
+    const { data: nivelesData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate, !!proyecto)
+
+    const { proyectoMap } = useCategoriasNiveles({ categoriaData: categoriasData, nivelData: nivelesData, enabled: !loadingCategorias && !loadingNiveles && !isLoading })
+   
+    if(!isLoading && proyectoData?.proyecto) {
+        proyecto = proyectoMap(proyectoData.proyecto)
+    }
 
     const navigate = useNavigate()
     
     const iniciarEvaluacion = () => {
-        navigate(`/evaluar/${id}/iniciar`)
+        navigate(`/evaluar/${id}/iniciar`, {state: {from: location.pathname }})
     }
 
     return(
