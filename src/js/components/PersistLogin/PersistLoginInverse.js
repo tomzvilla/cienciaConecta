@@ -6,7 +6,9 @@ import Spinner from "../Spinner/Spinner"
 
 const PersistLoginInverse = () => {
 
-    const [openModal, closeModal, modalIsOpen] = useOutletContext()
+    // const [openModal, closeModal, modalIsOpen] = useOutletContext()
+    const [openModal, closeModal] = useState(5)
+    const modalIsOpen = false
     const [isLoading, setIsLoading] = useState(true)
     const refresh = useRefreshToken()
     const { auth } = useAuth()

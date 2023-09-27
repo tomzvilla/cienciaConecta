@@ -6,16 +6,18 @@ import { AuthProvider } from './context/AuthProvider';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import { Provider } from 'react-redux';
 import store from './store/index';
-
+import { HelmetProvider } from 'react-helmet-async';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
         <AuthProvider>
-          <Routes>
-            <Route path='/*' element={<App />}/>
-          </Routes>
+          <HelmetProvider>
+            <Routes>
+              <Route path='/*' element={<App />}/>
+            </Routes>
+          </HelmetProvider>
         </AuthProvider>
       </BrowserRouter>
     </Provider>
