@@ -33,6 +33,8 @@ const EvaluacionCard = () => {
         navigate(`/evaluar/${id}/iniciar`, {state: {from: location.pathname }})
     }
 
+    console.log(proyecto)
+
     return(
         proyecto ?
         <Card title={proyecto.titulo}>
@@ -66,17 +68,27 @@ const EvaluacionCard = () => {
                     <strong>Evaluaciones</strong>
                     <div>
                         Realizadas
-                        {proyecto.evaluadoresRegionales.map( e =>
-                            <input type="checkbox" key={e} id={e} value={'ponerValor'} checked disabled />
-                        )}
-
+                        {!proyecto.evaluacion ?
+                        proyecto.evaluadoresRegionales.map( e =>
+                            <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled />
+                        )
+                        :
+                        proyecto.evaluadoresRegionales.map( (e, index) =>
+                            <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled checked={index < proyecto.evaluacion.evaluadorId.length} />
+                        )
+                    }
                     </div>
                     <div>
                         Confirmadas
-                        {proyecto.evaluadoresRegionales.map( e =>
-                            <input type="checkbox" key={e} id={e} value={'ponerValor'} checked disabled />
-                        )}
-
+                        {!proyecto.evaluacion ?
+                        proyecto.evaluadoresRegionales.map( e =>
+                            <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled />
+                        )
+                        :
+                        proyecto.evaluadoresRegionales.map( (e, index) =>
+                            <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled checked={index < proyecto.evaluacion.listo.length} />
+                        )
+                    }
                     </div>
                 </div>
             </div>

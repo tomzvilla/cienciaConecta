@@ -20,7 +20,7 @@ const TablaEvaluaciones = (props) => {
                         <th scope="col" className="table-header__head">Categoría</th>
                         <th scope="col" className="table-header__head">Estado</th>
                         <th scope="col" className="table-header__head">Acciones</th>
-                        <th scope="col" className="table-header__head">Evaluaciones Confirmadas</th>
+                        <th scope="col" className="table-header__head">Confirmadas</th>
                     </tr>
                 </thead>
                 <tbody className="table__body">
@@ -50,7 +50,7 @@ const TablaEvaluaciones = (props) => {
                                     <ImageLink small={true} src={require("../../../assets/pantalla.png")} linkto={`/evaluar/${proyecto._id}`} alt="Evaluar"/>
                                 </td>
                                 <td className="table-body-row__td">
-                                    0/2
+                                    {!proyecto.evaluacion ? `0/${proyecto.evaluadoresRegionales.length}` : `${proyecto.evaluacion.listo.length}/${proyecto.evaluadoresRegionales.length}`}
                                 </td> 
                             </ tr>
                         )
