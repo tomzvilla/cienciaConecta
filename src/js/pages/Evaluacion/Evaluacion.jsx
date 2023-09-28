@@ -15,7 +15,7 @@ const Evaluacion = () => {
     const from = location?.state?.from || `/dashboard`
     
     const {data: evaluacionStructure, isLoading} = useAxiosFetch(`/evaluacion/consultar/${id}`, axiosPrivate)
-    const {data: iniciarEvaluacion, isLoading: isLoadingEvaluacion  } = useAxiosFetch(`/evaluacion/${id}`, axiosPrivate)
+    const {data: iniciarEvaluacion, isLoading: isLoadingEvaluacion, status  } = useAxiosFetch(`/evaluacion/${id}`, axiosPrivate)
     if(!isLoading && !isLoadingEvaluacion){
         // TODO manejar caso en que ya se este evaluando el proyecto
         if(!iniciarEvaluacion) {
@@ -38,7 +38,7 @@ const Evaluacion = () => {
         (isLoading || isLoadingEvaluacion || !evaluacionStructure || !iniciarEvaluacion ) ? 
         <Spinner/>
         :
-        <EvaluacionForm projectId={id} evaluacion={iniciarEvaluacion} />
+        <EvaluacionForm projectId={id} evaluacion={iniciarEvaluacion} initStatus={status} />
     )
 
 }

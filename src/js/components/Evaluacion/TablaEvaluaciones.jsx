@@ -25,6 +25,7 @@ const TablaEvaluaciones = (props) => {
                 </thead>
                 <tbody className="table__body">
                     {listadoEvaluaciones.map((proyecto, index) => {
+                        console.log(proyecto)
                         return (
                             <tr key={proyecto._id} className="table-body-row">
                                 {props.headers.map(header => {
@@ -39,7 +40,7 @@ const TablaEvaluaciones = (props) => {
                                     if(header.name === 'Nivel'){
                                         return (
                                             <td key={header.name} className="table-body-row__td table-body-row__td--badges">
-                                                 <Badge key={proyecto.nivel._id} type={proyecto.nivel} />
+                                                 <Badge key={proyecto.nivel?._id} type={proyecto.nivel} />
                                             </td>
                                         )
                                     }

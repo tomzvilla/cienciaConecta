@@ -11,11 +11,14 @@ import useCategoriasNiveles from "../../hooks/useCategoriasNiveles"
 import { useSelector } from "react-redux"
 import { useState } from "react"
 
+import Swal from "sweetalert2"
+
 const EvaluacionCard = () => {
     const { id } = useParams()
     const axiosPrivate = useAxiosPrivate()
     const location = useLocation()
     const [link, setLink] = useState('')
+    const [confirm, setConfirm] = useState(true)
 
     let proyecto = useSelector(state => state.evaluacion.listadoEvaluaciones.find(p => p._id === id))
 
@@ -27,7 +30,8 @@ const EvaluacionCard = () => {
     const { proyectoMap } = useCategoriasNiveles({ categoriaData: categoriasData, nivelData: nivelesData, enabled: !loadingCategorias && !loadingNiveles && !isLoading })
    
     if(!isLoading && proyectoData?.proyecto) {
-        proyecto = proyectoMap(proyectoData.proyecto)
+        proyecto = proyectoMap(proyectoData)
+        
     }
 
     const navigate = useNavigate()
@@ -37,7 +41,6 @@ const EvaluacionCard = () => {
     }
 
     console.log(proyecto)
-    console.log(link)
     const { data } = useAxiosFetch(`/proyecto/download/${id}/${link}`, axiosPrivate, link === '')
 
     const handleDownload = async (type) => {
@@ -50,6 +53,49 @@ const EvaluacionCard = () => {
         }
 
     }
+
+    // confirmar evaluacion
+
+    const handleConfirmar = () => {
+        Swal.fire({
+            title: '¿Deseas confirmar la evaluación de proyecto?',
+            icon: 'question',
+            text: 'Puede que otro evaluador haya hecho modificaciones, ¿estás seguro de confirmarla?',
+            showCancelButton: true,
+            reverseButtons: true,
+            confirmButtonText: 'Evaluar',
+            confirmButtonColor: '#00ACE6',
+            cancelButtonText: 'Cancelar',
+            cancelButtonColor: '#D4272D',
+        }).then(async (result) => {
+            if(result.isConfirmed) {
+                const success = await confirmarEvaluacion()
+                if(success) Swal.fire({
+                    title: '¡Evaluación Confirmada!',
+                    text: 'Confirmaste con éxito la evaluación de este proyecto',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#00ACE6',
+                }).then((result) => {
+                    if(result.isConfirmed || result.isDismissed) { 
+                        navigate('/evaluar', {replace: true, state: { from:`${location.pathname}`}})
+                        
+                    }
+                })
+            }
+        })
+    }
+
+
+    const confirmarEvaluacion = async () => {
+        try {
+            axiosPrivate.get(`/evaluacion/confirmar/${id}`)
+            return true
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
 
     return(
         proyecto ?
@@ -93,7 +139,7 @@ const EvaluacionCard = () => {
                         )
                         :
                         proyecto.evaluadoresRegionales.map( (e, index) =>
-                            <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled checked={index < proyecto.evaluacion.evaluadorId.length} />
+                            <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled checked={index <= proyecto.evaluacion.evaluadorId.length} />
                         )
                     }
                     </div>
@@ -119,10 +165,11 @@ const EvaluacionCard = () => {
                 />
                 <Button 
                     text='Confirmar' 
-                    onClickHandler={() => {}}
+                    onClickHandler={confirmarEvaluacion}
                     activo={true}
-                    disabled={true}
+                    disabled={!proyecto?.evaluacion ? true : proyecto.evaluadoresRegionales.length > proyecto.evaluacion.evaluadorId.length ? false : true}
                 />
+                {console.log(proyecto.evaluadoresRegionales.length > proyecto.evaluacion.evaluadorId.length)}
             </div>
         </Card>
         :
