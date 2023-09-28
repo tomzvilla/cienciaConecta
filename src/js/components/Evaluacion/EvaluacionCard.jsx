@@ -2,17 +2,20 @@
 import Card from "../Card/Card"
 import Badge from "../Badge/Badge"
 import Button from "../Button/Button"
+import DownloadFile from "../DownloadFile/DownloadFile"
 // hooks
 import { useParams, useNavigate, useLocation } from "react-router"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useCategoriasNiveles from "../../hooks/useCategoriasNiveles"
 import { useSelector } from "react-redux"
+import { useState } from "react"
 
 const EvaluacionCard = () => {
     const { id } = useParams()
     const axiosPrivate = useAxiosPrivate()
     const location = useLocation()
+    const [link, setLink] = useState('')
 
     let proyecto = useSelector(state => state.evaluacion.listadoEvaluaciones.find(p => p._id === id))
 
@@ -34,6 +37,19 @@ const EvaluacionCard = () => {
     }
 
     console.log(proyecto)
+    console.log(link)
+    const { data } = useAxiosFetch(`/proyecto/download/${id}/${link}`, axiosPrivate, link === '')
+
+    const handleDownload = async (type) => {
+        setLink(type)
+        if(data) {
+            const file = new Blob([data], { type: 'application/pdf' })
+            const fileURL = window.URL.createObjectURL(file);
+            const pdfWindow = window.open();
+            pdfWindow.location.href = fileURL; 
+        }
+
+    }
 
     return(
         proyecto ?
@@ -56,13 +72,16 @@ const EvaluacionCard = () => {
                     {proyecto.nombreEstado}
                 </p>
                 <div className="project-card-details__detail">
-                    <strong>Informe de trabajo</strong>
+                    <DownloadFile onClick={() => handleDownload('informeTrabajo')} name="Informe de trabajo" img={require("../../../assets/tarjeta.png")}/>
                 </div>
                 <div className="project-card-details__detail">
-                    <strong>Carpeta de Campo</strong>
+                    <DownloadFile onClick={() => handleDownload('carpetaCampo')} name="Carpeta de Campo" img={require("../../../assets/tarjeta.png")}/>
                 </div>
                 <div className="project-card-details__detail">
-                    <strong>Video</strong>
+                    <DownloadFile onClick={() => handleDownload('registroPedagogico ')} name="Registro Pedagógico" img={require("../../../assets/tarjeta.png")}/>
+                </div>
+                <div className="project-card-details__detail">
+                    <DownloadFile name="Video" img={require("../../../assets/tarjeta.png")}/>
                 </div>
                 <div className="project-card-details__detail">
                     <strong>Evaluaciones</strong>
