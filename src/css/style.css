@@ -1091,6 +1091,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   padding-top: 2rem;
   display: flex;
   flex-direction: column;
+  width: 30vw;
 }
 .cupos-modal__nivel {
   padding: 1rem 2rem;
@@ -1580,9 +1581,10 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 
 .home {
   background-color: #ffffff;
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .unauthorized {
