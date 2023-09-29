@@ -2,13 +2,11 @@
 import Rubrica from "./Rubrica"
 import Button from "../Button/Button"
 import Card from "../Card/Card"
-
 // hooks
 import { useState, useEffect } from "react"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
-import useAxiosFetch from "../../hooks/useAxiosFetch"
 import { useNavigate, useLocation } from "react-router-dom"
-
+import useAuth from "../../hooks/useAuth"
 import { useDispatch } from "react-redux"
 import { evaluacionActions } from "../../../store/evaluacion-slice"
 import { useSelector } from "react-redux"
@@ -22,25 +20,24 @@ const EvaluacionForm = (props) => {
     const axiosPrivate = useAxiosPrivate()
     const location = useLocation()
     const navigate = useNavigate()
+    const { auth } = useAuth()
     const from = location?.state?.from || 'dashboard'
 
-
     // TODO iniciar evaluacion
-    const {data: iniciarEvaluacion, isLoading } = useAxiosFetch(`/evaluacion/${projectId}`, axiosPrivate)
+    
     const evaluaciones = useSelector(state => state.evaluacion.criteriosConValores)
     const devoluciones = useSelector(state => state.evaluacion.devoluciones)
     const rubricas = useSelector(state => state.evaluacion.rubricas)
     const rubricaActual = useSelector(state => state.evaluacion.rubricaActual)
 
     const [emptyValueAdded, setEmptyValueAdded] = useState(false)
-    console.log(evaluacion)
 
     useEffect(()=> {
         const vacio = {_id: 0, nombre: ''}
         const nombreCriterios = []
         const devoluciones = []
         const rubricas = []
-        evaluacion.forEach((rubrica) => {
+        evaluacion !== null && evaluacion.forEach((rubrica) => {
             const rubricaId = rubrica._id
             rubricas.push(rubricaId)
             devoluciones.push({rubricaId, comentario: rubrica?.comentario ?? ''})
@@ -55,7 +52,23 @@ const EvaluacionForm = (props) => {
         dispatch(evaluacionActions.cargarCriteriosVacios(nombreCriterios))
         dispatch(evaluacionActions.cargarDevoluciones(devoluciones))
         dispatch(evaluacionActions.cargarRubricas(rubricas))
-    },[])
+
+        return async () => {
+            console.log('se cancela la evaluacion')
+            try {
+                await axiosPrivate.delete(`/evaluacion/${projectId}`, 
+                { 
+                    headers: { 
+                        withCredentials: true,
+                        Authorization: `Bearer ${auth?.accessToken}`
+                    }
+                })
+            } catch (err) {
+                console.log(err)
+            }
+        }
+
+    }, [evaluacion, dispatch, axiosPrivate, projectId, auth.accessToken])
 
     const validarRubrica = (idRubricaActual) => {
         let isValid = true
