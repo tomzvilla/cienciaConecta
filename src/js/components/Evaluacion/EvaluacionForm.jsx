@@ -55,13 +55,17 @@ const EvaluacionForm = (props) => {
 
         return async () => {
             console.log('se cancela la evaluacion')
-            const response = await axiosPrivate.delete(`/evaluacion/${projectId}`, 
-            { headers: { 
-                withCredentials: true,
-                Authorization: `Bearer ${auth?.accessToken}`
-
-            }})
-            console.log(response)
+            try {
+                await axiosPrivate.delete(`/evaluacion/${projectId}`, 
+                { 
+                    headers: { 
+                        withCredentials: true,
+                        Authorization: `Bearer ${auth?.accessToken}`
+                    }
+                })
+            } catch (err) {
+                console.log(err)
+            }
         }
 
     }, [evaluacion, dispatch, axiosPrivate, projectId, auth.accessToken])

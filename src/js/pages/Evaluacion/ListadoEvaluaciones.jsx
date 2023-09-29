@@ -31,6 +31,7 @@ const ListadoEvaluaciones = () => {
 
 
     if(!isLoading && listadoData?.proyectos) {
+        
         const proyectos = proyectosMapping(listadoData?.proyectos)
         dispatch(evaluacionActions.cargarTablaEvaluacionesPendientes(proyectos))
     }
