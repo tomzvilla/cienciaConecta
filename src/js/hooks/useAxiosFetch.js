@@ -20,6 +20,7 @@ const useAxiosFetch = (url, axios, disabled = false) => {
         if (mounted) {
           setError(error);
           setIsLoading(false);
+          setStatus(error.response.status);
         }
       }
     };

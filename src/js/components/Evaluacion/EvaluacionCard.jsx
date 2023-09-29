@@ -18,7 +18,6 @@ const EvaluacionCard = () => {
     const axiosPrivate = useAxiosPrivate()
     const location = useLocation()
     const [link, setLink] = useState('')
-    const [confirm, setConfirm] = useState(true)
 
     let proyecto = useSelector(state => state.evaluacion.listadoEvaluaciones.find(p => p._id === id))
 
@@ -31,6 +30,8 @@ const EvaluacionCard = () => {
    
     if(!isLoading && proyectoData?.proyecto) {
         proyecto = proyectoMap(proyectoData)
+        proyecto['evaluacion'] = proyectoData.evaluacion 
+        console.log(proyecto)
         
     }
 
@@ -39,8 +40,6 @@ const EvaluacionCard = () => {
     const iniciarEvaluacion = () => {
         navigate(`/evaluar/${id}/iniciar`, {state: {from: location.pathname }})
     }
-
-    console.log(proyecto)
     const { data } = useAxiosFetch(`/proyecto/download/${id}/${link}`, axiosPrivate, link === '')
 
     const handleDownload = async (type) => {
@@ -63,7 +62,7 @@ const EvaluacionCard = () => {
             text: 'Puede que otro evaluador haya hecho modificaciones, ¿estás seguro de confirmarla?',
             showCancelButton: true,
             reverseButtons: true,
-            confirmButtonText: 'Evaluar',
+            confirmButtonText: 'Confirmar',
             confirmButtonColor: '#00ACE6',
             cancelButtonText: 'Cancelar',
             cancelButtonColor: '#D4272D',
@@ -89,10 +88,27 @@ const EvaluacionCard = () => {
 
     const confirmarEvaluacion = async () => {
         try {
-            axiosPrivate.get(`/evaluacion/confirmar/${id}`)
-            return true
+            const response = await axiosPrivate.get(`/evaluacion/confirmar/${id}`)
+            return response.status === 200
         } catch (err) {
-            console.log(err)
+            let msg = ''
+            console.log(JSON.stringify(err.response.data))
+            if(!err?.response){
+                msg = 'El servidor no respondió'
+            } else if(err.response?.status === 403) {
+                msg = 'Datos incorrectos intente nuevamente'
+            } else if(err.response?.status === 401) {
+                msg = `No estas autorizado para realizar esta operación. <br> ${err.response.data.error}`
+            } else {
+                msg = `Falló la confirmación de la evaluación <br> ${err.response.data.error}`
+            }
+            Swal.fire({
+                html: msg,
+                title: 'Falló la confirmación de la evaluación',
+                icon: 'error',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#00ACE6',
+            })
         }
     }
 
@@ -139,19 +155,19 @@ const EvaluacionCard = () => {
                         )
                         :
                         proyecto.evaluadoresRegionales.map( (e, index) =>
-                            <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled checked={index <= proyecto.evaluacion.evaluadorId.length} />
+                            <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled checked={index <= proyecto.evaluacion?.evaluadorId?.length - 1} />
                         )
                     }
                     </div>
                     <div>
                         Confirmadas
-                        {!proyecto.evaluacion ?
+                        {!proyecto?.evaluacion ?
                         proyecto.evaluadoresRegionales.map( e =>
                             <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled />
                         )
                         :
                         proyecto.evaluadoresRegionales.map( (e, index) =>
-                            <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled checked={index < proyecto.evaluacion.listo.length} />
+                            <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled checked={index <= proyecto?.evaluacion.listo.length - 1} />
                         )
                     }
                     </div>
@@ -163,13 +179,14 @@ const EvaluacionCard = () => {
                     onClickHandler={iniciarEvaluacion}
                     activo={true}
                 />
+                {console.log(!proyecto.evaluacion)}
+                {console.log(proyecto)}
                 <Button 
                     text='Confirmar' 
-                    onClickHandler={confirmarEvaluacion}
+                    onClickHandler={handleConfirmar}
                     activo={true}
-                    disabled={!proyecto?.evaluacion ? true : proyecto.evaluadoresRegionales.length > proyecto.evaluacion.evaluadorId.length ? false : true}
+                    disabled={!proyecto?.evaluacion ? true : proyecto.evaluadoresRegionales.length > proyecto?.evaluacion?.evaluadorId?.length ? true : false}
                 />
-                {console.log(proyecto.evaluadoresRegionales.length > proyecto.evaluacion.evaluadorId.length)}
             </div>
         </Card>
         :
