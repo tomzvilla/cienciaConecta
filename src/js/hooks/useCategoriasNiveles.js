@@ -38,7 +38,6 @@ const useCategoriasNiveles = ({ categoriaData, nivelData, enabled }) => {
     }
 
     const proyectoMap = (proyectoData) => {
-        
         const categoria = categorias.find(c => c._id === proyectoData.proyecto.categoria)
         const nivel = niveles.find(n => n._id === proyectoData.proyecto.nivel)
         const proyecto =  {

@@ -144,7 +144,7 @@ const Signup = () => {
     const pasarACuenta = true
 
 
-    if (avanzar === false && pasarACuenta) {
+    if (avanzar === false && pasarACuenta && datos.isValid) {
       setAvanzar(true)   
     }
 
@@ -155,15 +155,13 @@ const Signup = () => {
   }
 
   const handleVolver = (e) => {
+    e.preventDefault()
     if (confirmar){
       setConfirmar(false)
     }
     else if (avanzar === true) {
       setAvanzar(false)
     }
-
-    
-
   }
       
  

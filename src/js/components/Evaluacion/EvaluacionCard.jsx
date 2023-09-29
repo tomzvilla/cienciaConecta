@@ -13,10 +13,12 @@ import { useState } from "react"
 
 import Swal from "sweetalert2"
 
+
 const EvaluacionCard = () => {
     const { id } = useParams()
     const axiosPrivate = useAxiosPrivate()
     const location = useLocation()
+
     const [link, setLink] = useState('')
 
     let proyecto = useSelector(state => state.evaluacion.listadoEvaluaciones.find(p => p._id === id))

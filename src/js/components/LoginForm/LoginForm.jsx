@@ -2,9 +2,8 @@
 import Button  from '../Button/Button'
 import InputField from '../InputField/InputField'
 import LoginFormLink from '../LoginFormLink/LoginFormLink'
-import ModalHeader from '../Modal/ModalHeader'
 // hooks
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useFormValidator } from '../../hooks/useFormValidator'
 import useAuth from '../../hooks/useAuth'
 import { useNavigate, useLocation } from 'react-router-dom'
