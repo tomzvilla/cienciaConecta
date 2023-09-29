@@ -435,7 +435,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   flex-direction: column;
   z-index: 99;
   background-color: #ffffff;
-  min-width: min-content;
+  min-width: 45rem;
   min-height: min-content;
   border-radius: 2rem;
   padding-bottom: 2rem;
@@ -810,6 +810,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   width: 95%;
   align-self: center;
   border-collapse: collapse;
+  margin: 0 auto;
 }
 .table__header {
   border-bottom: 1px solid black;
@@ -1072,11 +1073,11 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .autocomplete__input--error {
   border-bottom: 2px solid #E63B0B;
 }
-.autocomplete__container > div:not(:first-child) {
+.autocomplete__container > div {
   padding: 0.5rem 0;
   border-bottom: 1px solid #757575;
 }
-.autocomplete__container > div:not(:first-child):hover {
+.autocomplete__container > div:hover {
   cursor: pointer;
   color: #00ACE6;
   border-bottom: 1px solid #00ACE6;
@@ -1373,7 +1374,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 .card--animate {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 .card-header {
