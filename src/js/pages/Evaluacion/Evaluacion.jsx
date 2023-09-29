@@ -15,13 +15,16 @@ const Evaluacion = () => {
     const from = location?.state?.from || `/dashboard`
     
     const {data: evaluacionStructure, isLoading} = useAxiosFetch(`/evaluacion/consultar/${id}`, axiosPrivate)
-    const {data: iniciarEvaluacion, isLoading: isLoadingEvaluacion  } = useAxiosFetch(`/evaluacion/${id}`, axiosPrivate)
-    if(!isLoading && !isLoadingEvaluacion){
-        // TODO manejar caso en que ya se este evaluando el proyecto
+    const {data: iniciarEvaluacion, isLoading: isLoadingEvaluacion, status  } = useAxiosFetch(`/evaluacion/${id}`, axiosPrivate)
+    if(!isLoading && !isLoadingEvaluacion) {
+        console.log(status)
+        let msg = ''
+        if(status === 401 || status === 422) msg = 'La evaluación de este proyecto ya ha finalizado.'
+        else msg = 'Otro evaluador se encuentra evaluando estre proyecto. Porfavor, esperá a que termine.'
         if(!iniciarEvaluacion) {
             Swal.fire({
                 title: '¡Alerta!',
-                text: 'Otro evaluador se encuentra evaluando estre proyecto. Porfavor, esperá a que termine.',
+                text: msg,
                 icon: 'warning',
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#00ACE6',
@@ -38,7 +41,7 @@ const Evaluacion = () => {
         (isLoading || isLoadingEvaluacion || !evaluacionStructure || !iniciarEvaluacion ) ? 
         <Spinner/>
         :
-        <EvaluacionForm projectId={id} evaluacion={iniciarEvaluacion} />
+        <EvaluacionForm projectId={id} evaluacion={iniciarEvaluacion} initStatus={status} />
     )
 
 }
