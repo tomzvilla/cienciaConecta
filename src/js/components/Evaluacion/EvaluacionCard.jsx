@@ -31,8 +31,6 @@ const EvaluacionCard = () => {
     if(!isLoading && proyectoData?.proyecto) {
         proyecto = proyectoMap(proyectoData)
         proyecto['evaluacion'] = proyectoData.evaluacion 
-        console.log(proyecto)
-        
     }
 
     const navigate = useNavigate()

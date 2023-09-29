@@ -1,7 +1,7 @@
 // Components
 import TableCard from "../../components/Table/TableCard"
 import Spinner from "../../components/Spinner/Spinner"
-
+import Metadata from "../../components/Metadata/Metadata"
 // Hooks
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
@@ -46,9 +46,8 @@ const VisualizarListadoFerias = () => {
 
     return (
       <>
-
-          {isLoading ? (<Spinner />) : data.ferias.length === 0 ? (<p>No hay ferias inscriptas</p>) : (<TableCard title="Mis Ferias" headers={headers} data={ferias} viewPath={'/feria'} editPath={'/editarFeria'} />)}
-
+        <Metadata title={'Feria'}/>
+        {isLoading ? (<Spinner />) : data.ferias.length === 0 ? (<p>No hay ferias inscriptas</p>) : (<TableCard title="Mis Ferias" headers={headers} data={ferias} viewPath={'/feria'} editPath={'/editarFeria'} />)}
       </>
     )
   

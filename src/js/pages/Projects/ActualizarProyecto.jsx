@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom"
 import ActualizarProyectoForm from "../../components/Projects/ActualizarProyectoForm"
 import Spinner from "../../components/Spinner/Spinner"
 import ProgressBar from "../../components/ProgressBar/ProgressBar"
-
+import Metadata from "../../components/Metadata/Metadata"
 import { ETAPAS } from "../../components/Projects/ActualizarProyectoForm"
 import { useState } from "react"
 
@@ -25,6 +25,7 @@ const ActualizarProyecto = () => {
 
     return (
         <>
+            <Metadata title={'Proyectos'}/>
             {!data ? <Spinner/> : 
             
             <>
