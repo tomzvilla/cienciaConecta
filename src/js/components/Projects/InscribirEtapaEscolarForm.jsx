@@ -189,7 +189,7 @@ const InscribirEtapaEscolarForm = () => {
                         // location.state.setUserRoles({
                         //     roles: newRoles
                         // })
-                        navigate(from, {replace: true, state: {newRol:'2', from:'/projects'}})
+                        navigate(from, {replace: true, state: {newRol:'2', from:'/inscribirProyecto'}})
                         
                     }
                 })
@@ -234,7 +234,7 @@ const InscribirEtapaEscolarForm = () => {
     }
     const handleVolver = (e) => {
         e.preventDefault()
-        navigate(from, {replace: true, state: {newRol:'', from:'/projects'}})
+        navigate(from, {replace: true, state: {newRol:'', from:'/inscribirProyecto'}})
     }
 
     const handleFilter = (e) => {

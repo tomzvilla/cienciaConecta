@@ -41,7 +41,7 @@ const VisualizarListadoProyectos = () => {
     return (
       <>
         <Metadata title={'Proyecto'}/>
-        {isLoading ? (<Spinner />) : proyectos.length === 0 ? (<p>El usuario no tiene proyectos</p>) : (<TableCard title="Mis Proyectos" headers={headers} data={proyectos} viewPath={'/projects'} editPath={'/editProjects'} />)}
+        {isLoading ? (<Spinner />) : proyectos.length === 0 ? (<p>El usuario no tiene proyectos</p>) : (<TableCard title="Mis Proyectos" headers={headers} data={proyectos} viewPath={'/proyecto'} editPath={'/editarProyecto'} />)}
       </>
     )
   
