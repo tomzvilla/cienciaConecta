@@ -3,6 +3,8 @@ import Card from "../Card/Card"
 import Badge from "../Badge/Badge"
 import Button from "../Button/Button"
 import DownloadFile from "../DownloadFile/DownloadFile"
+import Spinner from "../Spinner/Spinner"
+
 // hooks
 import { useParams, useNavigate, useLocation } from "react-router"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
@@ -40,7 +42,7 @@ const EvaluacionCard = () => {
         navigate(`/evaluar/${id}/iniciar`, {state: {from: location.pathname }})
     }
 
-    console.log(proyecto)
+    
     const { data } = useAxiosFetch(`/proyecto/download/${id}/${link}`, axiosPrivate, link === '')
 
     const handleDownload = async (type) => {
@@ -54,6 +56,7 @@ const EvaluacionCard = () => {
 
     }
 
+    console.log(proyecto)
     // confirmar evaluacion
 
     const handleConfirmar = () => {
@@ -100,64 +103,70 @@ const EvaluacionCard = () => {
     return(
         proyecto ?
         <Card title={proyecto.titulo}>
-            <div className="project-card-details">
-                <p className="project-card-details__detail">
-                    <strong>Descripción: </strong> 
-                    {proyecto.descripcion}
-                </p>
-                <p className="project-card-details__detail">
-                    <strong>Categoria: </strong> 
-                    <Badge type={proyecto.categoria} />
-                </p>
-                <p className="project-card-details__detail">
-                    <strong>Nivel: </strong> 
-                    <Badge type={proyecto.nivel} />
-                </p>
-                <p className="project-card-details__detail">
-                    <strong>Estado: </strong> 
-                    {proyecto.nombreEstado}
-                </p>
-                <div className="project-card-details__detail">
-                    <DownloadFile onClick={() => handleDownload('informeTrabajo')} name="Informe de trabajo" img={require("../../../assets/tarjeta.png")}/>
+
+            <div className="evaluacion-card">
+                <div className="evaluacion-card__data">
+                    <p>
+                        <strong >Descripción: </strong> 
+                        {proyecto.descripcion}
+                    </p>
+                    <p>
+                        <strong >Categoria: </strong> 
+                        <Badge type={proyecto.categoria} />
+                    </p>
+                    <p>
+                        <strong >Nivel: </strong> 
+                        <Badge type={proyecto.nivel} />
+                    </p>
+                    <p>
+                        <strong >Estado: </strong> 
+                        {proyecto.nombreEstado}
+                    </p>
+
+
                 </div>
-                <div className="project-card-details__detail">
-                    <DownloadFile onClick={() => handleDownload('carpetaCampo')} name="Carpeta de Campo" img={require("../../../assets/tarjeta.png")}/>
+                
+                <div className="evaluacion-card__files">
+                        <DownloadFile onClick={() => handleDownload('informeTrabajo')} name="Informe de trabajo" img={require("../../../assets/tarjeta.png")}/>
+                        <DownloadFile onClick={() => handleDownload('carpetaCampo')} name="Carpeta de Campo" img={require("../../../assets/tarjeta.png")}/>
+                        <DownloadFile onClick={() => handleDownload('registroPedagogico ')} name="Registro Pedagógico" img={require("../../../assets/tarjeta.png")}/>
+                        <DownloadFile name="Video" img={require("../../../assets/tarjeta.png")}/>
                 </div>
-                <div className="project-card-details__detail">
-                    <DownloadFile onClick={() => handleDownload('registroPedagogico ')} name="Registro Pedagógico" img={require("../../../assets/tarjeta.png")}/>
-                </div>
-                <div className="project-card-details__detail">
-                    <DownloadFile name="Video" img={require("../../../assets/tarjeta.png")}/>
-                </div>
-                <div className="project-card-details__detail">
+
+               
+                
+                <div className="evaluacion-card__evaluacion">
                     <strong>Evaluaciones</strong>
                     <div>
-                        Realizadas
-                        {!proyecto.evaluacion ?
+                        Realizadas:
+                        {!proyecto?.evaluacion ?
                         proyecto.evaluadoresRegionales.map( e =>
                             <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled />
                         )
                         :
                         proyecto.evaluadoresRegionales.map( (e, index) =>
-                            <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled checked={index <= proyecto.evaluacion.evaluadorId.length} />
+                            <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled checked={index <= proyecto.evaluacion?.evaluadorId.length} />
                         )
                     }
                     </div>
                     <div>
-                        Confirmadas
-                        {!proyecto.evaluacion ?
+                        Confirmadas:
+                        {!proyecto?.evaluacion ?
                         proyecto.evaluadoresRegionales.map( e =>
                             <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled />
                         )
                         :
                         proyecto.evaluadoresRegionales.map( (e, index) =>
-                            <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled checked={index < proyecto.evaluacion.listo.length} />
+                            <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled checked={index < proyecto.evaluacion?.listo.length} />
                         )
                     }
                     </div>
                 </div>
             </div>
-            <div>
+
+
+            
+            <div className="button-container">
                 <Button 
                     text='Evaluar' 
                     onClickHandler={iniciarEvaluacion}
@@ -167,13 +176,14 @@ const EvaluacionCard = () => {
                     text='Confirmar' 
                     onClickHandler={confirmarEvaluacion}
                     activo={true}
-                    disabled={!proyecto?.evaluacion ? true : proyecto.evaluadoresRegionales.length > proyecto.evaluacion.evaluadorId.length ? false : true}
+                    disabled={!proyecto?.evaluacion ? true : proyecto.evaluadoresRegionales.length > proyecto.evaluacion?.evaluadorId.length ? false : true}
                 />
-                {console.log(proyecto.evaluadoresRegionales.length > proyecto.evaluacion.evaluadorId.length)}
+                {/* {console.log(proyecto.evaluadoresRegionales.length > proyecto.evaluacion.evaluadorId.length)} */}
             </div>
         </Card>
         :
-        null
+        <Spinner/>
+        
     )
 
 }

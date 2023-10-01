@@ -186,7 +186,7 @@ const EvaluacionForm = (props) => {
             {emptyValueAdded && evaluacion.map(rubrica => (
                 <Rubrica key={rubrica._id} display={rubrica._id === rubricaActual} rubrica={rubrica}/>
             ))}
-            <div>
+            <div className="button-container">
                 <Button 
                     text='Volver' 
                     onClickHandler={handleVolver}
