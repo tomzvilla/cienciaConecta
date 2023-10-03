@@ -1,12 +1,15 @@
 .add-alumno {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     padding: 1rem 0rem;
     margin-top: 2rem;
 
-    align-self: center;
-    margin: auto;
+    //align-self: flex-end;
+
     border-collapse: collapse;
+    
+    
+
 
 
 
@@ -18,10 +21,14 @@
         color: $color-grey-dark;
         margin-top: 2rem;
         margin-bottom: 2rem;
+        margin-top: 0;
+
+
 
 
         &:last-child {
             width: min-content;
+            align-self: center;
         }
 
         &--antecedentes {
@@ -31,6 +38,7 @@
             &:last-child {
                 
                 margin-top: auto;
+                align-self: center;
                 
             }    
 

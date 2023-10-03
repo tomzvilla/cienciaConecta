@@ -16,6 +16,7 @@ const Evaluacion = () => {
     
     const {data: evaluacionStructure, isLoading} = useAxiosFetch(`/evaluacion/consultar/${id}`, axiosPrivate)
     const {data: iniciarEvaluacion, isLoading: isLoadingEvaluacion, status  } = useAxiosFetch(`/evaluacion/${id}`, axiosPrivate)
+
     if(!isLoading && !isLoadingEvaluacion) {
         console.log(status)
         let msg = ''

@@ -25,7 +25,16 @@ const Navbar = (props) => {
     
     return ( 
         <div className={`navbar navbar${modifier}`}>
-                <h1 className="navbar__logo" onClick={navigateHome}>CienciaConecta</h1>
+            <div className="navbar__burguer">
+                {/* <input type="checkbox" /> */}
+                <span/>
+                <span/>
+                <span/>
+            </div>
+
+            <h1 className="navbar__logo" onClick={navigateHome}>CienciaConecta</h1>
+
+            
             
             <div className="navbar__button-container">
                 { auth?.roles ?

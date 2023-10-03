@@ -66,10 +66,10 @@ const SeleccionPostulantes = () => {
     return (
         <>
             <Metadata title={'Seleccionar Postulantes'}/>
-            <div className="seleccion-postulantes">
+            <div className="table-custom-page">
                 <Card title="Lista de Postulantes" wide={true}>
                     
-                        <h6 className="seleccion-postulantes__text">Seleccioná los postulantes que serán evaluadores durante la feria</h6>
+                        <h6 className="table-custom-page__text">Seleccioná los postulantes que serán evaluadores durante la feria</h6>
 
                         {isLoading || !categoriaData || !nivelesData ? 
                         <Spinner/> 
