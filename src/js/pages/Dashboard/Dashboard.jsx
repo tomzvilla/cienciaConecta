@@ -1,6 +1,7 @@
 // components
 import DashboardInicioFeria from "../../components/Dashboard/DashboardInicioFeria"
 import DashboardResponsable from "../../components/Dashboard/DashboardResponsable"
+import DashboardEvaluador from "../../components/Dashboard/DashboardEvaluador"
 import Metadata from "../../components/Metadata/Metadata"
 // hooks
 import useAuth from "../../hooks/useAuth"
@@ -43,7 +44,7 @@ const Dashboard = () => {
                 {!rolesInicial.some(role => userRoles.roles.includes(role)) && <DashboardInicioFeria />}
                 {userRoles.roles.includes('2') &&  <DashboardResponsable />}
                 {userRoles.roles.includes('5') && <p>Es la comision asesora</p>}
-                {userRoles.roles.includes('3') && <p>Es un evaluador</p>}
+                {userRoles.roles.includes('3') && <DashboardEvaluador />}
             </div>
         </>
 

@@ -2,6 +2,8 @@
     display: flex;
     width: 100%;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     padding:  2rem 0 ;
     z-index: 10;
     background-color: $color-primary;

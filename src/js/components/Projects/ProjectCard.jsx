@@ -98,7 +98,7 @@ const ProjectCard = ({ formData }) => {
             <h2 className="project-card__titulo"> Proyecto de Feria 2023</h2>
 
             <div className="project-card__edit">
-                <ImageLink src={require("../../../assets/edit.png")} linkto={`/editProjects/${formData._id}`} alt="Editar Proyecto"/>
+                <ImageLink src={require("../../../assets/edit.png")} linkto={`/editarProyecto/${formData._id}`} alt="Editar Proyecto"/>
             </div>
 
             <div className="project-card__borrar">

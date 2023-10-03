@@ -62,10 +62,10 @@ function App() {
           <Route element={<PersistLogin />}>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]}/>}>
               {/* Rutas para proyectos */}
-              <Route path='/projects' element={<InscribirEtapaEscolar/>}/>
-              <Route path='/projects/:id' element={<VisualizarProyecto/>}/>
-              <Route path='/editProjects/:id' element={<ActualizarProyecto/>}/>
-              <Route path='/myprojects' element={<VisualizarListadoProyectos/>}/>
+              <Route path='/inscribirProyecto' element={<InscribirEtapaEscolar/>}/>
+              <Route path='/proyecto/:id' element={<VisualizarProyecto/>}/>
+              <Route path='/editarProyecto/:id' element={<ActualizarProyecto/>}/>
+              <Route path='/misProyectos' element={<VisualizarListadoProyectos/>}/>
               <Route path='/dashboard' element={<Dashboard/>}/>
               <Route path='/postulacion' element={<Postulacion/>}/>
               <Route path='/evaluar' element={<ListadoEvaluaciones/>}/>

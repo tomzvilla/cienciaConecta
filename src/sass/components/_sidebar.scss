@@ -1,12 +1,27 @@
 .sidebar {
+    height: 100%;
+    width: 0;
+    transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: opacity 5s ease-in-out;
+    overflow-x: hidden;
+    left: 0;
+    border-right: 1px solid $color-grey-light;
+    margin: 0;
+    padding-top: 4rem;
+    &__dropdown-content {
+        margin-left: 2.5rem;
+    }
+
+}
+
+
+.sidebar.show {
     width: 30rem;
     height: 100%;
-    margin: 0;
     display: flex;
     flex-direction: column;
 
     border-right: 1px solid $color-grey-light;
-
     padding-top: 4rem;
-
+    
 }

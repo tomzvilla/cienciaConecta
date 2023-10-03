@@ -63,7 +63,7 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
     const axiosPrivate = useAxiosPrivate()
     const navigate = useNavigate()
     const location = useLocation()
-    const from = location.state?.from || '/myprojects'
+    const from = location.state?.from || '/misProyectos'
 
     const {errors, validateForm, onBlurField} = useFormValidator(formValues)
 

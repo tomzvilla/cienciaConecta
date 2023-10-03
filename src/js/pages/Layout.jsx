@@ -6,9 +6,10 @@ import Sidebar from "../components/Sidebar/Sidebar"
 import { useLocation } from 'react-router-dom';
 
 import { useState } from "react"
-
+import useAuth from "../hooks/useAuth";
 const Layout = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false)
+  const { auth } = useAuth()
 
   const openModal = () => {
       setIsOpen(true)
@@ -48,9 +49,13 @@ const Layout = (props) => {
       <>
 
         
-        <aside className="layout__side">
-          <Sidebar />
-        </aside>
+        { auth?.accessToken ?
+          <aside className="layout__side">
+            <Sidebar />
+          </aside>
+          :
+          null
+        }
         
         
         <main className="layout__main">

@@ -55,4 +55,16 @@
         
     }
 
+    &__button {
+        font-size: 3rem;
+        transition: all 5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    &__button-text {
+        font-size: 3rem;
+        text-align: start;
+        overflow: wrap;
+    }
+
+
 }
