@@ -35,7 +35,7 @@ const Navbar = (props) => {
     
     return ( 
         <div className={`navbar navbar${modifier}`}>
-            <ImageButton burger={true} small={false} src={burger} callback={showSidebar} text="Mostrar barra lateral"/>
+            {auth?.roles ? <ImageButton burger={true} small={false} src={burger} callback={showSidebar} text="Mostrar barra lateral"/> : null}
             <h1 className="navbar__logo" onClick={navigateHome}>CienciaConecta</h1>
             <div className="navbar__button-container">
                 { auth?.roles ?

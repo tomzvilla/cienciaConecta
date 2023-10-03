@@ -28,7 +28,7 @@ const Sidebar = () => {
                 {/* Links publicos  */}
                 <SidebarLink img={require("../../../assets/trofeo.png")} linkto={'/dashboard'} text="Inicio"/>
                 <>
-                        <SidebarDropdown dropdown={dropdown.feria} img={require("../../../assets/evaluador.png")} text="Proyectos" onClick={() => toggleDropdown('proyectos')} />
+                        <SidebarDropdown dropdown={dropdown.proyectos} img={require("../../../assets/evaluador.png")} text="Proyectos" onClick={() => toggleDropdown('proyectos')} />
                         {
                             dropdown.proyectos && <div className={`sidebar__dropdown-content`}>
                                 <SidebarLink img={require("../../../assets/evaluador.png")} linkto={'/inscribirProyecto'} text="Inscribir proyecto"/>
