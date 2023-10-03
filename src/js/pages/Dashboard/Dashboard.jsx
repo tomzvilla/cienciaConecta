@@ -1,7 +1,7 @@
 // components
 import DashboardInicioFeria from "../../components/Dashboard/DashboardInicioFeria"
 import DashboardResponsable from "../../components/Dashboard/DashboardResponsable"
-
+import Metadata from "../../components/Metadata/Metadata"
 // hooks
 import useAuth from "../../hooks/useAuth"
 import { useLocation } from "react-router-dom"
@@ -36,13 +36,17 @@ const Dashboard = () => {
 
 
     return (
-        <div className="dashboard">
-            <h1 className="dashboard__title">Feria de Ciencia y Tecnologia {new Date().getFullYear()}</h1>
-            {!rolesInicial.some(role => userRoles.roles.includes(role)) && <DashboardInicioFeria />}
-            {userRoles.roles.includes('2') &&  <DashboardResponsable />}
-            {userRoles.roles.includes('5') && <p>Es la comision asesora</p>}
-            {userRoles.roles.includes('3') && <p>Es un evaluador</p>}
-        </div>
+        <>
+            <Metadata title={'Feria'}/>
+            <div className="dashboard">
+                <h1 className="dashboard__title">Feria de Ciencia y Tecnologia {new Date().getFullYear()}</h1>
+                {!rolesInicial.some(role => userRoles.roles.includes(role)) && <DashboardInicioFeria />}
+                {userRoles.roles.includes('2') &&  <DashboardResponsable />}
+                {userRoles.roles.includes('5') && <p>Es la comision asesora</p>}
+                {userRoles.roles.includes('3') && <p>Es un evaluador</p>}
+            </div>
+        </>
+
     )
 
 }

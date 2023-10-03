@@ -2,8 +2,17 @@
 import Button from '../Button/Button';
 import InputField from '../InputField/InputField';
 
+import { useNavigate } from 'react-router-dom';
+
 // Agregar on submit
 const SignupForm = (props) => {
+
+    const navigate = useNavigate()
+
+    const volverHome = () => {
+      navigate('/home', { replace: true})
+
+    }
 
     return (
         props.personal ? 
@@ -67,7 +76,8 @@ const SignupForm = (props) => {
           
           
           
-          <div className='signup-form__button-container'>
+          <div className='signup-form__button-container signup-form__button-container--double'>
+            <Button text='Volver' onClickHandler={volverHome} activo={false}/>
             <Button text='Avanzar' onClickHandler={props.handleAvanzar} activo={true}/>
           </div>
           

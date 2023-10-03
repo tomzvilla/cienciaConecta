@@ -1,7 +1,7 @@
 // Components
 import TableCard from "../../components/Table/TableCard"
 import Spinner from "../../components/Spinner/Spinner"
-
+import Metadata from "../../components/Metadata/Metadata"
 // Hooks
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
@@ -40,13 +40,8 @@ const VisualizarListadoProyectos = () => {
 
     return (
       <>
-          {/* <Navbar/> */}
-
-          {isLoading ? (<Spinner />) : proyectos.length === 0 ? (<p>El usuario no tiene proyectos</p>) : (<TableCard title="Mis Proyectos" headers={headers} data={proyectos} viewPath={'/projects'} editPath={'/editProjects'} />)}
-
-          
-  
-      {/* <Footer/> */}
+        <Metadata title={'Proyecto'}/>
+        {isLoading ? (<Spinner />) : proyectos.length === 0 ? (<p>El usuario no tiene proyectos</p>) : (<TableCard title="Mis Proyectos" headers={headers} data={proyectos} viewPath={'/projects'} editPath={'/editProjects'} />)}
       </>
     )
   
