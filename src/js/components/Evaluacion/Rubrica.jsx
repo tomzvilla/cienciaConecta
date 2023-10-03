@@ -4,6 +4,7 @@ import SelectField from "../SelectField/SelectField"
 import { useDispatch } from "react-redux"
 import { evaluacionActions } from "../../../store/evaluacion-slice"
 import { useSelector } from "react-redux"
+import TextareaInput from "../TextareaInput/TextareaInput"
 
 const Rubrica = ({ rubrica, display }) => {
 
@@ -29,12 +30,12 @@ const Rubrica = ({ rubrica, display }) => {
     return (
 
         display ? 
-        <div>
-            <h2>{rubrica.nombreRubrica}</h2>
+        <div className="rubrica">
+            <h5 className="rubrica__nombre">{rubrica.nombreRubrica}</h5>
             {rubrica.criterios.map(criterio => {
                 const valor = evaluacion.find(e => e.rubricaId === rubrica._id && e.criterioId === criterio._id)
                 const errors = valor.error && valor.error !== '' ? true : false
-                return (<div key={criterio._id} className="postulacion-form__input">
+                return (<div key={criterio._id} className="rubrica__input">
                 <SelectField
                     label={`${criterio.nombre}: `} 
                     name={criterio.nombre}
@@ -47,17 +48,11 @@ const Rubrica = ({ rubrica, display }) => {
                 />
                 </div>)
             })}
-            <div className={`input-field`}>
-            {}
-            <label className={`input-field__label input-field__label${devolucionActual.error ? '--error' : ''}`}>Devolucion de Rúbrica: </label>
-                <textarea
-                className={`input-field__input`}
-                name={rubrica.nombreRubrica}
-                onChange={onChange}
-                value={devolucionActual.comentario}
-                />
-                {devolucionActual.error && <small className='select-field__error'>{devolucionActual.error}</small>}
+            <div className="rubrica__textarea">
+                <TextareaInput label="Devolución: " name={rubrica.nombreRubrica} onChange={onChange} value={devolucionActual.comentario} error={devolucionActual.error}/>
+
             </div>
+            
         </div> 
 
         : 

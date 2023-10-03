@@ -99,6 +99,9 @@ const ProjectCard = ({ formData }) => {
 
             <div className="project-card__edit">
                 <ImageLink src={require("../../../assets/edit.png")} linkto={`/editarProyecto/${formData._id}`} alt="Editar Proyecto"/>
+            </div>
+
+            <div className="project-card__borrar">
                 <ImageButton small={false} alt="Borrar" linkto={""} callback={handleDelete} src={require("../../../assets/x.png")}/>
             </div>
 

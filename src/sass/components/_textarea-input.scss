@@ -1,0 +1,47 @@
+.textarea-input {
+        display: flex;
+        flex-direction: column;
+        //margin-left: auto;
+        font-size: 2rem;
+    
+        &:focus-within {
+            .input-field__label {
+               color: $color-primary
+            }
+        }
+    
+        &__label {
+            color: $color-grey-dark;
+            
+            &--error {
+                color: $color-red;
+            }
+        }
+    
+        &__input {
+            font-size: 2rem;
+            border: 0px;
+            border-bottom: 1px solid $color-grey-dark;
+            //padding: .5rem 3rem;
+            outline: none;
+            color: $color-grey-dark;
+    
+            &:focus {
+                border-bottom: 2px solid $color-primary;
+                transition: all 50ms linear;
+            }
+    
+            &--error {
+                border-bottom: 2px solid $color-red;
+            } 
+        }
+
+        &__error {
+            color: $color-red;
+            font-size: 1.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+            flex: 1;
+        }
+
+}

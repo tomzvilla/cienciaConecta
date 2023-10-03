@@ -4,15 +4,23 @@ import ImageLink from "../ImageLink/ImageLink";
 import Button from "../Button/Button";
 
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom"
 
 
 const TablaEvaluaciones = (props) => {
 
     const listadoEvaluaciones = useSelector(state => state.evaluacion.listadoEvaluaciones)
+    const navigate = useNavigate()
+
+    const handleVolver = () => {
+        const from = props.location.state?.from || '/dashboard'
+        navigate(from, {replace: true, state: {from:'/evaluar'}})
+    }
 
     return(
         <>
             <table className="table">
+
                 <thead className="table__header">
                     <tr className="table-header">
                         <th scope="col" className="table-header__head">Título</th>
@@ -23,6 +31,7 @@ const TablaEvaluaciones = (props) => {
                         <th scope="col" className="table-header__head">Confirmadas</th>
                     </tr>
                 </thead>
+
                 <tbody className="table__body">
                     {listadoEvaluaciones.map((proyecto, index) => {
                         console.log(proyecto)
@@ -60,10 +69,10 @@ const TablaEvaluaciones = (props) => {
                 </tbody>
             </table>
             {/* <Pagination currentPage={currentPage} totalCount={postulaciones.length} pageSize={pageSize} onPageChange={page => setCurrentPage(page)} /> */}
-            <div>
+            <div className="button-container">
                 <Button 
                     text='Volver' 
-                    onClickHandler={() => {}}
+                    onClickHandler={handleVolver}
                 />
                 <Button 
                     text='Seleccionar' 
@@ -71,6 +80,8 @@ const TablaEvaluaciones = (props) => {
                     activo={true}
                 />
             </div>
+
+            
         </>
     )
 }

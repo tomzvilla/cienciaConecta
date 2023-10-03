@@ -35,8 +35,17 @@ const Navbar = (props) => {
     
     return ( 
         <div className={`navbar navbar${modifier}`}>
-            {auth?.roles ? <ImageButton burger={true} small={false} src={burger} callback={showSidebar} text="Mostrar barra lateral"/> : null}
             <h1 className="navbar__logo" onClick={navigateHome}>CienciaConecta</h1>
+            { auth?.roles ? 
+            <div className="navbar__burguer">
+                {/* <input type="checkbox" /> */}
+                <span/>
+                <span/>
+                <span/>
+            </div> : null }
+
+            <h1 className="navbar__logo" onClick={navigateHome}>CienciaConecta</h1>
+
             <div className="navbar__button-container">
                 { auth?.roles ?
                     <Button text="Salir" onClickHandler={signOut}/>
