@@ -1,7 +1,4 @@
 // components
-import InputField from "../../InputField/InputField"
-import Button from "../../Button/Button"
-import OpcionesTable from "./OpcionesTable"
 import AddOpcion from "./AddOpcion"
 import Table from "../../Table/Table"
 

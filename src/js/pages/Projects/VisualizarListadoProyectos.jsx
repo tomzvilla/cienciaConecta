@@ -1,7 +1,7 @@
 // Components
 import TableCard from "../../components/Table/TableCard"
 import Spinner from "../../components/Spinner/Spinner"
-
+import Metadata from "../../components/Metadata/Metadata"
 // Hooks
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
@@ -29,8 +29,7 @@ const VisualizarListadoProyectos = () => {
         const category = categories.categoria.find(element => element._id === obj.categoria)
         const level = levels.nivel.find(element => element._id === obj.nivel)
         if(obj.estado !== '6') {
-          console.log(obj.nombreEscuela)
-          return {...obj, categoria: category.nombre, nivel: level.nombre, nombreEscuela: capitalizeEachLetter(obj.nombreEscuela)}
+          return {...obj, categoria: category.nombre, nivel: level.nombre, nombreEscuela: capitalizeEachLetter(obj.establecimientoEducativo.nombre)}
         } else {
           return null
         }
@@ -40,13 +39,8 @@ const VisualizarListadoProyectos = () => {
 
     return (
       <>
-          {/* <Navbar/> */}
-
-          {isLoading ? (<Spinner />) : proyectos.length === 0 ? (<p>El usuario no tiene proyectos</p>) : (<TableCard title="Mis Proyectos" headers={headers} data={proyectos} viewPath={'/projects'} editPath={'/editProjects'} />)}
-
-          
-  
-      {/* <Footer/> */}
+        <Metadata title={'Proyecto'}/>
+        {isLoading ? (<Spinner />) : proyectos.length === 0 ? (<p>El usuario no tiene proyectos</p>) : (<TableCard title="Mis Proyectos" headers={headers} data={proyectos} viewPath={'/proyecto'} editPath={'/editarProyecto'} />)}
       </>
     )
   

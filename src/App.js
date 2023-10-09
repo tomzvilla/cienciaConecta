@@ -23,8 +23,11 @@ import Dashboard from './js/pages/Dashboard/Dashboard'
 import ActualizarFeria from './js/pages/Ferias/ActualizarFeria'
 import Postulacion from './js/pages/Evaluadores/Postulacion'
 import SeleccionPostulantes from './js/pages/Evaluadores/SeleccionPostulantes'
-
 import VisualizarPostulante from './js/components/Postulacion/VisualizarPostulante'
+import ListadoEvaluaciones from './js/pages/Evaluacion/ListadoEvaluaciones'
+import EvaluacionCard from './js/components/Evaluacion/EvaluacionCard'
+import Evaluacion from './js/pages/Evaluacion/Evaluacion'
+
 
 // DEV
 import Card from './js/components/Card/Card'
@@ -46,36 +49,43 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/' element={<Layout />}>
-          <Route path='unauthorized' element={<Unauthorized/>}/>
+        <Route element={<PersistLoginInverse />}>
+          <Route path='home' element={<Home/>}/>
+          <Route path='/' element={<Home/>} />
+          <Route path='/unauthorized' element={<Unauthorized/>}/>
+        </Route>
+
+        <Route element={<Layout />}>
           <Route element={<PersistLoginInverse />}>
-            <Route path='/' element={<Home/>}/>
-            <Route path='home' element={<Home/>}/>
-            <Route path='login' element={<LoginPage/>}/>
-            <Route path='signup' element={<Signup/>}/>
+            <Route path='/login' element={<LoginPage/>}/>
+            <Route path='/signup' element={<Signup/>}/>
           </Route>
           <Route element={<PersistLogin />}>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]}/>}>
               {/* Rutas para proyectos */}
-              <Route path='projects' element={<InscribirEtapaEscolar/>}/>
-              <Route path='projects/:id' element={<VisualizarProyecto/>}/>
-              <Route path='editProjects/:id' element={<ActualizarProyecto/>}/>
-              <Route path='myprojects' element={<VisualizarListadoProyectos/>}/>
-              <Route path='dashboard' element={<Dashboard/>}/>
-              <Route path='postulacion' element={<Postulacion/>}/>
+              <Route path='/inscribirProyecto' element={<InscribirEtapaEscolar/>}/>
+              <Route path='/proyecto/:id' element={<VisualizarProyecto/>}/>
+              <Route path='/editarProyecto/:id' element={<ActualizarProyecto/>}/>
+              <Route path='/misProyectos' element={<VisualizarListadoProyectos/>}/>
+              <Route path='/dashboard' element={<Dashboard/>}/>
+              <Route path='/postulacion' element={<Postulacion/>}/>
+              <Route path='/evaluar' element={<ListadoEvaluaciones/>}/>
+              <Route path='/evaluar/:id' element={<EvaluacionCard/>}/>
+              <Route path='/evaluar/:id/iniciar' element={<Evaluacion/>}/>
             </Route>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]}/>}>
               {/* Rutas para feria */}
-              <Route path='feria' element={<CrearFeria/>}/>
-              <Route path='verFeria' element={<VisualizarFeriaActual/>}/> 
-              <Route path='verListaFerias' element={<VisualizarListadoFerias/>}/>
-              <Route path='editarFeria' element={<ActualizarFeria/>}/> 
-              <Route path='seleccionarPostulantes' element={<SeleccionPostulantes/>}/> 
-              <Route path='postulante/:id' element={<VisualizarPostulante/>}/>
+              <Route path='/feria' element={<CrearFeria/>}/>
+              <Route path='/verFeria' element={<VisualizarFeriaActual/>}/> 
+              <Route path='/verListaFerias' element={<VisualizarListadoFerias/>}/>
+              <Route path='/editarFeria' element={<ActualizarFeria/>}/> 
+              <Route path='/seleccionarPostulantes' element={<SeleccionPostulantes/>}/> 
+              <Route path='/postulante/:id' element={<VisualizarPostulante/>}/>
               {/* // colocar en dashboard */}
             </Route>
             <Route path='*' element={<NotFound/>}/>
           </Route>
+
         </Route>
       </Routes>
       <AuthVerify />

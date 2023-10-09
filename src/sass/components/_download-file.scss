@@ -9,8 +9,14 @@
     text-align: center;
 
 
+    &__name {
+        margin-left: auto;
+        align-self: center;
+    }
+
+
     &__img {
-        margin-left: 1rem;
+        margin-left: auto;
         width: 5rem;
         height: 5rem;
         filter: brightness(0);

@@ -1,6 +1,7 @@
 // components
 import FeriaCard from "../../components/FeriaCard/FeriaCard"
 import Spinner from "../../components/Spinner/Spinner"
+import Metadata from "../../components/Metadata/Metadata"
 // hooks
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
@@ -11,6 +12,7 @@ const VisualizarFeriaActual = () => {
 
     const axiosPrivate = useAxiosPrivate()
     const { data } = useAxiosFetch('/feria/activa', axiosPrivate)
+    if(data) console.log(data)
     const location = useLocation()
     const navigate = useNavigate()
     const from = location?.state?.from || '/dashboard'
@@ -99,7 +101,11 @@ const VisualizarFeriaActual = () => {
     }
 
     return (
-        !data ? (<Spinner />) : (<FeriaCard handleDelete={handleDelete} formData={data?.feriaActiva} />)
+        <>
+            <Metadata title={'Feria'}/>
+            {!data ? (<Spinner />) : (<FeriaCard handleDelete={handleDelete} formData={data?.feriaActiva} />)}
+        </>
+       
     )
 }
 

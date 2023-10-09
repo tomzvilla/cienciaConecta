@@ -298,7 +298,7 @@ const CrearFeriaForm = (props) => {
                 const sedesRegional = new Set(cupos.map(c => { 
                     return c.sede
                 }))
-                const response = await axiosPrivate.post('/feria', 
+                await axiosPrivate.post('/feria', 
                 JSON.stringify({ 
                     nombre: nombreFeria, 
                     descripcion: descripcionFeria, 
@@ -361,14 +361,6 @@ const CrearFeriaForm = (props) => {
 
         }
 
-    const handleDelete = async (e) => {
-        try {
-            e.preventDefault()
-        } catch (err) {
-            console.log(err)
-        }
-        setTimeout(() => { }, 2000);
-    }
 
     const handleVolver = (e) => {
         e.preventDefault()

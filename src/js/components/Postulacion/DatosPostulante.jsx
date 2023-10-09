@@ -9,7 +9,9 @@ const DatosPostulante = (props) => {
     return (
         <div className="datos-postulante">
             <div className="datos-postulante__download">
-                <DownloadFile name="Curriculum Vitae" img={require("../../../assets/tarjeta.png")}/>
+
+                <DownloadFile onClick={props.handleDownload} name="Curriculum Vitae" img={require("../../../assets/tarjeta.png")}/>
+
             </div>
             
             <p className="datos-postulante__dato">Sede: {props.sede}</p>
