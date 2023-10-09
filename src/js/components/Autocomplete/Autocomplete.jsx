@@ -33,15 +33,19 @@ const Autocomplete  = (props) => {
                 { showResults && (<div className="autocomplete__container">
                     {results?.map((item, index) => {
                         if (index < 150) {
-                        return ( 
-                            <div 
-                                onMouseDown={() => handleSelection(index)}
-                                key={index}
-                                className="autocomplete__auto"
-                            >
-                                {renderItem(item)}
-                            </div>
-                        )
+                            if (item.nombre != "") {
+                                return ( 
+                                    <div 
+                                        onMouseDown={() => handleSelection(index)}
+                                        key={index}
+                                        className="autocomplete__auto"
+                                    >
+                                        {renderItem(item)}
+                                    </div>
+                                )
+
+                            }
+                        
                     }})}
                 </div>)}
             </div>

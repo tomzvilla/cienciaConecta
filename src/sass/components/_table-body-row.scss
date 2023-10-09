@@ -20,11 +20,30 @@
         &--actions {
             display: flex;
             justify-content: space-around;
+            align-items: center;
         }
 
         &--badges {
             justify-content: center;
-            flex-direction: column;
+            //flex-direction: column;
+        }
+
+
+        & > input[type=checkbox] {
+            width: 2.3rem;
+            vertical-align: text-top;
+            height: 2.3rem;
+
+
+            &:hover {
+                color: $color-primary;
+
+            }
+
+            &:checked {
+                background-color: $color-primary;
+
+            }
         }
         
         

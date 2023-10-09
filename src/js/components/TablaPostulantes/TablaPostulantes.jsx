@@ -12,6 +12,7 @@ import Swal from "sweetalert2"
 import { useSelector } from "react-redux"
 import { postulacionesActions } from "../../../store/postulaciones-slice"
 import { useDispatch } from "react-redux"
+import GenericBadge from "../Badge/GenericBadge"
 
 const pageSize = 5
 
@@ -149,17 +150,39 @@ const TablaPostulantes = (props) => {
                                     if(header.name === 'Categorías'){
                                         return (
                                             <td key={header.name} className="table-body-row__td table-body-row__td--badges">
-                                                {postulacion.categorias.map( c => (<Badge key={c._id} type={c} />)
-                                                )}
+                                                {postulacion.categorias.map( (c, i) => {
+                                                    if (i < 2) {
+
+                                                    return (<Badge key={c._id} type={c} />)}})}
+
+                                                    {
+                                                    postulacion.niveles.length > 3 ? <GenericBadge text="Más..."/> : ""
+
+
+                                                }   
+
                                             </td>
                                         )
-                                    
                                     } 
                                     if(header.name === 'Niveles'){
                                         return (
                                             <td key={header.name} className="table-body-row__td table-body-row__td--badges">
-                                                {postulacion.niveles.map( n => (<Badge  key={n._id} type={n} />)
-                                                )}
+                                                {postulacion.niveles.map( (n, i) => {
+                                            
+                                                    if (i < 2) {
+                                                    return (<Badge  key={n._id} type={n} />)}})}
+
+                                                {
+                                                    postulacion.niveles.length > 3 ? <GenericBadge text="Más..."/> : ""
+
+
+                                                }    
+
+                                                
+                                                
+
+
+                                          
                                             </td>
                                         )
                                     }

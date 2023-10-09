@@ -497,7 +497,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   flex-direction: column;
   z-index: 99;
   background-color: #ffffff;
-  min-width: min-content;
+  min-width: 45rem;
   min-height: min-content;
   border-radius: 2rem;
   padding-bottom: 2rem;
@@ -888,6 +888,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   width: 95%;
   align-self: center;
   border-collapse: collapse;
+  margin: 0 auto;
 }
 .table__header {
   border-bottom: 1px solid black;
@@ -1153,11 +1154,11 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .autocomplete__input--error {
   border-bottom: 2px solid #E63B0B;
 }
-.autocomplete__container > div:not(:first-child) {
+.autocomplete__container > div {
   padding: 0.5rem 0;
   border-bottom: 1px solid #757575;
 }
-.autocomplete__container > div:not(:first-child):hover {
+.autocomplete__container > div:hover {
   cursor: pointer;
   color: #00ACE6;
   border-bottom: 1px solid #00ACE6;
@@ -1172,6 +1173,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   padding-top: 2rem;
   display: flex;
   flex-direction: column;
+  width: 30vw;
 }
 .cupos-modal__nivel {
   padding: 1rem 2rem;
@@ -1453,7 +1455,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 .card--animate {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 .card-header {
@@ -1524,10 +1526,11 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   color: #E63B0B;
 }
 
-.table-custom-page {
+.seleccion-postulantes {
   color: #757575;
 }
-.table-custom-page__text {
+.seleccion-postulantes__text {
+
   font-size: 2.5rem;
   font-weight: 500;
   color: #757575;
@@ -1581,12 +1584,9 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   padding: 3rem 2rem;
   text-align: center;
 }
-.download-file__name {
-  margin-left: auto;
-  align-self: center;
-}
 .download-file__img {
-  margin-left: auto;
+  margin-left: 1rem;
+
   width: 5rem;
   height: 5rem;
   filter: brightness(0);
@@ -1785,9 +1785,10 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 
 .home {
   background-color: #ffffff;
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .unauthorized {

@@ -4,7 +4,7 @@
     grid-template-rows: 4;
     grid-column-gap: 25rem;
     padding: 20rem 20rem;
-    //width: 100vw;
+    //width: 50vw;
     
 
     color: $color-primary;
@@ -16,9 +16,6 @@
         border-radius: 100%;
         object-fit: cover;
         grid-row: 1 / 4;
-        
-        
-        
     }
 
     &__title {

@@ -9,12 +9,14 @@ import DatosPostulante from "./DatosPostulante"
 import PostulanteHeader from "../Card/PostulanteHeader"
 import { useState } from "react"
 
+
 const VisualizarPostulante = (props) => {
     const axiosPrivate = useAxiosPrivate()
 
     // Cuando entro desde la tabla todos los datos OK. Pero cuando entro directamente a la pagina o la recargo, se rompe
     const data = useSelector(state => state.postulaciones.listadoPostulantes)
     const [fileURL, setFileURL] = useState('')
+
 
     const { id } = useParams()
     const {data: categoriaData} = useAxiosFetch('/categoria', axiosPrivate)
