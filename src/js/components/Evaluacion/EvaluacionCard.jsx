@@ -117,17 +117,6 @@ const EvaluacionCard = () => {
     }
 
 
-
-    const confirmarEvaluacion = async () => {
-        try {
-            axiosPrivate.get(`/evaluacion/confirmar/${id}`)
-            return true
-        } catch (err) {
-            console.log(err)
-        }
-    }
-
-
     return(
         proyecto ?
         <Card title={proyecto.titulo}>
