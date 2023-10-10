@@ -53,6 +53,7 @@ const Sidebar = () => {
                         }
                         
                         <SidebarLink img={require("../../../assets/user.png")} linkto={'/seleccionarPostulantes'} text="Lista Postulantes"/>
+                        <SidebarLink img={require("../../../assets/user.png")} linkto={'/asignarReferentes'} text="Referentes"/>
                     </> 
                 }
                 {/* Links de evaluadores */}
