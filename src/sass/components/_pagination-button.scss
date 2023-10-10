@@ -1,0 +1,52 @@
+.pagination-button {
+
+    
+
+    &__button {
+            border: none;
+            background-color: transparent;
+            font-family: $font-primary;
+            font-size: 2rem;
+            color: $color-grey-dark;
+
+            border: 1px solid $color-primary;
+            border-radius: 10rem;
+            padding: 1rem 1.8rem;
+            color: $color-primary;
+
+
+            &:hover {
+                cursor: pointer;
+                background-color: $color-primary;
+                color: white;
+                transition: all .1s linear;
+            }
+
+            &--disabled {
+                border: 1px solid rgba($color-primary, 0.4);
+                color: rgba($color-primary, 0.4);
+
+                &:hover {
+                    cursor: inherit;
+                    background-color: white;
+                    color: rgba($color-primary, 0.4);
+                    transition: all .1s linear;
+                }
+            }
+
+            &--current {
+                background-color: $color-primary;
+                color: white;
+                transition: all .1s linear;
+                border: 1px solid white;
+
+                &:hover {
+                    cursor: inherit;
+                    background-color: $color-primary;
+                    color: white;
+                    transition: all .1s linear;
+                }
+            }
+    }
+
+}

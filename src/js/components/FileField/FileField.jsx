@@ -3,7 +3,8 @@ import { useState } from "react"
 const FileField = ({ value, label, name, onChange, onBlur, errors, accept, required = false }) => {
 
     const [fileName, setFileName] = useState("")
-    const modifier = !fileName ? "" : errors.error ? "--error" :"--loaded"
+    let modifier = !fileName ? "" : errors.error ? "--error" :"--loaded"
+
 
 
     let setRequired = false
@@ -16,22 +17,21 @@ const FileField = ({ value, label, name, onChange, onBlur, errors, accept, requi
         onChange(e)
     }
 
+    let displayName = fileName?.length > 30 ? fileName.slice(0, 27) + "..." : fileName
 
-
-
-    const displayName = fileName.length > 30 ? fileName.slice(0, 27) + "..." : fileName
-
-
+    modifier = displayName === undefined ? "--error" : "";
+    displayName = displayName === undefined ? "" : displayName;
     
+
     return (
     <div className={`file-field file-field${modifier}`}>
         <label className={`file-field__label file-field__label${modifier}`}>
 
             {label + displayName}
-            <img className='file-field__image' src={require("../../../assets/add.png")} alt="" />
+            <img className={`file-field__image file-field__image${modifier}`} src={require("../../../assets/add.png")} alt="" />
             
             <input
-                className='file-field__select'
+                className={`file-field__select`}
                 type="file"
                 accept={accept}
                 name={name}
