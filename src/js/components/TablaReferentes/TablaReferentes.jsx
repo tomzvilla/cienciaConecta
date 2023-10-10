@@ -6,7 +6,7 @@ import Button from "../Button/Button";
 // hooks
 import { useState } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-
+import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { referentesActions } from "../../../store/referentes-slice";
@@ -17,6 +17,9 @@ const TablaReferentes = (props) => {
     // referentes state
     const referentesData = useSelector(state => state.referentes)
     const dispatch = useDispatch()
+    const location = useLocation()
+    const navigate = useNavigate()
+    const from = location?.state?.from || '/dashboard'
     const axiosPrivate = useAxiosPrivate()
     // pagination state
     const [currentPage, setCurrentPage] = useState(1);
@@ -75,7 +78,23 @@ const TablaReferentes = (props) => {
         
     }
 
-    const handleVolver = () => {
+    const handleVolver = (e) => {
+        e.preventDefault()
+        Swal.fire({
+            title: '¿Deseas regresar sin asignar los referentes?',
+            icon: 'question',
+            showCancelButton: true,
+            reverseButtons: true,
+            confirmButtonText: 'Volver',
+            confirmButtonColor: '#00ACE6',
+            cancelButtonText: 'Cancelar',
+            cancelButtonColor: '#D4272D',
+        }).then(async (result) => {
+            if(result.isConfirmed) {
+                navigate(from, {replace: true, state: {from:location.pathname}})
+            }
+        }) 
+        
 
     }
 
@@ -142,7 +161,6 @@ const TablaReferentes = (props) => {
             })
         }
     }
-
 
     return (
         <>
