@@ -14,13 +14,9 @@ const referentesSlice = createSlice({
         },
         actualizarReferente(state, action) {
             const nuevoReferente = action.payload
-            console.log(nuevoReferente)
             const prevReferentes = [...state.referentes]
-            console.log(prevReferentes)
             const referenteIndex = prevReferentes.findIndex(r => r.sede._id === nuevoReferente.sede._id)
-            console.log(referenteIndex)
             prevReferentes[referenteIndex].referente = nuevoReferente.referente
-            console.log(prevReferentes)
             state.referentes = prevReferentes
         }
     }

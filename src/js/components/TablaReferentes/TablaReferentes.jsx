@@ -73,7 +73,6 @@ const TablaReferentes = (props) => {
                 _id: referente.idDocente,
             }
         }
-        console.log(referente)
         dispatch(referentesActions.actualizarReferente({
             sede: sede,
             referente: referente,
@@ -140,22 +139,13 @@ const TablaReferentes = (props) => {
 
     const asignarReferentes = async () => {
         try {
-            console.log(referentesData.referentes)
-            console.log(props.referentesViejos)
+
 
             const nuevosReferentes = referentesData.referentes
             .filter(r => r.referente !== '' && Object.keys(r.referente).length !== 0)
             .map(r => {
                 const referenteViejoIndex = props.referentesViejos.findIndex(rv => rv.sede === r.sede._id)
-                console.log(referenteViejoIndex)
-                if(referenteViejoIndex !== -1) {
-                    console.log(r.sede._id)
-                    console.log(props.referentesViejos[referenteViejoIndex].sede)
-                }
-                
                 if(props.referentesViejos[referenteViejoIndex].datos_docente._id !== r.referente.datos_docente._id) {
-                    console.log(r.sede._id)
-                    console.log(r.referente?.datos_docente?._id)
                     return {
                         sede: r.sede._id,
                         referente: r.referente?.datos_docente?._id,
@@ -163,8 +153,6 @@ const TablaReferentes = (props) => {
                 }
             })
             .filter(r => r !== undefined)
-
-            console.log(nuevosReferentes)
 
             if(nuevosReferentes.length === 0) {
                 throw ({status: 422, msg: 'No se modificó ningún referente de evaluador'})
@@ -224,7 +212,6 @@ const TablaReferentes = (props) => {
                                 {props.headers.map(header => 
                                 {
                                     if(header.value === 'referente') {
-                                        console.log(referente)
                                         return (
                                             <td key={header.value} className="table-body-row__td">
                                                 { 
