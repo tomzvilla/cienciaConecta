@@ -27,7 +27,7 @@ import VisualizarPostulante from './js/components/Postulacion/VisualizarPostulan
 import ListadoEvaluaciones from './js/pages/Evaluacion/ListadoEvaluaciones'
 import EvaluacionCard from './js/components/Evaluacion/EvaluacionCard'
 import Evaluacion from './js/pages/Evaluacion/Evaluacion'
-
+import ListadoProyectosAsignados from './js/pages/Referentes/ListadoProyectosAsignados'
 
 // DEV
 import Card from './js/components/Card/Card'
@@ -81,6 +81,11 @@ function App() {
               <Route path='/editarFeria' element={<ActualizarFeria/>}/> 
               <Route path='/seleccionarPostulantes' element={<SeleccionPostulantes/>}/> 
               <Route path='/postulante/:id' element={<VisualizarPostulante/>}/>
+              {/* // colocar en dashboard */}
+            </Route>
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.RefEvaluador]}/>}>
+              {/* Rutas para referentes */}
+              <Route path='/proyectosParaAsignar' element={<ListadoProyectosAsignados/>}/>
               {/* // colocar en dashboard */}
             </Route>
             <Route path='*' element={<NotFound/>}/>
