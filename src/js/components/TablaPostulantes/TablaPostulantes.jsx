@@ -174,15 +174,7 @@ const TablaPostulantes = (props) => {
 
                                                 {
                                                     postulacion.niveles.length > 3 ? <GenericBadge text="Más..."/> : ""
-
-
                                                 }    
-
-                                                
-                                                
-
-
-                                          
                                             </td>
                                         )
                                     }

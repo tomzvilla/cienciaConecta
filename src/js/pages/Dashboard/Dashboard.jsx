@@ -40,7 +40,7 @@ const Dashboard = () => {
         <>
             <Metadata title={'Feria'}/>
             <div className="dashboard">
-                <h1 className="dashboard__title">Feria de Ciencia y Tecnologia {new Date().getFullYear()}</h1>
+                <h1 className="dashboard__title">Feria de Ciencias y Tecnología {new Date().getFullYear()}</h1>
                 {!rolesInicial.some(role => userRoles.roles.includes(role)) && <DashboardInicioFeria />}
                 {userRoles.roles.includes('2') &&  <DashboardResponsable />}
                 {userRoles.roles.includes('5') && <p>Es la comision asesora</p>}

@@ -3,6 +3,12 @@
     align-items: center;
     //argin-top: 1rem;
     padding: 1rem;
+    text-decoration: none;
+
+    &--dropdown {
+        padding-left: 2.5rem;
+    }
+
 
     &:hover {
         background-color: $color-grey-light;
@@ -27,7 +33,7 @@
     }
 
     &:active &__image {
-        filter: brightness(100) saturate(100%) ;
+        filter: brightness(0) invert(1);
     }
 
     &:active &__text{
@@ -45,26 +51,17 @@
         color: $color-grey-dark;
         text-decoration: none;
         width: 100%;
+
+        &--dropdown {
+            font-size: 2.5rem;
+        }
         
     }
 
     &__link {
         color: inherit;
-        text-decoration: none;
         display: contents;
         
     }
-
-    &__button {
-        font-size: 3rem;
-        transition: all 5s cubic-bezier(0.165, 0.84, 0.44, 1);
-    }
-
-    &__button-text {
-        font-size: 3rem;
-        text-align: start;
-        overflow: wrap;
-    }
-
 
 }

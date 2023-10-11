@@ -1,0 +1,18 @@
+.pagination {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    margin-top: 2rem;
+
+    display: flex;
+
+    & > :not(:last-child) {
+        margin-right: 2rem;
+    }
+
+    &__dots {
+        color: $color-primary;
+    }
+
+}

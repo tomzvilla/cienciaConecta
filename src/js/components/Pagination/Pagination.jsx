@@ -1,5 +1,6 @@
 // hooks
 import usePagination, { DOTS } from "../../hooks/usePagination";
+import PaginationButton from "./PaginationButton";
 
 const Pagination = ({onPageChange, totalCount, currentPage, pageSize, siblingCount = 1}) => {
 
@@ -19,21 +20,20 @@ const Pagination = ({onPageChange, totalCount, currentPage, pageSize, siblingCou
     const lastPage = paginationRange[paginationRange.length - 1]
 
     return(
-        <ul>
-            <li> <button onClick={prevPage} disabled={currentPage === 1}>Anterior</button></li>
+        <ul className="pagination">
+            <PaginationButton onClick={prevPage} disabled={currentPage === 1} text="Anterior"/>
+
             {paginationRange.map(pageNumber => {
                 if(pageNumber === DOTS) {
                     return (
-                        <li key={'dots'}>&#8230;</li>
+                        <li className="pagination__dots" key={'dots'}>&#8230;</li>
                     )
                 }
                 return (
-                    <li key={pageNumber}>
-                        <button className={pageNumber === currentPage ? "active" : ""} onClick={() => onPageChange(pageNumber)}>{pageNumber}</button>
-                    </li>
+                    <PaginationButton clave={pageNumber} onClick={() => onPageChange(pageNumber)} text={pageNumber} current={pageNumber === currentPage }/>
                 )
             })}
-            <li> <button onClick={nextPage} disabled={currentPage === lastPage}>Siguiente</button></li>
+            <PaginationButton onClick={nextPage} disabled={currentPage === lastPage} text="Siguiente"/>
         </ul>
     )
 }
