@@ -5,10 +5,10 @@ const AutocompletePersonas  = (props) => {
     const [showResults, setShowResults] = useState(false)
 
     useEffect(() => {
-        if(results.length > 0 && !showResults) {
+        if(results && results.length > 0 && !showResults) {
             setShowResults(true) 
         }
-        if(results.length <= 0) {
+        if(results && results.length <= 0) {
             setShowResults(false)
         }
     }, [results])

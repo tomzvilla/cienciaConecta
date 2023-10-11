@@ -28,12 +28,12 @@ const AsignarReferentes = () => {
     useEffect(() => {
         const mapReferentes = () => {
             return data.sedes.map(s => {
-                const referente = referentesData.referentes.find(r => r.sede === s._id)
+                const referente = {...referentesData.referentes.find(r => r.sede === s._id)}
                 return {
                     sede: s,
                     referente: referente || ''
                 } 
-            })
+            })     
         }
 
         if(!isLoading && !isLoadingReferentes) {
@@ -48,7 +48,7 @@ const AsignarReferentes = () => {
         <Spinner /> 
         :
         <Card title={'Asignar Referentes a Sedes'} wide={true}>
-            <TablaReferentes sedes={data?.sedes} usuarios={docenteData?.usuarios} headers={headers}/>
+            <TablaReferentes sedes={data?.sedes} usuarios={docenteData?.usuarios} headers={headers} referentesViejos={referentesData?.referentes}/>
         </Card>
     )
 }

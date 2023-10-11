@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { referentesActions } from "../../../store/referentes-slice";
 import Swal from "sweetalert2";
-const pageSize = 1
+const pageSize = 5
 
 const TablaReferentes = (props) => {
     // referentes state
@@ -36,7 +36,7 @@ const TablaReferentes = (props) => {
 
     const handleFilter = (e) => {
         const searchTerm = e.target.value.trim();
-        const notSelectedReferentes = props.usuarios.filter((usuario) => {
+        const notSelectedReferentes = props.usuarios?.filter((usuario) => {
             return !referentesData.referentes.some((r) => usuario.cuil === r.referente.cuil);
         });
         const filteredValue = notSelectedReferentes.filter((usuario) => {
@@ -48,11 +48,17 @@ const TablaReferentes = (props) => {
 
     const handleFocus = (index) => {
         setFocusedInput(index)
-        const notSelectedReferentes = props.usuarios.filter((usuario) => {
+        const notSelectedReferentes = props.usuarios?.filter((usuario) => {
           return !referentesData.referentes.some((r) => usuario.cuil === r.referente.cuil);
         });
         setResults(notSelectedReferentes);
     };
+
+    const handlePageChange = (page) => {
+        setFocusedInput(null)
+        setEditing(null)
+        setCurrentPage(page)
+    }
 
     const handleBlur = () => {
         setFocusedInput(null)
@@ -60,6 +66,14 @@ const TablaReferentes = (props) => {
     };
 
     const handleSelect = (referente, sede) => {
+        if(!referente.datos_docente?.cuil || !referente.datos_docente?._id) {
+            referente.datos_docente = {
+                ...referente.datos_docente,
+                cuil: referente.cuil,
+                _id: referente.idDocente,
+            }
+        }
+        console.log(referente)
         dispatch(referentesActions.actualizarReferente({
             sede: sede,
             referente: referente,
@@ -70,10 +84,9 @@ const TablaReferentes = (props) => {
 
     const editarReferente = (index) => {
         if (editing === index) {
-            // Clicking the same row again should toggle the editing state
             setEditing(null);
           } else {
-            setEditing(index); // Set the current row's index as the one being edited
+            setEditing(index);
           }
         
     }
@@ -100,7 +113,7 @@ const TablaReferentes = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
+        if(!referentesData.referentes.find(r => r.referente !== '')) return
         Swal.fire({
             title: '¿Deseas asignar los referentes a esas sedes?',
             icon: 'question',
@@ -127,13 +140,36 @@ const TablaReferentes = (props) => {
 
     const asignarReferentes = async () => {
         try {
-            const seleccion = referentesData.referentes.map(r => {
-                return {
-                    sede: r.sede._id,
-                    referente: r.referente._id,
+            console.log(referentesData.referentes)
+            console.log(props.referentesViejos)
+
+            const nuevosReferentes = referentesData.referentes
+            .filter(r => r.referente !== '' && Object.keys(r.referente).length !== 0)
+            .map(r => {
+                const referenteViejoIndex = props.referentesViejos.findIndex(rv => rv.sede === r.sede._id)
+                console.log(referenteViejoIndex)
+                if(referenteViejoIndex !== -1) {
+                    console.log(r.sede._id)
+                    console.log(props.referentesViejos[referenteViejoIndex].sede)
+                }
+                
+                if(props.referentesViejos[referenteViejoIndex].datos_docente._id !== r.referente.datos_docente._id) {
+                    console.log(r.sede._id)
+                    console.log(r.referente?.datos_docente?._id)
+                    return {
+                        sede: r.sede._id,
+                        referente: r.referente?.datos_docente?._id,
+                    }
                 }
             })
-            await axiosPrivate.post('referente', JSON.stringify(seleccion), {
+            .filter(r => r !== undefined)
+
+            console.log(nuevosReferentes)
+
+            if(nuevosReferentes.length === 0) {
+                throw ({status: 422, msg: 'No se modificó ningún referente de evaluador'})
+            }
+            await axiosPrivate.post('referente', JSON.stringify({seleccion: nuevosReferentes}), {
                 headers: {'Content-Type': 'application/json'},
                 withCredentials: true
             })
@@ -141,9 +177,12 @@ const TablaReferentes = (props) => {
             return true
 
         } catch (err) {
+            console.log(err)
             let msg = ''
-            console.log(JSON.stringify(err.response.data))
-            if(!err?.response){
+            if(err?.status && err?.status === 422) {
+                msg = err.msg
+            }
+            else if(!err?.response){
                 msg = 'El servidor no respondió'
             } else if(err.response?.status === 403) {
                 msg = 'Datos incorrectos intente nuevamente'
@@ -181,10 +220,11 @@ const TablaReferentes = (props) => {
                 <tbody className="table__body">
                     {referentesData && currentTableData.map((referente, index) => {
                         return (
-                            <tr key={referente.referente._id} className="table-body-row">
+                            <tr key={index} className="table-body-row">
                                 {props.headers.map(header => 
                                 {
                                     if(header.value === 'referente') {
+                                        console.log(referente)
                                         return (
                                             <td key={header.value} className="table-body-row__td">
                                                 { 
@@ -202,10 +242,10 @@ const TablaReferentes = (props) => {
                                                         />
                                                     ) 
                                                     :
-                                                    referente.referente === '' ?
+                                                    referente.referente === '' || Object.keys(referente.referente).length === 0 ?
                                                     (<div> - </div>)
                                                     :  (
-                                                    <div>{`${referente.referente.datos_docente.nombre} - ${referente.referente.cuil}`}</div>)
+                                                    <div>{`${referente.referente.datos_docente.nombre} - ${referente.referente.datos_docente.cuil}`}</div>)
                                                 }
                                                 
                                             </td>
@@ -228,7 +268,7 @@ const TablaReferentes = (props) => {
                 </tbody>
             </table>
 
-            {<Pagination currentPage={currentPage} totalCount={referentesData.referentes.length} pageSize={pageSize} onPageChange={page => setCurrentPage(page)} />}
+            {<Pagination currentPage={currentPage} totalCount={referentesData.referentes.length} pageSize={pageSize} onPageChange={page => handlePageChange(page)} />}
             <div className='register-project-form__button'>
                 <Button text='Volver' onClickHandler={handleVolver}/>
                 <Button text='Asignar' onClickHandler={handleSubmit} activo={true}/>
