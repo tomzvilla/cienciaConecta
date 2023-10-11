@@ -35,9 +35,6 @@
         padding-left: 1rem;
         outline: none;
         color: $color-grey-dark;
-
-        
-        
         
 
         &:focus {
@@ -54,7 +51,7 @@
 
 
 
-    &__container > div:not(:first-child) {
+    &__container > div {
         padding: .5rem 0;
         border-bottom: 1px solid $color-grey-dark;
 

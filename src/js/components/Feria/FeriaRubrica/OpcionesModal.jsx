@@ -22,23 +22,26 @@ const OpcionesModal = (props) => {
       ]
 
     const handleSubmit = (e) => {
-        
-
         e.preventDefault()
-        const { isValid } = validateForm({form: opcion, errors, forceTouchErrors: true})
-        if(!isValid) return
-        const prevCriterios = [...formValues.criteriosEvaluacion]
-        const rubricaIndex = prevCriterios.findIndex(rbr => rbr.nombreRubrica === rubrica?.nombreRubrica);
-        const criterioIndex = prevCriterios[rubricaIndex]?.criterios.findIndex(crit => crit.nombre === criterio.nombre);
-        prevCriterios[rubricaIndex]?.criterios[criterioIndex].opciones.push(opcion.nombreOpcion)
+
+        if (opcion.nombreOpcion) {
+            const { isValid } = validateForm({form: opcion, errors, forceTouchErrors: true})
+            if(!isValid) return
+            const prevCriterios = [...formValues.criteriosEvaluacion]
+            const rubricaIndex = prevCriterios.findIndex(rbr => rbr.nombreRubrica === rubrica?.nombreRubrica);
+            const criterioIndex = prevCriterios[rubricaIndex]?.criterios.findIndex(crit => crit.nombre === criterio.nombre);
+            prevCriterios[rubricaIndex]?.criterios[criterioIndex].opciones.push(opcion.nombreOpcion)
+            
+
+
+            setFormValues({...formValues, criteriosEvaluacion: prevCriterios})
+            setOpcion({
+                nombreOpcion: '',
+            })
+
+        }
         
-
-
-        setFormValues({...formValues, criteriosEvaluacion: prevCriterios})
-        setOpcion({
-            nombreOpcion: '',
-        })
-        cerrarModal()
+        //cerrarModal()
         
     }
 
