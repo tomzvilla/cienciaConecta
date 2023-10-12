@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     referentes: [],
     proyectosReferente: [],
+    evaluadoresProyecto: [],
 }
 
 const referentesSlice = createSlice({
@@ -22,6 +23,18 @@ const referentesSlice = createSlice({
         },
         cargarProyectosReferente(state, action) {
             state.proyectosReferente = action.payload
+        },
+        cargarEvaluadores(state, action) {
+            state.evaluadoresProyecto = action.payload
+        },
+        asignarEvaluador(state, action) {
+            const { proyectoId, evaluadorId } = action.payload
+            const prevProyectos = [...state.proyectosReferente]
+            const proyecto = prevProyectos.find(pr => pr._id === proyectoId)
+            if(proyecto.evaluadoresRegionales.find(ev => ev === evaluadorId)) {
+                proyecto.evaluadoresRegionales.push(evaluadorId)
+            }
+            state.proyectosReferente = prevProyectos
         }
     }
 })

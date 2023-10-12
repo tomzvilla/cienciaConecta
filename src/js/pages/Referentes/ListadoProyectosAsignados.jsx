@@ -27,7 +27,6 @@ const ListadoProyectosAsignados = () => {
     const { proyectosMapping } = useCategoriasNiveles({ categoriaData: categoriasData, nivelData: nivelesData, enabled: !loadingCategorias && !loadingNiveles && !isLoading })
 
     if(!isLoading && proyectosData?.proyectos) {
-        
         const proyectos = proyectosMapping(proyectosData?.proyectos)
         dispatch(referentesActions.cargarProyectosReferente(proyectos))
     }

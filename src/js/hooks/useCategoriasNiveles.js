@@ -48,8 +48,29 @@ const useCategoriasNiveles = ({ categoriaData, nivelData, enabled }) => {
         return proyecto
 
     }
+
+    const evaluadorMapping = (evaluadoresData) => {
+        if(!evaluadoresData) return
+        const evaluadores = evaluadoresData.map(e => {
+            const categoriasCompletas = e.categorias.map((categoriaId) => {
+                const categoria = categorias.find((c) => c._id === categoriaId);
+                return categoria ? categoria : undefined;
+            });
+            const nivelesCompletos = e.niveles.map((nivelId) => {
+                const nivel = niveles.find((n) => n._id === nivelId);
+                return nivel ? nivel : undefined;
+            });
+            return {
+                ...e,
+                categorias: categoriasCompletas,
+                niveles: nivelesCompletos,
+            }
+        })
+
+        return evaluadores
+    }
     
-    return { niveles, categorias, proyectosMapping, proyectoMap }
+    return { niveles, categorias, proyectosMapping, proyectoMap, evaluadorMapping }
 
 }
 

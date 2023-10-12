@@ -19,6 +19,7 @@ const LoginForm = () => {
         cuil: '',
         password: ''
       })
+      const [loading, setLoading] = useState(false)
       const { setAuth } = useAuth()
       const {errors, validateForm, onBlurField} = useFormValidator(formValues)
       const navigate = useNavigate()
@@ -63,6 +64,7 @@ const LoginForm = () => {
         try {
           const { cuil, password } = formValues
           const numericCuil = cuil.replace(/\D/g, '');
+          setLoading(true)
           const response = await axios.post(LOGIN_URL, 
             JSON.stringify({cuil: numericCuil, password}),
               {
@@ -71,6 +73,7 @@ const LoginForm = () => {
     
               }
           )
+          setLoading(false)
 
           const accessToken = response?.data?.token
           const roles = response?.data?.roles
@@ -85,6 +88,7 @@ const LoginForm = () => {
           })
           navigate(from, { replace: true })
         } catch (err) {
+          setLoading(false)
           console.log(err.response)
           let msg = ''
           if(!err?.response){
@@ -139,9 +143,15 @@ const LoginForm = () => {
 
             
 
+            {!loading ? 
             <div className='login-form__button'>
                 <Button text='Ingresar' activo={true}/>
             </div>
+            :
+            <div className='login-form__button'>
+                <Button text='Cargando...' activo={true} disabled={true}/>
+            </div>
+            }
 
             <div className='login-form__link-container'>
               <LoginFormLink/>

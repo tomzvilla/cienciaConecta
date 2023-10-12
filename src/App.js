@@ -28,6 +28,7 @@ import ListadoEvaluaciones from './js/pages/Evaluacion/ListadoEvaluaciones'
 import EvaluacionCard from './js/components/Evaluacion/EvaluacionCard'
 import Evaluacion from './js/pages/Evaluacion/Evaluacion'
 import ListadoProyectosAsignados from './js/pages/Referentes/ListadoProyectosAsignados'
+import ProyectoAsignarEvaluadores from './js/pages/Referentes/ProyectoAsignarEvaluadores'
 
 // DEV
 import Card from './js/components/Card/Card'
@@ -85,8 +86,8 @@ function App() {
             </Route>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.RefEvaluador]}/>}>
               {/* Rutas para referentes */}
-              <Route path='/proyectosParaAsignar' element={<ListadoProyectosAsignados/>}/>
-              {/* // colocar en dashboard */}
+              <Route path='/proyectosParaAsignar' element={<ListadoProyectosAsignados />}/>
+              <Route path='/proyectosParaAsignar/asignar/:id' element={<ProyectoAsignarEvaluadores />}/>
             </Route>
             <Route path='*' element={<NotFound/>}/>
           </Route>
