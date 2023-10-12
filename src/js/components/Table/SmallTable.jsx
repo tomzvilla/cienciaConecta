@@ -6,7 +6,12 @@ const SmallTable = (props) => {
 
     return (
         <table className="small-table">
-            <thead className="small-table__header">{props.title}</thead>
+            <thead className="small-table__header">
+                <tr>
+                    <th>{props.title}</th>
+                </tr>
+                
+                </thead>
             <tbody className="small-table__body">
                 {props.data.map((item, index) => {
 

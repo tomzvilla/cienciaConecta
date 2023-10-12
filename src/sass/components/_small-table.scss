@@ -15,10 +15,21 @@
         background-color: $color-primary;
         color: $color-white;
         font-size: 2rem;
-        padding: .5rem 0;
+        
         text-align: center;
         margin-left: -2rem;
         padding-right: 4rem;
+        font-weight: normal;
+
+        & > tr {
+            
+            & > th {
+                padding: .5rem 0;
+                padding-left: 1rem;
+                
+                font-weight: normal;
+            }
+        }
     }
     
     &__tr {
