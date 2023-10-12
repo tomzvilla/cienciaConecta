@@ -63,7 +63,7 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
     const axiosPrivate = useAxiosPrivate()
     const navigate = useNavigate()
     const location = useLocation()
-    const from = location.state?.from || '/myprojects'
+    const from = location.state?.from || '/misProyectos'
 
     const {errors, validateForm, onBlurField} = useFormValidator(formValues)
 
@@ -245,7 +245,7 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
 
         const actualizarProyecto = async () => {
             try {
-                const { title, description, level, category, schoolName, schoolCue, privateSchool, schoolEmail, sede, videoPresentacion, carpetaCampo, informeTrabajo, registroPedagogico, autorizacionImagen, grupoProyecto } = formValues
+                const { title, description, level, category, privateSchool, establecimientoSeleccionado, schoolEmail, sede, videoPresentacion, carpetaCampo, informeTrabajo, registroPedagogico, autorizacionImagen, grupoProyecto } = formValues
                 let response = {}
                 if(instanciaActual === INSTANCIA.Escolar){
                     response = await axiosPrivate.patch(`/proyecto/${formData._id}`, 
@@ -253,9 +253,8 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
                         titulo: title,
                         descripcion: description, 
                         nivel: level, 
-                        categoria: category, 
-                        nombreEscuela: schoolName, 
-                        cueEscuela: schoolCue, 
+                        categoria: category,
+                        establecimientoEducativo: establecimientoSeleccionado._id,
                         privada: privateSchool, 
                         emailEscuela: schoolEmail
                     }),
@@ -283,8 +282,7 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
                         descripcion: description, 
                         nivel: level, 
                         categoria: category, 
-                        nombreEscuela: schoolName, 
-                        cueEscuela: schoolCue, 
+                        establecimientoEducativo: establecimientoSeleccionado._id, 
                         privada: privateSchool, 
                         emailEscuela: schoolEmail,
                         videoPresentacion: videoPresentacion,
@@ -297,7 +295,7 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
                         }
                     )
                     if(response.status === 200){
-                        const responseArchivos = await axiosPrivate.post(`/proyecto/regional/upload/${formData._id}`, pdfs,
+                        await axiosPrivate.post(`/proyecto/regional/upload/${formData._id}`, pdfs,
                         {headers: {'Content-Type': 'multipart/form-data'}})
 
                     }

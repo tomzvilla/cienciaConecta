@@ -1,6 +1,7 @@
 // components
 import Spinner from "../../components/Spinner/Spinner"
 import ActualizarFeriaForm from "../../components/Feria/ActualizarFeriaForm"
+import Metadata from "../../components/Metadata/Metadata"
 // hooks
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
@@ -23,8 +24,12 @@ const ActualizarFeria = () => {
         });
     }
     return (
-        !data || !sedesData || !sedeProvincialData ? (<Spinner />) : (<ActualizarFeriaForm formData={data?.feriaActiva} sedes={sedes} sedeProvincial={sedeProvincialData.sede}/>)
+      <>
+        <Metadata title={'Feria'}/>
+        {!data || !sedesData || !sedeProvincialData ? (<Spinner />) : (<ActualizarFeriaForm formData={data?.feriaActiva} sedes={sedes} sedeProvincial={sedeProvincialData.sede}/>)}
+      </>
     )
+        
 }
 
 export default ActualizarFeria;

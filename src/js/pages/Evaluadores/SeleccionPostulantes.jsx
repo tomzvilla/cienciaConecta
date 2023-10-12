@@ -3,6 +3,7 @@ import Card from "../../components/Card/Card"
 import Spinner from "../../components/Spinner/Spinner"
 import TablaPostulantes from "../../components/TablaPostulantes/TablaPostulantes"
 import BlankState from "../../components/BlankState/BlankState"
+import Metadata from "../../components/Metadata/Metadata"
 // hooks
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
@@ -63,19 +64,23 @@ const SeleccionPostulantes = () => {
     }
 
     return (
-        <div className="seleccion-postulantes">
-            <Card title="Lista de Postulantes" wide={true}>
-                
-                    <h6 className="seleccion-postulantes__text">Seleccioná los postulantes que serán evaluadores durante la feria</h6>
+        <>
+            <Metadata title={'Seleccionar Postulantes'}/>
+            <div className="table-custom-page">
+                <Card title="Lista de Postulantes" wide={true}>
+                    
+                        <h6 className="table-custom-page__text">Seleccioná los postulantes que serán evaluadores durante la feria</h6>
 
-                    {isLoading || !categoriaData || !nivelesData ? 
-                    <Spinner/> 
-                    : !postulaciones ?
-                    <BlankState msg={"Actualmente no hay ninguna postulación. Vuelva más tarde."} /> :
-                    <TablaPostulantes location={location} data={postulaciones} headers={headers} viewPath={'/postulante'}/>
-                    }
-            </Card>
-        </div>
+                        {isLoading || !categoriaData || !nivelesData ? 
+                        <Spinner/> 
+                        : !postulaciones ?
+                        <BlankState msg={"Actualmente no hay ninguna postulación. Vuelva más tarde."} /> :
+                        <TablaPostulantes location={location} data={postulaciones} headers={headers} viewPath={'/postulante'}/>
+                        }
+                </Card>
+            </div>
+        </>
+
     )
 
 }

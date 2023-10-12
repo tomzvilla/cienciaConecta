@@ -49,32 +49,3 @@ const NuevoCriterio = (props) => {
 }
 
 export default NuevoCriterio;
-
-
-{/* <div className='sedes-feria-form__input'>
-                <InputField
-                    label='Criterio: ' 
-                    name='nombreCriterio'
-                    type={'text'}
-                    onChange={handleChange}
-                    onBlur={onBlurField}
-                    value={rubricaValues.nombreCriterio}
-                    errors={errors.nombreCriterio}
-                />
-            </div>
-            <div className='sedes-feria-form__input'>
-                <InputField
-                    label='Ponderacion: ' 
-                    name='ponderacion'
-                    type={'number'}
-                    onChange={handleChange}
-                    onBlur={onBlurField}
-                    value={rubricaValues.ponderacion}
-                    errors={errors.ponderacion}
-                />
-            </div>
-            <Button 
-                text={'Agregar'} 
-                onClickHandler={handleSubmit} 
-                activo={true}
-            /> */}

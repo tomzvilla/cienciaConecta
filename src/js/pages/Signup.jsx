@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import SignupForm from '../components/Signup/SignupForm'
 import SignupProgress from '../components/Signup/SignupProgress'
 import SignupConfirm from '../components/Signup/SignupConfirm'
+import Metadata from '../components/Metadata/Metadata'
 
 import axios from '../../api/axios'
 import Swal from 'sweetalert2'
@@ -143,7 +144,7 @@ const Signup = () => {
     const pasarACuenta = true
 
 
-    if (avanzar === false && pasarACuenta) {
+    if (avanzar === false && pasarACuenta && datos.isValid) {
       setAvanzar(true)   
     }
 
@@ -154,20 +155,20 @@ const Signup = () => {
   }
 
   const handleVolver = (e) => {
+    e.preventDefault()
     if (confirmar){
       setConfirmar(false)
     }
     else if (avanzar === true) {
       setAvanzar(false)
     }
-
-    
-
   }
       
  
   return (
-    <div className='signup'>
+    <>
+      <Metadata title={'Registrarme'}/>
+      <div className='signup'>
       <SignupProgress avanzar={avanzar} confirmar={confirmar}/>
       
       {!confirmar ?
@@ -176,7 +177,8 @@ const Signup = () => {
                   errors={errors} onSubmit={handleSubmit} handleAvanzar={handleAvanzar} handleVolver={handleVolver}/>
                   : <SignupConfirm  formValues={formValues} handleVolver={handleVolver} handleSubmit={handleSubmit}/>
       }
-    </div>
+      </div>
+    </>
   )
 }
 

@@ -11,7 +11,7 @@ const DashboardInicioFeria = (props) => {
             <DashboardCard 
                 src={imagenProyecto}
                 title={'Inscribí tu proyecto'}
-                link={'/projects'}
+                link={'/inscribirProyecto'}
             />
             <DashboardCard 
                 src={imagenEvaluador}

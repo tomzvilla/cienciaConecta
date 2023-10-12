@@ -6,7 +6,7 @@ import useAxiosFetch from "../../hooks/useAxiosFetch"
 // components
 import ProjectCard from "../../components/Projects/ProjectCard"
 import Spinner from "../../components/Spinner/Spinner"
-
+import Metadata from "../../components/Metadata/Metadata"
 import capitalizeEachLetter from "../../utils/utils"
 
 const VisualizarProyecto = () => {
@@ -38,7 +38,7 @@ const VisualizarProyecto = () => {
 
     return (
         <>
-            {/* <h1> Feria de Ciencia y Tecnologia 2024</h1> */}
+            <Metadata title={'Proyecto'}/>
             {!data ? <Spinner/> : <ProjectCard formData={project}/>}
         </>
     )

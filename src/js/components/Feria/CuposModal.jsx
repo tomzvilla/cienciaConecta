@@ -14,6 +14,8 @@ const CuposModal = (props) => {
     
     // verifica si ya existen cupos para la sede
 
+    
+
     // Cargar niveles
     
     let niveles = []
@@ -28,12 +30,39 @@ const CuposModal = (props) => {
             return 0;
           });
     }
+    const nivelesSede = sede.niveles
+    niveles.forEach((nivel, i) => {
+        if (!nivelesSede.inicial) {
+            if (nivel.codigo === "1") delete niveles[i]
+        }
+
+        if (!nivelesSede.primario) {
+            if (nivel.codigo === "2") delete niveles[i]
+            if (nivel.codigo === "3") delete niveles[i]
+            
+        }
+
+        if (!nivelesSede.secundario) {
+            if (nivel.codigo === "4") delete niveles[i]
+            if (nivel.codigo === "5") delete niveles[i]
+        }
+
+        if (!nivelesSede.terciario) {
+            if (nivel.codigo === "6") delete niveles[i]
+            if (nivel.codigo === "7") delete niveles[i]
+        }
+    })
+
+    //console.log(niveles)
 
     const generarNiveles = () => {
         const prevCupos = []
         niveles.forEach((nivel) => {
             if(nivel._id !== 0 && !prevCupos[nivel._id]) prevCupos[nivel._id] = '0'
         })
+
+        
+
         setCupos(prevCupos)
     }
 

@@ -1,6 +1,7 @@
 // Components
 import LoginForm from '../components/LoginForm/LoginForm'
-
+import Metadata from '../components/Metadata/Metadata';
+import Card from '../components/Card/Card';
 // hooks
 
 const LoginPage = () => {
@@ -8,7 +9,11 @@ const LoginPage = () => {
 
   return (
     <>
-      <LoginForm />
+      <Metadata title={'Login'}/>
+      <Card title={'Iniciar sesión'}>
+        <LoginForm />
+      </Card>
+
     </>
   )
 }

@@ -64,6 +64,12 @@ html {
     font-size: 3rem;
   }
   
+  textarea {
+    resize: none;
+    font-family: $font-primary;
+    font-weight: 300;
+    overflow: auto;
+  }
   
   html, body, div, span, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,

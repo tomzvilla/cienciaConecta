@@ -1,7 +1,4 @@
 // components
-import InputField from "../../InputField/InputField"
-import CriteriosTable from "./CriteriosTable"
-import Button from "../../Button/Button"
 import ImageButton from "../../ImageButton/ImageButton"
 
 // hooks
