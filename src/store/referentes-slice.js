@@ -20,9 +20,16 @@ const referentesSlice = createSlice({
             prevReferentes[referenteIndex].referente = nuevoReferente.referente
             state.referentes = prevReferentes
         },
+        borrarReferente(state, action) {
+            const prevReferentes = [...state.referentes]
+            const referenteIndex = prevReferentes.findIndex(r => r.sede._id === action.payload._id)
+            prevReferentes[referenteIndex].referente = {}
+            state.referentes = prevReferentes
+
+        },
         cargarProyectosReferente(state, action) {
             state.proyectosReferente = action.payload
-        }
+        },
     }
 })
 
