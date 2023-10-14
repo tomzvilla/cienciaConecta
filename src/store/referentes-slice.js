@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     referentes: [],
+    proyectosReferente: [],
 }
 
 const referentesSlice = createSlice({
@@ -25,6 +26,9 @@ const referentesSlice = createSlice({
             prevReferentes[referenteIndex].referente = {}
             state.referentes = prevReferentes
 
+        },
+        cargarProyectosReferente(state, action) {
+            state.proyectosReferente = action.payload
         },
     }
 })

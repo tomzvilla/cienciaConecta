@@ -8,10 +8,13 @@ const useRefreshToken = () => {
     baseURL: process.env.REACT_APP_URL_API,
   })
 
+  console.log(process.env.REACT_APP_URL_API)
+
   const refresh = async () => {
     const response = await axiosRefresh.get('/auth/refresh', {
         withCredentials: true
     })
+    console.log(response)
     setAuth(prev => {
         return {...prev, roles:response.data.roles, accessToken: response.data.token}
     })
