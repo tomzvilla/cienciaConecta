@@ -4,12 +4,15 @@ import ImageButton from "../ImageButton/ImageButton"
 import ImageLink from "../ImageLink/ImageLink"
 import Badge from "../Badge/Badge"
 import GenericBadge from "../Badge/GenericBadge"
+import BlankState from "../BlankState/BlankState"
 // hooks
 import { useState, useMemo } from "react"
 import useUtils from "../../hooks/useUtils"
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 import { referentesActions } from "../../../store/referentes-slice"
+
+import Swal from "sweetalert2"
 
 const headers = [
     {name: 'Nombre', value: 'nombre'},
@@ -24,6 +27,7 @@ const pageSize = 10
 const ListadoEvaluadores = (props) => {
 
     const evaluadores = useSelector(state => state.referentes.evaluadoresProyecto)
+    const proyecto = useSelector(state => state.referentes.proyectoEditando)
 
     const dispatch = useDispatch()
 
@@ -32,17 +36,30 @@ const ListadoEvaluadores = (props) => {
     // pagination state
     const [currentPage, setCurrentPage] = useState(1);
 
-    const currentTableData = useMemo(() => {
+    const calculateCurrentTableData = () => {
         const firstPageIndex = (currentPage - 1) * pageSize;
         const lastPageIndex = firstPageIndex + pageSize;
         return evaluadores.slice(firstPageIndex, lastPageIndex);
-    }, [currentPage]);
+    };
+      
+    const currentTableData = calculateCurrentTableData();
 
     const handleAdd = (idEvaluador) => {
-        dispatch(referentesActions.asignarEvaluador({idEvaluador, idProyecto: props.idProyecto}))
+        if(proyecto.evaluadoresRegionales.length === 3) {
+            Swal.fire({
+                title: 'Oops!',
+                icon: 'warning',
+                text: 'No puedes asignar más de 3 evaluadores por proyecto',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#00ACE6',
+            })
+            return
+        }
+        dispatch(referentesActions.asignarEvaluador(idEvaluador))
     }
 
     return (
+        evaluadores.length !== 0 && evaluadores.some(ev => ev.asignado !== true) ?
         <>
             <table className="table">
                 <thead className="table__header">
@@ -58,8 +75,8 @@ const ListadoEvaluadores = (props) => {
                     </tr>
                 </thead>
                 <tbody className="table__body">
-                    {evaluadores && currentTableData.map((evaluador, index) => {
-                        return (
+                    {evaluadores && currentTableData.map((evaluador) => {
+                        if(!evaluador.asignado) return (
                             <tr key={evaluador._id} className="table-body-row">
                                 {headers.map(header => {
                                     if(header.name === 'Categorías'){
@@ -94,7 +111,6 @@ const ListadoEvaluadores = (props) => {
                                         )
                                     }
                                     else if(header.name === 'CUIL') {
-                                        console.log(formatCuil(evaluador.datos_docente[`${header?.value}`]))
                                         return (<td key={header.name} className="table-body-row__td" >{formatCuil(evaluador.datos_docente[`${header?.value}`])}</td>)
                                     }
                                     else return (
@@ -115,6 +131,8 @@ const ListadoEvaluadores = (props) => {
             </table>
             <Pagination currentPage={currentPage} totalCount={evaluadores .length} pageSize={pageSize} onPageChange={page => setCurrentPage(page)} />
         </>
+        :
+        <BlankState msg='No hay evaluadores para asignar' />
     )
 }
 

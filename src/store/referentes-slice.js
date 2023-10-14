@@ -4,6 +4,7 @@ const initialState = {
     referentes: [],
     proyectosReferente: [],
     evaluadoresProyecto: [],
+    proyectoEditando: {},
 }
 
 const referentesSlice = createSlice({
@@ -23,20 +24,33 @@ const referentesSlice = createSlice({
         },
         cargarProyectosReferente(state, action) {
             state.proyectosReferente = action.payload
+            state.proyectoEditando = {}
         },
         cargarEvaluadores(state, action) {
             state.evaluadoresProyecto = action.payload
         },
+        cargarProyectoEditando(state, action) {
+            state.proyectoEditando = action.payload
+        },
         asignarEvaluador(state, action) {
-            const { proyectoId, evaluadorId } = action.payload
-            const prevProyectos = [...state.proyectosReferente]
-            const proyecto = prevProyectos.find(pr => pr._id === proyectoId)
-            if(proyecto.evaluadoresRegionales.find(ev => ev === evaluadorId)) {
-                proyecto.evaluadoresRegionales.push(evaluadorId)
-            }
-            state.proyectosReferente = prevProyectos
+            const prevProyecto = {...state.proyectoEditando}
+            const prevEvaluadores = [...state.evaluadoresProyecto]
+            prevProyecto.evaluadoresRegionales.push(action.payload)
+            const evaluador = prevEvaluadores.find(ev => ev._id === action.payload)
+            evaluador.asignado = true
+            state.proyectoEditando = prevProyecto
+            state.evaluadoresProyecto = prevEvaluadores
+        },
+        desasignarEvaluador(state, action) {
+            const prevProyecto = {...state.proyectoEditando}
+            const prevEvaluadores = [...state.evaluadoresProyecto]
+            prevProyecto.evaluadoresRegionales = prevProyecto.evaluadoresRegionales.filter(ev => ev !== action.payload)
+            const evaluador = prevEvaluadores.find(ev => ev._id === action.payload)
+            evaluador.asignado = false
+            state.evaluadoresProyecto = prevEvaluadores
+            state.proyectoEditando = prevProyecto
         }
-    }
+     }
 })
 
 export const referentesActions = referentesSlice.actions

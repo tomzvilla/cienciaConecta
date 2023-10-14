@@ -1,8 +1,11 @@
 // components
 import ImageButton from "../ImageButton/ImageButton"
+import BlankState from "../BlankState/BlankState"
 
 // hooks
 import useUtils from "../../hooks/useUtils"
+import { useDispatch } from "react-redux"
+import { referentesActions } from "../../../store/referentes-slice"
 const headers = [
     {name: 'Nombre', value: 'nombre'},
     {name: 'CUIL', value: 'cuil'},
@@ -11,12 +14,14 @@ const headers = [
 const TablaEvaluadoresAsignados = (props) => {
 
     const { formatCuil } = useUtils()
-    console.log(props.evaluadoresAsignados)
+    const dispatch = useDispatch()
 
-    const handleBorrar = () => {}
+    const handleBorrar = (idEvaluador) => {
+        dispatch(referentesActions.desasignarEvaluador(idEvaluador))
+    }
 
     return (
-        
+        props.evaluadoresAsignados.length !== 0 ?
         <table className="table">
             <thead className="table__header">
                 <tr>
@@ -56,6 +61,8 @@ const TablaEvaluadoresAsignados = (props) => {
                 )}
             </tbody>
         </table>
+        :
+        <BlankState msg='No hay evaluadores asignados' />
     )
 }
 

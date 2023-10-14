@@ -7,11 +7,9 @@ import { useParams } from "react-router-dom"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useCategoriasNiveles from "../../hooks/useCategoriasNiveles"
-import { useLocation, useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 import { referentesActions } from "../../../store/referentes-slice"
-import { useEffect, useState } from "react"
 
 const ProyectoAsignarEvaluadores = () => {
 
@@ -21,6 +19,9 @@ const ProyectoAsignarEvaluadores = () => {
 
 
     let proyecto = useSelector(state => state.referentes.proyectosReferente)?.find(p => p._id === id)
+    if(proyecto) {
+        dispatch(referentesActions.cargarProyectoEditando(proyecto))
+    }
     // Si recarga la pagina se hacen estas consultas
     const { data: proyectoData, isLoading } = useAxiosFetch(`/proyecto/${id}`, axiosPrivate, !!proyecto)
     const { data: categoriasData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate)
@@ -31,10 +32,17 @@ const ProyectoAsignarEvaluadores = () => {
     
     if(!isLoading && proyectoData?.proyecto) {
         proyecto = proyectoMap(proyectoData)
+        dispatch(referentesActions.cargarProyectoEditando(proyecto))
     }
-
-    if(!loadingEvaluadores && evaluadoresData) {
-        const evaluadores = evaluadorMapping(evaluadoresData.evaluadores).sort((a, b) => b.coincidencia - a.coincidencia)
+    let evaluadores = []
+    if(!loadingEvaluadores && evaluadoresData && proyecto) {
+        evaluadores = evaluadorMapping(evaluadoresData.evaluadores).sort((a, b) => b.coincidencia - a.coincidencia).map(ev => {
+            const isAsigned = proyecto.evaluadoresRegionales.some(e => e === ev._id)
+            return {
+                ...ev,
+                asignado: isAsigned
+            }
+        })
         dispatch(referentesActions.cargarEvaluadores(evaluadores))
     }
 
@@ -43,7 +51,7 @@ const ProyectoAsignarEvaluadores = () => {
         (!proyecto || loadingEvaluadores) ?
         <Spinner />
         :
-        <AsignarEvaluadores proyecto={proyecto} evaluadores={evaluadoresData?.evaluadores} />
+        <AsignarEvaluadores evaluadores={evaluadores} />
     )
 }
 

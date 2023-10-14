@@ -81,13 +81,16 @@ function App() {
               <Route path='/verListaFerias' element={<VisualizarListadoFerias/>}/>
               <Route path='/editarFeria' element={<ActualizarFeria/>}/> 
               <Route path='/seleccionarPostulantes' element={<SeleccionPostulantes/>}/> 
-              <Route path='/postulante/:id' element={<VisualizarPostulante/>}/>
               {/* // colocar en dashboard */}
             </Route>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.RefEvaluador]}/>}>
               {/* Rutas para referentes */}
               <Route path='/proyectosParaAsignar' element={<ListadoProyectosAsignados />}/>
               <Route path='/proyectosParaAsignar/asignar/:id' element={<ProyectoAsignarEvaluadores />}/>
+            </Route>
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.RefEvaluador, ROLES.ComAsesora]}/>}>
+              {/* Rutas para referentes */}
+              <Route path='/postulante/:id' element={<VisualizarPostulante/>}/>
             </Route>
             <Route path='*' element={<NotFound/>}/>
           </Route>

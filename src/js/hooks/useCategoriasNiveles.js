@@ -64,6 +64,7 @@ const useCategoriasNiveles = ({ categoriaData, nivelData, enabled }) => {
                 ...e,
                 categorias: categoriasCompletas,
                 niveles: nivelesCompletos,
+                asignado: false,
             }
         })
 
