@@ -27,8 +27,7 @@ import VisualizarPostulante from './js/components/Postulacion/VisualizarPostulan
 import ListadoEvaluaciones from './js/pages/Evaluacion/ListadoEvaluaciones'
 import EvaluacionCard from './js/components/Evaluacion/EvaluacionCard'
 import Evaluacion from './js/pages/Evaluacion/Evaluacion'
-
-
+import AsignarReferentes from './js/pages/Referentes/AsignarReferentes'
 // DEV
 import Card from './js/components/Card/Card'
 import AuthVerify from './js/components/PersistLogin/AuthVerify'
@@ -79,9 +78,13 @@ function App() {
               <Route path='/verFeria' element={<VisualizarFeriaActual/>}/> 
               <Route path='/verListaFerias' element={<VisualizarListadoFerias/>}/>
               <Route path='/editarFeria' element={<ActualizarFeria/>}/> 
-              <Route path='/seleccionarPostulantes' element={<SeleccionPostulantes/>}/> 
+              {/* Rutas para postulantes */}
+              <Route path='/seleccionarPostulantes' element={<SeleccionPostulantes/>}/>
               <Route path='/postulante/:id' element={<VisualizarPostulante/>}/>
-              {/* // colocar en dashboard */}
+              {/* Rutas para referentes */}
+              <Route path='/asignarReferentes' element={<AsignarReferentes/>}/>
+
+
             </Route>
             <Route path='*' element={<NotFound/>}/>
           </Route>
