@@ -156,7 +156,7 @@ const TablaPostulantes = (props) => {
                                                     return (<Badge key={c._id} type={c} />)}})}
 
                                                     {
-                                                    postulacion.niveles.length > 3 ? <GenericBadge text="Más..."/> : ""
+                                                    postulacion.categorias.length > 3 ? <GenericBadge text="Más..."/> : ""
 
 
                                                 }   

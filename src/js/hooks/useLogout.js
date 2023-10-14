@@ -8,9 +8,11 @@ const useLogout= () => {
     const logout = async () => {
         setAuth({})
         try {
-            await axios('/auth/logout', {
-                withCredentials: true
+            const res = await axios.get('/auth/logout', {
+                withCredentials: true,
+                credentials: "include",
             })
+            console.log(res)
         } catch (err) {
             console.log(err)
         }
