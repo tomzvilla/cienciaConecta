@@ -70,9 +70,9 @@ const TablaReferentes = (props) => {
             referente.datos_docente = {
                 ...referente.datos_docente,
                 cuil: referente.cuil,
-                _id: referente.idDocente,
             }
         }
+        
         dispatch(referentesActions.actualizarReferente({
             sede: sede,
             referente: referente,
@@ -84,10 +84,15 @@ const TablaReferentes = (props) => {
     const editarReferente = (index) => {
         if (editing === index) {
             setEditing(null);
-          } else {
+        } else {
             setEditing(index);
-          }
-        
+        } 
+    }
+
+    const borrarReferente = (sede) => {
+        dispatch(referentesActions.borrarReferente(sede))
+        setEditing(null)
+        setFocusedInput(null) 
     }
 
     const handleVolver = (e) => {
@@ -140,19 +145,13 @@ const TablaReferentes = (props) => {
     const asignarReferentes = async () => {
         try {
 
-
-            const nuevosReferentes = referentesData.referentes
-            .filter(r => r.referente !== '' && Object.keys(r.referente).length !== 0)
-            .map(r => {
-                const referenteViejoIndex = props.referentesViejos.findIndex(rv => rv.sede === r.sede._id)
-                if(props.referentesViejos[referenteViejoIndex].datos_docente._id !== r.referente.datos_docente._id) {
-                    return {
-                        sede: r.sede._id,
-                        referente: r.referente?.datos_docente?._id,
-                    }
+            const nuevosReferentes = referentesData.referentes.map(r => {
+                const idDocente = r.referente?.idDocente ?? r.referente.datos_docente?._id
+                return {
+                    sede: r.sede._id,
+                    referente: Object.keys(r.referente).length === 0 ? null : idDocente
                 }
             })
-            .filter(r => r !== undefined)
 
             if(nuevosReferentes.length === 0) {
                 throw ({status: 422, msg: 'No se modificó ningún referente de evaluador'})
@@ -246,6 +245,10 @@ const TablaReferentes = (props) => {
                                 <td className="table-body-row__td table-body-row__td--actions">
                                     <ImageButton callback={() => editarReferente(index)} small={true} alt="Editar" src={require("../../../assets/pencil.png")}/>
                                 </td>
+                                <td className="table-body-row__td table-body-row__td--actions">
+                                    <ImageButton callback={() => borrarReferente(referente.sede)} small={true} alt="Borrar" src={require("../../../assets/x.png")}/>
+                                </td>
+                                
                                 
                             </ tr>
                         )

@@ -30,7 +30,7 @@ const Pagination = ({onPageChange, totalCount, currentPage, pageSize, siblingCou
                     )
                 }
                 return (
-                    <PaginationButton clave={pageNumber} onClick={() => onPageChange(pageNumber)} text={pageNumber} current={pageNumber === currentPage }/>
+                    <PaginationButton key={pageNumber} clave={pageNumber} onClick={() => onPageChange(pageNumber)} text={pageNumber} current={pageNumber === currentPage }/>
                 )
             })}
             <PaginationButton onClick={nextPage} disabled={currentPage === lastPage} text="Siguiente"/>

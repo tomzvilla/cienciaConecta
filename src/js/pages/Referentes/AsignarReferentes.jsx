@@ -25,6 +25,10 @@ const AsignarReferentes = () => {
     const { data: referentesData, isLoading: isLoadingReferentes} = useAxiosFetch(`/referente/asignados`, axiosPrivate)
     const [loadingMapping, setLoadingMapping] = useState(true)
 
+    if(!isLoadingDocentes) {
+        console.log(docenteData)
+    }
+
     useEffect(() => {
         const mapReferentes = () => {
             return data.sedes.map(s => {
@@ -48,7 +52,7 @@ const AsignarReferentes = () => {
         <Spinner /> 
         :
         <Card title={'Asignar Referentes a Sedes'} wide={true}>
-            <TablaReferentes sedes={data?.sedes} usuarios={docenteData?.usuarios} headers={headers} referentesViejos={referentesData?.referentes}/>
+            <TablaReferentes sedes={data?.sedes} usuarios={docenteData?.usuarios} headers={headers}/>
         </Card>
     )
 }
