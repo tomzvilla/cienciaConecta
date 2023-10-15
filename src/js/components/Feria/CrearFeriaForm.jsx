@@ -55,7 +55,7 @@ const CrearFeriaForm = (props) => {
         errorRubrica:  false,
     })
 
-    const [etapaActual, setEtapaActual] = useState(ETAPAS.Datos)
+    const [etapaActual, setEtapaActual] = useState(ETAPAS.SedeProvincial)
     const navigate = useNavigate()
     const location = useLocation()
     const from = location.state?.from?.pathname || '/dashboard'
@@ -79,7 +79,8 @@ const CrearFeriaForm = (props) => {
         if(etapaActual === ETAPAS.SedesRegionales) fieldsToExclude = ['criteriosEvaluacion', 'nombreRubrica']
         if(etapaActual === ETAPAS.SedeProvincial) fieldsToExclude = ['criteriosEvaluacion', 'nombreRubrica']
         if(etapaActual === ETAPAS.Criterios) fieldsToExclude = []
-        const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true, fieldsToExclude: fieldsToExclude})
+        // const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true, fieldsToExclude: fieldsToExclude})
+        const isValid = true
         if(etapaActual === ETAPAS.Datos & isValid) setEtapaActual(ETAPAS.Instancias)
         if(etapaActual === ETAPAS.Instancias & isValid) setEtapaActual(ETAPAS.SedesRegionales)
         if(etapaActual === ETAPAS.SedesRegionales & isValid) {

@@ -1,108 +1,41 @@
 // components
 import ImageButton from "../../ImageButton/ImageButton"
-
+import Table from "../../Table/Table"
+import NuevoCriterio from "./NuevoCriterio"
 // hooks
 import { useState } from "react"
 import { useFormValidator } from "../../../hooks/useFormValidator"
-import Table from "../../Table/Table"
-import NuevoCriterio from "./NuevoCriterio"
+import { useDispatch, useSelector } from "react-redux"
+import { feriaActions } from "../../../../store/feria-slice"
+
+const headers = [
+    {name: 'Criterios', value: 'nombre'},
+    {name: 'Ponderación', value: 'ponderacion'},
+]
 
 const FeriaRubricaCard = (props) => {
 
-    const { rubrica, handleDeleteRubrica, formValues, setFormValues, abrirOpciones } = props
+    const { rubrica, abrirOpciones } = props
+    const dispatch = useDispatch()
 
-    const [rubricaValues, setRubricaValues] = useState({
-        nombreCriterio: '',
-        ponderacion: ''
-    })
-    let suma = 0
-    if(rubrica.criterios.length !== 0){
-        rubrica.criterios.forEach(c => {
-            suma += c.ponderacion
-        })
-    }
-    
+    const sumarPonderacionesCriterios = () => {
+        let suma = 0;
+        rubrica?.criterios?.forEach((criterio) => {
+            suma += parseInt(criterio.ponderacion); 
+        });
+        return suma;
+    };
 
-    const [sumaPonderacion, setSumaPonderacion ] = useState(suma)
- 
-    const { validateForm, onBlurField, errors} = useFormValidator(rubricaValues)
+    const ponderacionesCriterios = sumarPonderacionesCriterios()
 
-    const headers = [
-        {name: 'Criterios', value: 'nombre'},
-        {name: 'Ponderación', value: 'ponderacion'},
-      ]
-
-    const handleSubmit = (e) => {
+    const handleBorrarCriterio = (e, item) => {
         e.preventDefault()
-        const { isValid } = validateForm({form: rubricaValues, errors, forceTouchErrors: true})
-        if(!isValid) return
-        const prevCriterios = [...formValues.criteriosEvaluacion]
-        let sumaPonderada = 0
-        let error = false
-        prevCriterios.forEach((r) =>{
-            if(r.nombreRubrica === rubrica.nombreRubrica) {
-                // if(c.criterios.find(crt => crt.nombre === rubricaValues.nombreCriterio)) {return}
-                r.criterios.push({ nombre: rubricaValues.nombreCriterio, ponderacion: Number(rubricaValues.ponderacion), opciones: [],})
-                r.criterios.forEach((criterio) => {sumaPonderada += criterio.ponderacion})
-            }
-        })
-        if(parseFloat(sumaPonderada).toFixed(3) !== parseFloat('1').toFixed(3) ) error = true 
-        setSumaPonderacion(parseFloat(sumaPonderada).toFixed(3))
-        setFormValues({...formValues, criteriosEvaluacion: prevCriterios, errorSumaPonderada: error})
-        setRubricaValues({
-            nombreCriterio: '',
-            ponderacion: ''
-        })
-        
-    }
-
-    const handleDeleteCriterio = (e, nombreCriterio) => {
-        e.preventDefault()
-        const prevCriterios = [...formValues.criteriosEvaluacion]
-        const rubricaIndex = prevCriterios.findIndex(rbr => rbr.nombreRubrica === rubrica.nombreRubrica);
-        const criterioIndex = prevCriterios[rubricaIndex].criterios.findIndex(criterio => criterio.nombre === nombreCriterio);
-      
-        prevCriterios[rubricaIndex].criterios = prevCriterios[rubricaIndex].criterios.filter((_, index) => index !== criterioIndex);
-
-        let sumaPonderada = 0
-        let error = false
-        prevCriterios[rubricaIndex].criterios.forEach(c => {
-            sumaPonderada += c.ponderacion
-        })
-
-        if(parseFloat(sumaPonderada).toFixed(3) !== parseFloat('1').toFixed(3) ) error = true
-        setSumaPonderacion(parseFloat(sumaPonderada).toFixed(3))
-        
-        setFormValues({...formValues, criteriosEvaluacion: prevCriterios, errorSumaPonderada: error})
-        setRubricaValues({
-            nombreCriterio: '',
-            ponderacion: ''
-        })
-    }
-
-    const handleChange = (e) => {
-        const {name, value} = e.target
-        const nextRubricaValue = {
-            ...rubricaValues,
-            [name]: value
-        }
-        setRubricaValues(nextRubricaValue)
-        if (errors[name].dirty) {
-            validateForm({form: nextRubricaValue, errors, name})
-        }
-    }
-
-    const handleBorrar = (e) => {
-        const nombre = e.target.parentNode.parentNode.parentNode.children[0].firstChild.data
-        e.preventDefault()
-        handleDeleteCriterio(e, nombre)
+        dispatch(feriaActions.borrarCriterio({rubrica, criterio: item}))
     }
 
     const handleBorrarRubrica = (e) => {
-        const nombre = e.target.parentNode.parentNode.firstChild.innerText
-        //const nombre = e.target.parentNode.parentNode.parentNode.children[0].firstChild.data
         e.preventDefault()
-        handleDeleteRubrica(e, nombre)
+        dispatch(feriaActions.borrarRubrica(rubrica))
     }
 
 
@@ -124,34 +57,27 @@ const FeriaRubricaCard = (props) => {
                     small={true}
                 />
             </div>
+            <div>
+                Ponderación: {rubrica.ponderacionRubrica}
+            </div>
             
             <div className="feria-rubrica-card__table-container">
                 <Table
                     modal={handleOpciones}
                     modalTitle="Opciones"
-                    callback={handleBorrar}
+                    callback={handleBorrarCriterio}
                     headers={headers}
                     data={rubrica.criterios}
                 />
             </div>
 
-            
-
-            {rubrica.criterios.length >= 1 && parseFloat(sumaPonderacion).toFixed(3) !== parseFloat('1').toFixed(3) ? 
-            <p className="feria-rubrica-card__error">La suma de la ponderación de los criterios debe dar 1</p> : null}
+            {rubrica.criterios?.length >= 1 && ponderacionesCriterios !== 100 ? 
+            <p className="feria-rubrica-card__error">La suma de la ponderación de los criterios debe dar 100</p> : null}
 
 
             <div className="feria-rubrica-card__nuevo-container">
-                <NuevoCriterio
-                    handleSubmit={handleSubmit} handleChange={handleChange} 
-                    onBlurField={onBlurField} nombreCriterio={rubricaValues.nombreCriterio} 
-                    ponderacion={rubricaValues.ponderacion}
-                    errors={errors}
-                />
-
-
+                <NuevoCriterio rubrica={rubrica} />
             </div>
-            
             
         </div>
     )
