@@ -41,7 +41,7 @@ const RubricasFeriaForm = (props) => {
             {showModal && 
                 <Modal
                     title="Datos de la Opción"
-                    component={<OpcionesModal formValues={formValues} setFormValues={setFormValues} cerrarModal={cerrarModal} criterio={selectedCriterio} rubrica={selectedRubrica} />}
+                    component={<OpcionesModal criterio={selectedCriterio} rubrica={selectedRubrica} />}
                     setIsOpen={setShowModal}
                 />}
 
@@ -52,12 +52,7 @@ const RubricasFeriaForm = (props) => {
                         <FeriaRubricaCard 
                             key={index}
                             rubrica={r} 
-                            handleChange={handleChange}
                             abrirOpciones={abrirOpciones}
-                            onBlurField={onBlurField}
-                            formValues={formValues}
-                            setFormValues={setFormValues}
-                            errors={errors}
                         />
                     )
                 )}

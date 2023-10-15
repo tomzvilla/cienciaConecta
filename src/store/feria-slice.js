@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialState = {
     rubricas: [],
@@ -29,6 +29,22 @@ const feriaSlice = createSlice({
             const prevRubricas = [...state.rubricas]
             const prevRubrica = prevRubricas.find(r => r.nombreRubrica === rubrica.nombreRubrica)
             prevRubrica.criterios = prevRubrica.criterios.filter(r => r.nombre !== criterio.nombre)
+            state.rubricas = prevRubricas
+        },
+        agregarOpcion(state, action) {
+            const {rubrica, criterio, opcion} = action.payload
+            const prevRubricas = [...state.rubricas]
+            const prevRubrica = prevRubricas.find(r => r.nombreRubrica === rubrica.nombreRubrica)
+            const prevCriterio = prevRubrica.criterios.find(c => c.nombre === criterio.nombre)
+            prevCriterio.opciones.push(opcion)
+            state.rubricas = prevRubricas
+        },
+        borrarOpcion(state, action) {
+            const {rubrica, criterio, opcion} = action.payload
+            const prevRubricas = [...state.rubricas]
+            const prevRubrica = prevRubricas.find(r => r.nombreRubrica === rubrica.nombreRubrica)
+            const prevCriterio = prevRubrica.criterios.find(c => c.nombre === criterio.nombre)
+            prevCriterio.opciones = prevCriterio.opciones.filter(o => o.nombre !== opcion.nombre)
             state.rubricas = prevRubricas
         },
     }
