@@ -6,9 +6,16 @@ import postulacionesSlice from "./postulaciones-slice";
 import evaluacionSlice from "./evaluacion-slice";
 import uiSlice from "./ui-slice";
 import referentesSlice from "./referentes-slice";
+import loginSlice from "./login-slice";
 
 const store = configureStore({
-    reducer: { postulaciones: postulacionesSlice.reducer, evaluacion: evaluacionSlice.reducer, ui: uiSlice.reducer, referentes: referentesSlice.reducer }
+    reducer: { 
+        postulaciones: postulacionesSlice.reducer, 
+        evaluacion: evaluacionSlice.reducer, 
+        ui: uiSlice.reducer, 
+        referentes: referentesSlice.reducer,
+        login: loginSlice.reducer,
+    }
 })
 
 export default store

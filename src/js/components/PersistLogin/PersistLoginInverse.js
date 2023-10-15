@@ -4,7 +4,11 @@ import useRefreshToken from "../../hooks/useRefreshToken"
 import useAuth from "../../hooks/useAuth"
 import Spinner from "../Spinner/Spinner"
 
+import { useSelector } from "react-redux"
+
 const PersistLoginInverse = () => {
+
+    const isLoggingOut = useSelector(state => state.login.isLoggingOut)
 
     // const [openModal, closeModal, modalIsOpen] = useOutletContext()
     const [openModal, closeModal] = useState(5)
@@ -17,7 +21,9 @@ const PersistLoginInverse = () => {
       let isMounted = true
       const verifyRefreshToken = async () => {
         try {
-          await refresh()
+          if(!isLoggingOut) {
+            await refresh()
+          } 
         } catch (err) {
           console.error(err)
         } finally {
