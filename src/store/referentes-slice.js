@@ -49,7 +49,14 @@ const referentesSlice = createSlice({
             evaluador.asignado = false
             state.evaluadoresProyecto = prevEvaluadores
             state.proyectoEditando = prevProyecto
-        }
+        },
+        borrarReferente(state, action) {
+            const prevReferentes = [...state.referentes]
+            const referenteIndex = prevReferentes.findIndex(r => r.sede._id === action.payload._id)
+            prevReferentes[referenteIndex].referente = {}
+            state.referentes = prevReferentes
+
+        },
      }
 })
 

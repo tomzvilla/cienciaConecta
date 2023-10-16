@@ -33,7 +33,7 @@ const ListadoProyectosAsignados = () => {
 
 
     return (
-        isLoading || !proyectosData?.proyectos ?
+        isLoading && !proyectosData?.proyectos ?
         <Spinner />
         :
         <Card wide={true} header={<TablaProyectosAsignadosHeader title={'Listado de proyectos asignados'} wide={true}/>}>

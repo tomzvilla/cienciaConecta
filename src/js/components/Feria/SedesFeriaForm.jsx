@@ -85,6 +85,7 @@ const SedesFeriaForm = (props) => {
             ...formValues, 
             establecimientos: selectedSedes
         })
+        console.log(formValues)
         
     }
 
@@ -186,7 +187,7 @@ const SedesFeriaForm = (props) => {
             <h2 className='sedes-feria-form__title'>Seleccionar Sede: </h2>
             <div className='sedes-feria-form__input'>
                 <SelectField
-                    label='Deparamento: ' 
+                    label='Departamento: ' 
                     name='departamento'
                     dataValues={departamentos}
                     onChange={handleChangeDpto}
