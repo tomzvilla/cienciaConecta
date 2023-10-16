@@ -1885,10 +1885,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   background-color: #00ACE6;
   color: #ffffff;
   font-size: 2rem;
-  padding: 0.5rem 0;
-  text-align: center;
-  margin-left: -2rem;
-  padding-right: 4rem;
+
 }
 .small-table__tr {
   border-bottom: 1px solid #757575;
@@ -1908,6 +1905,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   height: 3rem;
   width: 3rem;
 }
+
 
 .login {
   background-color: rgba(0, 0, 0, 0.3);

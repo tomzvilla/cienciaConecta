@@ -32,11 +32,10 @@ const SeleccionPostulantes = () => {
     const {data: categoriaData} = useAxiosFetch('/categoria', axiosPrivate)
     const {data: nivelesData} = useAxiosFetch('/nivel', axiosPrivate)
 
-    
-
     if(!isLoading && categoriaData && nivelesData) {
         console.log(data?.postulaciones)
         postulacionesListado = data?.postulaciones?.map(p => {
+
             const nombre = p.datos_docente.nombre
             const apellido = p.datos_docente.apellido
             const cuil = p.datos_docente.cuil

@@ -4,6 +4,7 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import postulacionesSlice from "./postulaciones-slice";
 import evaluacionSlice from "./evaluacion-slice";
+import pendientesSlice from "./pendiente-slice";
 import uiSlice from "./ui-slice";
 import referentesSlice from "./referentes-slice";
 import loginSlice from "./login-slice";
@@ -15,6 +16,7 @@ const store = configureStore({
         evaluacion: evaluacionSlice.reducer, 
         ui: uiSlice.reducer, 
         referentes: referentesSlice.reducer,
+        pendientes: pendientesSlice.reducer,
         login: loginSlice.reducer,
         feria: feriaSlice.reducer,
     }

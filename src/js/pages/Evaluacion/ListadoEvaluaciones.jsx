@@ -49,7 +49,7 @@ const ListadoEvaluaciones = () => {
                         <Spinner /> 
                         :
                         listadoData?.length === 0 ?
-                        < BlankState msg='No hay proyectos pendientes de evaluacion' />
+                        < BlankState msg='No hay proyectos pendientes de evaluación. ¡Intentá de nuevo mas tarde!' />
                         :
                         <TablaEvaluaciones location={location} headers={headers} />
                     }

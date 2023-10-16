@@ -34,6 +34,9 @@ import AsignarReferentes from './js/pages/Referentes/AsignarReferentes'
 // DEV
 import Card from './js/components/Card/Card'
 import AuthVerify from './js/components/PersistLogin/AuthVerify'
+import ConfirmarCuenta from './js/pages/Usuarios/ConfirmarCuenta'
+import VisualizarListadoPendienteActivacion from './js/pages/Usuarios/VisualizarListadoPendienteActivacion'
+import VisualizarUsuarioPendienteActivacion from './js/pages/Usuarios/VisualizarUsuarioPendienteActivacion'
 
 
 // ROLES
@@ -61,6 +64,8 @@ function App() {
           <Route element={<PersistLoginInverse />}>
             <Route path='/login' element={<LoginPage/>}/>
             <Route path='/signup' element={<Signup/>}/>
+            <Route path='/confirmar/:token' element={<ConfirmarCuenta/>}/>
+
           </Route>
           <Route element={<PersistLogin />}>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]}/>}>
@@ -84,6 +89,8 @@ function App() {
               {/* Rutas para postulantes */}
               <Route path='/seleccionarPostulantes' element={<SeleccionPostulantes/>}/>
               <Route path='/postulante/:id' element={<VisualizarPostulante/>}/>
+              <Route path='/activarUsuarios' element={<VisualizarListadoPendienteActivacion/>}/>
+              <Route path='/usuarioPendienteActivacion/:id' element={<VisualizarUsuarioPendienteActivacion/>}/> 
               {/* Rutas para referentes */}
               <Route path='/asignarReferentes' element={<AsignarReferentes/>}/>
             </Route>
