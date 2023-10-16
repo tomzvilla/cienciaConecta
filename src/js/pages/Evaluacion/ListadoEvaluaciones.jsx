@@ -16,7 +16,7 @@ const headers = [
     {name: 'Título', value: 'titulo'},
     {name: 'Nivel', value: 'nivel'},
     {name: 'Categoría', value: 'categoria'},
-    {name: 'Estado', value: 'estado'},
+    {name: 'Estado', value: 'nombreEstado'},
 ]
 
 

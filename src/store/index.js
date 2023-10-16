@@ -6,9 +6,20 @@ import postulacionesSlice from "./postulaciones-slice";
 import evaluacionSlice from "./evaluacion-slice";
 import pendientesSlice from "./pendiente-slice";
 import uiSlice from "./ui-slice";
+import referentesSlice from "./referentes-slice";
+import loginSlice from "./login-slice";
+import feriaSlice from "./feria-slice";
 
 const store = configureStore({
-    reducer: { postulaciones: postulacionesSlice.reducer, evaluacion: evaluacionSlice.reducer, pendientes: pendientesSlice.reducer , ui: uiSlice.reducer }
+    reducer: { 
+        postulaciones: postulacionesSlice.reducer, 
+        evaluacion: evaluacionSlice.reducer, 
+        ui: uiSlice.reducer, 
+        referentes: referentesSlice.reducer,
+        pendientes: pendientesSlice.reducer,
+        login: loginSlice.reducer,
+        feria: feriaSlice.reducer,
+    }
 })
 
 export default store

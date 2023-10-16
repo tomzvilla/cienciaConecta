@@ -193,7 +193,7 @@ const SedeProvincialForm = (props) => {
             <h2 className='sedes-feria-form__title'>Seleccionar Sede Provincial: </h2>
             <div className='sedes-feria-form__input'>
             <SelectField
-                    label='Deparamento: ' 
+                    label='Departamento: ' 
                     name='sedeProvincialDpto'
                     dataValues={departamentos}
                     onChange={handleChangeDpto}

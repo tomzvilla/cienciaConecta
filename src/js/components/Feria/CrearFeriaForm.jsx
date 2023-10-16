@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useFormValidator } from "../../hooks/useFormValidator";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import { useSelector } from "react-redux";
 
 import Swal from 'sweetalert2'
 import Card from "../Card/Card";
@@ -54,6 +55,8 @@ const CrearFeriaForm = (props) => {
         errorSumaPonderacion: false,
         errorRubrica:  false,
     })
+
+    const criteriosEvaluacionAlmacenados = useSelector(state => state.feria.rubricas)
 
     const [etapaActual, setEtapaActual] = useState(ETAPAS.Datos)
     const navigate = useNavigate()
@@ -174,7 +177,7 @@ const CrearFeriaForm = (props) => {
 
     const validarCriteriosEvaluacion = (criteriosEvaluacion) => {
         let errorMessage = ''
-        criteriosEvaluacion.forEach(rubrica => {
+        criteriosEvaluacionAlmacenados.forEach(rubrica => {
             if(rubrica.criterios.length === 0){
                 errorMessage = `La rúbrica ${rubrica.nombreRubrica} debe tener al menos 1 criterio`
                 return
@@ -184,7 +187,7 @@ const CrearFeriaForm = (props) => {
 
         if(errorMessage !== '') return errorMessage
 
-        criteriosEvaluacion.forEach(rubrica => {
+        criteriosEvaluacionAlmacenados.forEach(rubrica => {
             rubrica.criterios.forEach(criterio => {
                 if(criterio.opciones.length < 2) {
                     errorMessage = `El criterio ${criterio.nombre} de la rúbrica ${rubrica.nombreRubrica} debe tener al menos 2 opciones`
@@ -290,13 +293,13 @@ const CrearFeriaForm = (props) => {
                     fechaFinPostulacionEvaluadores,
                     fechaInicioAsignacionProyectos,
                     fechaFinAsignacionProyectos,
+                    establecimientos,
                     cupos,
                     sedeProvincial,
                     cuposProvincial,
-                    criteriosEvaluacion,
                  } = formValues
-                const sedesRegional = new Set(cupos.map(c => { 
-                    return c.sede
+                const sedesRegional = new Set(establecimientos.map(e => { 
+                    return e._id
                 }))
                 await axiosPrivate.post('/feria', 
                 JSON.stringify({ 
@@ -329,7 +332,7 @@ const CrearFeriaForm = (props) => {
                     fechaFinPostulacionEvaluadores,
                     fechaInicioAsignacionProyectos,
                     fechaFinAsignacionProyectos,
-                    criteriosEvaluacion,
+                    criteriosEvaluacion: criteriosEvaluacionAlmacenados,
                 }),
                 {
                     headers: {'Content-Type': 'application/json'},

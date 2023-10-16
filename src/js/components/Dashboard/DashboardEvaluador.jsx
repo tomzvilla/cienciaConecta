@@ -11,6 +11,9 @@ const estados = ["Inactiva", "Inicio", "Escolar", "Regional", "Regional", "Provi
 
 const DashboardEvaluador= () => {
     const axiosPrivate = useAxiosPrivate()
+    //let proyectos = []
+
+    const {data, isLoading} = useAxiosFetch('/proyecto/misProyectos', axiosPrivate)
 
     const { data: listadoData, isLoading } = useAxiosFetch('/evaluacion/pendientes', axiosPrivate)
     const {data: feria, isLoading: loadingFeria} = useAxiosFetch('/feria/activa', axiosPrivate)
@@ -49,6 +52,7 @@ const DashboardEvaluador= () => {
         <div>
             
             <Card title={'Dashboard'}>
+
             {!isLoading && listadoData?.proyectos && feria ? 
             
             
@@ -62,6 +66,7 @@ const DashboardEvaluador= () => {
 
                     }
                     
+
                 </div>
                 
                 <div className="dashboard-evaluador__proyectos">
@@ -75,12 +80,9 @@ const DashboardEvaluador= () => {
                     <SmallTable title="Proyectos Activos" data={listadoData?.proyectos} viewPath={'/proyecto'}/> </div> 
                 </div>
 
-
                 :
 
                 <Spinner/> 
-
-
             }
             </Card>
             
