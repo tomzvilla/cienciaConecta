@@ -49,7 +49,7 @@ const FeriaRubricaCard = (props) => {
         <div className="feria-rubrica-card">
             
             <div className="feria-rubrica-card__header">
-                <h2 >{rubrica.nombreRubrica} - Ponderación: {rubrica.ponderacionRubrica}</h2>
+                <h2 >{rubrica.nombreRubrica} - Ponderación: {rubrica.ponderacion} - Exposicion: {rubrica.exposicion}</h2>
                 <ImageButton
                     alt="Eliminar Rúbrica"
                     callback={handleBorrarRubrica} 

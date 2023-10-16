@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useFormValidator } from "../../hooks/useFormValidator";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import { useSelector } from "react-redux";
 
 import Swal from 'sweetalert2'
 import Card from "../Card/Card";
@@ -55,7 +56,9 @@ const CrearFeriaForm = (props) => {
         errorRubrica:  false,
     })
 
-    const [etapaActual, setEtapaActual] = useState(ETAPAS.SedeProvincial)
+    const criteriosEvaluacionAlmacenados = useSelector(state => state.feria.rubricas)
+
+    const [etapaActual, setEtapaActual] = useState(ETAPAS.SedesRegionales)
     const navigate = useNavigate()
     const location = useLocation()
     const from = location.state?.from?.pathname || '/dashboard'
@@ -200,11 +203,12 @@ const CrearFeriaForm = (props) => {
     
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true})
+        // const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true})
 
-        if(!isValid) return
-        if(formValues.errorSumaPonderacion) return
-        const messageError = validarCriteriosEvaluacion(formValues.criteriosEvaluacion)
+        // if(!isValid) return
+        // if(formValues.errorSumaPonderacion) return
+        // const messageError = validarCriteriosEvaluacion(formValues.criteriosEvaluacion)
+        const messageError = ''
         if(messageError !== '') {
             Swal.fire({
                 text: messageError,
@@ -291,13 +295,14 @@ const CrearFeriaForm = (props) => {
                     fechaFinPostulacionEvaluadores,
                     fechaInicioAsignacionProyectos,
                     fechaFinAsignacionProyectos,
+                    establecimientos,
                     cupos,
                     sedeProvincial,
                     cuposProvincial,
                     criteriosEvaluacion,
                  } = formValues
-                const sedesRegional = new Set(cupos.map(c => { 
-                    return c.sede
+                const sedesRegional = new Set(establecimientos.map(e => { 
+                    return e._id
                 }))
                 await axiosPrivate.post('/feria', 
                 JSON.stringify({ 
@@ -330,7 +335,7 @@ const CrearFeriaForm = (props) => {
                     fechaFinPostulacionEvaluadores,
                     fechaInicioAsignacionProyectos,
                     fechaFinAsignacionProyectos,
-                    criteriosEvaluacion,
+                    criteriosEvaluacion: criteriosEvaluacionAlmacenados,
                 }),
                 {
                     headers: {'Content-Type': 'application/json'},

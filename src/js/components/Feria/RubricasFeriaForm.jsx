@@ -18,7 +18,7 @@ const RubricasFeriaForm = (props) => {
     const sumarPonderaciones = () => {
         let suma = 0;
         rubricasAlmacenadas?.forEach((rubrica) => {
-            suma += parseInt(rubrica.ponderacionRubrica); 
+            suma += parseInt(rubrica.ponderacion); 
         });
         return suma;
     };

@@ -17,6 +17,7 @@ const NuevaRubrica = (props) => {
         nombreRubrica: '',
         ponderacionRubrica: '',
         criterios: [],
+        exposicion: false,
     })
 
     const [errors, setErrors] = useState({
@@ -76,7 +77,13 @@ const NuevaRubrica = (props) => {
             })
             return
         }
-        dispatch(feriaActions.agregarRubrica(rubrica))
+        console.log(rubrica)
+        dispatch(feriaActions.agregarRubrica({
+            nombreRubrica: rubrica.nombreRubrica,
+            ponderacion: rubrica.ponderacionRubrica,
+            criterios: [],
+            exposicion: rubrica.exposicion,
+        }))
         setErrors({
             nombreRubrica: {
                 dirty: false,
@@ -93,6 +100,7 @@ const NuevaRubrica = (props) => {
             nombreRubrica: '',
             ponderacionRubrica: '',
             criterios: [],
+            exposicion: false,
         })
     }
 
@@ -117,6 +125,9 @@ const NuevaRubrica = (props) => {
         if(name === 'nombreRubrica') {
            errorNombre = false
            messageNombre = ''
+        }
+        if(name === 'exposicion') {
+            value = e.target.checked
         }
         setRubrica({
             ...rubrica,
@@ -164,6 +175,19 @@ const NuevaRubrica = (props) => {
                     required={true}
                 />
             </div>
+            <div className="nueva-rubrica__input" >
+                <InputField
+                    label='Exposición: ' 
+                    type={'checkbox'}
+                    name={`exposicion`}
+                    onChange={handleChange}
+                    onBlur={() => {}}
+                    
+                    errors={errors.exposicion}
+                    onFocusOut
+                    required={true}
+                />
+            </div>
 
             <div className="nueva-rubrica__image-container">
                 <ImageButton
@@ -173,9 +197,6 @@ const NuevaRubrica = (props) => {
                     small={true}
                 />
             </div>
-
-            
-
         </div>
 
     )
