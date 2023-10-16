@@ -3,80 +3,35 @@ import AddOpcion from "./AddOpcion"
 import Table from "../../Table/Table"
 
 // hooks
-import { useState } from "react"
-import { useFormValidator } from "../../../hooks/useFormValidator"
+import { useSelector, useDispatch } from "react-redux"
+import { feriaActions } from "../../../../store/feria-slice"
+const headers = [
+    {name: 'Opción', value: 'nombre'},
+    {name: 'Puntaje', value: 'puntaje'},
+]
 
 const OpcionesModal = (props) => {
 
-    const { rubrica, criterio, formValues, setFormValues, cerrarModal } = props 
-    const [opcion, setOpcion] = useState({
-        'nombreOpcion': ""
-    })
-
-    const { validateForm, onBlurField, errors} = useFormValidator(opcion)
-    
-
-    const headers = [
-        {name: 'Opción', value: 'opciones'},
-
-      ]
-
-    const handleSubmit = (e) => {
+    const { rubrica, criterio } = props 
+    const listadoOpciones = useSelector(state => state.feria.rubricas).find(r => r.nombreRubrica === props.rubrica.nombreRubrica)?.criterios?.find(c => c.nombre === props.criterio.nombre)?.opciones
+    const dispatch = useDispatch()
+    const handleDeleteOpcion = (e, opcion) => {
         e.preventDefault()
-
-        if (opcion.nombreOpcion) {
-            const { isValid } = validateForm({form: opcion, errors, forceTouchErrors: true})
-            if(!isValid) return
-            const prevCriterios = [...formValues.criteriosEvaluacion]
-            const rubricaIndex = prevCriterios.findIndex(rbr => rbr.nombreRubrica === rubrica?.nombreRubrica);
-            const criterioIndex = prevCriterios[rubricaIndex]?.criterios.findIndex(crit => crit.nombre === criterio.nombre);
-            prevCriterios[rubricaIndex]?.criterios[criterioIndex].opciones.push(opcion.nombreOpcion)
-            
-
-
-            setFormValues({...formValues, criteriosEvaluacion: prevCriterios})
-            setOpcion({
-                nombreOpcion: '',
-            })
-
-        }
-        
-        //cerrarModal()
-        
-    }
-
-    const handleChange = (e) => {
-        e.preventDefault()
-        const {name, value} = e.target
-        const nextOpcion = {
-            [name]: value
-        }
-        setOpcion(nextOpcion)
-        if (errors[name].dirty) {
-            validateForm({form: nextOpcion, errors, name})
-        }
-    }
-
-    const handleDeleteOpcion = (e, nombreOpcion) => {
-        const nombre = nombreOpcion.opciones
-
-        const prevCriterios = [...formValues.criteriosEvaluacion]
-        const rubricaIndex = prevCriterios.findIndex(rubrica => rubrica.nombreRubrica === rubrica.nombreRubrica);
-        const criterioIndex = prevCriterios[rubricaIndex].criterios.findIndex(criterio => criterio.nombre === criterio.nombre);
-        const opcionIndex =  prevCriterios[rubricaIndex].criterios[criterioIndex].opciones.findIndex(opcion => opcion === nombre)
-
-        prevCriterios[rubricaIndex].criterios[criterioIndex].opciones = prevCriterios[rubricaIndex].criterios[criterioIndex].opciones.filter((_, index) => index !== opcionIndex);
-        
-        setFormValues({...formValues, criteriosEvaluacion: prevCriterios})
-        setOpcion({
-            nombreOpcion: '',
-        })
+        dispatch(feriaActions.borrarOpcion({
+            rubrica: props.rubrica,
+            criterio: props.criterio,
+            opcion,
+        }))
     }
 
     return (
         <div>
-            <Table data={criterio?.opciones.map(value => ({ opciones: value }))} headers={headers} callback={handleDeleteOpcion}/>
-            <AddOpcion handleChange={handleChange} onBlurField={onBlurField} opcion={opcion} errors={errors} handleAdd={handleSubmit}/>
+            <Table
+                callback={handleDeleteOpcion}
+                headers={headers}
+                data={listadoOpciones}
+            />
+            <AddOpcion criterio={criterio} rubrica={rubrica} />
         </div>
     )
 
