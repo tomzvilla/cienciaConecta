@@ -24,15 +24,13 @@ const DashboardEvaluador= () => {
     let month = ""
     let year = ""
 
-    let simplifiedDate = ""
-
     if (feria) {
         proxEstado = feria.feriaActiva.estado === "7" ? feria.feriaActiva.estado : parseInt(feria.feriaActiva.estado) + 1
         proxEstadoNombre = feria.feriaActiva.estado === "7" ? estados[feria.feriaActiva.estado] : estados[parseInt(feria.feriaActiva.estado) + 1]
 
-        fechaFin = proxEstadoNombre == "Escolar" ? feria?.feriaActiva?.instancias.instanciaEscolar?.fechaFinInstancia : 
-                proxEstadoNombre == "Regional" ? feria?.feriaActiva?.instancias.instanciaRegional?.fechaFinEvaluacionPresencial :  
-                proxEstadoNombre == "Provincial" ?  feria?.feriaActiva?.instancias.instanciaProvincial?.fechaFinEvaluacionPresencial :  ""
+        fechaFin = proxEstadoNombre === "Escolar" ? feria?.feriaActiva?.instancias.instanciaEscolar?.fechaFinInstancia : 
+                proxEstadoNombre === "Regional" ? feria?.feriaActiva?.instancias.instanciaRegional?.fechaFinEvaluacionPresencial :  
+                proxEstadoNombre === "Provincial" ?  feria?.feriaActiva?.instancias.instanciaProvincial?.fechaFinEvaluacionPresencial :  ""
 
 
         fechaFin = new Date(fechaFin)

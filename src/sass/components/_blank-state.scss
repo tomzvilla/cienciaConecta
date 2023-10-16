@@ -7,6 +7,16 @@
     &__img {
         width: 25rem;
         height: 25rem;
+
+        &--isotipo {
+            width: 40rem;
+            height: 40rem;
+
+        }
+
+        &--error {
+            filter: brightness(0) saturate(100%) invert(63%) sepia(0%) saturate(449%) hue-rotate(163deg) brightness(98%) contrast(87%);
+        }
     }
 
     &__text {
