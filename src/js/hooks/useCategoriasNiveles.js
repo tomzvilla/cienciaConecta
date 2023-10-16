@@ -70,8 +70,26 @@ const useCategoriasNiveles = ({ categoriaData, nivelData, enabled }) => {
 
         return evaluadores
     }
+
+    const evaluadorMap = (evaluadorData) => {
+        if(!evaluadorData) return
+        const categoriasCompletas = evaluadorData.categorias.map((categoriaId) => {
+            const categoria = categorias.find((c) => c._id === categoriaId);
+            return categoria ? categoria : undefined;
+        });
+        const nivelesCompletos = evaluadorData.niveles.map((nivelId) => {
+            const nivel = niveles.find((n) => n._id === nivelId);
+            return nivel ? nivel : undefined;
+        });
+        return {
+            ...evaluadorData,
+            categorias: categoriasCompletas,
+            niveles: nivelesCompletos,
+            asignado: false,
+        }
+    }
     
-    return { niveles, categorias, proyectosMapping, proyectoMap, evaluadorMapping }
+    return { niveles, categorias, proyectosMapping, proyectoMap, evaluadorMapping, evaluadorMap }
 
 }
 

@@ -1,57 +1,57 @@
+// components
+import Card from "../Card/Card"
+import Spinner from "../../components/Spinner/Spinner"
+import DatosPostulante from "./DatosPostulante"
+import PostulanteHeader from "../Card/PostulanteHeader"
+// hooks
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import { useParams } from "react-router"
-import Card from "../Card/Card"
-import Spinner from "../../components/Spinner/Spinner"
 import { useSelector } from "react-redux"
-import capitalizeEachLetter from "../../utils/utils.js"
-import DatosPostulante from "./DatosPostulante"
-import PostulanteHeader from "../Card/PostulanteHeader"
 import { useState } from "react"
+import useCategoriasNiveles from "../../hooks/useCategoriasNiveles"
+import capitalizeEachLetter from "../../utils/utils.js"
 
 
 const VisualizarPostulante = (props) => {
     const axiosPrivate = useAxiosPrivate()
+    const { id } = useParams()
 
     // Cuando entro desde la tabla todos los datos OK. Pero cuando entro directamente a la pagina o la recargo, se rompe
-    const data = useSelector(state => state.postulaciones.listadoPostulantes)
+    let postulacion = useSelector(state => state.postulaciones.listadoPostulantes)?.find(obj => obj._id === id)
+    let nombre = postulacion?.datos_docente?.nombre + " " + postulacion?.datos_docente?.apellido || 'Cargando...'
+    let cuil = postulacion?.datos_docente?.cuil || 'Cargando...'
+    
     const [fileURL, setFileURL] = useState('')
 
+    const {data: categoriaData, isLoading: loadingCategorias} = useAxiosFetch('/categoria', axiosPrivate, !!postulacion)
+    const {data: nivelesData, isLoading: loadingNiveles} = useAxiosFetch('/nivel', axiosPrivate, !!postulacion)
+    const {data: postulacionData, isLoading: isLoadingPostulacion} = useAxiosFetch(`/evaluador/postulaciones/${id}`, axiosPrivate, !!postulacion)
 
-    const { id } = useParams()
-    const {data: categoriaData} = useAxiosFetch('/categoria', axiosPrivate)
-    const {data: nivelesData} = useAxiosFetch('/nivel', axiosPrivate)
-    
-    const postulacion = data.find(obj => obj._id === id)
-    const nombre = postulacion.datos_docente.nombre + " " + postulacion.datos_docente.apellido
-    const cuil = postulacion.datos_docente.cuil
+    const { evaluadorMap, proyectoMap } = useCategoriasNiveles({ categoriaData: categoriaData, nivelData: nivelesData, enabled: !loadingCategorias && !loadingNiveles })
 
-    
     let nivelesCompletos = []
     let categoriasCompletas = []
-
-    if(data && categoriaData && nivelesData){
-        
-            categoriasCompletas = postulacion.categorias.map((cat) => {
-                const categoria = categoriaData.categoria.find((c) => c._id === cat._id);
-                return categoria ? categoria : undefined;
-            });
-
-            if(postulacion.niveles.length > 0){
-                nivelesCompletos = postulacion.niveles.map((niv) => {
-                    const nivel = nivelesData.nivel.find((n) => n._id === niv._id);
-                    return nivel ? nivel : undefined;
-                });
-            }
+    if(!isLoadingPostulacion) {
+      console.log(postulacionData)
     }
 
-    const establecimientoData = useAxiosFetch('/establecimiento/id/'+ postulacion.sede, axiosPrivate)
+    if(postulacion && categoriaData && nivelesData) {
+      //postulacion = evaluadorMap(postulacion)
+      console.log(postulacion)
+    } else if(postulacionData && categoriaData && nivelesData) {
+      postulacion = evaluadorMap(postulacionData.postulacion)
+    }
+
+    
     
     let nombreSede;
+  // const establecimientoData = useAxiosFetch('/establecimiento/id/'+ postulacion.sede, axiosPrivate)
+    // if (establecimientoData.data) {
+    //     nombreSede = establecimientoData.data.establecimiento.nombre;
+    // }
 
-    if (establecimientoData.data) {
-        nombreSede = establecimientoData.data.establecimiento.nombre;
-    }
+
 
     const handleDownload = async () => {
         await cargarCv()
@@ -82,7 +82,7 @@ const VisualizarPostulante = (props) => {
 
     cargarCv()
     
-    const show = categoriaData && nivelesData && establecimientoData.data && fileURL !== ''
+    // 
 
     const formatCuil = (input) => {
         // Eliminar todos los caracteres no numéricos
@@ -98,6 +98,8 @@ const VisualizarPostulante = (props) => {
         }
       };
 
+    const show = postulacion
+
     return (
         <Card title="Visualizar Postulante" header={<PostulanteHeader title={nombre} subtitle={formatCuil(cuil)}/>}>
             <div>
@@ -106,10 +108,10 @@ const VisualizarPostulante = (props) => {
                     : 
                     <DatosPostulante 
                         sede={capitalizeEachLetter(nombreSede)} 
-                        cargo={postulacion.datos_docente.cargo} 
+                        cargo={postulacion?.datos_docente?.cargo} 
                         niveles={nivelesCompletos}
                         categorias={categoriasCompletas} 
-                        antecedentes={postulacion.antecedentes}
+                        antecedentes={postulacion?.antecedentes}
                         handleDownload={handleDownload}
                     />
                 }

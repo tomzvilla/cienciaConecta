@@ -76,7 +76,9 @@ const ListadoEvaluadores = (props) => {
                 </thead>
                 <tbody className="table__body">
                     {evaluadores && currentTableData.map((evaluador) => {
-                        if(!evaluador.asignado) return (
+                        console.log(evaluador.proyectosAsignados < 5)
+                        console.log(evaluador.asignado)
+                        if(!evaluador.asignado && evaluador.proyectosAsignados < 5) return (
                             <tr key={evaluador._id} className="table-body-row">
                                 {headers.map(header => {
                                     if(header.name === 'Categorías'){
