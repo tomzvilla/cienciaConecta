@@ -58,7 +58,7 @@ const CrearFeriaForm = (props) => {
 
     const criteriosEvaluacionAlmacenados = useSelector(state => state.feria.rubricas)
 
-    const [etapaActual, setEtapaActual] = useState(ETAPAS.SedesRegionales)
+    const [etapaActual, setEtapaActual] = useState(ETAPAS.Datos)
     const navigate = useNavigate()
     const location = useLocation()
     const from = location.state?.from?.pathname || '/dashboard'
@@ -82,8 +82,7 @@ const CrearFeriaForm = (props) => {
         if(etapaActual === ETAPAS.SedesRegionales) fieldsToExclude = ['criteriosEvaluacion', 'nombreRubrica']
         if(etapaActual === ETAPAS.SedeProvincial) fieldsToExclude = ['criteriosEvaluacion', 'nombreRubrica']
         if(etapaActual === ETAPAS.Criterios) fieldsToExclude = []
-        // const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true, fieldsToExclude: fieldsToExclude})
-        const isValid = true
+        const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true, fieldsToExclude: fieldsToExclude})
         if(etapaActual === ETAPAS.Datos & isValid) setEtapaActual(ETAPAS.Instancias)
         if(etapaActual === ETAPAS.Instancias & isValid) setEtapaActual(ETAPAS.SedesRegionales)
         if(etapaActual === ETAPAS.SedesRegionales & isValid) {
@@ -178,7 +177,7 @@ const CrearFeriaForm = (props) => {
 
     const validarCriteriosEvaluacion = (criteriosEvaluacion) => {
         let errorMessage = ''
-        criteriosEvaluacion.forEach(rubrica => {
+        criteriosEvaluacionAlmacenados.forEach(rubrica => {
             if(rubrica.criterios.length === 0){
                 errorMessage = `La rúbrica ${rubrica.nombreRubrica} debe tener al menos 1 criterio`
                 return
@@ -188,7 +187,7 @@ const CrearFeriaForm = (props) => {
 
         if(errorMessage !== '') return errorMessage
 
-        criteriosEvaluacion.forEach(rubrica => {
+        criteriosEvaluacionAlmacenados.forEach(rubrica => {
             rubrica.criterios.forEach(criterio => {
                 if(criterio.opciones.length < 2) {
                     errorMessage = `El criterio ${criterio.nombre} de la rúbrica ${rubrica.nombreRubrica} debe tener al menos 2 opciones`
@@ -203,12 +202,11 @@ const CrearFeriaForm = (props) => {
     
     const handleSubmit = async (e) => {
         e.preventDefault()
-        // const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true})
+        const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true})
 
-        // if(!isValid) return
-        // if(formValues.errorSumaPonderacion) return
-        // const messageError = validarCriteriosEvaluacion(formValues.criteriosEvaluacion)
-        const messageError = ''
+        if(!isValid) return
+        if(formValues.errorSumaPonderacion) return
+        const messageError = validarCriteriosEvaluacion(formValues.criteriosEvaluacion)
         if(messageError !== '') {
             Swal.fire({
                 text: messageError,
@@ -299,7 +297,6 @@ const CrearFeriaForm = (props) => {
                     cupos,
                     sedeProvincial,
                     cuposProvincial,
-                    criteriosEvaluacion,
                  } = formValues
                 const sedesRegional = new Set(establecimientos.map(e => { 
                     return e._id
