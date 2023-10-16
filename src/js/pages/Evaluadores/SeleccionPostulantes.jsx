@@ -11,7 +11,7 @@ import { useLocation } from "react-router-dom"
 
 // state
 import { postulacionesActions } from "../../../store/postulaciones-slice"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 const headers = [
     {name: 'Nombre', value: 'nombre'},
@@ -27,14 +27,16 @@ const SeleccionPostulantes = () => {
     const location = useLocation()
     const dispatch = useDispatch()
 
-    let postulaciones = []
+    let postulacionesListado = []
     const {data, isLoading} = useAxiosFetch('/evaluador/postulaciones', axiosPrivate)
     const {data: categoriaData} = useAxiosFetch('/categoria', axiosPrivate)
     const {data: nivelesData} = useAxiosFetch('/nivel', axiosPrivate)
 
-    if(!isLoading && categoriaData && nivelesData){
-        console.log('Entro al data')
-        postulaciones = data?.postulaciones?.map(p => {
+    
+
+    if(!isLoading && categoriaData && nivelesData) {
+        console.log(data?.postulaciones)
+        postulacionesListado = data?.postulaciones?.map(p => {
             const nombre = p.datos_docente.nombre
             const apellido = p.datos_docente.apellido
             const cuil = p.datos_docente.cuil
@@ -58,9 +60,12 @@ const SeleccionPostulantes = () => {
                 categorias: categoriasCompletas,
                 niveles: nivelesCompletos,
             }
+        }).sort((a, b) => {
+            return new Date(b.fechaPostulacion) - new Date(a.fechaPostulacion)
         })
+        console.log(postulacionesListado)
 
-        dispatch(postulacionesActions.cargarPostulaciones(postulaciones))
+        dispatch(postulacionesActions.cargarPostulaciones(postulacionesListado))
     }
 
     return (
@@ -73,9 +78,9 @@ const SeleccionPostulantes = () => {
 
                         {isLoading || !categoriaData || !nivelesData ? 
                         <Spinner/> 
-                        : !postulaciones ?
+                        : !postulacionesListado ?
                         <BlankState msg={"Actualmente no hay ninguna postulación. Vuelva más tarde."} /> :
-                        <TablaPostulantes location={location} data={postulaciones} headers={headers} viewPath={'/postulante'}/>
+                        <TablaPostulantes location={location} headers={headers} viewPath={'/postulante'}/>
                         }
                 </Card>
             </div>

@@ -8,9 +8,11 @@ const useAxiosFetch = (url, axios, disabled = false) => {
 
   useEffect(() => {
     let mounted = true;
+    const controller = new AbortController()
+    const signal = controller.signal
     const fetchData = async () => {
       try {
-        const response = await axios.get(url);
+        const response = await axios.get(url, {signal});
         if (mounted) {
           setData(response.data);
           setStatus(response.status);
@@ -26,6 +28,7 @@ const useAxiosFetch = (url, axios, disabled = false) => {
     };
     if(!disabled) fetchData();
     return () => {
+      controller.abort();
       mounted = false;
     };
   },[url]);

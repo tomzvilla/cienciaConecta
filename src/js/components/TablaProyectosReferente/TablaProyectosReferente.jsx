@@ -73,7 +73,7 @@ const TablaProyectosReferente = (props) => {
                                     <p>{proyecto.evaluadoresRegionales.length}</p>
                                 </td>
                                 <td className="table-body-row__td table-body-row__td--actions">
-                                    <ImageLink linkto={`/ver/${proyecto._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/> 
+                                    <ImageLink linkto={`asignar/${proyecto._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/> 
                                 </td>
                             </ tr>
                         )

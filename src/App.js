@@ -28,6 +28,7 @@ import ListadoEvaluaciones from './js/pages/Evaluacion/ListadoEvaluaciones'
 import EvaluacionCard from './js/components/Evaluacion/EvaluacionCard'
 import Evaluacion from './js/pages/Evaluacion/Evaluacion'
 import ListadoProyectosAsignados from './js/pages/Referentes/ListadoProyectosAsignados'
+import ProyectoAsignarEvaluadores from './js/pages/Referentes/ProyectoAsignarEvaluadores'
 import AsignarReferentes from './js/pages/Referentes/AsignarReferentes'
 
 // DEV
@@ -85,13 +86,20 @@ function App() {
               <Route path='/postulante/:id' element={<VisualizarPostulante/>}/>
               {/* Rutas para referentes */}
               <Route path='/asignarReferentes' element={<AsignarReferentes/>}/>
-
-
             </Route>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.RefEvaluador]}/>}>
               {/* Rutas para referentes */}
               <Route path='/proyectosParaAsignar' element={<ListadoProyectosAsignados/>}/>
               {/* // colocar en dashboard */}
+            </Route>
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.RefEvaluador]}/>}>
+              {/* Rutas para referentes */}
+              <Route path='/proyectosParaAsignar' element={<ListadoProyectosAsignados />}/>
+              <Route path='/proyectosParaAsignar/asignar/:id' element={<ProyectoAsignarEvaluadores />}/>
+            </Route>
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.RefEvaluador, ROLES.ComAsesora]}/>}>
+              {/* Rutas para referentes */}
+              <Route path='/postulante/:id' element={<VisualizarPostulante/>}/>
             </Route>
             <Route path='*' element={<NotFound/>}/>
           </Route>

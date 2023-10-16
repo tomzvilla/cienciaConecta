@@ -6,6 +6,7 @@ import postulacionesSlice from "./postulaciones-slice";
 import evaluacionSlice from "./evaluacion-slice";
 import uiSlice from "./ui-slice";
 import referentesSlice from "./referentes-slice";
+import loginSlice from "./login-slice";
 import feriaSlice from "./feria-slice";
 
 const store = configureStore({
@@ -14,6 +15,7 @@ const store = configureStore({
         evaluacion: evaluacionSlice.reducer, 
         ui: uiSlice.reducer, 
         referentes: referentesSlice.reducer,
+        login: loginSlice.reducer,
         feria: feriaSlice.reducer,
     }
 })
