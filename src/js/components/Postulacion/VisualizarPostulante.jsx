@@ -8,10 +8,10 @@ import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import { useParams } from "react-router"
 import { useSelector } from "react-redux"
-import { useState } from "react"
 import useCategoriasNiveles from "../../hooks/useCategoriasNiveles"
 import useUtils from '../../hooks/useUtils'
 import capitalizeEachLetter from "../../utils/utils.js"
+import Swal from "sweetalert2"
 
 
 const VisualizarPostulante = (props) => {
@@ -39,8 +39,21 @@ const VisualizarPostulante = (props) => {
     const handleDownload = async () => {
         const fileURL = await cargarCv();
         if (fileURL) {
-          const pdfWindow = window.open();
-          pdfWindow.location.href = fileURL;
+          try {
+            const pdfWindow = window.open();
+            if (!pdfWindow) {
+              throw new Error('No se pudo abrir la ventana emergente. Verifica la configuración del navegador.');
+            }
+            pdfWindow.location.href = fileURL;
+          } catch (error) {
+            Swal.fire({
+              title: 'Hubo un problema',
+              icon: 'warning',
+              text: 'No se pudo abrir el CV en una ventana emergente. Verifica la configuración del navegador para resolver este problema.',
+              confirmButtonText: 'OK',
+              confirmButtonColor: '#00ACE6',
+            })
+          }
         }
     }
 
