@@ -71,8 +71,6 @@ const VisualizarPostulante = (props) => {
         }
     }
 
-    let nombreSede;
-
     const show = postulacion
 
     return (

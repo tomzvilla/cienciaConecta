@@ -44,17 +44,62 @@ const EvaluacionCard = () => {
         navigate(`/evaluar/${id}/iniciar`, {state: {from: location.pathname }})
 
     }
-    const { data } = useAxiosFetch(`/proyecto/download/${id}/${link}`, axiosPrivate, link === '')
 
-    const handleDownload = async (type) => {
-        setLink(type)
-        if(data) {
-            const file = new Blob([data], { type: 'application/pdf' })
-            const fileURL = window.URL.createObjectURL(file);
+    const handleDownload = async (link) => {
+        console.log(link)
+        const fileURL = await downloadFile(link);
+        console.log(fileURL)
+        if (fileURL) {
+          try {
             const pdfWindow = window.open();
-            pdfWindow.location.href = fileURL; 
+            if(!pdfWindow) {
+              throw new Error('No se pudo abrir la ventana emergente. Verifique la configuración del navegador.')
+            }
+            pdfWindow.location.href = fileURL;
+          } catch (err) {
+            Swal.fire({
+              title: 'Hubo un problema',
+              icon: 'warning',
+              text: 'No se pudo abrir el archivo en una nueva pestaña. Habilita las ventanas emergentes en tu navegador para resolver este problema.',
+              confirmButtonText: 'OK',
+              confirmButtonColor: '#00ACE6'
+            })
+          }
         }
+    }
 
+    const handleOpen = (link) => {
+        try {
+            const newWindow = window.open();
+            if(!newWindow) {
+              throw new Error('No se pudo abrir la ventana emergente. Verifique la configuración del navegador.')
+            }
+            newWindow.location.href = link;
+          } catch (err) {
+            Swal.fire({
+              title: 'Hubo un problema',
+              icon: 'warning',
+              text: 'No se pudo abrir el video en una nueva pestaña. Habilita las ventanas emergentes en tu navegador para resolver este problema.',
+              confirmButtonText: 'OK',
+              confirmButtonColor: '#00ACE6'
+            })
+          }
+
+    }
+
+
+    const downloadFile = async (link) => {
+        try {
+          const response = await axiosPrivate.get(`/proyecto/download/${id}/${link}`, { responseType: "blob"});
+          console.log(response)
+          const file = new Blob([response.data], { type: "application/pdf" });
+          const fileURL = window.URL.createObjectURL(file);
+          return fileURL; 
+        } 
+        catch (error) {
+          console.log(error)
+          return null;
+        }
     }
 
     // confirmar evaluacion
@@ -120,7 +165,7 @@ const EvaluacionCard = () => {
     return(
         proyecto ?
         <Card title={proyecto.titulo}>
-
+            {console.log(proyecto)}
             <div className="evaluacion-card">
                 <div className="evaluacion-card__data">
                     <p>
@@ -146,9 +191,8 @@ const EvaluacionCard = () => {
                 <div className="evaluacion-card__files">
                         <DownloadFile onClick={() => handleDownload('informeTrabajo')} name="Informe de trabajo" img={require("../../../assets/tarjeta.png")}/>
                         <DownloadFile onClick={() => handleDownload('carpetaCampo')} name="Carpeta de Campo" img={require("../../../assets/tarjeta.png")}/>
-                        <DownloadFile onClick={() => handleDownload('registroPedagogico ')} name="Registro Pedagógico" img={require("../../../assets/tarjeta.png")}/>
-                        <DownloadFile name="Video" img={require("../../../assets/tarjeta.png")}/>
-
+                        <DownloadFile onClick={() => handleDownload('registroPedagogico')} name="Registro Pedagógico" img={require("../../../assets/tarjeta.png")}/>
+                        <DownloadFile onClick={() => handleOpen(proyecto.video)} name="Video" img={require("../../../assets/tarjeta.png")}/>
                 </div>
 
                
@@ -192,15 +236,12 @@ const EvaluacionCard = () => {
                     onClickHandler={iniciarEvaluacion}
                     activo={true}
                 />
-                {console.log(!proyecto.evaluacion)}
-                {console.log(proyecto)}
                 <Button 
                     text='Confirmar' 
                     onClickHandler={handleConfirmar}
                     activo={true}
                     disabled={!proyecto?.evaluacion ? true : proyecto.evaluadoresRegionales.length > proyecto?.evaluacion?.evaluadorId?.length ? true : false}
                 />
-                {/* {console.log(proyecto.evaluadoresRegionales.length > proyecto.evaluacion.evaluadorId.length)} */}
             </div>
         </Card>
         :
