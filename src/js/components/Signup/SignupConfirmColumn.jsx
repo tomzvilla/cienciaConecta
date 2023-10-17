@@ -7,7 +7,7 @@ const SignupConfirmColumn = (props) => {
     const rows = []
     
     for (let i = 0; i < props.titles.length; i++) {
-        rows.push(<div className="signup-confirm-column__data" >
+        rows.push(<div key={i} className="signup-confirm-column__data" >
         <CardData title={props.titles[i]} value={props.values[i]}/>
     </div>)
         

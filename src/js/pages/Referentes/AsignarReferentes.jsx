@@ -25,10 +25,6 @@ const AsignarReferentes = () => {
     const { data: referentesData, isLoading: isLoadingReferentes} = useAxiosFetch(`/referente/asignados`, axiosPrivate)
     const [loadingMapping, setLoadingMapping] = useState(true)
 
-    if(!isLoadingDocentes) {
-        console.log(docenteData)
-    }
-
     useEffect(() => {
         const mapReferentes = () => {
             return data.sedes.map(s => {

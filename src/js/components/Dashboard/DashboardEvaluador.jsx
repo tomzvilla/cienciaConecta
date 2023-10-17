@@ -13,7 +13,7 @@ const DashboardEvaluador= () => {
     const axiosPrivate = useAxiosPrivate()
     //let proyectos = []
 
-    const {data, isLoading} = useAxiosFetch('/proyecto/misProyectos', axiosPrivate)
+    //const {data, isLoading} = useAxiosFetch('/proyecto/misProyectos', axiosPrivate)
 
     const { data: listadoData, isLoading } = useAxiosFetch('/evaluacion/pendientes', axiosPrivate)
     const {data: feria, isLoading: loadingFeria} = useAxiosFetch('/feria/activa', axiosPrivate)

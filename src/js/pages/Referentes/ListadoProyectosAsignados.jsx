@@ -3,6 +3,7 @@ import TablaProyectosReferente from "../../components/TablaProyectosReferente/Ta
 import TablaProyectosAsignadosHeader from "../../components/TablaProyectosReferente/TablaProyectosAsignadosHeader"
 import Spinner from "../../components/Spinner/Spinner"
 import Card from "../../components/Card/Card"
+import BlankState from "../../components/BlankState/BlankState"
 // hooks
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
@@ -17,10 +18,10 @@ const headers = [
 ]
 
 const ListadoProyectosAsignados = () => {
-    
+    console.log('HOLA')
     const axiosPrivate = useAxiosPrivate()
     const dispatch = useDispatch()
-    const { data: proyectosData, isLoading } = useAxiosFetch(`/referente/proyectos`, axiosPrivate)
+    const { data: proyectosData, isLoading, status } = useAxiosFetch(`/referente/proyectos`, axiosPrivate)
     const { data: categoriasData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate)
     const { data: nivelesData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate)
 
@@ -28,8 +29,11 @@ const ListadoProyectosAsignados = () => {
 
     if(!isLoading && proyectosData?.proyectos) {
         const proyectos = proyectosMapping(proyectosData?.proyectos)
+        console.log(proyectosData?.proyectos)
         dispatch(referentesActions.cargarProyectosReferente(proyectos))
     }
+
+    if(!isLoading) console.log(proyectosData)
 
 
     return (
@@ -37,9 +41,12 @@ const ListadoProyectosAsignados = () => {
         <Spinner />
         :
         <Card wide={true} header={<TablaProyectosAsignadosHeader title={'Listado de proyectos asignados'} wide={true}/>}>
-            <TablaProyectosReferente headers={headers} />
+            {status !== 204 ?
+                <TablaProyectosReferente headers={headers} />
+                :
+                <BlankState msg={'Actualmente no posee proyectos asignados.'}/>
+            }
         </Card>
-        
     )
 
 }
