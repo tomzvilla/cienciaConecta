@@ -12,7 +12,6 @@ const referentesSlice = createSlice({
     initialState: initialState,
     reducers: {
         cargarReferentes(state, action) {
-            console.log(action.payload)
             state.referentes = action.payload
         },
         actualizarReferente(state, action) {

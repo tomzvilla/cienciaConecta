@@ -13,7 +13,8 @@ const headers = [
 const OpcionesModal = (props) => {
 
     const { rubrica, criterio } = props 
-    const listadoOpciones = useSelector(state => state.feria.rubricas).find(r => r.nombreRubrica === props.rubrica.nombreRubrica)?.criterios?.find(c => c.nombre === props.criterio.nombre)?.opciones
+    let listadoOpciones = useSelector(state => state.feria.rubricas).find(r => r.nombreRubrica === props.rubrica.nombreRubrica)?.criterios?.find(c => c.nombre === props.criterio.nombre)?.opciones
+    
     const dispatch = useDispatch()
     const handleDeleteOpcion = (e, opcion) => {
         e.preventDefault()

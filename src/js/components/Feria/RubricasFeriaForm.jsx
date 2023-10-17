@@ -9,21 +9,30 @@ import { useSelector } from "react-redux"
 
 const RubricasFeriaForm = (props) => {
 
-    const { handleChange, onBlurField, errors, formValues, setFormValues, handleDeleteRubrica } = props
-    const rubricasAlmacenadas = useSelector(state => state.feria.rubricas)
+    let rubricasAlmacenadas = useSelector(state => state.feria.rubricas)
     const [showModal, setShowModal] = useState(false)
     const [selectedCriterio, setSelectedCriterio] = useState(null)
     const [selectedRubrica, setSelectedRubrica] = useState(null)
     
-    const sumarPonderaciones = () => {
+    const sumarPonderacionesTeoricas = () => {
         let suma = 0;
         rubricasAlmacenadas?.forEach((rubrica) => {
-            suma += parseInt(rubrica.ponderacion); 
+            if(!rubrica.exposicion)
+                suma += parseInt(rubrica.ponderacion); 
+        });
+        return suma;
+    };
+    const sumarPonderacionesExpo = () => {
+        let suma = 0;
+        rubricasAlmacenadas?.forEach((rubrica) => {
+            if(rubrica.exposicion)
+                suma += parseInt(rubrica.ponderacion); 
         });
         return suma;
     };
 
-    const ponderacionRubricas = sumarPonderaciones()
+    const ponderacionRubricasTeoricas = sumarPonderacionesTeoricas()
+    const ponderacionRubricasExpo = sumarPonderacionesExpo()
 
     const cerrarModal = () => {
         setShowModal(false)
@@ -56,7 +65,8 @@ const RubricasFeriaForm = (props) => {
                         />
                     )
                 )}
-                {rubricasAlmacenadas?.length >= 1 && ponderacionRubricas !== 100 ? <div className="feria-rubrica-card__error">La suma de las ponderaciones de las rúbricas debe dar 100</div> : null}            
+                {rubricasAlmacenadas.some(r => !r.exposicion) && ponderacionRubricasTeoricas !== 100 ? <div className="feria-rubrica-card__error">La suma de las ponderaciones de las rúbricas teóricas debe dar 100</div> : null}
+                {rubricasAlmacenadas.some(r => r.exposicion) && ponderacionRubricasExpo !== 100 ? <div className="feria-rubrica-card__error">La suma de las ponderaciones de las rúbricas de exposición debe dar 100</div> : null}
             </div>
 
 

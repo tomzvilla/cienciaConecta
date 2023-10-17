@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     rubricas: [],
@@ -46,6 +46,9 @@ const feriaSlice = createSlice({
             const prevCriterio = prevRubrica.criterios.find(c => c.nombre === criterio.nombre)
             prevCriterio.opciones = prevCriterio.opciones.filter(o => o.nombre !== opcion.nombre)
             state.rubricas = prevRubricas
+        },
+        cargarRubricas(state, action) {
+            state.rubricas = action.payload
         },
     }
 })

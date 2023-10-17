@@ -33,7 +33,6 @@ const SeleccionPostulantes = () => {
     const {data: nivelesData} = useAxiosFetch('/nivel', axiosPrivate)
 
     if(!isLoading && categoriaData && nivelesData) {
-        console.log(data?.postulaciones)
         postulacionesListado = data?.postulaciones?.map(p => {
 
             const nombre = p.datos_docente.nombre
@@ -62,7 +61,6 @@ const SeleccionPostulantes = () => {
         }).sort((a, b) => {
             return new Date(b.fechaPostulacion) - new Date(a.fechaPostulacion)
         })
-        console.log(postulacionesListado)
 
         dispatch(postulacionesActions.cargarPostulaciones(postulacionesListado))
     }

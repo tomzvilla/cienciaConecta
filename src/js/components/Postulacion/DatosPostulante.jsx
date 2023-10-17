@@ -28,8 +28,10 @@ const DatosPostulante = (props) => {
             </div>
 
             <div className="datos-postulante__badges">
-                Antecedentes: {props.antecedentes.map( a => (<GenericBadge key={a._id} text={a.year + " - " + roles[a.rol-1]}/>)
-                                            )}
+                Antecedentes: { props.antecedentes.length !== 0 ? 
+                props.antecedentes.map( a => (<GenericBadge key={a._id} text={a.year + " - " + roles[a.rol-1]}/>))
+                : <GenericBadge text={'No posee antecedentes'}/>
+            }
             </div>
         </div>
     )

@@ -50,8 +50,6 @@ const CrearFeriaForm = (props) => {
         sedeProvincialLocalidad: '',
         sedeProvincial: null,
         cuposProvincial: [],
-        criteriosEvaluacion: [],
-        nombreRubrica: '',
         errorSumaPonderacion: false,
         errorRubrica:  false,
     })
@@ -297,7 +295,7 @@ const CrearFeriaForm = (props) => {
                     cupos,
                     sedeProvincial,
                     cuposProvincial,
-                 } = formValues
+                } = formValues
                 const sedesRegional = new Set(establecimientos.map(e => { 
                     return e._id
                 }))
@@ -384,23 +382,6 @@ const CrearFeriaForm = (props) => {
         setFormValues({...formValues, sedeProvincial: null})
     }
 
-    const handleAddRubrica = (rubrica) => {
-        // crear objeto 
-        const newRubrica = {
-            nombreRubrica: rubrica.nombre,
-            criterios: [],
-        }
-        setFormValues({...formValues, criteriosEvaluacion: [...formValues.criteriosEvaluacion, newRubrica]})
-    }
-
-    const handleDeleteRubrica = (nombreRubrica) => {
-        setFormValues({
-            ...formValues, 
-            nombreRubrica: '',
-            criteriosEvaluacion: formValues.criteriosEvaluacion.filter(r => r.nombreRubrica !== nombreRubrica)
-        })
-    }
-
     return (
         <Card title="Registrar Feria de Ciencias y Tecnología">
             <form className='crear-feria-form'>
@@ -434,15 +415,7 @@ const CrearFeriaForm = (props) => {
                 setFormValues={setFormValues}
                 errors={errors}
             />}
-            {etapaActual === ETAPAS.Criterios && <RubricasFeriaForm 
-                handleChange={handleChange}
-                onBlurField={onBlurField}
-                formValues={formValues}
-                handleAddRubrica={handleAddRubrica}
-                handleDeleteRubrica={handleDeleteRubrica}
-                setFormValues={setFormValues}
-                errors={errors}
-            />}
+            {etapaActual === ETAPAS.Criterios && <RubricasFeriaForm />}
             <div className='crear-feria-form__button'>
                 <Button 
                     text='Volver' 
