@@ -170,11 +170,13 @@ const TablaPostulantes = (props) => {
                                     if(header.name === 'Niveles'){
                                         return (
                                             <td key={header.name} className="table-body-row__td table-body-row__td--badges">
-                                                {postulacion.niveles.map( (n, i) => {
+                                                {postulacion?.niveles?.length > 0 ? postulacion.niveles.map( (n, i) => {
                                             
                                                     if (i < 2) {
-                                                    return (<Badge  key={n._id} type={n} />)}})}
-
+                                                    return (<Badge  key={n._id} type={n} />)}})
+                                                :
+                                                <GenericBadge text="Investigador"/>
+                                                }
                                                 {
                                                     postulacion.niveles.length > 3 ? <GenericBadge text="Más..."/> : ""
                                                 }    

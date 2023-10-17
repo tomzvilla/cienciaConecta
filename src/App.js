@@ -96,11 +96,6 @@ function App() {
             </Route>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.RefEvaluador]}/>}>
               {/* Rutas para referentes */}
-              <Route path='/proyectosParaAsignar' element={<ListadoProyectosAsignados/>}/>
-              {/* // colocar en dashboard */}
-            </Route>
-            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.RefEvaluador]}/>}>
-              {/* Rutas para referentes */}
               <Route path='/proyectosParaAsignar' element={<ListadoProyectosAsignados />}/>
               <Route path='/proyectosParaAsignar/asignar/:id' element={<ProyectoAsignarEvaluadores />}/>
             </Route>

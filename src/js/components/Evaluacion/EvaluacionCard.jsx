@@ -46,9 +46,7 @@ const EvaluacionCard = () => {
     }
 
     const handleDownload = async (link) => {
-        console.log(link)
         const fileURL = await downloadFile(link);
-        console.log(fileURL)
         if (fileURL) {
           try {
             const pdfWindow = window.open();
@@ -91,7 +89,6 @@ const EvaluacionCard = () => {
     const downloadFile = async (link) => {
         try {
           const response = await axiosPrivate.get(`/proyecto/download/${id}/${link}`, { responseType: "blob"});
-          console.log(response)
           const file = new Blob([response.data], { type: "application/pdf" });
           const fileURL = window.URL.createObjectURL(file);
           return fileURL; 
@@ -165,7 +162,6 @@ const EvaluacionCard = () => {
     return(
         proyecto ?
         <Card title={proyecto.titulo}>
-            {console.log(proyecto)}
             <div className="evaluacion-card">
                 <div className="evaluacion-card__data">
                     <p>
@@ -189,10 +185,10 @@ const EvaluacionCard = () => {
                 </div>
                 
                 <div className="evaluacion-card__files">
-                        <DownloadFile onClick={() => handleDownload('informeTrabajo')} name="Informe de trabajo" img={require("../../../assets/tarjeta.png")}/>
-                        <DownloadFile onClick={() => handleDownload('carpetaCampo')} name="Carpeta de Campo" img={require("../../../assets/tarjeta.png")}/>
-                        <DownloadFile onClick={() => handleDownload('registroPedagogico')} name="Registro Pedagógico" img={require("../../../assets/tarjeta.png")}/>
-                        <DownloadFile onClick={() => handleOpen(proyecto.video)} name="Video" img={require("../../../assets/tarjeta.png")}/>
+                    <DownloadFile onClick={() => handleDownload('informeTrabajo')} name="Informe de trabajo" img={require("../../../assets/tarjeta.png")}/>
+                    <DownloadFile onClick={() => handleDownload('carpetaCampo')} name="Carpeta de Campo" img={require("../../../assets/tarjeta.png")}/>
+                    <DownloadFile onClick={() => handleDownload('registroPedagogico')} name="Registro Pedagógico" img={require("../../../assets/tarjeta.png")}/>
+                    <DownloadFile onClick={() => handleOpen(proyecto.video)} name="Video" img={require("../../../assets/tarjeta.png")}/>
                 </div>
 
                
