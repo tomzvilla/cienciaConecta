@@ -1,20 +1,38 @@
 // components
 import FeriaRubricaCard from "./FeriaRubrica/FeriaRubricaCard"
-import Button from "../Button/Button"
-import InputField from "../InputField/InputField"
 import Modal from "../Modal/Modal"
 import OpcionesModal from "./FeriaRubrica/OpcionesModal"
-
+import NuevaRubrica from "./FeriaRubrica/NuevaRubrica"
 // hooks
 import { useState } from "react"
-import NuevaRubrica from "./FeriaRubrica/NuevaRubrica"
+import { useSelector } from "react-redux"
+
 const RubricasFeriaForm = (props) => {
 
-    const { handleChange, onBlurField, errors, formValues, setFormValues, handleAddRubrica, handleDeleteRubrica } = props
-    const rubricas = formValues.criteriosEvaluacion
+    let rubricasAlmacenadas = useSelector(state => state.feria.rubricas)
     const [showModal, setShowModal] = useState(false)
     const [selectedCriterio, setSelectedCriterio] = useState(null)
     const [selectedRubrica, setSelectedRubrica] = useState(null)
+    
+    const sumarPonderacionesTeoricas = () => {
+        let suma = 0;
+        rubricasAlmacenadas?.forEach((rubrica) => {
+            if(!rubrica.exposicion)
+                suma += parseInt(rubrica.ponderacion); 
+        });
+        return suma;
+    };
+    const sumarPonderacionesExpo = () => {
+        let suma = 0;
+        rubricasAlmacenadas?.forEach((rubrica) => {
+            if(rubrica.exposicion)
+                suma += parseInt(rubrica.ponderacion); 
+        });
+        return suma;
+    };
+
+    const ponderacionRubricasTeoricas = sumarPonderacionesTeoricas()
+    const ponderacionRubricasExpo = sumarPonderacionesExpo()
 
     const cerrarModal = () => {
         setShowModal(false)
@@ -27,59 +45,32 @@ const RubricasFeriaForm = (props) => {
         setShowModal(true)
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        if(errors.nombreRubrica.message !== "") return
-        if(formValues.criteriosEvaluacion.find(r => r.nombreRubrica === formValues.nombreRubrica)) return
-        handleAddRubrica({nombre: formValues.nombreRubrica})
-    }
-
-    const handleDelete = (e, nombreRubrica) => {
-        e.preventDefault()
-        handleDeleteRubrica(nombreRubrica)
-    }
-
-    
-
     return (
         <>
+            {showModal && 
+                <Modal
+                    title="Datos de la Opción"
+                    component={<OpcionesModal criterio={selectedCriterio} rubrica={selectedRubrica} />}
+                    setIsOpen={setShowModal}
+                />}
 
-        {showModal && 
-            <Modal
-                title="Datos de la Opción"
-                component={<OpcionesModal formValues={formValues} setFormValues={setFormValues} cerrarModal={cerrarModal} criterio={selectedCriterio} rubrica={selectedRubrica} />}
-                setIsOpen={setShowModal}
-            />}
-
-        <div className="feria-rubrica-form">
-        <h2 className='feria-rubrica-form__title'>Rúbricas </h2>
-            {rubricas?.length === 0 ? (<p className="feria-rubrica-form__blank">No hay rúbricas para la feria</p>) : rubricas.map((r,index) => 
-                (
-                    <FeriaRubricaCard 
-                        key={index}
-                        rubrica={r} 
-                        handleChange={handleChange}
-                        abrirOpciones={abrirOpciones}
-                        onBlurField={onBlurField}
-                        formValues={formValues}
-                        setFormValues={setFormValues}
-                        errors={errors}
-                        handleDeleteRubrica={handleDelete}
-                    />
-                )
-            )}
+            <div className="feria-rubrica-form">
+            <h2 className='feria-rubrica-form__title'>Rúbricas </h2>
+                {!rubricasAlmacenadas ? (<p className="feria-rubrica-form__blank">No hay rúbricas para la feria</p>) : rubricasAlmacenadas.map((r,index) => 
+                    (
+                        <FeriaRubricaCard 
+                            key={index}
+                            rubrica={r} 
+                            abrirOpciones={abrirOpciones}
+                        />
+                    )
+                )}
+                {rubricasAlmacenadas.some(r => !r.exposicion) && ponderacionRubricasTeoricas !== 100 ? <div className="feria-rubrica-card__error">La suma de las ponderaciones de las rúbricas teóricas debe dar 100</div> : null}
+                {rubricasAlmacenadas.some(r => r.exposicion) && ponderacionRubricasExpo !== 100 ? <div className="feria-rubrica-card__error">La suma de las ponderaciones de las rúbricas de exposición debe dar 100</div> : null}
+            </div>
 
 
-            
-            
-        </div>
-
-
-        <NuevaRubrica  
-            handleSubmit={handleSubmit} handleChange={handleChange} 
-            onBlurField={onBlurField} nombreRubrica={formValues.nombreRubrica} 
-            errors={errors.nombreRubrica}
-        />
+            <NuevaRubrica />
         </>
     )
 }

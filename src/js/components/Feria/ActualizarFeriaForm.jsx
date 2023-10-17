@@ -5,12 +5,13 @@ import SedesFeriaForm from "./SedesFeriaForm";
 import Button from "../Button/Button";
 import SedeProvincialForm from "./SedeProvincialForm";
 import RubricasFeriaForm from "./RubricasFeriaForm";
+import Card from "../Card/Card";
 // hooks
 import {useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useFormValidator } from "../../hooks/useFormValidator";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import useAxiosFetch from "../../hooks/useAxiosFetch";
+import { useSelector } from "react-redux";
 
 import Swal from 'sweetalert2'
 
@@ -24,6 +25,7 @@ export const ETAPAS = {
 
 const ActualizarFeriaForm = (props) => {
     const {formData, sedes, sedeProvincial} = props
+    const criteriosEvaluacion = useSelector(state => state.feria.rubricas)
     const axiosPrivate = useAxiosPrivate()
     
     const [formValues, setFormValues] = useState({
@@ -52,8 +54,6 @@ const ActualizarFeriaForm = (props) => {
         sedeProvincialLocalidad: '',
         sedeProvincial: sedeProvincial,
         cuposProvincial: [...formData.instancias.instanciaProvincial.cupos],
-        criteriosEvaluacion: [...formData.criteriosEvaluacion],
-        nombreRubrica: '',
         errorSumaPonderacion: false,
         errorRubrica:  false,
     })
@@ -172,7 +172,7 @@ const ActualizarFeriaForm = (props) => {
         }
     }
 
-    const validarCriteriosEvaluacion = (criteriosEvaluacion) => {
+    const validarCriteriosEvaluacion = () => {
         let errorMessage = ''
         criteriosEvaluacion.forEach(rubrica => {
             if(rubrica.criterios.length === 0){
@@ -206,7 +206,7 @@ const ActualizarFeriaForm = (props) => {
         if(messageError !== '') {
             Swal.fire({
                 text: messageError,
-                title: 'Falló el registro de la feria',
+                title: 'Falló la actualización de la feria',
                 icon: 'error',
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#00ACE6',
@@ -245,11 +245,11 @@ const ActualizarFeriaForm = (props) => {
                 const { 
                     nombreFeria, 
                     descripcionFeria, 
-                    logo, 
-                    fechaInicioFeria, 
-                    fechaFinFeria, 
-                    fechaInicioInstanciaEscolar, 
-                    fechaFinInstanciaEscolar, 
+                    logo,
+                    fechaInicioFeria,
+                    fechaFinFeria,
+                    fechaInicioInstanciaEscolar,
+                    fechaFinInstanciaEscolar,
                     fechaInicioEvaluacionRegional,
                     fechaFinEvaluacionRegional,
                     fechaInicioExposicionRegional,
@@ -260,14 +260,12 @@ const ActualizarFeriaForm = (props) => {
                     fechaFinPostulacionEvaluadores,
                     fechaInicioAsignacionProyectos,
                     fechaFinAsignacionProyectos,
+                    establecimientos,
                     cupos,
                     sedeProvincial,
                     cuposProvincial,
-                    criteriosEvaluacion,
                  } = formValues
-                const sedesRegional = new Set(cupos.map(c => { 
-                    return c.sede
-                }))
+                const sedesRegional = new Set(establecimientos.map(e => { return e._id }))
                 const response = await axiosPrivate.patch(`/feria/${formData._id}`, 
                 JSON.stringify({ 
                     nombre: nombreFeria, 
@@ -312,13 +310,13 @@ const ActualizarFeriaForm = (props) => {
                 let msg = ''
                 console.log(JSON.stringify(err.response.data))
                 if(!err?.response){
-                msg = 'El servidor no respondió'
+                    msg = 'El servidor no respondió'
                 } else if(err.response?.status === 403) {
-                msg = 'Datos incorrectos intente nuevamente'
+                    msg = 'Datos incorrectos intente nuevamente'
                 } else if(err.response?.status === 401) {
-                msg = 'No estas autorizado para realizar esta operación'
+                    msg = 'No estas autorizado para realizar esta operación'
                 } else {
-                msg = `Falló la actualización de la feria <br> ${err.response.data.error}`
+                    msg = `Falló la actualización de la feria <br> ${err.response.data.error}`
                 }
                 Swal.fire({
                     html: msg,
@@ -360,82 +358,58 @@ const ActualizarFeriaForm = (props) => {
         setFormValues({...formValues, sedeProvincial: null})
     }
 
-    const handleAddRubrica = (rubrica) => {
-        // crear objeto 
-        const newRubrica = {
-            nombreRubrica: rubrica.nombre,
-            criterios: [],
-        }
-        setFormValues({...formValues, criteriosEvaluacion: [...formValues.criteriosEvaluacion, newRubrica]})
-    }
-
-    const handleDeleteRubrica = (nombreRubrica) => {
-        setFormValues({
-            ...formValues, 
-            nombreRubrica: '',
-            criteriosEvaluacion: formValues.criteriosEvaluacion.filter(r => r.nombreRubrica !== nombreRubrica)
-        })
-    }
-
     return (
-        <form className='crear-feria-form'>
-            <h2 className='crear-feria-form__title'> Actualizar Feria de Ciencias y Tecnología </h2>
-            {etapaActual === ETAPAS.Datos && <DatosFeriaForm
-                handleChange={handleChange}
-                handleDateChange={handleDateChange}
-                handleFileChange={handleFileChange}
-                onBlurField={onBlurField}
-                formValues={formValues}
-                errors={errors}
-                disabled={disabled}
-            />}
-            {etapaActual === ETAPAS.Instancias && <InstanciasFeriaForm
-                handleDateChange={handleDateChange}
-                onBlurField={onBlurField}
-                formValues={formValues}
-                errors={errors}
-                disabled={disabled}
-            />}
-            {etapaActual === ETAPAS.SedesRegionales && <SedesFeriaForm
-                handleChange={handleChange}
-                handleDeleteSede={handleDeleteSede}
-                onBlurField={onBlurField}
-                formValues={formValues}
-                setFormValues={setFormValues}
-                errors={errors}
-            />}
-            {etapaActual === ETAPAS.SedeProvincial && <SedeProvincialForm
-                handleChange={handleChange}
-                handleDeleteSedeProvincial={handleDeleteSedeProvincial}
-                onBlurField={onBlurField}
-                formValues={formValues}
-                setFormValues={setFormValues}
-                errors={errors}
-            />}
-            {etapaActual === ETAPAS.Criterios && <RubricasFeriaForm 
-                handleChange={handleChange}
-                onBlurField={onBlurField}
-                formValues={formValues}
-                handleAddRubrica={handleAddRubrica}
-                handleDeleteRubrica={handleDeleteRubrica}
-                setFormValues={setFormValues}
-                errors={errors}
-            />}
-            <div className='crear-feria-form__button'>
-                <Button 
-                    text='Volver' 
-                    onClickHandler={handleVolver}
-                />
-                {etapaActual !== ETAPAS.Criterios && <Button 
-                    text={'Continuar'} 
-                    onClickHandler={cambiarVista} activo={true}
+        <Card title="Actualizar Feria de Ciencias y Tecnología">
+            <form className='crear-feria-form'>
+                {etapaActual === ETAPAS.Datos && <DatosFeriaForm
+                    handleChange={handleChange}
+                    handleDateChange={handleDateChange}
+                    handleFileChange={handleFileChange}
+                    onBlurField={onBlurField}
+                    formValues={formValues}
+                    errors={errors}
+                    disabled={disabled}
                 />}
-                {etapaActual === ETAPAS.Criterios && <Button 
-                    text={'Actualizar'} 
-                    onClickHandler={handleSubmit} activo={true}
+                {etapaActual === ETAPAS.Instancias && <InstanciasFeriaForm
+                    handleDateChange={handleDateChange}
+                    onBlurField={onBlurField}
+                    formValues={formValues}
+                    errors={errors}
+                    disabled={disabled}
                 />}
-            </div>
-        </form>
+                {etapaActual === ETAPAS.SedesRegionales && <SedesFeriaForm
+                    handleChange={handleChange}
+                    handleDeleteSede={handleDeleteSede}
+                    onBlurField={onBlurField}
+                    formValues={formValues}
+                    setFormValues={setFormValues}
+                    errors={errors}
+                />}
+                {etapaActual === ETAPAS.SedeProvincial && <SedeProvincialForm
+                    handleChange={handleChange}
+                    handleDeleteSedeProvincial={handleDeleteSedeProvincial}
+                    onBlurField={onBlurField}
+                    formValues={formValues}
+                    setFormValues={setFormValues}
+                    errors={errors}
+                />}
+                {etapaActual === ETAPAS.Criterios && <RubricasFeriaForm  />}
+                <div className='crear-feria-form__button'>
+                    <Button 
+                        text='Volver' 
+                        onClickHandler={handleVolver}
+                    />
+                    {etapaActual !== ETAPAS.Criterios && <Button 
+                        text={'Continuar'} 
+                        onClickHandler={cambiarVista} activo={true}
+                    />}
+                    {etapaActual === ETAPAS.Criterios && <Button 
+                        text={'Actualizar'} 
+                        onClickHandler={handleSubmit} activo={true}
+                    />}
+                </div>
+            </form>
+        </Card>
     )
 }
 

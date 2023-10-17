@@ -4,7 +4,7 @@ import Button from "../Button/Button"
 import Badge from "../Badge/Badge"
 import Pagination from "../Pagination/Pagination"
 // hooks
-import { useState, useMemo } from "react"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 
@@ -23,18 +23,19 @@ const TablaPostulantes = (props) => {
     const axiosPrivate = useAxiosPrivate()
 
     // state with redux
-    const postulaciones = useSelector(state => state.postulaciones.listadoPostulantes)
-    console.log(postulaciones)
+    const postulaciones = useSelector(state => state.postulaciones.listadoPostulantes) || []
     const dispatch = useDispatch()
 
     // pagination state
     const [currentPage, setCurrentPage] = useState(1);
 
-    const currentTableData = useMemo(() => {
+    const calculateCurrentTableData = () => {
         const firstPageIndex = (currentPage - 1) * pageSize;
         const lastPageIndex = firstPageIndex + pageSize;
-        return postulaciones.slice(firstPageIndex, lastPageIndex);
-    }, [currentPage]);
+        return postulaciones?.slice(firstPageIndex, lastPageIndex);
+    };
+      
+    const currentTableData = calculateCurrentTableData();
 
     const toggleRowSelection = (postulanteId) => {
         if (selectedRows.includes(postulanteId)) {
@@ -78,7 +79,7 @@ const TablaPostulantes = (props) => {
                     if(result.isConfirmed || result.isDismissed) {
                         dispatch(postulacionesActions.actualizarPostulaciones(selectedRows))
                         setSelectedRows([])
-                        
+                        navigate(0)
                     }
                 })
             }
@@ -131,6 +132,7 @@ const TablaPostulantes = (props) => {
             <table className="table">
 
                 <thead className="table__header">
+                    <tr>
                         {props.headers.map(header => {
                             return (
                                 <th scope="col" key={header.value} className="table-header__head">{header.name}</th>
@@ -139,6 +141,7 @@ const TablaPostulantes = (props) => {
                         }
                         <th scope="col" className="table-header__head">Acciones</th>
                         <th scope="col" className="table-header__head">Seleccionar</th>
+                    </tr>
                 </thead>
 
                 <tbody className="table__body">
@@ -156,7 +159,7 @@ const TablaPostulantes = (props) => {
                                                     return (<Badge key={c._id} type={c} />)}})}
 
                                                     {
-                                                    postulacion.niveles.length > 3 ? <GenericBadge text="Más..."/> : ""
+                                                    postulacion.categorias.length > 3 ? <GenericBadge text="Más..."/> : ""
 
 
                                                 }   
@@ -167,11 +170,13 @@ const TablaPostulantes = (props) => {
                                     if(header.name === 'Niveles'){
                                         return (
                                             <td key={header.name} className="table-body-row__td table-body-row__td--badges">
-                                                {postulacion.niveles.map( (n, i) => {
+                                                {postulacion?.niveles?.length > 0 ? postulacion.niveles.map( (n, i) => {
                                             
                                                     if (i < 2) {
-                                                    return (<Badge  key={n._id} type={n} />)}})}
-
+                                                    return (<Badge  key={n._id} type={n} />)}})
+                                                :
+                                                <GenericBadge text="Investigador"/>
+                                                }
                                                 {
                                                     postulacion.niveles.length > 3 ? <GenericBadge text="Más..."/> : ""
                                                 }    
@@ -199,7 +204,7 @@ const TablaPostulantes = (props) => {
                 </tbody>
             </table>
 
-            <Pagination currentPage={currentPage} totalCount={postulaciones.length} pageSize={pageSize} onPageChange={page => setCurrentPage(page)} />
+            <Pagination currentPage={currentPage} totalCount={postulaciones?.length} pageSize={pageSize} onPageChange={page => setCurrentPage(page)} />
 
 
                 

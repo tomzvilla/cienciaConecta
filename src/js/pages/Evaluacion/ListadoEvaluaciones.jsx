@@ -16,7 +16,7 @@ const headers = [
     {name: 'Título', value: 'titulo'},
     {name: 'Nivel', value: 'nivel'},
     {name: 'Categoría', value: 'categoria'},
-    {name: 'Estado', value: 'estado'},
+    {name: 'Estado', value: 'nombreEstado'},
 ]
 
 
@@ -49,7 +49,7 @@ const ListadoEvaluaciones = () => {
                         <Spinner /> 
                         :
                         listadoData?.length === 0 ?
-                        < BlankState msg='No hay proyectos pendientes de evaluacion' />
+                        < BlankState msg='No hay proyectos pendientes de evaluación. ¡Intentá de nuevo mas tarde!' />
                         :
                         <TablaEvaluaciones location={location} headers={headers} />
                     }

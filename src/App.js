@@ -27,11 +27,16 @@ import VisualizarPostulante from './js/components/Postulacion/VisualizarPostulan
 import ListadoEvaluaciones from './js/pages/Evaluacion/ListadoEvaluaciones'
 import EvaluacionCard from './js/components/Evaluacion/EvaluacionCard'
 import Evaluacion from './js/pages/Evaluacion/Evaluacion'
-
+import ListadoProyectosAsignados from './js/pages/Referentes/ListadoProyectosAsignados'
+import ProyectoAsignarEvaluadores from './js/pages/Referentes/ProyectoAsignarEvaluadores'
+import AsignarReferentes from './js/pages/Referentes/AsignarReferentes'
 
 // DEV
 import Card from './js/components/Card/Card'
 import AuthVerify from './js/components/PersistLogin/AuthVerify'
+import ConfirmarCuenta from './js/pages/Usuarios/ConfirmarCuenta'
+import VisualizarListadoPendienteActivacion from './js/pages/Usuarios/VisualizarListadoPendienteActivacion'
+import VisualizarUsuarioPendienteActivacion from './js/pages/Usuarios/VisualizarUsuarioPendienteActivacion'
 
 
 // ROLES
@@ -59,6 +64,8 @@ function App() {
           <Route element={<PersistLoginInverse />}>
             <Route path='/login' element={<LoginPage/>}/>
             <Route path='/signup' element={<Signup/>}/>
+            <Route path='/confirmar/:token' element={<ConfirmarCuenta/>}/>
+
           </Route>
           <Route element={<PersistLogin />}>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]}/>}>
@@ -79,9 +86,22 @@ function App() {
               <Route path='/verFeria' element={<VisualizarFeriaActual/>}/> 
               <Route path='/verListaFerias' element={<VisualizarListadoFerias/>}/>
               <Route path='/editarFeria' element={<ActualizarFeria/>}/> 
-              <Route path='/seleccionarPostulantes' element={<SeleccionPostulantes/>}/> 
+              {/* Rutas para postulantes */}
+              <Route path='/seleccionarPostulantes' element={<SeleccionPostulantes/>}/>
               <Route path='/postulante/:id' element={<VisualizarPostulante/>}/>
-              {/* // colocar en dashboard */}
+              <Route path='/activarUsuarios' element={<VisualizarListadoPendienteActivacion/>}/>
+              <Route path='/usuarioPendienteActivacion/:id' element={<VisualizarUsuarioPendienteActivacion/>}/> 
+              {/* Rutas para referentes */}
+              <Route path='/asignarReferentes' element={<AsignarReferentes/>}/>
+            </Route>
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.RefEvaluador]}/>}>
+              {/* Rutas para referentes */}
+              <Route path='/proyectosParaAsignar' element={<ListadoProyectosAsignados />}/>
+              <Route path='/proyectosParaAsignar/asignar/:id' element={<ProyectoAsignarEvaluadores />}/>
+            </Route>
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.RefEvaluador, ROLES.ComAsesora]}/>}>
+              {/* Rutas para referentes */}
+              <Route path='/postulante/:id' element={<VisualizarPostulante/>}/>
             </Route>
             <Route path='*' element={<NotFound/>}/>
           </Route>

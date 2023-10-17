@@ -18,8 +18,7 @@ const DatosPostulante = (props) => {
             <p className="datos-postulante__dato">Cargo: {props.cargo}</p>  
 
             <div className="datos-postulante__badges datos-postulante__badges--first">
-                Niveles: {props.niveles.map( n => (<Badge  key={n._id} type={n} />)
-                                                    )}
+                Niveles: {props.niveles.length > 0 ? props.niveles.map( n => (<Badge  key={n._id} type={n} />)) : <GenericBadge text={'Investigador'}/>}
             </div>
 
             <div className="datos-postulante__badges">
@@ -28,8 +27,10 @@ const DatosPostulante = (props) => {
             </div>
 
             <div className="datos-postulante__badges">
-                Antecedentes: {props.antecedentes.map( a => (<GenericBadge key={a._id} text={a.year + " - " + roles[a.rol-1]}/>)
-                                            )}
+                Antecedentes: { props.antecedentes.length !== 0 ? 
+                props.antecedentes.map( a => (<GenericBadge key={a._id} text={a.year + " - " + roles[a.rol-1]}/>))
+                : <GenericBadge text={'No posee antecedentes'}/>
+            }
             </div>
         </div>
     )
