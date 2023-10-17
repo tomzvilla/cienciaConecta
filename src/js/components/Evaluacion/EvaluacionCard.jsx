@@ -68,6 +68,9 @@ const EvaluacionCard = () => {
 
     const handleOpen = (link) => {
         try {
+            if(!link) {
+                throw new Error('No se pudo obtener el video.')
+            }
             const newWindow = window.open();
             if(!newWindow) {
               throw new Error('No se pudo abrir la ventana emergente. Verifique la configuración del navegador.')
@@ -162,6 +165,7 @@ const EvaluacionCard = () => {
     return(
         proyecto ?
         <Card title={proyecto.titulo}>
+            {console.log(proyecto)}
             <div className="evaluacion-card">
                 <div className="evaluacion-card__data">
                     <p>
@@ -188,7 +192,7 @@ const EvaluacionCard = () => {
                     <DownloadFile onClick={() => handleDownload('informeTrabajo')} name="Informe de trabajo" img={require("../../../assets/tarjeta.png")}/>
                     <DownloadFile onClick={() => handleDownload('carpetaCampo')} name="Carpeta de Campo" img={require("../../../assets/tarjeta.png")}/>
                     <DownloadFile onClick={() => handleDownload('registroPedagogico')} name="Registro Pedagógico" img={require("../../../assets/tarjeta.png")}/>
-                    <DownloadFile onClick={() => handleOpen(proyecto.video)} name="Video" img={require("../../../assets/tarjeta.png")}/>
+                    <DownloadFile onClick={() => handleOpen(proyecto.videoPresentacion)} name="Video" img={require("../../../assets/tarjeta.png")}/>
                 </div>
 
                
