@@ -2,7 +2,7 @@
 import ProjectCardDetails from "./ProjectCardDetails"
 import ImageButton from "../ImageButton/ImageButton"
 import ImageLink from "../ImageLink/ImageLink"
-
+import Button from "../Button/Button"
 // hooks
 import { useNavigate, useLocation } from "react-router-dom"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
@@ -12,6 +12,7 @@ const ProjectCard = ({ formData }) => {
     const navigate = useNavigate()
     const location = useLocation()
     const from = location?.state?.from || '/dashboard'
+    console.log(formData)
 
     const axiosPrivate = useAxiosPrivate()
 
@@ -92,6 +93,40 @@ const ProjectCard = ({ formData }) => {
             })
         }
     }
+
+    const handleDownload = async () => {
+        const fileURL = await descargarQR();
+        if (fileURL) {
+          try {
+            const pdfWindow = window.open();
+            if(!pdfWindow) {
+              throw new Error('No se pudo abrir la ventana emergente. Verifique la configuración del navegador.')
+            }
+            pdfWindow.location.href = fileURL;
+          } catch (err) {
+            Swal.fire({
+              title: 'Hubo un problema',
+              icon: 'warning',
+              text: 'No se pudo abrir el archivo en una nueva pestaña. Habilita las ventanas emergentes en tu navegador para resolver este problema.',
+              confirmButtonText: 'OK',
+              confirmButtonColor: '#00ACE6'
+            })
+          }
+        }
+    }
+
+    const descargarQR = async () => {
+        try {
+          const response = await axiosPrivate.get(`/proyecto/generarQR/${formData._id}`, { responseType: "blob"});
+          const file = new Blob([response.data], { type: "application/pdf" });
+          const fileURL = window.URL.createObjectURL(file);
+          return fileURL; 
+        } 
+        catch (error) {
+          console.log(error)
+          return null;
+        }
+    }
     
     return (
         <div className="project-card">
@@ -103,6 +138,13 @@ const ProjectCard = ({ formData }) => {
 
             <div className="project-card__borrar">
                 <ImageButton small={false} alt="Borrar" linkto={""} callback={handleDelete} src={require("../../../assets/x.png")}/>
+            </div>
+            <div className="project-card__borrar">
+                <Button 
+                    text='Descargar QR' 
+                    onClickHandler={handleDownload}
+                    activo={true}
+                />
             </div>
 
             <ProjectCardDetails datos={formData}/>
