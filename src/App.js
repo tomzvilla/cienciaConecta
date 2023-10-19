@@ -30,6 +30,7 @@ import Evaluacion from './js/pages/Evaluacion/Evaluacion'
 import ListadoProyectosAsignados from './js/pages/Referentes/ListadoProyectosAsignados'
 import ProyectoAsignarEvaluadores from './js/pages/Referentes/ProyectoAsignarEvaluadores'
 import AsignarReferentes from './js/pages/Referentes/AsignarReferentes'
+import RecuperarCredenciales from './js/pages/RecuperarCredenciales'
 
 // DEV
 import Card from './js/components/Card/Card'
@@ -65,6 +66,7 @@ function App() {
             <Route path='/login' element={<LoginPage/>}/>
             <Route path='/signup' element={<Signup/>}/>
             <Route path='/confirmar/:token' element={<ConfirmarCuenta/>}/>
+            <Route path='/recuperarCredenciales' element={<RecuperarCredenciales />}/>
 
           </Route>
           <Route element={<PersistLogin />}>

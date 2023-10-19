@@ -2,6 +2,7 @@
 import Button  from '../Button/Button'
 import InputField from '../InputField/InputField'
 import LoginFormLink from '../LoginFormLink/LoginFormLink'
+import RecoverPasswordLink from '../RecoverPasswordLink/RecoverPasswordLink'
 // hooks
 import { useState } from 'react'
 import { useFormValidator } from '../../hooks/useFormValidator'
@@ -156,10 +157,9 @@ const LoginForm = () => {
             <div className='login-form__link-container'>
               <LoginFormLink/>
             </div>
-          
-            
-            
-            
+            <div className='login-form__link-container'>
+              <RecoverPasswordLink/>
+            </div>
         </form>
     )
 }
