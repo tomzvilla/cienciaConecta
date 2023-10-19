@@ -88,6 +88,18 @@ const evaluacionSlice = createSlice({
             });
             state.listadoEvaluaciones = prevListado;
         
+        },
+        actualizarListosEvaluacion(state, action) {
+            const prevListado = [...state.listadoEvaluaciones];
+            const proyecto = prevListado.find(p => p._id === action.payload)
+            proyecto.evaluacion.listo.push('tempId')
+            state.listadoEvaluaciones = prevListado
+        },
+        actualizarListosExposicion(state, action) {
+            const prevListado = [...state.listadoEvaluaciones];
+            const proyecto = prevListado.find(p => p._id === action.payload)
+            proyecto.exposicion.listo.push('tempId')
+            state.listadoEvaluaciones = prevListado
         }
     }
 })

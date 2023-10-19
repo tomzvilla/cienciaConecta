@@ -10,8 +10,8 @@ import { useParams, useNavigate, useLocation } from "react-router"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useCategoriasNiveles from "../../hooks/useCategoriasNiveles"
-import { useSelector } from "react-redux"
-import { useState } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { evaluacionActions } from "../../../store/evaluacion-slice"
 
 import Swal from "sweetalert2"
 
@@ -19,12 +19,12 @@ const EvaluacionCard = () => {
     const { id } = useParams()
     const axiosPrivate = useAxiosPrivate()
     const location = useLocation()
-    const [link, setLink] = useState('')
-    const [confirm, setConfirm] = useState(true)
-
+    const dispatch = useDispatch()
 
     let proyecto = useSelector(state => state.evaluacion.listadoEvaluaciones.find(p => p._id === id))
-
+    const instancia = useSelector(state => state.instancias.instancia)
+    const evaluationMsg = instancia === 'regional' ? 'evaluación teórica' : 'evaluación de exposición'
+    const evaluationMsgMayuscula = instancia === 'regional' ? 'Evaluación Teórica' : 'Evaluación de Exposición'
     // Si recarga la pagina se hacen estas consultas
     const { data: proyectoData, isLoading } = useAxiosFetch(`/evaluacion/pendientes/${id}`, axiosPrivate, !!proyecto)
     const { data: categoriasData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate, !!proyecto)
@@ -34,8 +34,8 @@ const EvaluacionCard = () => {
    
     if(!isLoading && proyectoData?.proyecto) {
         proyecto = proyectoMap(proyectoData)
-        proyecto['evaluacion'] = proyectoData.evaluacion 
-
+        proyecto['evaluacion'] = proyectoData.evaluacion
+        proyecto['exposicion'] = proyectoData.exposicion
     }
 
     const navigate = useNavigate()
@@ -106,7 +106,7 @@ const EvaluacionCard = () => {
 
     const handleConfirmar = () => {
         Swal.fire({
-            title: '¿Deseas confirmar la evaluación de proyecto?',
+            title: `¿Deseas confirmar la ${evaluationMsg} de proyecto?`,
             icon: 'question',
             text: 'Puede que otro evaluador haya hecho modificaciones, ¿estás seguro de confirmarla?',
             showCancelButton: true,
@@ -119,13 +119,14 @@ const EvaluacionCard = () => {
             if(result.isConfirmed) {
                 const success = await confirmarEvaluacion()
                 if(success) Swal.fire({
-                    title: '¡Evaluación Confirmada!',
-                    text: 'Confirmaste con éxito la evaluación de este proyecto',
+                    title: `¡${evaluationMsgMayuscula} Confirmada!`,
+                    text: `Confirmaste con éxito la ${evaluationMsg} de este proyecto`,
                     icon: 'success',
                     confirmButtonText: 'OK',
                     confirmButtonColor: '#00ACE6',
                 }).then((result) => {
-                    if(result.isConfirmed || result.isDismissed) { 
+                    if(result.isConfirmed || result.isDismissed) {
+                        instancia === 'regional' ? dispatch(evaluacionActions.actualizarListosEvaluacion(id)) : dispatch(evaluacionActions.actualizarListosExposicion(id))
                         navigate('/evaluar', {replace: true, state: { from:`${location.pathname}`}})
                         
                     }
@@ -137,7 +138,8 @@ const EvaluacionCard = () => {
 
     const confirmarEvaluacion = async () => {
         try {
-            const response = await axiosPrivate.get(`/evaluacion/confirmar/${id}`)
+            const endpoint = instancia === 'regional' ? 'evaluacion' : 'exposicion'
+            const response = await axiosPrivate.get(`/${endpoint}/confirmar/${id}`)
             return response.status === 200
         } catch (err) {
             let msg = ''
@@ -149,11 +151,11 @@ const EvaluacionCard = () => {
             } else if(err.response?.status === 401) {
                 msg = `No estas autorizado para realizar esta operación. <br> ${err.response.data.error}`
             } else {
-                msg = `Falló la confirmación de la evaluación <br> ${err.response.data.error}`
+                msg = `Falló la confirmación de la ${evaluationMsg} <br> ${err.response.data.error}`
             }
             Swal.fire({
                 html: msg,
-                title: 'Falló la confirmación de la evaluación',
+                title: `Falló la confirmación de la ${evaluationMsg}`,
                 icon: 'error',
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#00ACE6',
@@ -165,7 +167,6 @@ const EvaluacionCard = () => {
     return(
         proyecto ?
         <Card title={proyecto.titulo}>
-            {console.log(proyecto)}
             <div className="evaluacion-card">
                 <div className="evaluacion-card__data">
                     <p>
@@ -198,17 +199,22 @@ const EvaluacionCard = () => {
                
                 
                 <div className="evaluacion-card__evaluacion">
-                    <strong>Evaluaciones</strong>
+                    <strong>{evaluationMsgMayuscula}</strong>
                     <div>
                         Realizadas:
                         {!proyecto?.evaluacion ?
 
                         proyecto.evaluadoresRegionales.map( e =>
-                            <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled />
+                            <input type="checkbox" key={e} id={e} disabled />
+                        )
+                        :
+                        proyecto.estado < 3 ?
+                        proyecto.evaluadoresRegionales.map( (e, index) =>
+                            <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.evaluacion?.evaluadorId?.length - 1} />
                         )
                         :
                         proyecto.evaluadoresRegionales.map( (e, index) =>
-                            <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled checked={index <= proyecto.evaluacion?.evaluadorId?.length - 1} />
+                            <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.exposicion?.evaluadorId?.length - 1} />
                         )
                     }
                     </div>
@@ -216,11 +222,17 @@ const EvaluacionCard = () => {
                         Confirmadas:
                         {!proyecto?.evaluacion ?
                         proyecto.evaluadoresRegionales.map( e =>
-                            <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled />
+                            <input type="checkbox" key={e} id={e} disabled />
+                        )
+                        :
+                        proyecto.estado < 3 ?
+                        proyecto.evaluadoresRegionales.map( (e, index) =>
+                            <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto?.evaluacion.listo.length - 1} />
+
                         )
                         :
                         proyecto.evaluadoresRegionales.map( (e, index) =>
-                            <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled checked={index <= proyecto?.evaluacion.listo.length - 1} />
+                            <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto?.exposicion?.listo.length - 1} />
 
                         )
                     }
@@ -236,12 +248,23 @@ const EvaluacionCard = () => {
                     onClickHandler={iniciarEvaluacion}
                     activo={true}
                 />
-                <Button 
-                    text='Confirmar' 
-                    onClickHandler={handleConfirmar}
-                    activo={true}
-                    disabled={!proyecto?.evaluacion ? true : proyecto.evaluadoresRegionales.length > proyecto?.evaluacion?.evaluadorId?.length ? true : false}
-                />
+                {
+                    proyecto.estado < 3 ?
+                    <Button 
+                        text='Confirmar' 
+                        onClickHandler={handleConfirmar}
+                        activo={true}
+                        disabled={!proyecto?.evaluacion ? true : proyecto.evaluadoresRegionales.length > proyecto?.evaluacion?.evaluadorId?.length ? true : false}
+                    />
+                    :
+                    <Button 
+                        text='Confirmar' 
+                        onClickHandler={handleConfirmar}
+                        activo={true}
+                        disabled={!proyecto?.exposicion ? true : proyecto.evaluadoresRegionales.length > proyecto?.exposicion?.evaluadorId?.length ? true : false}
+                    />
+                }
+
             </div>
         </Card>
         :

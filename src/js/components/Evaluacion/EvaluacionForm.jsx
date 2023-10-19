@@ -24,7 +24,7 @@ const EvaluacionForm = (props) => {
     const from = location?.state?.from || 'dashboard'
 
     // TODO iniciar evaluacion
-    
+    const instancia = useSelector(state => state.instancias.instancia)
     const evaluaciones = useSelector(state => state.evaluacion.criteriosConValores)
     const devoluciones = useSelector(state => state.evaluacion.devoluciones)
     const rubricas = useSelector(state => state.evaluacion.rubricas)
@@ -54,9 +54,9 @@ const EvaluacionForm = (props) => {
         dispatch(evaluacionActions.cargarRubricas(rubricas))
 
         return async () => {
-            console.log('se cancela la evaluacion')
             try {
-                await axiosPrivate.delete(`/evaluacion/${projectId}`, 
+                const endpoint = instancia === 'regional' ? 'evaluacion' : 'exposicion'
+                await axiosPrivate.delete(`/${endpoint}/${projectId}`, 
                 { 
                     headers: { 
                         withCredentials: true,
@@ -76,7 +76,7 @@ const EvaluacionForm = (props) => {
             let errorMsg = ''
             if(evl.rubricaId === idRubricaActual) {
                 if(evl.opcionSeleccionada === '0' || evl.opcionSeleccionada === '') {
-                    errorMsg = 'Debe ingresar una opcion para este criterio'
+                    errorMsg = 'Debe ingresar una opción para este criterio'
                     isValid = false
                 }
                 dispatch(evaluacionActions.cargarError({rubricaId: evl.rubricaId, criterioId: evl.criterioId, error: errorMsg}))
@@ -88,7 +88,7 @@ const EvaluacionForm = (props) => {
         let errorMsg = ''
 
         if(!devolucion || devolucion.comentario === '') {
-            errorMsg = 'Debe ingresar una devolucion para la rubrica actual'
+            errorMsg = 'Debe ingresar una devolución para la rubrica actual'
             isValid = false
             dispatch(evaluacionActions.cargarErrorDevolucion({rubricaId: idRubricaActual, error: errorMsg}))
         } else if(devolucion?.error !== ''){
@@ -115,8 +115,10 @@ const EvaluacionForm = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        const firstTitle = instancia === 'regional' ? '¿Deseas evaluar este proyecto?' : '¿Deseas evaluar la exposición de este proyecto?'
+        const secondText = instancia === 'regional' ? 'Evaluaste el proyecto con éxito' : 'Evaluaste la exposición del proyecto con éxito'
         Swal.fire({
-            title: '¿Deseas evaluar este proyecto?',
+            title: firstTitle,
             icon: 'question',
             showCancelButton: true,
             reverseButtons: true,
@@ -129,7 +131,7 @@ const EvaluacionForm = (props) => {
                 const success = await evaluarProyecto()
                 if(success) Swal.fire({
                     title: '¡Proyecto Evaluado!',
-                    text: 'Evaluaste el proyecto con éxito',
+                    text: secondText,
                     icon: 'success',
                     confirmButtonText: 'OK',
                     confirmButtonColor: '#00ACE6',
@@ -150,17 +152,16 @@ const EvaluacionForm = (props) => {
             evaluacion: evaluaciones,
             comentarios: devoluciones
         }
+        const endpoint = instancia === 'regional' ? 'evaluacion' : 'exposicion'
         try {
-            const response = await axiosPrivate.post(`/evaluacion/${projectId}`, body, 
+            const response = await axiosPrivate.post(`/${endpoint}/${projectId}`, body, 
             {
                 headers: {'Content-Type': 'application/json'},
                 withCredentials: true
             })
-            console.log(response)
             if(response.status === 200) return true
         } catch (err) {
             let msg = ''
-            console.log(JSON.stringify(err.response.data))
             if(!err?.response){
                 msg = 'El servidor no respondió'
             } else if(err.response?.status === 403) {
@@ -182,7 +183,7 @@ const EvaluacionForm = (props) => {
 
 
     return(
-        <Card title={'Evaluacion de un Proyecto'}>
+        <Card title={'Evaluar el Proyecto'}>
             {emptyValueAdded && evaluacion.map(rubrica => (
                 <Rubrica key={rubrica._id} display={rubrica._id === rubricaActual} rubrica={rubrica}/>
             ))}

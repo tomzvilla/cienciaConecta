@@ -9,6 +9,7 @@ import uiSlice from "./ui-slice";
 import referentesSlice from "./referentes-slice";
 import loginSlice from "./login-slice";
 import feriaSlice from "./feria-slice";
+import instanciasSlice from './instancias-slice'
 
 const store = configureStore({
     reducer: { 
@@ -19,6 +20,7 @@ const store = configureStore({
         pendientes: pendientesSlice.reducer,
         login: loginSlice.reducer,
         feria: feriaSlice.reducer,
+        instancias: instanciasSlice.reducer,
     }
 })
 

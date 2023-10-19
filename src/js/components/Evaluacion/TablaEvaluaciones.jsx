@@ -1,7 +1,6 @@
 // components
 import Badge from "../Badge/Badge";
 import ImageLink from "../ImageLink/ImageLink";
-import Button from "../Button/Button";
 
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"
@@ -34,7 +33,6 @@ const TablaEvaluaciones = (props) => {
 
                 <tbody className="table__body">
                     {listadoEvaluaciones.map((proyecto, index) => {
-                        console.log(proyecto)
                         return (
                             <tr key={proyecto._id} className="table-body-row">
                                 {props.headers.map(header => {
@@ -59,29 +57,21 @@ const TablaEvaluaciones = (props) => {
                                 <td className="table-body-row__td table-body-row__td--actions">
                                     <ImageLink small={true} src={require("../../../assets/pantalla.png")} linkto={`/evaluar/${proyecto._id}`} alt="Evaluar"/>
                                 </td>
-                                <td className="table-body-row__td">
+                                {proyecto.estado < 3 ?
+                                    <td className="table-body-row__td">
                                     {!proyecto.evaluacion ? `0/${proyecto.evaluadoresRegionales.length}` : `${proyecto.evaluacion.listo.length}/${proyecto.evaluadoresRegionales.length}`}
-                                </td> 
+                                    </td>
+                                :
+                                    <td className="table-body-row__td">
+                                        {!proyecto.exposicion ? `0/${proyecto.evaluadoresRegionales.length}` : `${proyecto.exposicion.listo.length}/${proyecto.evaluadoresRegionales.length}`}
+                                    </td> 
+                                }
                             </ tr>
                         )
                         
                     })}
                 </tbody>
             </table>
-            {/* <Pagination currentPage={currentPage} totalCount={postulaciones.length} pageSize={pageSize} onPageChange={page => setCurrentPage(page)} /> */}
-            <div className="button-container">
-                <Button 
-                    text='Volver' 
-                    onClickHandler={handleVolver}
-                />
-                <Button 
-                    text='Seleccionar' 
-                    onClickHandler={() => {}}
-                    activo={true}
-                />
-            </div>
-
-            
         </>
     )
 }

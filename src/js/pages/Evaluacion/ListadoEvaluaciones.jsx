@@ -7,8 +7,9 @@ import TablaEvaluaciones from "../../components/Evaluacion/TablaEvaluaciones"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useCategoriasNiveles from "../../hooks/useCategoriasNiveles"
-
+import { useState } from "react"
 import { evaluacionActions } from "../../../store/evaluacion-slice";
+import { instanciasActions } from "../../../store/instancias-slice"
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router"
 
@@ -26,6 +27,9 @@ const ListadoEvaluaciones = () => {
     const dispatch = useDispatch()
     const location = useLocation()
 
+    // TO DO, agregar consulta a endpoint de estado feria, o agregarlo en el jwt
+    const instancia = 'regional'
+    dispatch(instanciasActions.setInstancia('regional'))
     const { data: listadoData, isLoading } = useAxiosFetch('/evaluacion/pendientes', axiosPrivate)
     const { data: categoriasData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate)
     const { data: nivelesData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate)
@@ -34,24 +38,27 @@ const ListadoEvaluaciones = () => {
 
 
     if(!isLoading && listadoData?.proyectos) {
-        
-        const proyectos = proyectosMapping(listadoData?.proyectos)
+        let proyectosFiltrados = []
+        if(instancia === 'regional') {
+            proyectosFiltrados = listadoData?.proyectos.filter(p => parseInt(p.estado) < 3)
+        } else {
+            proyectosFiltrados = listadoData?.proyectos.filter(p => parseInt(p.estado) >= 3)
+        }
+        const proyectos = proyectosMapping(proyectosFiltrados)
         dispatch(evaluacionActions.cargarTablaEvaluacionesPendientes(proyectos))
     }
 
+
     return (
         <div className="table-custom-page">
-            <Card title="Listado de Evaluaciones" wide={true}>
-                
-                    {/* <h6 className="table-custom-page__text">Proyectos pendientes de evaluación</h6> */}
-
+            <Card title={`Listado de ${instancia === 'regional' ? 'Evaluaciones' : 'Exposiciones'}`} wide={true}>
                     {isLoading ? 
                         <Spinner /> 
                         :
                         listadoData?.length === 0 ?
-                        < BlankState msg='No hay proyectos pendientes de evaluación. ¡Intentá de nuevo mas tarde!' />
+                        < BlankState msg={`No hay ${instancia === 'regional' ? 'proyectos' : 'exposiciones'} pendientes de evaluación. ¡Intentá de nuevo mas tarde!`} />
                         :
-                        <TablaEvaluaciones location={location} headers={headers} />
+                        <TablaEvaluaciones location={location} headers={headers}/>
                     }
             </Card>
         </div>
