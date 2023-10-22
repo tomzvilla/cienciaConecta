@@ -4,7 +4,7 @@ const initialState = {
     listadoProyectos: [],
     loadingProyectos: false,
     selectedRows: [],
-    cupos: [],
+    cupos: 0,
 }
 
 const promocionesSlice = createSlice({
@@ -13,18 +13,14 @@ const promocionesSlice = createSlice({
     reducers: {
         cargarProyectos(state, action) {
             state.listadoProyectos = action.payload
-            state.selectedRows = []
+            const promovidos = action.payload.map(p => {if(p.promovido) return p._id}).filter(p => p !== undefined)
+            state.selectedRows = promovidos
         },
         setLoadingProyectos(state, action) {
             state.loadingProyectos = action.payload
         },
         setCupos(state, action) {
-            state.cupos = action.payload
-        },
-        cargarCuposConDatos(state, action) {
-            const { cupos, sede, nivel } = action.payload
-            const prevCupos = cupos.filter(c => c.sede === sede && c.nivel === nivel)
-            state.cupos = prevCupos
+            state.cupos = action.payload.cupos
         },
         toggleSelectedRow(state, action) {
             const prevRows = [...state.selectedRows]
@@ -35,6 +31,9 @@ const promocionesSlice = createSlice({
                 state.selectedRows = [...prevRows, action.payload];
             }
         },
+        setSelectedRows(state, action) {
+            state.selectedRows = action.payload
+        }
     }
 })
 

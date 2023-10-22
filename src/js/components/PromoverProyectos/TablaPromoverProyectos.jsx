@@ -48,7 +48,7 @@ const TablaPromoverProyectos = (props) => {
             dispatch(promocionesActions.toggleSelectedRow(proyectoId))
         }
         else {
-            if(selectedRows.length === cupos[0].cantidad) {
+            if(selectedRows.length === cupos) {
                 Swal.fire({
                     text: '¡Los cupos para esta sede y este nivel están llenos!',
                     title: 'Error al seleccionar proyectos',
@@ -172,7 +172,7 @@ const TablaPromoverProyectos = (props) => {
 
                     <tbody className="table__body">
                         {proyectos && currentTableData.map((proyecto) => {
-                            const isChecked = selectedRows.includes(proyecto._id) || proyecto.promover
+                            const isChecked = selectedRows.includes(proyecto._id)
                             return (
                                 <tr key={proyecto._id} className="table-body-row">
                                     {props.headers.map(header => {

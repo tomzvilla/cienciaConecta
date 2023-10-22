@@ -29,8 +29,6 @@ const PromoverProyectos = () => {
         nivelSeleccionado: '',
     })
 
-    console.log(new Date())
-
     const [categoria, setCategoria] = useState(null)
 
     const [buscaronProyectos, setBuscaronProyectos] = useState(false)
@@ -38,12 +36,9 @@ const PromoverProyectos = () => {
     const { data: sedesData, isLoading: loadingSedes } = useAxiosFetch(`/establecimiento/sedes/regional`, axiosPrivate)
     const { data: categoriasData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate)
     const { data: nivelesData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate)
-    const { data: feriaData, isLoading: loadingFeria } = useAxiosFetch('/feria/activa', axiosPrivate)
 
     const { niveles, categorias, sedes, proyectosMapping } = useCategoriasNiveles({ categoriaData: categoriasData, nivelData: nivelesData, sedesData: sedesData, enabled: !loadingCategorias && !loadingNiveles && !loadingSedes })
     
-    if(!loadingSedes) console.log(sedesData)
-    if(!loadingFeria) console.log(feriaData)
     useEffect(() => {
         buscarProyectos(searchState.sedeSeleccionada, searchState.nivelSeleccionado)
 
@@ -52,12 +47,12 @@ const PromoverProyectos = () => {
     const buscarProyectos = async (sede, nivel) => {
         if(!sede || !nivel) return
         try {
-            dispatch(promocionesActions.cargarCuposConDatos({cupos:feriaData.feriaActiva.instancias.instanciaRegional.cupos ,sede, nivel}))
             dispatch(promocionesActions.setLoadingProyectos(true))
             const res = await axiosPrivate.post('/promocion/provincial/proyectos', JSON.stringify({
                 nivel: nivel,
                 sede: sede,
             }))
+            dispatch(promocionesActions.setCupos({cupos: res.data.cupos}))
             let proyectos = res.status === 204 ? [] : res.data.proyectos
             if(proyectos.length > 0) {
                 proyectos = proyectosMapping(proyectos)
