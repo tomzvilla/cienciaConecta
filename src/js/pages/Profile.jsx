@@ -28,7 +28,7 @@ const Profile = () => {
         const cargarUsuario = async () => {
             // TODO, cambiar endpoint para cuando este
             const res = await axiosPrivate.get('/usuario')
-            const usuario = res.data.usuarios[0]
+            const usuario = res.data.usuario
             setIsLoading(false)
             dispatch(perfilActions.setUsuario(usuario))
             
