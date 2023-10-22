@@ -30,7 +30,7 @@ import Evaluacion from './js/pages/Evaluacion/Evaluacion'
 import ListadoProyectosAsignados from './js/pages/Referentes/ListadoProyectosAsignados'
 import ProyectoAsignarEvaluadores from './js/pages/Referentes/ProyectoAsignarEvaluadores'
 import AsignarReferentes from './js/pages/Referentes/AsignarReferentes'
-
+import PromoverProyectos from './js/pages/PromoverProyectos/PromoverProyectos'
 // DEV
 import Card from './js/components/Card/Card'
 import AuthVerify from './js/components/PersistLogin/AuthVerify'
@@ -93,6 +93,7 @@ function App() {
               <Route path='/usuarioPendienteActivacion/:id' element={<VisualizarUsuarioPendienteActivacion/>}/> 
               {/* Rutas para referentes */}
               <Route path='/asignarReferentes' element={<AsignarReferentes/>}/>
+              <Route path='/promoverProyectos' element={<PromoverProyectos/>}/>
             </Route>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.RefEvaluador]}/>}>
               {/* Rutas para referentes */}
