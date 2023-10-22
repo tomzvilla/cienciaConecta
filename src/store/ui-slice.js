@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     sidebar: false,
+    navbarMenu: false,
 }
 
 const uiSlice = createSlice({
@@ -11,6 +12,9 @@ const uiSlice = createSlice({
         showSidebar(state) {
             state.sidebar = !state.sidebar
         },
+        toggleNavbarMenu(state) {
+            state.navbarMenu = !state.navbarMenu
+        }
     }
 })
 

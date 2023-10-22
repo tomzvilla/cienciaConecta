@@ -10,6 +10,7 @@ import referentesSlice from "./referentes-slice";
 import loginSlice from "./login-slice";
 import feriaSlice from "./feria-slice";
 import instanciasSlice from './instancias-slice'
+import perfilSlice from "./perfil-slice";
 import promocionesSlice from "./promocion-slice";
 
 const store = configureStore({
@@ -22,6 +23,7 @@ const store = configureStore({
         login: loginSlice.reducer,
         feria: feriaSlice.reducer,
         instancias: instanciasSlice.reducer,
+        perfil: perfilSlice.reducer,
         promociones: promocionesSlice.reducer,
     }
 })

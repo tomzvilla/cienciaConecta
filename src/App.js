@@ -30,7 +30,9 @@ import Evaluacion from './js/pages/Evaluacion/Evaluacion'
 import ListadoProyectosAsignados from './js/pages/Referentes/ListadoProyectosAsignados'
 import ProyectoAsignarEvaluadores from './js/pages/Referentes/ProyectoAsignarEvaluadores'
 import AsignarReferentes from './js/pages/Referentes/AsignarReferentes'
+import Profile from './js/pages/Profile'
 import PromoverProyectos from './js/pages/PromoverProyectos/PromoverProyectos'
+
 // DEV
 import Card from './js/components/Card/Card'
 import AuthVerify from './js/components/PersistLogin/AuthVerify'
@@ -79,6 +81,8 @@ function App() {
               <Route path='/evaluar' element={<ListadoEvaluaciones/>}/>
               <Route path='/evaluar/:id' element={<EvaluacionCard/>}/>
               <Route path='/evaluar/:id/iniciar' element={<Evaluacion/>}/>
+              {/* Rutas para perfil de usuarios */}
+              <Route path='/perfil' element={<Profile/>}/>
             </Route>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]}/>}>
               {/* Rutas para feria */}
