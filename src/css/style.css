@@ -1954,6 +1954,23 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   max-width: 60rem;
 }
 
+.dropdown-navbar__content {
+  background-color: white;
+  padding: 20px;
+  margin: 10px;
+  margin-top: 20px;
+  border: 1px solid grey;
+  position: absolute;
+  left: 80%;
+  max-height: 20rem;
+  background-color: white;
+  border-radius: 5%;
+  list-style: none;
+}
+.dropdown-navbar__content--item {
+  cursor: pointer;
+}
+
 .login {
   background-color: rgba(0, 0, 0, 0.3);
 }
