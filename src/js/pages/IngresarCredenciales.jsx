@@ -5,7 +5,7 @@ import Card from "../components/Card/Card"
 
 // hooks
 import { useState } from "react"
-import { useParams } from "react-router"
+import { useParams, useNavigate } from "react-router"
 import { useFormValidator } from "../hooks/useFormValidator"
 import axios from "../../api/axios"
 
@@ -14,6 +14,7 @@ import Swal from "sweetalert2"
 const IngresarCredenciales = () => {
 
     const { token } = useParams()
+    const navigate = useNavigate()
 
     const [formValues, setFormValues] = useState({
         password: '',
@@ -58,10 +59,12 @@ const IngresarCredenciales = () => {
                 const success = await restablecerCredenciales()
                 if(success) Swal.fire({
                     title: '¡Contraseña modificada!',
-                    text: 'Recuperaste tu contraseña con éxito, por favor, ingresa a la CienciaConecta nuevamente.',
+                    text: 'Recuperaste tu contraseña con éxito, por favor, ingresa a CienciaConecta nuevamente.',
                     icon: 'success',
                     confirmButtonText: 'OK',
                     confirmButtonColor: '#00ACE6',
+                }).then(result => {
+                    navigate('/home')
                 })
             }
         })
