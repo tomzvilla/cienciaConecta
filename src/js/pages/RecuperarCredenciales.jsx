@@ -51,9 +51,10 @@ const RecuperarCredenciales = () => {
 
     const recuperarPassword = async () => {
         try {
+            const numericCuil = formValues.cuil.replace(/\D/g, '');
             const res = await axiosPrivate.post('/auth/recuperar-contrasena', JSON.stringify(
                 {
-                    cuil: formValues.cuil
+                    cuil: numericCuil
                 }))
         
             if(res?.status === 200) {
@@ -61,12 +62,10 @@ const RecuperarCredenciales = () => {
                     title: 'Enviamos un correo a tu casilla de correo electrónico',
                     text: 'Por favor, accede a tu casilla de correo electrónico y sigue las instrucciones del correo que te enviamos.',
                     icon: 'info',
-                    showCancelButton: true,
                     confirmButtonText: 'OK',
                     confirmButtonColor: '#00ACE6',
                 })
             }
-
         } catch (err) {
             console.log(err)
         }
