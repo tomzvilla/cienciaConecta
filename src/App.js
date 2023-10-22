@@ -30,6 +30,8 @@ import Evaluacion from './js/pages/Evaluacion/Evaluacion'
 import ListadoProyectosAsignados from './js/pages/Referentes/ListadoProyectosAsignados'
 import ProyectoAsignarEvaluadores from './js/pages/Referentes/ProyectoAsignarEvaluadores'
 import AsignarReferentes from './js/pages/Referentes/AsignarReferentes'
+import RecuperarCredenciales from './js/pages/RecuperarCredenciales'
+import IngresarCredenciales from './js/pages/IngresarCredenciales'
 import Profile from './js/pages/Profile'
 import PromoverProyectos from './js/pages/PromoverProyectos/PromoverProyectos'
 
@@ -67,6 +69,8 @@ function App() {
             <Route path='/login' element={<LoginPage/>}/>
             <Route path='/signup' element={<Signup/>}/>
             <Route path='/confirmar/:token' element={<ConfirmarCuenta/>}/>
+            <Route path='/recuperarCredenciales' element={<RecuperarCredenciales />}/>
+            <Route path='/reestablecerCredenciales/:token' element={<IngresarCredenciales />}/>
 
           </Route>
           <Route element={<PersistLogin />}>
