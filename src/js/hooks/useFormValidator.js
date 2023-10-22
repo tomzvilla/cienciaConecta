@@ -28,6 +28,9 @@ import {
     rubricaValidator,
     ponderacionValidator,
     criterioValidator,
+    nombreCategoriaValidator,
+    abreviaturaValidator,
+    colorValidator,
 } from '../validators'
 
 const touchErrors = (errors, fieldsToExclude) => {
@@ -120,6 +123,9 @@ export const useFormValidator = (form) => {
             nombreCriterio,
             ponderacion,
             curriculum,
+            nombreCategoria,
+            abreviatura,
+            color,
         } = form;
 
         if (nextErrors.email?.dirty && (field ? field === "email" || field === 'schoolEmail' : true)) {
@@ -463,6 +469,27 @@ export const useFormValidator = (form) => {
             nextErrors.curriculum.error = !!curriculumMessage;
             nextErrors.curriculum.message = curriculumMessage;
             if (!!curriculumMessage) isValid = false;
+        }
+
+        if (nextErrors.nombreCategoria?.dirty && (field ? field === "nombreCategoria" : true)) {
+            const nombreCategoriaMessage = nombreCategoriaValidator(nombreCategoria, form);
+            nextErrors.nombreCategoria.error = !!nombreCategoriaMessage;
+            nextErrors.nombreCategoria.message = nombreCategoriaMessage;
+            if (!!nombreCategoriaMessage) isValid = false;
+        }
+
+        if (nextErrors.abreviatura?.dirty && (field ? field === "abreviatura" : true)) {
+            const abreviaturaMessage = abreviaturaValidator(abreviatura, form);
+            nextErrors.abreviatura.error = !!abreviaturaMessage;
+            nextErrors.abreviatura.message = abreviaturaMessage;
+            if (!!abreviaturaMessage) isValid = false;
+        }
+
+        if (nextErrors.color?.dirty && (field ? field === "color" : true)) {
+            const colorMessage = colorValidator(color, form);
+            nextErrors.color.error = !!colorMessage;
+            nextErrors.color.message = colorMessage;
+            if (!!colorMessage) isValid = false;
         }
 
         setErrors(nextErrors);

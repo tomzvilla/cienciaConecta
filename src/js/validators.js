@@ -239,3 +239,28 @@ export const ponderacionValidator = (ponderacion) => {
   }
   return "";
 };
+
+export const nombreCategoriaValidator = (nombreCategoria) => {
+  if (!nombreCategoria) {
+    return "Se debe ingresar un nombre para la categoría";
+  } else if (nombreCategoria.length > 150) {
+    return "El nombre de la categoría no puede contener mas de 150 caracteres"
+  }
+  return "";
+};
+
+export const abreviaturaValidator = (abreviatura) => {
+  if (!abreviatura) {
+    return "Se debe ingresar una abreviatura para la categoría";
+  } else if (abreviatura.length > 12) {
+    return "La abreviatura no puede contener mas de 12 caracteres"
+  }
+  return "";
+};
+
+export const colorValidator = (color) => {
+  if (!color) {
+    return "Se debe ingresar un color para la categoría";
+  }
+  return "";
+};

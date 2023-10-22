@@ -34,6 +34,7 @@ import RecuperarCredenciales from './js/pages/RecuperarCredenciales'
 import IngresarCredenciales from './js/pages/IngresarCredenciales'
 import Profile from './js/pages/Profile'
 import PromoverProyectos from './js/pages/PromoverProyectos/PromoverProyectos'
+import Categorias from './js/pages/Categorias'
 
 // DEV
 import Card from './js/components/Card/Card'
@@ -91,9 +92,10 @@ function App() {
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]}/>}>
               {/* Rutas para feria */}
               <Route path='/feria' element={<CrearFeria/>}/>
-              <Route path='/verFeria' element={<VisualizarFeriaActual/>}/> 
+              <Route path='/verFeria' element={<VisualizarFeriaActual/>}/>
               <Route path='/verListaFerias' element={<VisualizarListadoFerias/>}/>
-              <Route path='/editarFeria' element={<ActualizarFeria/>}/> 
+              <Route path='/editarFeria' element={<ActualizarFeria/>}/>
+              <Route path='/crearCategoria' element={<Categorias/>}/>
               {/* Rutas para postulantes */}
               <Route path='/seleccionarPostulantes' element={<SeleccionPostulantes/>}/>
               <Route path='/postulante/:id' element={<VisualizarPostulante/>}/>
