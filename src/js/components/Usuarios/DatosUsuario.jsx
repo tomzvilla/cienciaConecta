@@ -3,6 +3,8 @@ import Button from "../Button/Button";
 
 const DatosUsuario = (props) => {
 
+    const editar = props.editar ? true : false
+
     return (
         <div className="datos-usuario">
 
@@ -11,22 +13,26 @@ const DatosUsuario = (props) => {
             <>
                 <p className="datos-usuario__dato">Cargo: {props.cargo}</p>  
                 <p className="datos-usuario__dato">Teléfono: {props.telefono}</p>
-                <p className="datos-usuario__dato">E-mail: {props.email}</p>   
+                <p className="datos-usuario__dato">E-mail: {props.email}</p>
+                {editar ? <p className="datos-usuario__dato">Contraseña: {props.password}</p> : null}
                 <div className="datos-usuario__btn">
-                    <Button 
-                        text='Activar' 
-                        onClickHandler={props.onClick}
-                        activo={true}
-                    />
+                    {
+                        editar ?
+                        <Button 
+                            text='Editar' 
+                            onClickHandler={props.onClick}
+                            activo={true}
+                        />
+                        :
+                        <Button 
+                            text='Activar' 
+                            onClickHandler={props.onClick}
+                            activo={true}
+                        />
+                    }
                 </div>  
             </>
-        }
-
-
-
-
-            
-            
+            }    
         </div>
     )
 }
