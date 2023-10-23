@@ -69,7 +69,7 @@ const CrearCategorias = () => {
                 if(success) {
                     dispatch(categoriasActions.agregarCategoria(
                         {
-                            _id: Math.random(),
+                            _id: success,
                             nombre: categoria.nombreCategoria,
                             abreviatura: categoria.abreviatura,
                             color: categoria.color
@@ -109,7 +109,8 @@ const CrearCategorias = () => {
                 }
             })
 
-            return res.status === 200
+            const newId = res?.data?.id ?? false
+            return newId
 
         } catch (err) {
             let msg = ''
