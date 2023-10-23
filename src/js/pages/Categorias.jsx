@@ -33,13 +33,15 @@ const Categorias = () => {
     return (
         <Card title={'Agregar categorias'}>
             <div className="postulacion-form">
-                <CrearCategorias/>
                 {
                     loadingCategorias ?
                     <Spinner />
                     :
                     categorias.length > 0 ?
-                    <TablaCategorias headers={headers}/>
+                    <>
+                        <CrearCategorias/>
+                        <TablaCategorias headers={headers}/>
+                    </>
                     :
                     <BlankState msg={'No hay categorías cargadas para la feria actual'}/>
                 }
