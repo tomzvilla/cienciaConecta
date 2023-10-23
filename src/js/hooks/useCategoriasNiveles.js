@@ -12,16 +12,18 @@ const useCategoriasNiveles = ({ categoriaData, nivelData, sedesData = null, enab
         categorias = [...categorias, ...categoriaData.categoria]
 
         // mapear niveles
+        if(nivelData) {
+            niveles.push({_id: 0, nombre: "", codigo: '0'})
+            niveles = [...niveles, ...nivelData.nivel].sort((level1, level2) => {
+                if (level1.codigo < level2.codigo) {
+                return -1; 
+                } else if (level1.codigo > level2.codigo) {
+                return 1;
+                }
+                return 0;
+            });
+        }
 
-        niveles.push({_id: 0, nombre: "", codigo: '0'})
-        niveles = [...niveles, ...nivelData.nivel].sort((level1, level2) => {
-            if (level1.codigo < level2.codigo) {
-            return -1; 
-            } else if (level1.codigo > level2.codigo) {
-            return 1;
-            }
-            return 0;
-        });
 
         // mapear sedes
         if(sedesData) {

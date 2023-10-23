@@ -1971,6 +1971,18 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   cursor: pointer;
 }
 
+.preview-badge {
+  display: block;
+  padding: 1.5rem 6rem;
+  margin: 3rem;
+  margin-bottom: 7rem;
+  width: 12rem;
+  border-radius: 2rem;
+  color: white;
+  text-align: center;
+  font-size: 2rem;
+}
+
 .login {
   background-color: rgba(0, 0, 0, 0.3);
 }
