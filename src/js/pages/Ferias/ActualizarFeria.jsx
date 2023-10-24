@@ -33,11 +33,16 @@ const ActualizarFeria = () => {
     if(data) {
       dispatch(feriaActions.cargarRubricas(data.feriaActiva.criteriosEvaluacion))
     }
+
+    const getEtapa = (etapa) => {
+      setEtapaActual(etapa)
+  }
+
     return (
       <>
         <ProgressBar etapas={ETAPAS} etapaActual={etapaActual}/>
         <Metadata title={'Feria'}/>
-        {!data || !sedesData || !sedeProvincialData ? (<Spinner />) : (<ActualizarFeriaForm formData={data?.feriaActiva} sedes={sedes} sedeProvincial={sedeProvincialData.sede}/>)}
+        {!data || !sedesData || !sedeProvincialData ? (<Spinner />) : (<ActualizarFeriaForm formData={data?.feriaActiva} sedes={sedes} getEtapa={getEtapa} sedeProvincial={sedeProvincialData.sede}/>)}
       </>
     )
         

@@ -2,11 +2,46 @@
 
     color: $color-grey-dark;    
     background-color: $color-grey;
-    border-radius: 2rem;
+    border-radius: 1rem;
     display: flex;
     font-size: 2rem;
     padding: 3rem 2rem;
     text-align: center;
+
+
+    &--loading {
+        --border-size: .6rem;
+        --border-angle: 0turn;
+
+        background-image: conic-gradient(from var(--border-angle), $color-grey, $color-grey), 
+                          conic-gradient(from var(--border-angle), transparent 60%, $color-primary);
+        background-size: calc(100% - (var(--border-size) * 2)) calc(100% - (var(--border-size) * 2)), cover;
+        
+        background-position: center center;
+        background-repeat: no-repeat;
+
+        animation: bg-spin 4s linear infinite;
+    }
+
+    &:hover {
+        transition: all 400ms ease-out;
+        box-shadow: 0px .4rem 2rem rgba(0, 0, 0, .25);
+        cursor: pointer;
+    }
+
+    &--disabled {
+        background-color: $color-grey;
+        color: $color-grey-light;
+        
+        &:hover {
+            transition: all 400ms ease-out;
+            box-shadow: none;
+            cursor:inherit;
+
+        }
+
+    }
+
 
 
     &__name {
@@ -19,13 +54,28 @@
         margin-left: auto;
         width: 5rem;
         height: 5rem;
-        filter: brightness(0);
+        filter: brightness(0) saturate(100%) invert(54%) sepia(0%) saturate(130%) hue-rotate(134deg) brightness(85%) contrast(94%);;
+
+        &--disabled {
+            filter: brightness(0) saturate(100%) invert(97%) sepia(0%) saturate(0%) hue-rotate(149deg) brightness(90%) contrast(94%);
+        }
+
     }
 
-    &:hover {
-        transition: all 400ms ease-out;
-        box-shadow: 0px .4rem 2rem rgba(0, 0, 0, .25);
-        cursor: pointer;
-    }
+    
 
 }
+
+
+@keyframes bg-spin {
+    to {
+      --border-angle: 1turn;
+    }
+  }
+
+  @property --border-angle {
+    syntax: "<angle>";
+    inherits: true;
+    initial-value: 0turn;
+  }
+  

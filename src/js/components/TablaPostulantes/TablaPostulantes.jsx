@@ -186,7 +186,7 @@ const TablaPostulantes = (props) => {
                                     else return (
                                     <td key={header.name} className="table-body-row__td" >{postulacion[`${header?.value}`]}</td>
                                 )})}
-                                <td className="table-body-row__td table-body-row__td--actions">
+                                <td className="table-body-row__td">
                                     <ImageLink linkto={`${props.viewPath}/${postulacion._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/>
                                 </td>
                                 <td className="table-body-row__td">

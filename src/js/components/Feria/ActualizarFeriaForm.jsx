@@ -358,6 +358,10 @@ const ActualizarFeriaForm = (props) => {
         setFormValues({...formValues, sedeProvincial: null})
     }
 
+    useEffect(() => {
+        props.getEtapa(etapaActual)
+    }, [etapaActual])
+
     return (
         <Card title="Actualizar Feria de Ciencias y Tecnología">
             <form className='crear-feria-form'>

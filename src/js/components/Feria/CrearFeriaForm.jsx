@@ -383,7 +383,7 @@ const CrearFeriaForm = (props) => {
     }
 
     return (
-        <Card title="Registrar Feria de Ciencias y Tecnología">
+        <Card title="Registrar Feria de Ciencias y Tecnología" wide={true}>
             <form className='crear-feria-form'>
             {etapaActual === ETAPAS.Datos && <DatosFeriaForm
                 handleChange={handleChange}

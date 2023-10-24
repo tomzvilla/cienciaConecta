@@ -35,6 +35,7 @@ const NuevaRubrica = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        document.getElementById("nuevaRubricaCheck").checked = false;
         if(rubrica.nombreRubrica === ''){
             setErrors({
                 ...errors,
@@ -77,7 +78,7 @@ const NuevaRubrica = (props) => {
             })
             return
         }
-        console.log(rubrica)
+        
         dispatch(feriaActions.agregarRubrica({
             nombreRubrica: rubrica.nombreRubrica,
             ponderacion: rubrica.ponderacionRubrica,
@@ -149,7 +150,7 @@ const NuevaRubrica = (props) => {
 
     return (
         <div className="nueva-rubrica">
-            <h5 className="nueva-rubrica__title">Nueva Rúbrica</h5>
+            <h5 className="nueva-rubrica__title">Crear Rúbrica</h5>
             <div className="nueva-rubrica__input" >
                 <InputField
                     label='Nombre: ' 
@@ -161,8 +162,7 @@ const NuevaRubrica = (props) => {
                     onFocusOut
                     required={true}
                 />
-            </div>
-            <div className="nueva-rubrica__input" >
+
                 <InputField
                     label='Ponderación: ' 
                     type={'number'}
@@ -174,14 +174,14 @@ const NuevaRubrica = (props) => {
                     onFocusOut
                     required={true}
                 />
-            </div>
-            <div className="nueva-rubrica__input" >
+
                 <InputField
-                    label='Exposición: ' 
+                    label='¿Es de Exposición?' 
                     type={'checkbox'}
                     name={`exposicion`}
                     onChange={handleChange}
                     onBlur={() => {}}
+                    id="nuevaRubricaCheck"
                     
                     errors={errors.exposicion}
                     onFocusOut
