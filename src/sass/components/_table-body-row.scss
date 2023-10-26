@@ -9,7 +9,8 @@
         margin: auto;
         //white-space: nowrap;
         //overflow: hidden;
-        text-overflow: ellipsis;
+        //text-overflow: ellipsis;
+        text-overflow: initial;
 
         // ?
         min-width: 15rem;

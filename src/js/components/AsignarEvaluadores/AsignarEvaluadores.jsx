@@ -10,6 +10,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import { useSelector } from "react-redux"
 
 import Swal from "sweetalert2"
+import SmallTable from "../Table/SmallTable"
 
 
 const AsignarEvaluadores = (props) => {
@@ -86,25 +87,33 @@ const AsignarEvaluadores = (props) => {
 
     return (
         <Card wide={true} title={'Asignar evaluadores a proyecto'}>
-            <div className="project-card-details">
-                <p className="project-card-details__detail">
-                    <strong>Título: </strong> 
-                    {proyecto.titulo}
+        
+        <div className="asignar-evaluadores">
+            <div className="asignar-evaluadores__details">
+                <p >
+                    Título:  {" "} {proyecto.titulo}
                 </p>
-                <p className="project-card-details__detail">
-                    <strong>Categoria: </strong>
-                    <Badge type={proyecto.categoria} />
+                <p >
+                    Categoria: <Badge type={proyecto.categoria} />  
                 </p>
-                <p className="project-card-details__detail">
-                    <strong>Nivel: </strong>
-                    <Badge type={proyecto.nivel} />
+                <p >
+                    Nivel: <Badge type={proyecto.nivel} />
                 </p>
             </div>
-            <Card title={'Evaluadores Asignados'} className="project-card-table">
-                <TablaEvaluadoresAsignados evaluadoresAsignados={evaluadoresAsignados} />
-            </Card>
-            <ListadoEvaluadores />
-            <div className="button-container">
+   
+            <div className="asignar-evaluadores__asignados">
+                <Card title={'Evaluadores Asignados'} className="project-card-table">
+                    <TablaEvaluadoresAsignados data={evaluadoresAsignados} />
+                    {/* <SmallTable title="Proyectos Activos" data={evaluadoresAsignados} viewPath={'/proyecto'}/> */}
+                </Card>
+            </div> 
+
+            <div className="asignar-evaluadores__evaluadores">
+                <ListadoEvaluadores />
+            </div>
+            
+            <div className="asignar-evaluadores__button">
+                <div className="button-container">
                     <Button 
                         text='Volver' 
                         onClickHandler={handleVolver}
@@ -115,6 +124,10 @@ const AsignarEvaluadores = (props) => {
                         activo={true}
                     />
                 </div>
+            </div>
+           
+            
+        </div>
         </Card>
     )
 }
