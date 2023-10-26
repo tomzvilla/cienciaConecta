@@ -90,11 +90,6 @@ const CrearFeriaForm = (props) => {
             setEtapaActual(ETAPAS.SedeProvincial)
         }
         if(etapaActual === ETAPAS.SedeProvincial & isValid){
-            setFormValues({
-                ...formValues,
-                sedeProvincialDpto: '',
-                sedeProvincialLocalidad: '',
-            })
             setEtapaActual(ETAPAS.Criterios)
         } 
     }
@@ -244,9 +239,6 @@ const CrearFeriaForm = (props) => {
                             localidad: '',
                             establecimientos: [],
                             cupos: [],
-                            sedeProvincialDpto: '',
-                            sedeProvincialLocalidad: '',
-                            sedeProvincial: null,
                             cuposProvincial: [],
                             criteriosEvaluacion: [],
                             nombreRubrica: '',
@@ -280,7 +272,6 @@ const CrearFeriaForm = (props) => {
                     fechaPromocionInstanciaProvincial,
                     establecimientos,
                     cupos,
-                    sedeProvincial,
                     cuposProvincial,
                 } = formValues
                 const sedesRegional = new Set(establecimientos.map(e => { 
@@ -310,7 +301,6 @@ const CrearFeriaForm = (props) => {
                             fechaInicioEvaluacionPresencial: fechaInicioEvaluacionProvincial,
                             fechaFinEvaluacionPresencial: fechaFinEvaluacionProvincial,
                             cupos: cuposProvincial,
-                            sede: sedeProvincial._id,
                             fechaPromocionANacional: fechaPromocionInstanciaProvincial,
                         }
                     }, 
@@ -366,9 +356,6 @@ const CrearFeriaForm = (props) => {
         setFormValues({...formValues, establecimientos: formValues.establecimientos.filter(obj => obj.nombre !== nombreSede)})
     }
 
-    const handleDeleteSedeProvincial = () => {
-        setFormValues({...formValues, sedeProvincial: null})
-    }
 
     return (
         <Card title="Registrar Feria de Ciencias y Tecnología">
@@ -395,12 +382,8 @@ const CrearFeriaForm = (props) => {
                 errors={errors}
             />}
             {etapaActual === ETAPAS.SedeProvincial && <SedeProvincialForm
-                handleChange={handleChange}
-                handleDeleteSedeProvincial={handleDeleteSedeProvincial}
-                onBlurField={onBlurField}
                 formValues={formValues}
                 setFormValues={setFormValues}
-                errors={errors}
             />}
             {etapaActual === ETAPAS.Criterios && <RubricasFeriaForm />}
             <div className='crear-feria-form__button'>
