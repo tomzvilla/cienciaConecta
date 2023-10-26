@@ -1,32 +1,33 @@
 // components
-import Button from "../Button/Button"
 import InputField from "../InputField/InputField"
-import Card from "../Card/Card"
+import Spinner from "../Spinner/Spinner"
 // hooks
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useCategoriasNiveles from "../../hooks/useCategoriasNiveles"
 const SedeProvincialForm = (props) => {
 
-    const {handleChange, setFormValues, formValues} = props
+    const { setFormValues, formValues } = props
     const axiosPrivate = useAxiosPrivate()
+
 
     const { data: nivelesData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate)
 
     const { niveles } = useCategoriasNiveles({ categoriaData: null, nivelData: nivelesData, enabled: !loadingNiveles })
 
-
-    const confirmarCupo = (cupos) => {
+    const handleChangeCupos = (e) => {
+        e.preventDefault()
+        let {name, value} = e.target
+        if(parseInt(value) <= 0) value = Math.abs(value)
         const prevCupos = [...formValues.cuposProvincial]
-
-        for (const cupo of cupos) {
-            const existingIndex = prevCupos.findIndex(c1 => c1.nivel === cupo.nivel);
-            
-            if (existingIndex !== -1) {
-              prevCupos[existingIndex].cantidad = cupo.cantidad;
-            } else {
-                prevCupos.push(cupo);
-            }
+        const existingIndex = prevCupos.findIndex(c1 => c1.nivel === name);
+        if (existingIndex !== -1) {
+            prevCupos[existingIndex].cantidad = Math.abs(value);
+        } else {
+            prevCupos.push({
+                nivel: name,
+                cantidad: Math.abs(value)
+            });
         }
         setFormValues({
             ...formValues,
@@ -36,35 +37,31 @@ const SedeProvincialForm = (props) => {
 
 
     return (
-        <Card title={'Cupos instancia'}>
-            <div className="cupos-modal">
-            {niveles && niveles.map((nivel) => 
-                nivel._id !== 0 ? (
-                    <div key={nivel._id} className="cupos-modal__nivel"> 
-                        <InputField
-                            key={nivel._id}
-                            label={nivel.nombre} 
-                            name={nivel._id} 
-                            type='number'
-                            onChange={handleChange}
-                            onBlur={() => {}}
-                            value={
-                                formValues.cuposProvincial.length === 0 ? 0 : formValues.cuposProvincial[nivel._id]
-                            }
-                            errors={null}
-                            required={true}
-                        />
-                    </div>
-                ) : ""
-            )}
-            <div className="cupos-modal__button">
-                <Button 
-                    text={'Confirmar'} 
-                    onClickHandler={confirmarCupo} activo={true}
-                />
-            </div>
-            </div>
-        </Card>
+            loadingNiveles ?
+            <Spinner />
+            :
+            (<div className="cupos-modal">   
+                <h2 className='sedes-feria-form__title'>Cupos Provinciales: </h2>
+                {niveles && niveles.map((nivel) =>
+                    nivel._id !== 0 ? (
+                        <div key={nivel._id} className="cupos-modal__nivel"> 
+                            <InputField
+                                key={nivel._id}
+                                label={nivel.nombre} 
+                                name={nivel._id} 
+                                type='number'
+                                onChange={handleChangeCupos}
+                                onBlur={() => {}}
+                                value={
+                                    formValues.cuposProvincial.find(cupo => cupo.nivel === nivel._id)?.cantidad || ""
+                                }
+                                errors={null}
+                                required={true}
+                            />
+                        </div>
+                    ) : ""
+                )}
+            </div>)
 
     )    
 }

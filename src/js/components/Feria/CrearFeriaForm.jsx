@@ -41,6 +41,8 @@ const CrearFeriaForm = (props) => {
         fechaFinPostulacionEvaluadores: '',
         fechaInicioAsignacionProyectos: '',
         fechaFinAsignacionProyectos: '',
+        fechaPromocionInstanciaRegional: '',
+        fechaPromocionInstanciaProvincial: '',
         departamento: '',
         localidad: '',
         establecimientos: [],
@@ -71,7 +73,7 @@ const CrearFeriaForm = (props) => {
         e.preventDefault()
         let fieldsToExclude = []
         if(etapaActual === ETAPAS.Datos) fieldsToExclude = ['fechaInicioInstanciaEscolar', 'fechaFinInstanciaEscolar','fechaInicioEvaluacionRegional', 'fechaFinEvaluacionRegional', 'fechaInicioExposicionRegional', 'fechaFinExposicionRegional', 
-        'fechaInicioEvaluacionProvincial',  'fechaFinEvaluacionProvincial', 'fechaInicioPostulacionEvaluadores', 'fechaFinPostulacionEvaluadores', 'fechaInicioAsignacionProyectos','fechaFinAsignacionProyectos', 'cupos', 'criteriosEvaluacion', 'nombreRubrica']
+        'fechaInicioEvaluacionProvincial',  'fechaFinEvaluacionProvincial', 'fechaInicioPostulacionEvaluadores', 'fechaFinPostulacionEvaluadores', 'fechaInicioAsignacionProyectos','fechaFinAsignacionProyectos', 'fechaPromocionInstanciaRegional', 'fechaPromocionInstanciaProvincial', 'cupos', 'criteriosEvaluacion', 'nombreRubrica']
         if(etapaActual === ETAPAS.Instancias) fieldsToExclude = ['cupos', 'criteriosEvaluacion', 'nombreRubrica']
         if(etapaActual === ETAPAS.SedesRegionales) fieldsToExclude = ['criteriosEvaluacion', 'nombreRubrica']
         if(etapaActual === ETAPAS.SedeProvincial) fieldsToExclude = ['criteriosEvaluacion', 'nombreRubrica']
@@ -236,6 +238,8 @@ const CrearFeriaForm = (props) => {
                             fechaFinPostulacionEvaluadores: '',
                             fechaInicioAsignacionProyectos: '',
                             fechaFinAsignacionProyectos: '',
+                            fechaPromocionInstanciaRegional: '',
+                            fechaPromocionInstanciaProvincial: '',
                             departamento: '',
                             localidad: '',
                             establecimientos: [],
@@ -272,6 +276,8 @@ const CrearFeriaForm = (props) => {
                     fechaFinPostulacionEvaluadores,
                     fechaInicioAsignacionProyectos,
                     fechaFinAsignacionProyectos,
+                    fechaPromocionInstanciaRegional,
+                    fechaPromocionInstanciaProvincial,
                     establecimientos,
                     cupos,
                     sedeProvincial,
@@ -297,13 +303,15 @@ const CrearFeriaForm = (props) => {
                             fechaInicioEvaluacionPresencial: fechaInicioExposicionRegional,
                             fechaFinEvaluacionPresencial: fechaFinExposicionRegional,
                             cupos,
-                            sedes: Array.from(sedesRegional)
+                            sedes: Array.from(sedesRegional),
+                            fechaPromocionAProvincial: fechaPromocionInstanciaRegional,
                         },
                         instanciaProvincial: {
                             fechaInicioEvaluacionPresencial: fechaInicioEvaluacionProvincial,
                             fechaFinEvaluacionPresencial: fechaFinEvaluacionProvincial,
                             cupos: cuposProvincial,
-                            sede: sedeProvincial._id
+                            sede: sedeProvincial._id,
+                            fechaPromocionANacional: fechaPromocionInstanciaProvincial,
                         }
                     }, 
                     fechaInicioPostulacionEvaluadores, 
