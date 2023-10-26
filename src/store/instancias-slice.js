@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     instancia: [],
+    feria: {},
 }
 
 const instanciasSlice = createSlice({
@@ -11,6 +12,9 @@ const instanciasSlice = createSlice({
         setInstancia(state, action) {
             state.instancia = action.payload
         },
+        cargarEstadoFeria(state, action) {
+            state.feria = action.payload
+        }
     }
 })
 

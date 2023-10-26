@@ -10,26 +10,23 @@ import { useFormValidator } from "../../hooks/useFormValidator"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import { useNavigate, useLocation } from 'react-router-dom'
-
+import { useSelector } from "react-redux"
+import { instanciaEscolar } from "../../../App"
 import Swal from "sweetalert2"
 
 export const ETAPAS = {
     Escolar: '1',
     Regional: '2',
     Grupo: '3',
-  };
-
-const INSTANCIA = {
-    Escolar: '1',
-    Regional: '2',
-    Provincial: '3',
-}
+};
 
 const ActualizarProyectoForm = ({ formData, getEtapa }) => {
     let isPrivate = '1'
     if(formData.privada === false){
         isPrivate = '0'
     }
+
+    const feria = useSelector(state => state.instancias.feria)
     
     const [formValues, setFormValues] = useState({
         title: formData.titulo,
@@ -58,7 +55,6 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
 
 
     const [etapaActual, setEtapaActual] = useState(ETAPAS.Escolar)
-    const [instanciaActual, setInstanciaActual] = useState(INSTANCIA.Regional)
 
     const axiosPrivate = useAxiosPrivate()
     const navigate = useNavigate()
@@ -247,7 +243,7 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
             try {
                 const { title, description, level, category, privateSchool, establecimientoSeleccionado, schoolEmail, sede, videoPresentacion, carpetaCampo, informeTrabajo, registroPedagogico, autorizacionImagen, grupoProyecto } = formValues
                 let response = {}
-                if(instanciaActual === INSTANCIA.Escolar){
+                if(instanciaEscolar.includes(feria.estado)) {
                     response = await axiosPrivate.patch(`/proyecto/${formData._id}`, 
                     JSON.stringify({ 
                         titulo: title,
@@ -420,11 +416,11 @@ return (
                 text='Volver' 
                 onClickHandler={handleVolver}
             />
-            {instanciaActual === INSTANCIA.Regional && <Button 
+            {!instanciaEscolar.includes(feria.estado) && <Button 
                 text={etapaActual !== ETAPAS.Grupo ? 'Continuar' : 'Actualizar'} 
                 onClickHandler={etapaActual !== ETAPAS.Grupo ? cambiarVista : handleSubmit} activo={true}
             />}
-            {instanciaActual === INSTANCIA.Escolar && <Button 
+            {instanciaEscolar.includes(feria.estado) && <Button 
                 text={'Actualizar'} 
                 onClickHandler={handleSubmit} activo={true}
             />}

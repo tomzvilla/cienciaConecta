@@ -4,6 +4,7 @@ import SidebarDropdown from "../SidebarDropdown/SidebarDropdown";
 import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
 import { ROLES } from '../../../App'
+import { ESTADOS } from "../../../App";
 import { useSelector } from "react-redux";
 
 const Sidebar = () => {
@@ -14,6 +15,7 @@ const Sidebar = () => {
     })
 
     const showSidebar = useSelector(state => state.ui.sidebar)
+    const feria = useSelector(state => state.instancias.feria)
 
     const toggleDropdown = (type) => {
         setDropdown({
@@ -28,12 +30,14 @@ const Sidebar = () => {
                 {/* Links publicos  */}
                 <SidebarLink img={require("../../../assets/trofeo.png")} linkto={'/dashboard'} text="Inicio"/>
                   
-                    <>
-                        <SidebarDropdown dropdown={dropdown.proyectos} img={require("../../../assets/evaluador.png")} text="Proyectos" onClick={() => toggleDropdown('proyectos')}>
-                            <SidebarLink img={require("../../../assets/evaluador.png")} linkto={'/inscribirProyecto'} text="Inscribir proyecto"/>
-                            <SidebarLink img={require("../../../assets/evaluador.png")} linkto={'/misProyectos'} text="Ver proyectos"/>
-                        </SidebarDropdown>
-                    </> 
+                    {feria?.estado === ESTADOS.iniciada &&
+                        <>
+                            <SidebarDropdown dropdown={dropdown.proyectos} img={require("../../../assets/evaluador.png")} text="Proyectos" onClick={() => toggleDropdown('proyectos')}>
+                                <SidebarLink img={require("../../../assets/evaluador.png")} linkto={'/inscribirProyecto'} text="Inscribir proyecto"/>
+                                <SidebarLink img={require("../../../assets/evaluador.png")} linkto={'/misProyectos'} text="Ver proyectos"/>
+                            </SidebarDropdown>
+                        </>
+                    }
 
                 <SidebarLink img={require("../../../assets/user.png")} linkto={'/postulacion'} text="Postulaciones"/>
 

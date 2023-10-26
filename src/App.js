@@ -43,6 +43,7 @@ import ConfirmarCuenta from './js/pages/Usuarios/ConfirmarCuenta'
 import VisualizarListadoPendienteActivacion from './js/pages/Usuarios/VisualizarListadoPendienteActivacion'
 import VisualizarUsuarioPendienteActivacion from './js/pages/Usuarios/VisualizarUsuarioPendienteActivacion'
 
+import { useSelector } from 'react-redux'
 
 // ROLES
 
@@ -55,7 +56,29 @@ export const ROLES = {
   Docente: '6',
 };
 
+export const ESTADOS = {
+  creada: '0',
+  iniciada: '1',
+  instanciaEscolar: '2',
+  instanciaEscolar_Finalizada: '3',
+  instanciaRegional_EnEvaluacion: '4',
+  instanciaRegional_EvaluacionFinalizada: '5',
+  instanciaRegional_EnExposicion: '6',
+  instanciaRegional_ExposicionFinalizada: '7',
+  proyectosPromovidosA_instanciaProvincial: '8',
+  instanciaProvincial_EnExposicion: '9',
+  instanciaProvincial_ExposicionFinalizada: '10',
+  proyectosPromovidosA_instanciaNacional: '11',
+  finalizada: '12',
+};
+
+export const instanciaEscolar = [ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar, ESTADOS.instanciaEscolar_Finalizada]
+
 function App() {
+
+  const feria = useSelector(state => state.instancias.feria)
+  console.log(feria)
+
   return (
     <>
       <Routes>
@@ -75,13 +98,26 @@ function App() {
 
           </Route>
           <Route element={<PersistLogin />}>
+            <Route element={<RequireAuth 
+              allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]} 
+              allowedStates={[ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar, ESTADOS.instanciaEscolar_Finalizada]}/>}
+            >
+              <Route path='/inscribirProyecto' element={<InscribirEtapaEscolar/>}/> 
+            </Route>
+            <Route element={<RequireAuth 
+              allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]} 
+              allowedStates={[ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar, ESTADOS.instanciaEscolar_Finalizada, ESTADOS.Regi]}/>}
+            >
+              <Route path='/editarProyecto/:id' element={<ActualizarProyecto/>}/> 
+            </Route>
+
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]}/>}>
-              {/* Rutas para proyectos */}
-              <Route path='/inscribirProyecto' element={<InscribirEtapaEscolar/>}/>
-              <Route path='/proyecto/:id' element={<VisualizarProyecto/>}/>
-              <Route path='/editarProyecto/:id' element={<ActualizarProyecto/>}/>
-              <Route path='/misProyectos' element={<VisualizarListadoProyectos/>}/>
+              {/* Rutas con auth liberadas de estados */}
+              
               <Route path='/dashboard' element={<Dashboard/>}/>
+              <Route path='/proyecto/:id' element={<VisualizarProyecto/>}/>
+              <Route path='/misProyectos' element={<VisualizarListadoProyectos/>}/>
+              {/* Revisar ubicacion */}
               <Route path='/postulacion' element={<Postulacion/>}/>
               <Route path='/evaluar' element={<ListadoEvaluaciones/>}/>
               <Route path='/evaluar/:id' element={<EvaluacionCard/>}/>

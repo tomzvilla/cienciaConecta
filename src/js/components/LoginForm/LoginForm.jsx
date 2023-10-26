@@ -8,7 +8,8 @@ import { useState } from 'react'
 import { useFormValidator } from '../../hooks/useFormValidator'
 import useAuth from '../../hooks/useAuth'
 import { useNavigate, useLocation } from 'react-router-dom'
-
+import { useDispatch } from 'react-redux'
+import { instanciasActions } from '../../../store/instancias-slice'
 import axios from '../../../api/axios'
 import Swal from 'sweetalert2'
 
@@ -26,6 +27,7 @@ const LoginForm = () => {
       const navigate = useNavigate()
       const location = useLocation()
       const from = location.state?.from?.pathname || '/dashboard'
+      const dispatch = useDispatch()
     
       const handleChange = (e) => {
         let {name, value} = e.target
@@ -79,9 +81,11 @@ const LoginForm = () => {
           const accessToken = response?.data?.token
           const roles = response?.data?.roles
           const refreshExpiresIn = response?.data?.refreshExpiresIn
+          const feria = response?.data?.feria
+          dispatch(instanciasActions.cargarEstadoFeria(feria))
           // save refresh expiration in local storage
           localStorage.setItem("refreshExpiresIn",refreshExpiresIn);
-          setAuth({cuil, password, roles, accessToken})
+          setAuth({ cuil, password, roles, accessToken, feria })
     
           setFormValues({
             cuil: '',
