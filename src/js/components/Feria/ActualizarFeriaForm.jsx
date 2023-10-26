@@ -31,7 +31,6 @@ const ActualizarFeriaForm = (props) => {
     const [formValues, setFormValues] = useState({
         nombreFeria: formData.nombre,
         descripcionFeria: formData.descripcion,
-        logo: '',
         fechaInicioFeria: formData.fechaInicioFeria,
         fechaFinFeria: formData.fechaFinFeria,
         fechaInicioInstanciaEscolar: formData.instancias.instanciaEscolar.fechaInicioInstancia,
@@ -127,19 +126,6 @@ const ActualizarFeriaForm = (props) => {
         const nextFormValueState = {
             ...formValues,
             [name]: value
-        }
-        setFormValues(nextFormValueState)
-        if (errors[name].dirty) {
-            validateForm({form: nextFormValueState, errors, name})
-        }
-    }
-
-    const handleFileChange = (e) => {
-        const {name} = e.target
-        const file = e.target.files[0]
-        const nextFormValueState = {
-            ...formValues,
-            [name]: file
         }
         setFormValues(nextFormValueState)
         if (errors[name].dirty) {
@@ -244,8 +230,7 @@ const ActualizarFeriaForm = (props) => {
             try {
                 const { 
                     nombreFeria, 
-                    descripcionFeria, 
-                    logo,
+                    descripcionFeria,
                     fechaInicioFeria,
                     fechaFinFeria,
                     fechaInicioInstanciaEscolar,
@@ -269,8 +254,7 @@ const ActualizarFeriaForm = (props) => {
                 const response = await axiosPrivate.patch(`/feria/${formData._id}`, 
                 JSON.stringify({ 
                     nombre: nombreFeria, 
-                    descripcion: descripcionFeria, 
-                    logo: 'www.logo.com', 
+                    descripcion: descripcionFeria,
                     fechaInicioFeria: fechaInicioFeria, 
                     fechaFinFeria: fechaFinFeria, 
                     instancias: {
@@ -364,7 +348,6 @@ const ActualizarFeriaForm = (props) => {
                 {etapaActual === ETAPAS.Datos && <DatosFeriaForm
                     handleChange={handleChange}
                     handleDateChange={handleDateChange}
-                    handleFileChange={handleFileChange}
                     onBlurField={onBlurField}
                     formValues={formValues}
                     errors={errors}

@@ -27,7 +27,6 @@ const CrearFeriaForm = (props) => {
     const [formValues, setFormValues] = useState({
         nombreFeria: '',
         descripcionFeria: '',
-        logo: '',
         fechaInicioFeria: '',
         fechaFinFeria: '',
         fechaInicioInstanciaEscolar: '',
@@ -46,9 +45,6 @@ const CrearFeriaForm = (props) => {
         localidad: '',
         establecimientos: [],
         cupos: [],
-        sedeProvincialDpto: '',
-        sedeProvincialLocalidad: '',
-        sedeProvincial: null,
         cuposProvincial: [],
         errorSumaPonderacion: false,
         errorRubrica:  false,
@@ -106,19 +102,6 @@ const CrearFeriaForm = (props) => {
         const nextFormValueState = {
             ...formValues,
             [name]: value
-        }
-        setFormValues(nextFormValueState)
-        if (errors[name].dirty) {
-            validateForm({form: nextFormValueState, errors, name})
-        }
-    }
-
-    const handleFileChange = (e) => {
-        const {name} = e.target
-        const file = e.target.files[0]
-        const nextFormValueState = {
-            ...formValues,
-            [name]: file
         }
         setFormValues(nextFormValueState)
         if (errors[name].dirty) {
@@ -239,7 +222,6 @@ const CrearFeriaForm = (props) => {
                         setFormValues({
                             nombreFeria: '',
                             descripcionFeria: '',
-                            logo: '',
                             fechaInicioFeria: '',
                             fechaFinFeria: '',
                             fechaInicioInstanciaEscolar: '',
@@ -275,8 +257,7 @@ const CrearFeriaForm = (props) => {
             try {
                 const { 
                     nombreFeria, 
-                    descripcionFeria, 
-                    logo, 
+                    descripcionFeria,
                     fechaInicioFeria, 
                     fechaFinFeria, 
                     fechaInicioInstanciaEscolar, 
@@ -302,8 +283,7 @@ const CrearFeriaForm = (props) => {
                 await axiosPrivate.post('/feria', 
                 JSON.stringify({ 
                     nombre: nombreFeria, 
-                    descripcion: descripcionFeria, 
-                    logo: 'www.logo.com', 
+                    descripcion: descripcionFeria,
                     fechaInicioFeria: fechaInicioFeria, 
                     fechaFinFeria: fechaFinFeria, 
                     instancias: {
@@ -388,7 +368,6 @@ const CrearFeriaForm = (props) => {
             {etapaActual === ETAPAS.Datos && <DatosFeriaForm
                 handleChange={handleChange}
                 handleDateChange={handleDateChange}
-                handleFileChange={handleFileChange}
                 onBlurField={onBlurField}
                 formValues={formValues}
                 errors={errors}
