@@ -50,6 +50,9 @@ const feriaSlice = createSlice({
         cargarRubricas(state, action) {
             state.rubricas = action.payload
         },
+        borrarRubricas(state) {
+            state.rubricas = []
+        }
     }
 })
 

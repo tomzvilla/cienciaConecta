@@ -8,9 +8,10 @@ const useCategoriasNiveles = ({ categoriaData, nivelData, sedesData = null, enab
 
     if(enabled) {
         // mapear categorias
-        categorias.push({_id: 0, nombre: ""})
-        categorias = [...categorias, ...categoriaData.categoria]
-
+        if(categoriaData) {
+            categorias.push({_id: 0, nombre: ""})
+            categorias = [...categorias, ...categoriaData.categoria]
+        }
         // mapear niveles
         if(nivelData) {
             niveles.push({_id: 0, nombre: "", codigo: '0'})

@@ -67,12 +67,13 @@ const CuposModal = (props) => {
     }
 
     const handleChange = (e) => {
-        const {name, value} = e.target
+        let {name, value} = e.target
         const prevCupos = {...cupos}
+        if(parseInt(value) <= 0) value = Math.abs(value)
         // cargar todos los niveles 
         generarNiveles()
         // on change handler
-        prevCupos[name] = value
+        prevCupos[name] = Math.abs(value)
         setCupos(prevCupos)
     }
 

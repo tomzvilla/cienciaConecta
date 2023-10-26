@@ -62,22 +62,6 @@ export const useFormValidator = (form) => {
 
     const [errors, setErrors] = useState(newErrors)
 
-    // const resetErrors = (errorsToReset) => {
-    //     errors.forEach((err) => {
-    //         console.log(err)
-    //         if(errorsToReset.find(err)){
-    //             setErrors(
-    //                 ...errors,
-    //                 errors[err] = {
-    //                     dirty: false,
-    //                     error: false,
-    //                     message: ''
-    //                 }
-    //             )
-    //         }
-    //     })
-    // } 
-
     const validateForm = ({form, field, errors, forceTouchErrors = false, fieldsToExclude=[]}) => {
         let isValid = true
         // Create a deep copy of the errors
@@ -448,6 +432,20 @@ export const useFormValidator = (form) => {
             nextErrors.fechaFinAsignacionProyectos.error = !!fechaFinAsignacionProyectosMessage;
             nextErrors.fechaFinAsignacionProyectos.message = fechaFinAsignacionProyectosMessage;
             if (!!fechaFinAsignacionProyectosMessage) isValid = false;
+        }
+
+        if (nextErrors.fechaPromocionInstanciaRegional?.dirty && (field ? field === "fechaPromocionInstanciaRegional" : true)) {
+            const fechaPromocionInstanciaRegionalMessage = dateValidator({fecha:form.fechaFinExposicionRegional, nombre: 'Fin exposición regional'},{fecha:form.fechaPromocionInstanciaRegional, nombre: 'Promoción a Provincial'}, {fecha: form.fechaInicioEvaluacionProvincial, nombre: 'Inicio evaluación provincial'},form);
+            nextErrors.fechaPromocionInstanciaRegional.error = !!fechaPromocionInstanciaRegionalMessage;
+            nextErrors.fechaPromocionInstanciaRegional.message = fechaPromocionInstanciaRegionalMessage;
+            if (!!fechaPromocionInstanciaRegionalMessage) isValid = false;
+        }
+
+        if (nextErrors.fechaPromocionInstanciaProvincial?.dirty && (field ? field === "fechaPromocionInstanciaProvincial" : true)) {
+            const fechaPromocionInstanciaProvincialMessage = dateValidator({fecha:form.fechaFinEvaluacionProvincial, nombre: 'Fin evaluación provincial'},{fecha:form.fechaPromocionInstanciaProvincial, nombre: 'Promoción a Nacional'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            nextErrors.fechaPromocionInstanciaProvincial.error = !!fechaPromocionInstanciaProvincialMessage;
+            nextErrors.fechaPromocionInstanciaProvincial.message = fechaPromocionInstanciaProvincialMessage;
+            if (!!fechaPromocionInstanciaProvincialMessage) isValid = false;
         }
 
         if (nextErrors.nombreCriterio?.dirty && (field ? field === "nombreCriterio" : true)) {

@@ -163,7 +163,6 @@ export const urlValidator = (url) => {
 };
 
 export const fileValidator = (file, msg, format) => {
-  console.log(file)
   let formato = '*'
   if(format === 'PDF') formato = 'application/pdf'
   else if(format === 'imágen') formato = 'image/'
