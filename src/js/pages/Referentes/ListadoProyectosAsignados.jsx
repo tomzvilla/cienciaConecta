@@ -1,6 +1,5 @@
 // components
 import TablaProyectosReferente from "../../components/TablaProyectosReferente/TablaProyectosReferente"
-import TablaProyectosAsignadosHeader from "../../components/TablaProyectosReferente/TablaProyectosAsignadosHeader"
 import Spinner from "../../components/Spinner/Spinner"
 import Card from "../../components/Card/Card"
 import BlankState from "../../components/BlankState/BlankState"
@@ -10,6 +9,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useCategoriasNiveles from "../../hooks/useCategoriasNiveles"
 import { useDispatch } from "react-redux"
 import { referentesActions } from "../../../store/referentes-slice"
+import CardHeader from "../../components/Card/CardHeader"
 
 const headers = [
     {name: 'Título' , value: 'titulo'},
@@ -18,7 +18,6 @@ const headers = [
 ]
 
 const ListadoProyectosAsignados = () => {
-    console.log('HOLA')
     const axiosPrivate = useAxiosPrivate()
     const dispatch = useDispatch()
     const { data: proyectosData, isLoading, status } = useAxiosFetch(`/referente/proyectos`, axiosPrivate)
@@ -40,7 +39,7 @@ const ListadoProyectosAsignados = () => {
         isLoading && !proyectosData?.proyectos ?
         <Spinner />
         :
-        <Card wide={true} header={<TablaProyectosAsignadosHeader title={'Listado de proyectos asignados'} wide={true}/>}>
+        <Card wide={true} header={<CardHeader title={'Listado de proyectos asignados'} wide={true} goBack={true}/>}>
             {status !== 204 ?
                 <TablaProyectosReferente headers={headers} />
                 :

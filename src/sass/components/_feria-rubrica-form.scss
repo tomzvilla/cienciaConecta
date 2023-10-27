@@ -1,18 +1,20 @@
 .feria-rubrica-form {
 
     //height: 80vh;
-    max-height: 60vh;
+    max-height: 70vh;
     overflow-y: scroll;
     width: 100%;
 
     padding-bottom: 6rem;
+    margin-bottom: 2rem;
+
+    mask: linear-gradient(0deg, transparent, transparent 0%, black 10%);
+    -webkit-mask: linear-gradient(0deg, transparent, transparent 0%, black 10%);
 
 
     &__title {
         font-size: 3rem;
-
         font-weight: 500;
-
         margin-top: 1rem;
         padding-left: 3rem;
     }

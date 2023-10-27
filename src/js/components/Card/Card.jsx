@@ -28,7 +28,7 @@ const Card = (props) => {
             :
 
           <div className={`card card--${animate ? 'animate' : ''} card--${props.wide ? 'wide' : ''}`}>
-            <CardHeader title={props.title} wide={props.wide}/>
+            <CardHeader title={props.title} wide={props.wide} goBack={props.goBack}/>
             {props.children}
           </div>
 

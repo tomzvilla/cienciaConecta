@@ -1,7 +1,6 @@
 .table-body-row {
     border-bottom: 1px solid black;
 
-
     &__td {
         font-size: 2rem;
         text-align: center;
@@ -10,17 +9,18 @@
         margin: auto;
         //white-space: nowrap;
         //overflow: hidden;
-        text-overflow: ellipsis;
+        //text-overflow: ellipsis;
+        text-overflow: initial;
 
         // ?
         min-width: 15rem;
         
-        
+        &--autocomplete {
+            min-width: 30rem;
+        }
 
         &--actions {
             display: flex;
-            justify-content: space-around;
-            align-items: center;
         }
 
         &--badges {

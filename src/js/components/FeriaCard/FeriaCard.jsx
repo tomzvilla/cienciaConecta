@@ -9,12 +9,15 @@ const FeriaCard = ({ formData, handleDelete }) => {
         <div className="project-card">
             <h2 className="project-card__titulo"> {formData.nombre}</h2>
 
-            <div className="project-card__edit">
+            <div className="project-card__buttons">
                 <ImageLink src={require("../../../assets/edit.png")} linkto={`/editarFeria`} alt="Editar Feria"/>
                 <ImageButton small={false} alt="Borrar" linkto={""} callback={handleDelete} src={require("../../../assets/x.png")}/>
             </div>
 
-            <FeriaCardDetails datos={formData}/>
+            <div className="project-card__details">
+                <FeriaCardDetails datos={formData}/>
+            </div>
+            
             
         </div>
     )

@@ -32,6 +32,11 @@ const ActualizarFeria = () => {
     if(data) {
       dispatch(feriaActions.cargarRubricas(data.feriaActiva.criteriosEvaluacion))
     }
+
+    const getEtapa = (etapa) => {
+      setEtapaActual(etapa)
+  }
+
     return (
       <>
         <ProgressBar etapas={ETAPAS} etapaActual={etapaActual}/>

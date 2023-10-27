@@ -2,6 +2,8 @@
 import ImageButton from "../../ImageButton/ImageButton"
 import Table from "../../Table/Table"
 import NuevoCriterio from "./NuevoCriterio"
+import Card from "../../Card/Card"
+
 // hooks
 import { useState } from "react"
 import { useFormValidator } from "../../../hooks/useFormValidator"
@@ -46,20 +48,16 @@ const FeriaRubricaCard = (props) => {
     }
 
     return (
-        <div className="feria-rubrica-card">
-            
-            <div className="feria-rubrica-card__header">
-                <h2 >{rubrica.nombreRubrica} - Ponderación: {rubrica.ponderacion} - Exposicion: {rubrica.exposicion ? 'Si' : 'No'}</h2>
-                <ImageButton
-                    alt="Eliminar Rúbrica"
-                    callback={handleBorrarRubrica} 
-                    src={require("../../../../assets/cancel.png")}
-                    small={true}
-                />
-            </div>
-            <div>
-                
-            </div>
+        <Card header={
+                        <div className="feria-rubrica-card__header">
+                            <h4>{`${rubrica.nombreRubrica} - Ponderación: ${rubrica.ponderacion} - Exposicion: ${rubrica.exposicion ? 'Si' : 'No'}`}</h4>
+                            <ImageButton
+                                alt="Eliminar Rúbrica"
+                                callback={handleBorrarRubrica} 
+                                src={require("../../../../assets/cancel.png")}
+                                small={true}
+                            />
+                        </div>} >
             
             <div className="feria-rubrica-card__table-container">
                 <Table
@@ -79,7 +77,7 @@ const FeriaRubricaCard = (props) => {
                 <NuevoCriterio rubrica={rubrica} />
             </div>
             
-        </div>
+        </Card>
     )
 }
 
