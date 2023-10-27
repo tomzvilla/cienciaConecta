@@ -44,10 +44,12 @@ const Sidebar = () => {
                             <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/feria'} text="Crear Feria"/>
                             <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/verFeria'} text="Ver Feria"/>
                             <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/verListaFerias'} text="Listado de Ferias"/>
+                            <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/crearCategoria'} text="Categorías"/>
                         </SidebarDropdown>
 
                         <SidebarLink img={require("../../../assets/user.png")} linkto={'/asignarReferentes'} text="Referentes"/>
                         <SidebarLink img={require("../../../assets/user.png")} linkto={'/seleccionarPostulantes'} text="Lista Postulantes"/>
+                        <SidebarLink img={require("../../../assets/user.png")} linkto={'/promoverProyectos'} text="Promover Proyectos"/>
                         <SidebarLink img={require("../../../assets/user.png")} linkto={'/activarUsuarios'} text="Activar Usuarios"/>
 
                     </> 
@@ -56,7 +58,7 @@ const Sidebar = () => {
                 
                 {auth?.roles?.find(role => [ROLES.Evaluador].includes(role)) && 
                     <>
-                        <SidebarLink img={require("../../../assets/user.png")} linkto={'/evaluar'} text="Evaluacion"/>
+                        <SidebarLink img={require("../../../assets/user.png")} linkto={'/evaluar'} text="Evaluación"/>
                     </>
                 }
                 {auth?.roles?.find(role => [ROLES.RefEvaluador].includes(role)) && 

@@ -28,6 +28,9 @@ import {
     rubricaValidator,
     ponderacionValidator,
     criterioValidator,
+    nombreCategoriaValidator,
+    abreviaturaValidator,
+    colorValidator,
 } from '../validators'
 
 const touchErrors = (errors, fieldsToExclude) => {
@@ -58,22 +61,6 @@ export const useFormValidator = (form) => {
     } )
 
     const [errors, setErrors] = useState(newErrors)
-
-    // const resetErrors = (errorsToReset) => {
-    //     errors.forEach((err) => {
-    //         console.log(err)
-    //         if(errorsToReset.find(err)){
-    //             setErrors(
-    //                 ...errors,
-    //                 errors[err] = {
-    //                     dirty: false,
-    //                     error: false,
-    //                     message: ''
-    //                 }
-    //             )
-    //         }
-    //     })
-    // } 
 
     const validateForm = ({form, field, errors, forceTouchErrors = false, fieldsToExclude=[]}) => {
         let isValid = true
@@ -120,6 +107,9 @@ export const useFormValidator = (form) => {
             nombreCriterio,
             ponderacion,
             curriculum,
+            nombreCategoria,
+            abreviatura,
+            color,
         } = form;
 
         if (nextErrors.email?.dirty && (field ? field === "email" || field === 'schoolEmail' : true)) {
@@ -444,6 +434,20 @@ export const useFormValidator = (form) => {
             if (!!fechaFinAsignacionProyectosMessage) isValid = false;
         }
 
+        if (nextErrors.fechaPromocionInstanciaRegional?.dirty && (field ? field === "fechaPromocionInstanciaRegional" : true)) {
+            const fechaPromocionInstanciaRegionalMessage = dateValidator({fecha:form.fechaFinExposicionRegional, nombre: 'Fin exposición regional'},{fecha:form.fechaPromocionInstanciaRegional, nombre: 'Promoción a Provincial'}, {fecha: form.fechaInicioEvaluacionProvincial, nombre: 'Inicio evaluación provincial'},form);
+            nextErrors.fechaPromocionInstanciaRegional.error = !!fechaPromocionInstanciaRegionalMessage;
+            nextErrors.fechaPromocionInstanciaRegional.message = fechaPromocionInstanciaRegionalMessage;
+            if (!!fechaPromocionInstanciaRegionalMessage) isValid = false;
+        }
+
+        if (nextErrors.fechaPromocionInstanciaProvincial?.dirty && (field ? field === "fechaPromocionInstanciaProvincial" : true)) {
+            const fechaPromocionInstanciaProvincialMessage = dateValidator({fecha:form.fechaFinEvaluacionProvincial, nombre: 'Fin evaluación provincial'},{fecha:form.fechaPromocionInstanciaProvincial, nombre: 'Promoción a Nacional'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            nextErrors.fechaPromocionInstanciaProvincial.error = !!fechaPromocionInstanciaProvincialMessage;
+            nextErrors.fechaPromocionInstanciaProvincial.message = fechaPromocionInstanciaProvincialMessage;
+            if (!!fechaPromocionInstanciaProvincialMessage) isValid = false;
+        }
+
         if (nextErrors.nombreCriterio?.dirty && (field ? field === "nombreCriterio" : true)) {
             const nombreCriterioMessage = criterioValidator(nombreCriterio, form);
             nextErrors.nombreCriterio.error = !!nombreCriterioMessage;
@@ -463,6 +467,27 @@ export const useFormValidator = (form) => {
             nextErrors.curriculum.error = !!curriculumMessage;
             nextErrors.curriculum.message = curriculumMessage;
             if (!!curriculumMessage) isValid = false;
+        }
+
+        if (nextErrors.nombreCategoria?.dirty && (field ? field === "nombreCategoria" : true)) {
+            const nombreCategoriaMessage = nombreCategoriaValidator(nombreCategoria, form);
+            nextErrors.nombreCategoria.error = !!nombreCategoriaMessage;
+            nextErrors.nombreCategoria.message = nombreCategoriaMessage;
+            if (!!nombreCategoriaMessage) isValid = false;
+        }
+
+        if (nextErrors.abreviatura?.dirty && (field ? field === "abreviatura" : true)) {
+            const abreviaturaMessage = abreviaturaValidator(abreviatura, form);
+            nextErrors.abreviatura.error = !!abreviaturaMessage;
+            nextErrors.abreviatura.message = abreviaturaMessage;
+            if (!!abreviaturaMessage) isValid = false;
+        }
+
+        if (nextErrors.color?.dirty && (field ? field === "color" : true)) {
+            const colorMessage = colorValidator(color, form);
+            nextErrors.color.error = !!colorMessage;
+            nextErrors.color.message = colorMessage;
+            if (!!colorMessage) isValid = false;
         }
 
         setErrors(nextErrors);

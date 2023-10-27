@@ -18,7 +18,6 @@ const ActualizarFeria = () => {
     const [etapaActual, setEtapaActual] = useState(ETAPAS.Datos)
     const { data } = useAxiosFetch('/feria/activa', axiosPrivate) 
     const { data: sedesData} = useAxiosFetch('/establecimiento/sedes/regional', axiosPrivate)
-    const { data: sedeProvincialData } = useAxiosFetch(`/establecimiento/sedes/provincial`, axiosPrivate)
     let sedes = []
     if(sedesData){
         sedes = [...sedesData.sedes].sort((sede1, sede2) => {
@@ -42,7 +41,7 @@ const ActualizarFeria = () => {
       <>
         <ProgressBar etapas={ETAPAS} etapaActual={etapaActual}/>
         <Metadata title={'Feria'}/>
-        {!data || !sedesData || !sedeProvincialData ? (<Spinner />) : (<ActualizarFeriaForm formData={data?.feriaActiva} sedes={sedes} getEtapa={getEtapa} sedeProvincial={sedeProvincialData.sede}/>)}
+        {!data || !sedesData ? (<Spinner />) : (<ActualizarFeriaForm formData={data?.feriaActiva} sedes={sedes}/>)}
       </>
     )
         

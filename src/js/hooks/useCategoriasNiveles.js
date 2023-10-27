@@ -1,26 +1,36 @@
 
 
-const useCategoriasNiveles = ({ categoriaData, nivelData, enabled }) => {
+const useCategoriasNiveles = ({ categoriaData, nivelData, sedesData = null, enabled }) => {
 
     let categorias = []
     let niveles = []
+    let sedes = []
 
     if(enabled) {
         // mapear categorias
-        categorias.push({_id: 0, nombre: ""})
-        categorias = [...categorias, ...categoriaData.categoria]
-
+        if(categoriaData) {
+            categorias.push({_id: 0, nombre: ""})
+            categorias = [...categorias, ...categoriaData.categoria]
+        }
         // mapear niveles
+        if(nivelData) {
+            niveles.push({_id: 0, nombre: "", codigo: '0'})
+            niveles = [...niveles, ...nivelData.nivel].sort((level1, level2) => {
+                if (level1.codigo < level2.codigo) {
+                return -1; 
+                } else if (level1.codigo > level2.codigo) {
+                return 1;
+                }
+                return 0;
+            });
+        }
 
-        niveles.push({_id: 0, nombre: "", codigo: '0'})
-        niveles = [...niveles, ...nivelData.nivel].sort((level1, level2) => {
-            if (level1.codigo < level2.codigo) {
-            return -1; 
-            } else if (level1.codigo > level2.codigo) {
-            return 1;
-            }
-            return 0;
-        });
+
+        // mapear sedes
+        if(sedesData) {
+            sedes.push({_id: 0, nombre: ""})
+            sedes = [...sedes, ...sedesData.sedes]
+        }
     }
 
     const proyectosMapping = (proyectosData) => {
@@ -89,7 +99,7 @@ const useCategoriasNiveles = ({ categoriaData, nivelData, enabled }) => {
         }
     }
     
-    return { niveles, categorias, proyectosMapping, proyectoMap, evaluadorMapping, evaluadorMap }
+    return { niveles, categorias, sedes, proyectosMapping, proyectoMap, evaluadorMapping, evaluadorMap }
 
 }
 

@@ -27,7 +27,6 @@ const CrearFeriaForm = (props) => {
     const [formValues, setFormValues] = useState({
         nombreFeria: '',
         descripcionFeria: '',
-        logo: '',
         fechaInicioFeria: '',
         fechaFinFeria: '',
         fechaInicioInstanciaEscolar: '',
@@ -42,13 +41,12 @@ const CrearFeriaForm = (props) => {
         fechaFinPostulacionEvaluadores: '',
         fechaInicioAsignacionProyectos: '',
         fechaFinAsignacionProyectos: '',
+        fechaPromocionInstanciaRegional: '',
+        fechaPromocionInstanciaProvincial: '',
         departamento: '',
         localidad: '',
         establecimientos: [],
         cupos: [],
-        sedeProvincialDpto: '',
-        sedeProvincialLocalidad: '',
-        sedeProvincial: null,
         cuposProvincial: [],
         errorSumaPonderacion: false,
         errorRubrica:  false,
@@ -75,7 +73,7 @@ const CrearFeriaForm = (props) => {
         e.preventDefault()
         let fieldsToExclude = []
         if(etapaActual === ETAPAS.Datos) fieldsToExclude = ['fechaInicioInstanciaEscolar', 'fechaFinInstanciaEscolar','fechaInicioEvaluacionRegional', 'fechaFinEvaluacionRegional', 'fechaInicioExposicionRegional', 'fechaFinExposicionRegional', 
-        'fechaInicioEvaluacionProvincial',  'fechaFinEvaluacionProvincial', 'fechaInicioPostulacionEvaluadores', 'fechaFinPostulacionEvaluadores', 'fechaInicioAsignacionProyectos','fechaFinAsignacionProyectos', 'cupos', 'criteriosEvaluacion', 'nombreRubrica']
+        'fechaInicioEvaluacionProvincial',  'fechaFinEvaluacionProvincial', 'fechaInicioPostulacionEvaluadores', 'fechaFinPostulacionEvaluadores', 'fechaInicioAsignacionProyectos','fechaFinAsignacionProyectos', 'fechaPromocionInstanciaRegional', 'fechaPromocionInstanciaProvincial', 'cupos', 'criteriosEvaluacion', 'nombreRubrica']
         if(etapaActual === ETAPAS.Instancias) fieldsToExclude = ['cupos', 'criteriosEvaluacion', 'nombreRubrica']
         if(etapaActual === ETAPAS.SedesRegionales) fieldsToExclude = ['criteriosEvaluacion', 'nombreRubrica']
         if(etapaActual === ETAPAS.SedeProvincial) fieldsToExclude = ['criteriosEvaluacion', 'nombreRubrica']
@@ -92,11 +90,6 @@ const CrearFeriaForm = (props) => {
             setEtapaActual(ETAPAS.SedeProvincial)
         }
         if(etapaActual === ETAPAS.SedeProvincial & isValid){
-            setFormValues({
-                ...formValues,
-                sedeProvincialDpto: '',
-                sedeProvincialLocalidad: '',
-            })
             setEtapaActual(ETAPAS.Criterios)
         } 
     }
@@ -106,19 +99,6 @@ const CrearFeriaForm = (props) => {
         const nextFormValueState = {
             ...formValues,
             [name]: value
-        }
-        setFormValues(nextFormValueState)
-        if (errors[name].dirty) {
-            validateForm({form: nextFormValueState, errors, name})
-        }
-    }
-
-    const handleFileChange = (e) => {
-        const {name} = e.target
-        const file = e.target.files[0]
-        const nextFormValueState = {
-            ...formValues,
-            [name]: file
         }
         setFormValues(nextFormValueState)
         if (errors[name].dirty) {
@@ -239,7 +219,6 @@ const CrearFeriaForm = (props) => {
                         setFormValues({
                             nombreFeria: '',
                             descripcionFeria: '',
-                            logo: '',
                             fechaInicioFeria: '',
                             fechaFinFeria: '',
                             fechaInicioInstanciaEscolar: '',
@@ -254,13 +233,12 @@ const CrearFeriaForm = (props) => {
                             fechaFinPostulacionEvaluadores: '',
                             fechaInicioAsignacionProyectos: '',
                             fechaFinAsignacionProyectos: '',
+                            fechaPromocionInstanciaRegional: '',
+                            fechaPromocionInstanciaProvincial: '',
                             departamento: '',
                             localidad: '',
                             establecimientos: [],
                             cupos: [],
-                            sedeProvincialDpto: '',
-                            sedeProvincialLocalidad: '',
-                            sedeProvincial: null,
                             cuposProvincial: [],
                             criteriosEvaluacion: [],
                             nombreRubrica: '',
@@ -275,8 +253,7 @@ const CrearFeriaForm = (props) => {
             try {
                 const { 
                     nombreFeria, 
-                    descripcionFeria, 
-                    logo, 
+                    descripcionFeria,
                     fechaInicioFeria, 
                     fechaFinFeria, 
                     fechaInicioInstanciaEscolar, 
@@ -291,9 +268,10 @@ const CrearFeriaForm = (props) => {
                     fechaFinPostulacionEvaluadores,
                     fechaInicioAsignacionProyectos,
                     fechaFinAsignacionProyectos,
+                    fechaPromocionInstanciaRegional,
+                    fechaPromocionInstanciaProvincial,
                     establecimientos,
                     cupos,
-                    sedeProvincial,
                     cuposProvincial,
                 } = formValues
                 const sedesRegional = new Set(establecimientos.map(e => { 
@@ -302,8 +280,7 @@ const CrearFeriaForm = (props) => {
                 await axiosPrivate.post('/feria', 
                 JSON.stringify({ 
                     nombre: nombreFeria, 
-                    descripcion: descripcionFeria, 
-                    logo: 'www.logo.com', 
+                    descripcion: descripcionFeria,
                     fechaInicioFeria: fechaInicioFeria, 
                     fechaFinFeria: fechaFinFeria, 
                     instancias: {
@@ -317,13 +294,14 @@ const CrearFeriaForm = (props) => {
                             fechaInicioEvaluacionPresencial: fechaInicioExposicionRegional,
                             fechaFinEvaluacionPresencial: fechaFinExposicionRegional,
                             cupos,
-                            sedes: Array.from(sedesRegional)
+                            sedes: Array.from(sedesRegional),
+                            fechaPromocionAProvincial: fechaPromocionInstanciaRegional,
                         },
                         instanciaProvincial: {
                             fechaInicioEvaluacionPresencial: fechaInicioEvaluacionProvincial,
                             fechaFinEvaluacionPresencial: fechaFinEvaluacionProvincial,
                             cupos: cuposProvincial,
-                            sede: sedeProvincial._id
+                            fechaPromocionANacional: fechaPromocionInstanciaProvincial,
                         }
                     }, 
                     fechaInicioPostulacionEvaluadores, 
@@ -378,9 +356,6 @@ const CrearFeriaForm = (props) => {
         setFormValues({...formValues, establecimientos: formValues.establecimientos.filter(obj => obj.nombre !== nombreSede)})
     }
 
-    const handleDeleteSedeProvincial = () => {
-        setFormValues({...formValues, sedeProvincial: null})
-    }
 
     return (
         <Card title="Registrar Feria de Ciencias y Tecnología" wide={true}>
@@ -388,7 +363,6 @@ const CrearFeriaForm = (props) => {
             {etapaActual === ETAPAS.Datos && <DatosFeriaForm
                 handleChange={handleChange}
                 handleDateChange={handleDateChange}
-                handleFileChange={handleFileChange}
                 onBlurField={onBlurField}
                 formValues={formValues}
                 errors={errors}
@@ -408,12 +382,8 @@ const CrearFeriaForm = (props) => {
                 errors={errors}
             />}
             {etapaActual === ETAPAS.SedeProvincial && <SedeProvincialForm
-                handleChange={handleChange}
-                handleDeleteSedeProvincial={handleDeleteSedeProvincial}
-                onBlurField={onBlurField}
                 formValues={formValues}
                 setFormValues={setFormValues}
-                errors={errors}
             />}
             {etapaActual === ETAPAS.Criterios && <RubricasFeriaForm />}
             <div className='crear-feria-form__button'>
