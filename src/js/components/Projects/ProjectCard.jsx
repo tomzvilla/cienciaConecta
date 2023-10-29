@@ -6,17 +6,28 @@ import Button from "../Button/Button"
 // hooks
 import { useNavigate, useLocation } from "react-router-dom"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
+import { useSelector } from "react-redux"
+import { instanciaEscolar } from "../../../App"
 import Swal from "sweetalert2"
 
 const ProjectCard = ({ formData }) => {
     const navigate = useNavigate()
     const location = useLocation()
     const from = location?.state?.from || '/dashboard'
-    console.log(formData)
+    const feria = useSelector(state => state.instancias.feria)
 
     const axiosPrivate = useAxiosPrivate()
 
     const handleDelete = () => {
+        if(!instanciaEscolar.includes(feria?.estado)){
+            return Swal.fire({
+                title: 'Oops! Hubo un error',
+                text: 'Solo puedes eliminar tu proyecto en la instancia escolar.',
+                icon: 'warning',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#00ACE6',
+            })
+        }
         Swal.fire({
             title: '¿Deseas eliminar tu proyecto?',
             icon: 'question',

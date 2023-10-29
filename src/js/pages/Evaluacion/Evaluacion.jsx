@@ -6,7 +6,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import { useParams, useNavigate, useLocation } from "react-router-dom"
 import { useSelector } from "react-redux"
-import { instanciasActions } from "../../../store/instancias-slice"
+import { ESTADOS } from "../../../App"
 import Swal from "sweetalert2"
 
 const Evaluacion = () => {
@@ -15,10 +15,10 @@ const Evaluacion = () => {
     const location = useLocation()
     const navigate = useNavigate()
     const from = location?.state?.from || `/dashboard`
-
-    const instancia = useSelector(state => state.instancias.instancia)
-    const evaluationMsg = instancia === 'regional' ? 'evaluación teórica' : 'evaluación de exposición'
-    const endpoint = instancia === 'regional' ? 'evaluacion' : 'exposicion'
+    
+    const feria = useSelector(state => state.instancias.feria)
+    const evaluationMsg = feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 'evaluación teórica en instancia regional' : feria?.estado === ESTADOS.instanciaRegional_EnExposicion ? 'evaluación de exposición en instancia regional' : 'evaluación de exposición en instancia provincial'
+    const endpoint = feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 'evaluacion' : feria?.estado === ESTADOS.instanciaRegional_EnExposicion ? 'exposicion' : 'exposicion-provincial'
     
     const {data: evaluacionStructure, isLoading} = useAxiosFetch(`/${endpoint}/consultar/${id}`, axiosPrivate)
     const {data: iniciarEvaluacion, isLoading: isLoadingEvaluacion, status  } = useAxiosFetch(`/${endpoint}/${id}`, axiosPrivate)

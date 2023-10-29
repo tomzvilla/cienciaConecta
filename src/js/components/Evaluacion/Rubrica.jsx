@@ -6,7 +6,7 @@ import { evaluacionActions } from "../../../store/evaluacion-slice"
 import { useSelector } from "react-redux"
 import TextareaInput from "../TextareaInput/TextareaInput"
 
-const Rubrica = ({ rubrica, display }) => {
+const Rubrica = ({ rubrica, display, readOnly = false }) => {
 
     const dispatch = useDispatch()
     const devolucionActual = useSelector(state => state.evaluacion.devoluciones).find(r => r.rubricaId === rubrica._id)
@@ -45,11 +45,12 @@ const Rubrica = ({ rubrica, display }) => {
                     onBlur={() => {}}
                     errors={{dirty: errors, error: errors, message: valor.error}}
                     required={true}
+                    disabled={readOnly}
                 />
                 </div>)
             })}
             <div className="rubrica__textarea">
-                <TextareaInput label="Devolución: " name={rubrica.nombreRubrica} onChange={onChange} value={devolucionActual.comentario} error={devolucionActual.error}/>
+                <TextareaInput disabled={readOnly} label="Devolución: " name={rubrica.nombreRubrica} onChange={onChange} value={devolucionActual.comentario} error={devolucionActual.error}/>
 
             </div>
             

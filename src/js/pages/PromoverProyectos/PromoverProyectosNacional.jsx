@@ -19,12 +19,11 @@ const headers = [
     {name: 'Puntaje', value: 'puntajeFinal'},
 ]
 
-const PromoverProyectos = () => {
+const PromoverProyectosNacional = () => {
     const axiosPrivate = useAxiosPrivate()
     const dispatch = useDispatch()
 
     const [searchState, setSearchState] = useState({
-        sedeSeleccionada: '',
         nivelSeleccionado: '',
     })
 
@@ -32,24 +31,22 @@ const PromoverProyectos = () => {
 
     const [buscaronProyectos, setBuscaronProyectos] = useState(false)
 
-    const { data: sedesData, isLoading: loadingSedes } = useAxiosFetch(`/establecimiento/sedes/regional`, axiosPrivate)
     const { data: categoriasData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate)
     const { data: nivelesData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate)
 
-    const { niveles, categorias, sedes, proyectosMapping } = useCategoriasNiveles({ categoriaData: categoriasData, nivelData: nivelesData, sedesData: sedesData, enabled: !loadingCategorias && !loadingNiveles && !loadingSedes })
+    const { niveles, categorias, proyectosMapping } = useCategoriasNiveles({ categoriaData: categoriasData, nivelData: nivelesData, enabled: !loadingCategorias && !loadingNiveles })
     
     useEffect(() => {
-        buscarProyectos(searchState.sedeSeleccionada, searchState.nivelSeleccionado)
+        buscarProyectos(searchState.nivelSeleccionado)
 
     }, [searchState])
 
-    const buscarProyectos = async (sede, nivel) => {
-        if(!sede || !nivel) return
+    const buscarProyectos = async (nivel) => {
+        if(!nivel) return
         try {
             dispatch(promocionesActions.setLoadingProyectos(true))
-            const res = await axiosPrivate.post('/promocion/provincial/proyectos', JSON.stringify({
+            const res = await axiosPrivate.post('/promocion/nacional/proyectos', JSON.stringify({
                 nivel: nivel,
-                sede: sede,
             }))
             dispatch(promocionesActions.setCupos({cupos: res.data.cupos}))
             let proyectos = res.status === 204 ? [] : res.data.proyectos
@@ -86,14 +83,13 @@ const PromoverProyectos = () => {
     }
 
     return (
-        <Card wide={true} title={'Promover proyectos a instancia provincial'}> 
+        <Card wide={true} title={'Promover proyectos a instancia nacional'}> 
             {
-                loadingCategorias || loadingNiveles || loadingSedes ?
+                loadingCategorias || loadingNiveles ?
                 <Spinner />
                 :
                 <>
                     <FiltroPromoverProyectos
-                        sedes={sedes}
                         categorias={categorias}
                         niveles={niveles}
                         handleChange={handleChange}
@@ -104,9 +100,8 @@ const PromoverProyectos = () => {
                     <TablaPromoverProyectos
                         headers={headers}
                         nivel={searchState.nivelSeleccionado}
-                        sede={searchState.sedeSeleccionada}
                         categoria={categoria}
-                        nacional={false}
+                        nacional={true}
                         viewPath={'/evaluacion'}
                     />
                     }
@@ -117,4 +112,4 @@ const PromoverProyectos = () => {
     )
 }
 
-export default PromoverProyectos
+export default PromoverProyectosNacional

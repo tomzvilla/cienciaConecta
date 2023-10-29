@@ -3,7 +3,7 @@ import Button from "../Button/Button"
 import ActualizarEtapaRegionalForm from "./ActualizarEtapaRegionalForm"
 import ActualizarEtapaEscolarForm from "./ActualizarEtapaEscolarForm"
 import ActualizarGrupoProyecto from "./ActualizarGrupoProyecto"
-
+import Spinner from "../Spinner/Spinner"
 // Import hooks
 import { useEffect, useState } from "react"
 import { useFormValidator } from "../../hooks/useFormValidator"
@@ -208,7 +208,11 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
     
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true})
+        let fieldsToExclude = []
+        if(instanciaEscolar.includes(feria.estado)) {
+            fieldsToExclude = ['sede', 'videoPresentacion', 'carpetaCampo', 'informeTrabajo', 'registroPedagogico', 'autorizacionImagen', 'grupoProyecto']
+        }
+        const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true, fieldsToExclude: fieldsToExclude})
 
         if(!isValid) return
 
@@ -383,6 +387,7 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
 return (
     <form className='edit-project-form'>
         <h2 className='edit-project-form__title'> Editar proyecto </h2>
+        { (!categoriesData || !levelsData) && <div> <Spinner /> </div>}
         { etapaActual === ETAPAS.Escolar && categoriesData && levelsData && <ActualizarEtapaEscolarForm 
             handleChange={handleChange}
             onBlurField={onBlurField}

@@ -1,7 +1,7 @@
 // components
 import Badge from "../Badge/Badge"
 import Pagination from "../Pagination/Pagination"
-import ImageLink from "../ImageLink/ImageLink"
+import ImageButton from "../ImageButton/ImageButton"
 import Button from "../Button/Button"
 import BlankState from "../BlankState/BlankState"
 import Spinner from "../Spinner/Spinner"
@@ -110,13 +110,15 @@ const TablaPromoverProyectos = (props) => {
     }
     
     const promoverProyectos = async () => {
+        const endpoint = props.nacional ? '/promocion/nacional' : '/promocion/provincial'
+        const body = {
+            proyectos: selectedRows,
+            nivel: props.nivel,
+        }
+        if(props.sede) body.sede = props.sede
         try {
-            const response = await axiosPrivate.post(`/promocion/provincial`,
-                JSON.stringify({
-                    proyectos: selectedRows,
-                    nivel: props.nivel,
-                    sede: props.sede,
-                }),
+            const response = await axiosPrivate.post(`${endpoint}`,
+                JSON.stringify(body),
                 {
                     headers: {'Content-Type': 'application/json'},
                     withCredentials: true
@@ -146,6 +148,11 @@ const TablaPromoverProyectos = (props) => {
                 confirmButtonColor: '#00ACE6',
             })
         }
+    }
+
+    const verEvaluacion = (proyecto) => {
+        dispatch(promocionesActions.setPuntaje(proyecto.puntajeFinal))
+        navigate(`/evaluacion/${proyecto._id}`, {replace: true, state: {from:`${location.pathname}`}})
     }
 
 
@@ -194,7 +201,7 @@ const TablaPromoverProyectos = (props) => {
                                         <td key={header.name} className="table-body-row__td" >{proyecto[`${header?.value}`]}</td>
                                     )})}
                                     <td className="table-body-row__td table-body-row__td--actions">
-                                        <ImageLink linkto={`${props.viewPath}/${proyecto._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/>
+                                        <ImageButton callback={() => verEvaluacion(proyecto)} linkto={`${props.viewPath}/${proyecto._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/>
                                     </td>
                                     <td className="table-body-row__td">
                                         <input

@@ -100,6 +100,12 @@ const evaluacionSlice = createSlice({
             const proyecto = prevListado.find(p => p._id === action.payload)
             proyecto.exposicion.listo.push('tempId')
             state.listadoEvaluaciones = prevListado
+        },
+        actualizarListosExposicionProvincial(state, action) {
+            const prevListado = [...state.listadoEvaluaciones];
+            const proyecto = prevListado.find(p => p._id === action.payload)
+            proyecto.exposicionRegional.listo.push('tempId')
+            state.listadoEvaluaciones = prevListado
         }
     }
 })

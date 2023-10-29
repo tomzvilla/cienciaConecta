@@ -8,7 +8,8 @@ import BlankState from "../../components/BlankState/BlankState"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useCategoriasNiveles from "../../hooks/useCategoriasNiveles"
-import { useDispatch } from "react-redux"
+import useUtils from "../../hooks/useUtils"
+import { useDispatch, useSelector } from "react-redux"
 import { referentesActions } from "../../../store/referentes-slice"
 
 const headers = [
@@ -18,7 +19,6 @@ const headers = [
 ]
 
 const ListadoProyectosAsignados = () => {
-    console.log('HOLA')
     const axiosPrivate = useAxiosPrivate()
     const dispatch = useDispatch()
     const { data: proyectosData, isLoading, status } = useAxiosFetch(`/referente/proyectos`, axiosPrivate)
@@ -29,11 +29,12 @@ const ListadoProyectosAsignados = () => {
 
     if(!isLoading && proyectosData?.proyectos) {
         const proyectos = proyectosMapping(proyectosData?.proyectos)
-        console.log(proyectosData?.proyectos)
         dispatch(referentesActions.cargarProyectosReferente(proyectos))
     }
 
-    if(!isLoading) console.log(proyectosData)
+    const { formatDate } = useUtils()
+    const feria = useSelector(state => state.instancias.feria)
+    const fecha = new Date()
 
 
     return (
@@ -41,10 +42,18 @@ const ListadoProyectosAsignados = () => {
         <Spinner />
         :
         <Card wide={true} header={<TablaProyectosAsignadosHeader title={'Listado de proyectos asignados'} wide={true}/>}>
-            {status !== 204 ?
-                <TablaProyectosReferente headers={headers} />
+            {   fecha >= new Date(feria?.fechas_evaluador.fechaInicioAsignacionProyectos) && fecha <= new Date(feria?.fechas_evaluador.fechaFinAsignacionProyectos) ?
+                <>
+                    {status !== 204 ?
+                    <TablaProyectosReferente headers={headers} />
+                    :
+                    <BlankState msg={'Actualmente no posee proyectos asignados.'}/>}
+                </>
                 :
-                <BlankState msg={'Actualmente no posee proyectos asignados.'}/>
+                fecha <= new Date(feria?.fechas_evaluador.fechaInicioAsignacionProyectos) ?
+                <BlankState msg={`La fecha de asignación de proyectos aún no llegó, por favor esperá hasta el ${formatDate(new Date(feria?.fechas_evaluador.fechaInicioAsignacionProyectos))}`}/>
+                :
+                <BlankState msg={'La fecha de asignación de proyectos expiró. Ahora los evaluadores podrán realizar la evaluación de los proyectos.'}/>
             }
         </Card>
     )

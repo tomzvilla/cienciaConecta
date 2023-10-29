@@ -5,6 +5,7 @@ const initialState = {
     loadingProyectos: false,
     selectedRows: [],
     cupos: 0,
+    puntaje: 0,
 }
 
 const promocionesSlice = createSlice({
@@ -33,6 +34,9 @@ const promocionesSlice = createSlice({
         },
         setSelectedRows(state, action) {
             state.selectedRows = action.payload
+        },
+        setPuntaje(state, action) {
+            state.puntaje = action.payload
         }
     }
 })

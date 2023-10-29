@@ -8,7 +8,7 @@ import Metadata from "../../components/Metadata/Metadata"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import { useLocation } from "react-router-dom"
-
+import useUtils from "../../hooks/useUtils"
 // state
 import { postulacionesActions } from "../../../store/postulaciones-slice"
 import { useDispatch, useSelector } from "react-redux"
@@ -26,6 +26,10 @@ const SeleccionPostulantes = () => {
     const axiosPrivate = useAxiosPrivate()
     const location = useLocation()
     const dispatch = useDispatch()
+
+    const { formatDate } = useUtils()
+    const feria = useSelector(state => state.instancias.feria)
+    const fecha = new Date()
 
     let postulacionesListado = []
     const {data, isLoading} = useAxiosFetch('/evaluador/postulaciones', axiosPrivate)
@@ -70,14 +74,25 @@ const SeleccionPostulantes = () => {
             <Metadata title={'Seleccionar Postulantes'}/>
             <div className="table-custom-page">
                 <Card title="Lista de Postulantes" wide={true}>
-                    
-                        <h6 className="table-custom-page__text">Seleccioná los postulantes que serán evaluadores durante la feria</h6>
-
                         {isLoading || !categoriaData || !nivelesData ? 
                         <Spinner/> 
-                        : !postulacionesListado ?
-                        <BlankState msg={"Actualmente no hay ninguna postulación. Vuelva más tarde."} /> :
-                        <TablaPostulantes location={location} headers={headers} viewPath={'/postulante'}/>
+                        :
+                        fecha >= new Date(feria?.fechas_evaluador.fechaInicioPostulacionEvaluadores) && fecha <= new Date(feria?.fechas_evaluador.fechaInicioAsignacionProyectos) ?
+                        <>
+                            {!postulacionesListado ?
+                            <BlankState msg={"Actualmente no hay ninguna postulación. Vuelva más tarde."} /> 
+                            :
+                            <>
+                                <h6 className="table-custom-page__text">Seleccioná los postulantes que serán evaluadores durante la feria</h6>
+                                <TablaPostulantes location={location} headers={headers} viewPath={'/postulante'}/>
+                            </>
+                            }
+                        </>
+                        :
+                        fecha <= new Date(feria?.fechas_evaluador.fechaInicioPostulacionEvaluadores) ?
+                        <BlankState msg={`La fecha de postulación aún no llegó, por favor esperá hasta el ${formatDate(new Date(feria?.fechas_evaluador.fechaInicioPostulacionEvaluadores))}`}/>
+                        :
+                        <BlankState msg={'La fecha de seleccionar postulantes a evaluador expiró. Por favor, indique a los referentes de evaluador que asignen evaluadores a los proyectos.'}/>
                         }
                 </Card>
             </div>
