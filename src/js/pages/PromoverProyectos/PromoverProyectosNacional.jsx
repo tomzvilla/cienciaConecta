@@ -55,7 +55,7 @@ const PromoverProyectosNacional = () => {
                 proyectos = proyectos.map(p => {
                     return {
                         ...p,
-                        puntajeFinal: p.exposicion.puntajeFinal
+                        puntajeFinal: p.exposicion.puntajeExposicion
 
                     }})
             }
@@ -95,7 +95,7 @@ const PromoverProyectosNacional = () => {
                         handleChange={handleChange}
                     />
                     {!buscaronProyectos ?
-                    <BlankState msg={'Ingrese una sede y un nivel para buscar proyectos'} />
+                    <BlankState msg={'Ingrese un nivel para buscar proyectos'} />
                     :
                     <TablaPromoverProyectos
                         headers={headers}
