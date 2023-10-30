@@ -22,7 +22,7 @@ const TablaEvaluadoresAsignados = (props) => {
 
     return (
         props.data.length !== 0 ?
-        <table className="table">
+        <table className="table table--fixed-layout">
             <thead className="table__header">
                 <tr>
                     {headers.map(header => {

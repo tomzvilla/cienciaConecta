@@ -58,11 +58,7 @@ const Navbar = (props) => {
             <div className="navbar__button-container">
                 { auth?.roles ?
                     // <Button text="Salir" onClickHandler={signOut}/>
-                    <DropdownButton img={require("../../../assets/user.png")} dropdown={showNavbarMenu} onClick={toggleNavbarMenu}>
-                        <DropdownButtonLink text={'Ver perfil'} onClick={navigatePerfil}/>
-                        <DropdownButtonLink text={'Cambiar contraseña'} onClick={navigatePerfil}/>
-                        <DropdownButtonLink text={'Salir'} onClick={signOut}/>
-                    </DropdownButton>
+                    <DropdownButton img={require("../../../assets/user.png")} dropdown={showNavbarMenu} onClick={toggleNavbarMenu} navigatePerfil={navigatePerfil} signOut={signOut}/>
                     :
                     <Button text="Ingresar" onClickHandler={props.openModal}/>
                 }

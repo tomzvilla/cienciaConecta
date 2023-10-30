@@ -1,6 +1,8 @@
 import { useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { uiActions } from "../../../store/ui-slice";
+import DropdownButtonLink from "./DropdownButtonLink";
+import NavbarDropdown from "./NavbarDropdown";
 
 const DropdownButton = (props) => {
     const menuRef = useRef(null);
@@ -26,10 +28,11 @@ const DropdownButton = (props) => {
 
     return (
         <>
-            <div className="sidebar-link sidebar-link" onClick={props.onClick}>
-                <img className="sidebar-link__image" src={props.img} alt="Perfil" />
+            <div className="dropdown-button" onClick={props.onClick}>
+                <img className="dropdown-button__image" src={props.img} alt="Perfil" />
             </div>
-            {props.dropdown && <ul ref={menuRef} className={`dropdown-navbar__content`}>  <li className="dropdown-navbar__content--item"> {props.children} </li> </ul>}
+            
+            {props.dropdown && <NavbarDropdown navigatePerfil={props.navigatePerfil} signOut={props.signOut} menuRef={menuRef}/>}
         </>
     )
 

@@ -22,8 +22,7 @@ const Layout = (props) => {
 
   const location = useLocation();
 
-  const home = location.pathname === '/' ? true : false;
-
+  const home = location.pathname === '/' ? true : location.pathname === '/home' ? true : false;
   const signup = location.pathname === '/signup' ? true : false;
 
   return (

@@ -100,11 +100,10 @@ const AsignarEvaluadores = (props) => {
                     Nivel: <Badge type={proyecto.nivel} />
                 </p>
             </div>
-   
+
             <div className="asignar-evaluadores__asignados">
                 <Card title={'Evaluadores Asignados'} className="project-card-table">
-                    <TablaEvaluadoresAsignados data={evaluadoresAsignados} />
-                    {/* <SmallTable title="Proyectos Activos" data={evaluadoresAsignados} viewPath={'/proyecto'}/> */}
+                        <TablaEvaluadoresAsignados data={evaluadoresAsignados} />
                 </Card>
             </div> 
 
@@ -112,19 +111,20 @@ const AsignarEvaluadores = (props) => {
                 <ListadoEvaluadores />
             </div>
             
-            <div className="asignar-evaluadores__button">
-                <div className="button-container">
-                    <Button 
-                        text='Volver' 
-                        onClickHandler={handleVolver}
-                    />
-                    <Button 
-                        text='Asignar' 
-                        onClickHandler={handleAsignar}
-                        activo={true}
-                    />
-                </div>
-            </div>
+            
+             <div className="asignar-evaluadores__button">
+                 <div className="button-container">
+                     <Button 
+                         text='Volver' 
+                         onClickHandler={handleVolver}
+                     />
+                     <Button 
+                         text='Asignar' 
+                         onClickHandler={handleAsignar}
+                         activo={true}
+                     />
+                 </div>
+             </div>
            
             
         </div>
