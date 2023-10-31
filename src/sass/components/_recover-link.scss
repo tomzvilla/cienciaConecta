@@ -1,0 +1,21 @@
+.recover-link {
+        display: flex;
+        font-size: 1.5rem;
+    
+        // align-items: center;
+        // margin: auto;
+        text-align: center;
+    
+        &__text {
+            color: $color-grey-dark;
+            width: max-content;
+            margin-right: auto;
+            
+        }
+    
+    
+        &__link {
+            align-self: flex-end;
+            color: $color-grey-dark;
+        }
+}

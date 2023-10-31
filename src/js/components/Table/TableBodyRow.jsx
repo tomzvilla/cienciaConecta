@@ -21,34 +21,31 @@ const TableBodyRow = (props) => {
                     })
                   }
 
-                  {showBorrar & showModal ?
-                        <>
-                            <td key={index} className="table-body-row__td">
-                              <Button activo={true} text={props.modalTitle} onClickHandler={(e) => props.modal(e, item)} small={true}/>
-                            </td>
+                  {props.acciones ?
+                          showBorrar & showModal ?
+                          <>
+                              <td key={index} className="table-body-row__td">
+                                <Button activo={true} text={props.modalTitle} onClickHandler={(e) => props.modal(e, item)} small={true}/>
+                              </td>
 
-                            <td key={index+1} className="table-body-row__td">
-                              <ImageButton small={true} alt="Borrar" linkto={""} callback={(e) => props.callback(e, item)} src={require("../../../assets/x.png")}/>
-                            </td>
-                        </>
-                    : 
-                    
-                    
-                    <td key={index} className="table-body-row__td table-body-row__td--actions">
-                    {
-                      showBorrar ? 
-                      <ImageButton small={true} alt="Borrar" linkto={""} callback={(e) => props.callback(e, item)} src={require("../../../assets/x.png")}/>
-                      :
-                    <>
-                      <ImageLink small={true} alt="Ver" linkto={`${props.viewPath}/${item._id}`} src={require("../../../assets/ver.png")}/>
-                      <ImageLink small={true} alt="Editar" linkto={`${props.editPath}/${item._id}`} src={require("../../../assets/edit.png")}/>
-                    </>     
-                    }
-
-                  </td>
-                  }
-
-                  
+                              <td key={index+1} className="table-body-row__td">
+                                <ImageButton small={true} alt="Borrar" linkto={""} callback={(e) => props.callback(e, item)} src={require("../../../assets/x.png")}/>
+                              </td>
+                          </>
+                          : 
+                          <td key={index} className="table-body-row__td table-body-row__td--actions">
+                            {
+                            showBorrar ? 
+                                <ImageButton small={true} alt="Borrar" linkto={""} callback={(e) => props.callback(e, item)} src={require("../../../assets/x.png")}/>
+                              :
+                              <>
+                                <ImageLink small={true} alt="Ver" linkto={`${props.viewPath}/${item._id}`} src={require("../../../assets/ver.png")}/>
+                                <ImageLink small={true} alt="Editar" linkto={`${props.editPath}/${item._id}`} src={require("../../../assets/edit.png")}/>
+                              </>     
+                            }
+                          </td>
+                          : ""
+                }
                 </tr>
               )
             })

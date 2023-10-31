@@ -73,15 +73,13 @@ const RecuperarCredenciales = () => {
 
 
     return (
-        <Card>
-            <form onSubmit={handleSubmit} className='login-form'>
-                <div>
-                    <p>
-                        Ingrese su CUIL, si existe un usuario registrado con ese CUIL se le enviará un correo al mail 
-                        ingresado durante el registro. Por favor, ingresá a dicho mail y seguí las instrucciones indicadas.
-                    </p>
-                </div>
-                <div className='login-form__input'>
+        <Card title="Recuperar Credenciales">
+            <form onSubmit={handleSubmit} className='recover-form'>
+                <p className='recover-form__text'>
+                    Ingresá tu CUIL y te vamos a enviar un correo a la casilla de e-mail con la que te registraste. <br/>
+                    Por favor, revisá tu correo y seguí las instrucciones.
+                </p>
+                <div className='recover-form__input'>
                     <InputField 
                         label='CUIL: '
                         name='cuil'
@@ -93,8 +91,8 @@ const RecuperarCredenciales = () => {
                         required={true}
                     />
                 </div>
-                <div className='login-form__button'>
-                    <Button text='Recuperar credenciales' activo={true}/>
+                <div className='recover-form__button'>
+                    <Button text='Aceptar' activo={true}/>
                 </div>
             </form>
         </Card>

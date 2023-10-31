@@ -7,6 +7,9 @@ import Metadata from "../../components/Metadata/Metadata"
 import useAuth from "../../hooks/useAuth"
 import { useLocation } from "react-router-dom"
 import { useEffect, useState } from "react"
+import DashboardComisionAsesora from "../../components/Dashboard/DashboardComisionAsesora"
+import DashboardReferente from "../../components/Dashboard/DashboardReferente"
+import DashboardSelector from "../../components/Dashboard/DashboardSelector"
 
 const rolesInicial = ['2', '3', '4', '5']
 
@@ -15,6 +18,10 @@ const Dashboard = () => {
     const [userRoles, setUserRoles] = useState({
         roles: auth.roles
     })
+
+    const [dashboardActivo, setDashboardActivo] = useState(userRoles.roles.find(rol => rol !== "1" && rol !== "6"))
+
+    console.log(userRoles)
 
     const location = useLocation()
 
@@ -41,10 +48,28 @@ const Dashboard = () => {
             <Metadata title={'Feria'}/>
             <div className="dashboard">
                 <h1 className="dashboard__title">Feria de Ciencias y Tecnología {new Date().getFullYear()}</h1>
-                {!rolesInicial.some(role => userRoles.roles.includes(role)) && <DashboardInicioFeria />}
-                {userRoles.roles.includes('2') &&  <DashboardResponsable />}
-                {userRoles.roles.includes('5') && <p>Es la comision asesora</p>}
-                {userRoles.roles.includes('3') && <DashboardEvaluador />}
+
+                {!rolesInicial.some(role => userRoles.roles.includes(role)) ?
+                    <DashboardInicioFeria /> 
+                    
+                    : 
+
+                    <>
+                        <DashboardSelector roles={userRoles.roles} dashboardActivo={dashboardActivo} setDashboardActivo={setDashboardActivo}/>
+
+                        {dashboardActivo === "4" ? <DashboardReferente /> : 
+                        
+                        dashboardActivo === "2" ? <DashboardResponsable /> : 
+
+                        dashboardActivo === "3" ? <DashboardEvaluador /> : 
+
+                        dashboardActivo === "5" ? <DashboardComisionAsesora /> : ""
+                        
+                        }
+                    </>
+            
+                    }
+                
             </div>
         </>
 

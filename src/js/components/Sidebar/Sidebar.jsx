@@ -13,6 +13,7 @@ const Sidebar = () => {
         proyectos: false,
     })
 
+    // Hacer que desde layout cargue este estado y le saque el acnho a la columna
     const showSidebar = useSelector(state => state.ui.sidebar)
 
     const toggleDropdown = (type) => {

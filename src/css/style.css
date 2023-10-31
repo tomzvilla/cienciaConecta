@@ -269,13 +269,13 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   height: 4rem;
   border: 0px;
   outline: none;
+  width: 100%;
   color: #757575;
 }
 .password-input__img {
   width: 3rem;
   height: 3rem;
   cursor: pointer;
-  margin-left: auto;
 }
 
 .navbar {
@@ -467,7 +467,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   flex-direction: column;
   height: min-content;
   align-items: center;
-  padding: 1rem 4rem;
+  margin: 1rem 4rem;
   max-width: 38rem;
   width: 38rem;
 }
@@ -480,6 +480,14 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 .login-form__link-container {
   padding-top: 4rem;
+}
+.login-form__recover-container {
+  background-color: #EFEFEF;
+  width: 38rem;
+  border-radius: 0px 2rem 2rem 2rem;
+  padding: 2rem 4rem;
+  margin-top: 1rem;
+  margin-bottom: -1rem;
 }
 
 .login-form-link {
@@ -514,7 +522,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   min-width: 45rem;
   min-height: min-content;
   border-radius: 2rem;
-  padding-bottom: 2rem;
   box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
   position: fixed;
   top: 50%;
@@ -684,7 +691,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 .signup-progress {
   display: flex;
-  padding: 2rem 0rem;
+  padding-bottom: 2rem;
 }
 .signup-progress__barra {
   display: flex;
@@ -922,6 +929,9 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .table__header {
   border-bottom: 1px solid black;
   padding: 6rem;
+}
+.table--fixed-layout {
+  table-layout: fixed;
 }
 
 .table-card {
@@ -2050,10 +2060,9 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   max-width: 60rem;
 }
 
-
 .asignar-evaluadores {
   display: grid;
-  grid-template-columns: 35rem max-content;
+  grid-template-columns: 35rem 70rem;
 }
 .asignar-evaluadores__asignados {
   grid-row: 1/2;
@@ -2081,7 +2090,179 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .asignar-evaluadores__button {
   grid-row: 3/4;
   grid-column: 1/3;
+}
 
+.dropdown-navbar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 30;
+  position: absolute;
+  left: 80%;
+  background-color: white;
+  border: 1px solid grey;
+  list-style: none;
+  border-radius: 2rem;
+  padding-left: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-1rem);
+  transition: opacity 0.3s ease-in-out, transform 0.8s ease-in-out;
+}
+.dropdown-navbar__item {
+  cursor: pointer;
+  width: 100%;
+}
+.dropdown-navbar__item > p {
+  padding-left: 0;
+  color: #757575;
+  text-decoration: none;
+  padding: 1rem 2rem;
+}
+.dropdown-navbar__item > p:hover {
+  color: #00ACE6;
+  background-color: #EFEFEF;
+}
+.dropdown-navbar__item > p:active {
+  color: #ffffff;
+}
+.dropdown-navbar--animate {
+  opacity: 1;
+  transform: none;
+}
+
+.dropdown-button {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  text-decoration: none;
+}
+.dropdown-button:hover {
+  background-color: #ffffff;
+  border-radius: 100rem;
+  cursor: pointer;
+}
+.dropdown-button:hover .dropdown-button__image {
+  filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
+}
+.dropdown-button__image {
+  width: 5rem;
+  filter: brightness(100);
+}
+
+.preview-badge {
+  display: block;
+  padding: 1.5rem 6rem;
+  margin: 3rem;
+  margin-bottom: 7rem;
+  width: 12rem;
+  border-radius: 2rem;
+  color: white;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.recover-link {
+  display: flex;
+  font-size: 1.5rem;
+  text-align: center;
+}
+.recover-link__text {
+  color: #757575;
+  width: max-content;
+  margin-right: auto;
+}
+.recover-link__link {
+  align-self: flex-end;
+  color: #757575;
+}
+
+.recover-form {
+  display: flex;
+  flex-direction: column;
+  height: min-content;
+  align-items: center;
+  margin: 2rem 4rem;
+}
+.recover-form__text {
+  color: #757575;
+  font-size: 2.5rem;
+}
+.recover-form__input {
+  padding-top: 4rem;
+  width: 60%;
+}
+.recover-form__button {
+  padding-top: 4rem;
+}
+
+.dashboard-comision__details {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  padding: 1rem 0rem;
+}
+.dashboard-comision__details > p {
+  padding-top: 2rem;
+  font-size: 2.5rem;
+  color: #757575;
+}
+
+.dashboard-referente {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: #757575;
+  width: 80%;
+}
+.dashboard-referente > :last-child {
+  padding-top: 3rem;
+}
+.dashboard-referente__details {
+  padding-top: 1rem;
+}
+.dashboard-referente__details > h4 {
+  font-weight: normal;
+}
+.dashboard-referente__details > p {
+  padding-top: 1rem;
+  font-size: 2.5rem;
+}
+
+.dashboard-selector {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-bottom: 4rem;
+}
+.dashboard-selector__button {
+  box-shadow: 0px 0.4rem 2rem rgba(0, 0, 0, 0.25);
+  min-width: 30rem;
+  border-radius: 2rem;
+  transition: all 400ms ease-in-out;
+  cursor: pointer;
+}
+.dashboard-selector__button > p {
+  margin: auto;
+  text-align: center;
+  color: #757575;
+  font-size: 2.4rem;
+  padding: 1rem 3rem;
+  transition: all 400ms ease-in-out;
+  text-wrap: nowrap;
+}
+.dashboard-selector__button:hover {
+  background-color: #00ACE6;
+  box-shadow: 0px 1.4rem 2rem rgba(0, 0, 0, 0.34);
+}
+.dashboard-selector__button:hover > p {
+  color: white;
+}
+.dashboard-selector__button--activo {
+  background-color: #00ACE6;
+}
+.dashboard-selector__button--activo > p {
+  color: white;
 }
 
 .login {
@@ -2228,6 +2409,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 .layout__main--full-width {
   padding: 0;
+  padding: 5rem 0;
   grid-row: 2/3;
   grid-column: 1/3;
 }
