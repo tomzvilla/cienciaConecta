@@ -100,6 +100,34 @@ const evaluacionSlice = createSlice({
             const proyecto = prevListado.find(p => p._id === action.payload)
             proyecto.exposicion.listo.push('tempId')
             state.listadoEvaluaciones = prevListado
+        },
+        actualizarListosExposicionProvincial(state, action) {
+            const prevListado = [...state.listadoEvaluaciones];
+            const proyecto = prevListado.find(p => p._id === action.payload)
+            proyecto.exposicionProvincial.listo.push('tempId')
+            state.listadoEvaluaciones = prevListado
+        },
+        actualizarRealizadosEvaluacion(state, action) {
+            const prevListado = [...state.listadoEvaluaciones];
+            const proyecto = prevListado.find(p => p._id === action.payload)
+            proyecto.evaluacion.evaluadorId.push('tempId')
+            state.listadoEvaluaciones = prevListado
+        },
+        actualizarRealizadosExposicion(state, action) {
+            const prevListado = [...state.listadoEvaluaciones];
+            const proyecto = prevListado.find(p => p._id === action.payload)
+            proyecto.exposicion.evaluadorId.push('tempId')
+            state.listadoEvaluaciones = prevListado
+        },
+        actualizarRealizadosExposicionProvincial(state, action) {
+            const prevListado = [...state.listadoEvaluaciones];
+            const proyecto = prevListado.find(p => p._id === action.payload)
+            if(!proyecto?.exposicionProvincial) {
+                proyecto['exposicionProvincial'] = { evaluadorId: ['tempId'] }
+            } else {
+                proyecto?.exposicionProvincial?.evaluadorId.push('tempId')
+            }
+            state.listadoEvaluaciones = prevListado
         }
     }
 })

@@ -5,7 +5,7 @@ const FiltroPromoverProyectos = (props) => {
     return (        
         <>
             <div className="postulacion-form">
-                <div className="postulacion-form__input">
+                {props.sedes && <div className="postulacion-form__input">
                     <SelectField
                         label='Sedes: ' 
                         name='sedeSeleccionada'
@@ -15,7 +15,7 @@ const FiltroPromoverProyectos = (props) => {
                         errors={null}
                         required={true}
                     />
-                </div>
+                </div>}
                 <div className="postulacion-form__input">
                     <SelectField
                         label='Niveles: ' 
