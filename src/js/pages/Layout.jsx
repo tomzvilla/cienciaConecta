@@ -7,6 +7,8 @@ import { useLocation } from 'react-router-dom';
 
 import { useState } from "react"
 import useAuth from "../hooks/useAuth";
+import { useSelector } from "react-redux";
+
 const Layout = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false)
   const { auth } = useAuth()
@@ -24,6 +26,8 @@ const Layout = (props) => {
 
   const home = location.pathname === '/' ? true : location.pathname === '/home' ? true : false;
   const signup = location.pathname === '/signup' ? true : false;
+
+  const showSidebar = useSelector(state => state.ui.sidebar)
 
   return (
     <div className="layout">
@@ -57,7 +61,7 @@ const Layout = (props) => {
         }
         
         
-        <main className="layout__main">
+        <main className={showSidebar ?  "layout__main layout__main--full-width" : "layout__main" }>
           {/* <LinkPage /> */}
           <Outlet context={[openModal, closeModal, modalIsOpen]}/>
         </main>

@@ -269,13 +269,13 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   height: 4rem;
   border: 0px;
   outline: none;
+  width: 100%;
   color: #757575;
 }
 .password-input__img {
   width: 3rem;
   height: 3rem;
   cursor: pointer;
-  margin-left: auto;
 }
 
 .navbar {
@@ -691,7 +691,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 .signup-progress {
   display: flex;
-  padding: 2rem 0rem;
+  padding-bottom: 2rem;
 }
 .signup-progress__barra {
   display: flex;
@@ -2409,6 +2409,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 .layout__main--full-width {
   padding: 0;
+  padding: 5rem 0;
   grid-row: 2/3;
   grid-column: 1/3;
 }
