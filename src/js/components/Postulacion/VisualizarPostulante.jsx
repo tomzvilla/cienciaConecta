@@ -14,12 +14,14 @@ import capitalizeEachLetter from "../../utils/utils.js"
 
 import Swal from "sweetalert2"
 
+
 const VisualizarPostulante = (props) => {
     const axiosPrivate = useAxiosPrivate()
     const { id } = useParams()
     const { formatCuil } = useUtils()
 
-    // Cuando entro desde la tabla todos los datos OK. Pero cuando entro directamente a la pagina o la recargo, se rompe
+    
+
     let postulacion = useSelector(state => state.postulaciones.listadoPostulantes)?.find(obj => obj._id === id)
     let nombre = postulacion?.datos_docente ? postulacion?.datos_docente?.nombre + " " + postulacion?.datos_docente?.apellido : 'Cargando...'
     let cuil = postulacion?.datos_docente ? formatCuil(postulacion?.datos_docente?.cuil) : ''
@@ -38,6 +40,7 @@ const VisualizarPostulante = (props) => {
     }
 
     const handleDownload = async () => {
+      
         const fileURL = await cargarCv();
         if (fileURL) {
           try {
@@ -46,6 +49,7 @@ const VisualizarPostulante = (props) => {
               throw new Error('No se pudo abrir la ventana emergente. Verifique la configuración del navegador.')
             }
             pdfWindow.location.href = fileURL;
+            return fileURL
           } catch (err) {
             Swal.fire({
               title: 'Hubo un problema',
@@ -56,6 +60,8 @@ const VisualizarPostulante = (props) => {
             })
           }
         }
+
+        return fileURL
     }
 
     const cargarCv = async () => {

@@ -15,6 +15,7 @@ const Sidebar = () => {
         postulaciones: false,
     })
 
+    // Hacer que desde layout cargue este estado y le saque el acnho a la columna
     const showSidebar = useSelector(state => state.ui.sidebar)
     const feria = useSelector(state => state.instancias.feria)
 

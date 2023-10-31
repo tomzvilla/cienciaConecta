@@ -2,6 +2,7 @@ import Lottie from "lottie-react";
 import errorSpinner from "../../../assets/errorSpinner.json";
 
 const BlankState = (props) => {
+    const modifier = props.small ? "--small" : "";
     return (
         <div className="blank-state">
             {/* <img className="blank-state__img" src={require("../../../assets/blank.png")} alt="Blank State" /> */}

@@ -143,22 +143,24 @@ const ProjectCard = ({ formData }) => {
         <div className="project-card">
             <h2 className="project-card__titulo"> Proyecto de Feria 2023</h2>
 
-            <div className="project-card__edit">
-                <ImageLink src={require("../../../assets/edit.png")} linkto={`/editarProyecto/${formData._id}`} alt="Editar Proyecto"/>
-            </div>
-
-            <div className="project-card__borrar">
-                <ImageButton small={false} alt="Borrar" linkto={""} callback={handleDelete} src={require("../../../assets/x.png")}/>
-            </div>
-            <div className="project-card__borrar">
+            <div className="project-card__buttons">
                 <Button 
                     text='Descargar QR' 
                     onClickHandler={handleDownload}
                     activo={true}
                 />
+                <ImageLink src={require("../../../assets/edit.png")} linkto={`/editarProyecto/${formData._id}`} alt="Editar Proyecto"/>
+                <ImageButton small={false} alt="Borrar" linkto={""} callback={handleDelete} src={require("../../../assets/x.png")}/>
             </div>
 
-            <ProjectCardDetails datos={formData}/>
+            
+                
+            
+
+            <div className="project-card__details">
+                <ProjectCardDetails datos={formData}/>
+            </div>
+            
             
         </div>
     )

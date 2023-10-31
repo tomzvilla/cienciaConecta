@@ -24,14 +24,13 @@ export const ETAPAS = {
   };
 
 const ActualizarFeriaForm = (props) => {
-    const {formData, sedes, sedeProvincial} = props
+    const { formData, sedes } = props
     const criteriosEvaluacion = useSelector(state => state.feria.rubricas)
     const axiosPrivate = useAxiosPrivate()
-    
+
     const [formValues, setFormValues] = useState({
         nombreFeria: formData.nombre,
         descripcionFeria: formData.descripcion,
-        logo: '',
         fechaInicioFeria: formData.fechaInicioFeria,
         fechaFinFeria: formData.fechaFinFeria,
         fechaInicioInstanciaEscolar: formData.instancias.instanciaEscolar.fechaInicioInstancia,
@@ -46,13 +45,12 @@ const ActualizarFeriaForm = (props) => {
         fechaFinPostulacionEvaluadores: formData.fechaFinPostulacionEvaluadores,
         fechaInicioAsignacionProyectos: formData.fechaInicioAsignacionProyectos,
         fechaFinAsignacionProyectos: formData.fechaFinAsignacionProyectos,
+        fechaPromocionInstanciaRegional: formData.instancias.instanciaRegional.fechaPromocionAProvincial,
+        fechaPromocionInstanciaProvincial: formData.instancias.instanciaProvincial.fechaPromocionANacional,
         departamento: '',
         localidad: '',
         establecimientos: [...sedes],
         cupos: [...formData.instancias.instanciaRegional.cupos],
-        sedeProvincialDpto: '',
-        sedeProvincialLocalidad: '',
-        sedeProvincial: sedeProvincial,
         cuposProvincial: [...formData.instancias.instanciaProvincial.cupos],
         errorSumaPonderacion: false,
         errorRubrica:  false,
@@ -94,7 +92,7 @@ const ActualizarFeriaForm = (props) => {
 
         if(etapaActual === ETAPAS.Datos) {
             fieldsToExclude = fieldsToExclude.concat(['fechaInicioInstanciaEscolar', 'fechaFinInstanciaEscolar','fechaInicioEvaluacionRegional', 'fechaFinEvaluacionRegional', 'fechaInicioExposicionRegional', 'fechaFinExposicionRegional', 
-            'fechaInicioEvaluacionProvincial',  'fechaFinEvaluacionProvincial', 'fechaInicioPostulacionEvaluadores', 'fechaFinPostulacionEvaluadores', 'fechaInicioAsignacionProyectos','fechaFinAsignacionProyectos', 'cupos', 'criteriosEvaluacion', 'nombreRubrica'
+            'fechaInicioEvaluacionProvincial',  'fechaFinEvaluacionProvincial', 'fechaInicioPostulacionEvaluadores', 'fechaFinPostulacionEvaluadores', 'fechaInicioAsignacionProyectos','fechaFinAsignacionProyectos', 'fechaPromocionInstanciaRegional', 'fechaPromocionInstanciaProvincial', 'cupos', 'criteriosEvaluacion', 'nombreRubrica'
             ])
         }
         if(etapaActual === ETAPAS.Instancias) fieldsToExclude = fieldsToExclude.concat(['cupos', 'criteriosEvaluacion', 'nombreRubrica'])
@@ -113,11 +111,6 @@ const ActualizarFeriaForm = (props) => {
             setEtapaActual(ETAPAS.SedeProvincial)
         }
         if(etapaActual === ETAPAS.SedeProvincial & isValid){
-            setFormValues({
-                ...formValues,
-                sedeProvincialDpto: '',
-                sedeProvincialLocalidad: '',
-            })
             setEtapaActual(ETAPAS.Criterios)
         } 
     }
@@ -134,23 +127,15 @@ const ActualizarFeriaForm = (props) => {
         }
     }
 
-    const handleFileChange = (e) => {
-        const {name} = e.target
-        const file = e.target.files[0]
-        const nextFormValueState = {
-            ...formValues,
-            [name]: file
-        }
-        setFormValues(nextFormValueState)
-        if (errors[name].dirty) {
-            validateForm({form: nextFormValueState, errors, name})
-        }
-    }
-
     const dateWithGMT3 = (date) => {
-        let nuevaFecha = date.toISOString().slice(0,22)
-        let zonaHoraria = "-03:00"
-        return nuevaFecha + zonaHoraria
+        try {
+            let nuevaFecha = date?.toISOString().slice(0,22)
+            let zonaHoraria = "-03:00"
+            return nuevaFecha + zonaHoraria
+        } catch (err) {
+            console.log(err)
+        }
+
     }
 
     const handleDateChange = (e) => {
@@ -213,7 +198,6 @@ const ActualizarFeriaForm = (props) => {
             })
             return
         }
-
         Swal.fire({
             title: '¿Deseas actualizar la Feria?',
             icon: 'question',
@@ -244,8 +228,7 @@ const ActualizarFeriaForm = (props) => {
             try {
                 const { 
                     nombreFeria, 
-                    descripcionFeria, 
-                    logo,
+                    descripcionFeria,
                     fechaInicioFeria,
                     fechaFinFeria,
                     fechaInicioInstanciaEscolar,
@@ -260,17 +243,17 @@ const ActualizarFeriaForm = (props) => {
                     fechaFinPostulacionEvaluadores,
                     fechaInicioAsignacionProyectos,
                     fechaFinAsignacionProyectos,
+                    fechaPromocionInstanciaRegional,
+                    fechaPromocionInstanciaProvincial,
                     establecimientos,
                     cupos,
-                    sedeProvincial,
                     cuposProvincial,
                  } = formValues
                 const sedesRegional = new Set(establecimientos.map(e => { return e._id }))
                 const response = await axiosPrivate.patch(`/feria/${formData._id}`, 
                 JSON.stringify({ 
                     nombre: nombreFeria, 
-                    descripcion: descripcionFeria, 
-                    logo: 'www.logo.com', 
+                    descripcion: descripcionFeria,
                     fechaInicioFeria: fechaInicioFeria, 
                     fechaFinFeria: fechaFinFeria, 
                     instancias: {
@@ -284,13 +267,14 @@ const ActualizarFeriaForm = (props) => {
                             fechaInicioEvaluacionPresencial: fechaInicioExposicionRegional,
                             fechaFinEvaluacionPresencial: fechaFinExposicionRegional,
                             cupos,
-                            sedes: Array.from(sedesRegional)
+                            sedes: Array.from(sedesRegional),
+                            fechaPromocionAProvincial: fechaPromocionInstanciaRegional,
                         },
                         instanciaProvincial: {
                             fechaInicioEvaluacionPresencial: fechaInicioEvaluacionProvincial,
                             fechaFinEvaluacionPresencial: fechaFinEvaluacionProvincial,
                             cupos: cuposProvincial,
-                            sede: sedeProvincial._id
+                            fechaPromocionANacional: fechaPromocionInstanciaProvincial,
                         }
                     }, 
                     fechaInicioPostulacionEvaluadores, 
@@ -316,7 +300,7 @@ const ActualizarFeriaForm = (props) => {
                 } else if(err.response?.status === 401) {
                     msg = 'No estas autorizado para realizar esta operación'
                 } else {
-                    msg = `Falló la actualización de la feria <br> ${err.response.data.error}`
+                    msg = `Falló la actualización de la feria <br> ${err.response.data.msg}`
                 }
                 Swal.fire({
                     html: msg,
@@ -358,13 +342,16 @@ const ActualizarFeriaForm = (props) => {
         setFormValues({...formValues, sedeProvincial: null})
     }
 
+    useEffect(() => {
+        props.getEtapa(etapaActual)
+    }, [etapaActual])
+
     return (
         <Card title="Actualizar Feria de Ciencias y Tecnología">
             <form className='crear-feria-form'>
                 {etapaActual === ETAPAS.Datos && <DatosFeriaForm
                     handleChange={handleChange}
                     handleDateChange={handleDateChange}
-                    handleFileChange={handleFileChange}
                     onBlurField={onBlurField}
                     formValues={formValues}
                     errors={errors}
@@ -386,12 +373,8 @@ const ActualizarFeriaForm = (props) => {
                     errors={errors}
                 />}
                 {etapaActual === ETAPAS.SedeProvincial && <SedeProvincialForm
-                    handleChange={handleChange}
-                    handleDeleteSedeProvincial={handleDeleteSedeProvincial}
-                    onBlurField={onBlurField}
                     formValues={formValues}
                     setFormValues={setFormValues}
-                    errors={errors}
                 />}
                 {etapaActual === ETAPAS.Criterios && <RubricasFeriaForm  />}
                 <div className='crear-feria-form__button'>

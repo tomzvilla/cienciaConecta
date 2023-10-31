@@ -23,7 +23,26 @@
     &__title {
         font-weight: 300;
         padding: 0 3rem;
+        margin: auto;
     }
+
+    
+    &__img {
+        filter: brightness(100);
+        
+        width: 5rem;
+        height: 5rem;
+        margin: auto 0rem;
+        padding-top: 1rem;
+    }
+
+    &__img-container {
+        margin-left: 2rem;
+        
+        //margin-right: auto;
+        cursor: pointer;
+    }
+
 
 
 }

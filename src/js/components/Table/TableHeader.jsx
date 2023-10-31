@@ -19,11 +19,11 @@ const TableHeader = (props) => {
                   Acciones
                 </th>
               </>
-            : 
+            : props.acciones ?
             
             <th colSpan={2} className="table-header__head">
               Acciones
-            </th> 
+            </th> : ""
           }
             
 

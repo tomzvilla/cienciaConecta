@@ -178,7 +178,7 @@ const EvaluacionCard = () => {
 
     return(
         proyecto ?
-        <Card title={proyecto.titulo}>
+        <Card title={proyecto.titulo} goBack={true}>
             <div className="evaluacion-card">
                 <div className="evaluacion-card__data">
                     <p>

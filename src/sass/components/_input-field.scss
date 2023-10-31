@@ -19,6 +19,28 @@
 
     }
 
+    & > input[type=checkbox] {
+        width: 2.3rem;
+        vertical-align: text-top;
+        height: 2.3rem;
+        margin-top: 2rem;
+        // margin-left: 4rem;
+        
+
+        //margin-left: auto;
+
+
+        &:hover {
+            color: $color-primary;
+
+        }
+
+        &:checked {
+            background-color: $color-primary;
+
+        }
+    }
+
 
     &__input {
         font-size: 2rem;
@@ -28,6 +50,9 @@
         //padding: .5rem 3rem;
         outline: none;
         color: $color-grey-dark;
+
+
+        
         
         
 

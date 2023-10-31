@@ -10,7 +10,7 @@ const DatosPostulante = (props) => {
         <div className="datos-postulante">
             <div className="datos-postulante__download">
 
-                <DownloadFile onClick={props.handleDownload} name="Curriculum Vitae" img={require("../../../assets/tarjeta.png")}/>
+                <DownloadFile handleDownload={props.handleDownload} name="Curriculum Vitae" img={require("../../../assets/tarjeta.png")} loading={props.loading}/>
 
             </div>
             

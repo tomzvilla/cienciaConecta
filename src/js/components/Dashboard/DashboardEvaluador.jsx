@@ -53,7 +53,7 @@ const DashboardEvaluador= () => {
             
             <Card title={'Dashboard'}>
 
-            {!isLoading && listadoData?.proyectos && feria ? 
+            {!isLoading && listadoData?.proyectos  ? 
             
             
 

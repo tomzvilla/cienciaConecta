@@ -1,6 +1,5 @@
 // components
 import TablaProyectosReferente from "../../components/TablaProyectosReferente/TablaProyectosReferente"
-import TablaProyectosAsignadosHeader from "../../components/TablaProyectosReferente/TablaProyectosAsignadosHeader"
 import Spinner from "../../components/Spinner/Spinner"
 import Card from "../../components/Card/Card"
 import BlankState from "../../components/BlankState/BlankState"
@@ -11,6 +10,7 @@ import useCategoriasNiveles from "../../hooks/useCategoriasNiveles"
 import useUtils from "../../hooks/useUtils"
 import { useDispatch, useSelector } from "react-redux"
 import { referentesActions } from "../../../store/referentes-slice"
+import CardHeader from "../../components/Card/CardHeader"
 
 const headers = [
     {name: 'Título' , value: 'titulo'},
@@ -41,14 +41,9 @@ const ListadoProyectosAsignados = () => {
         isLoading && !proyectosData?.proyectos ?
         <Spinner />
         :
-        <Card wide={true} header={<TablaProyectosAsignadosHeader title={'Listado de proyectos asignados'} wide={true}/>}>
-            {   fecha >= new Date(feria?.fechas_evaluador.fechaInicioAsignacionProyectos) && fecha <= new Date(feria?.fechas_evaluador.fechaFinAsignacionProyectos) ?
-                <>
-                    {status !== 204 ?
-                    <TablaProyectosReferente headers={headers} />
-                    :
-                    <BlankState msg={'Actualmente no posee proyectos asignados.'}/>}
-                </>
+        <Card wide={true} header={<CardHeader title={'Listado de proyectos asignados'} wide={true} goBack={true}/>}>
+            {status !== 204 ?
+                <TablaProyectosReferente headers={headers} />
                 :
                 fecha <= new Date(feria?.fechas_evaluador.fechaInicioAsignacionProyectos) ?
                 <BlankState msg={`La fecha de asignación de proyectos aún no llegó, por favor esperá hasta el ${formatDate(new Date(feria?.fechas_evaluador.fechaInicioAsignacionProyectos))}`}/>

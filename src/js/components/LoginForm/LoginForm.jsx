@@ -161,7 +161,7 @@ const LoginForm = () => {
             <div className='login-form__link-container'>
               <LoginFormLink/>
             </div>
-            <div className='login-form__link-container'>
+            <div className='login-form__recover-container'>
               <RecoverPasswordLink/>
             </div>
         </form>

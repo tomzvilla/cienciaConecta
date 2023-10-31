@@ -3,10 +3,17 @@
     flex-direction: column;
     align-items: center;
     padding: 4rem 0;
+    color: $color-grey-dark;
     
     &__img {
         width: 25rem;
         height: 25rem;
+
+        &--small {
+            width: 15rem;
+            height: 15rem;
+            
+        }
 
         &--isotipo {
             width: 40rem;
