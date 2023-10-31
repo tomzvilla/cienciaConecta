@@ -30,7 +30,14 @@ import Evaluacion from './js/pages/Evaluacion/Evaluacion'
 import ListadoProyectosAsignados from './js/pages/Referentes/ListadoProyectosAsignados'
 import ProyectoAsignarEvaluadores from './js/pages/Referentes/ProyectoAsignarEvaluadores'
 import AsignarReferentes from './js/pages/Referentes/AsignarReferentes'
-
+import RecuperarCredenciales from './js/pages/RecuperarCredenciales'
+import IngresarCredenciales from './js/pages/IngresarCredenciales'
+import Profile from './js/pages/Profile'
+import PromoverProyectos from './js/pages/PromoverProyectos/PromoverProyectos'
+import PromoverProyectosNacional from './js/pages/PromoverProyectos/PromoverProyectosNacional'
+import Categorias from './js/pages/Categorias'
+import EvaluacionCardConsulta from './js/components/Evaluacion/EvaluacionCardConsulta'
+import EvaluacionFormConsulta from './js/components/Evaluacion/EvaluacionFormConsulta'
 // DEV
 import Card from './js/components/Card/Card'
 import AuthVerify from './js/components/PersistLogin/AuthVerify'
@@ -38,6 +45,7 @@ import ConfirmarCuenta from './js/pages/Usuarios/ConfirmarCuenta'
 import VisualizarListadoPendienteActivacion from './js/pages/Usuarios/VisualizarListadoPendienteActivacion'
 import VisualizarUsuarioPendienteActivacion from './js/pages/Usuarios/VisualizarUsuarioPendienteActivacion'
 
+import { useSelector } from 'react-redux'
 
 // ROLES
 
@@ -50,7 +58,30 @@ export const ROLES = {
   Docente: '6',
 };
 
+export const ESTADOS = {
+  creada: '0',
+  iniciada: '1',
+  instanciaEscolar: '2',
+  instanciaEscolar_Finalizada: '3',
+  instanciaRegional_EnEvaluacion: '4',
+  instanciaRegional_EvaluacionFinalizada: '5',
+  instanciaRegional_EnExposicion: '6',
+  instanciaRegional_ExposicionFinalizada: '7',
+  proyectosPromovidosA_instanciaProvincial: '8',
+  instanciaProvincial_EnExposicion: '9',
+  instanciaProvincial_ExposicionFinalizada: '10',
+  proyectosPromovidosA_instanciaNacional: '11',
+  finalizada: '12',
+};
+
+export const instanciaEscolar = [ESTADOS.iniciada, ESTADOS.instanciaEscolar]
+export const instanciaPromocion = [ESTADOS.instanciaRegional_ExposicionFinalizada, ESTADOS.instanciaProvincial_ExposicionFinalizada]
+
 function App() {
+
+  const feria = useSelector(state => state.instancias.feria)
+  console.log(feria)
+
   return (
     <>
       <Routes>
@@ -65,35 +96,76 @@ function App() {
             <Route path='/login' element={<LoginPage/>}/>
             <Route path='/signup' element={<Signup/>}/>
             <Route path='/confirmar/:token' element={<ConfirmarCuenta/>}/>
+            <Route path='/recuperarCredenciales' element={<RecuperarCredenciales />}/>
+            <Route path='/reestablecerCredenciales/:token' element={<IngresarCredenciales />}/>
 
           </Route>
           <Route element={<PersistLogin />}>
+            <Route element={<RequireAuth 
+              allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]} 
+              allowedStates={[ESTADOS.iniciada, ESTADOS.instanciaEscolar]}/>}
+            >
+              <Route path='/inscribirProyecto' element={<InscribirEtapaEscolar/>}/> 
+            </Route>
+            <Route element={<RequireAuth 
+              allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]} 
+              allowedStates={[ESTADOS.iniciada, ESTADOS.instanciaEscolar, ESTADOS.instanciaEscolar_Finalizada ]}/>}
+            >
+              <Route path='/editarProyecto/:id' element={<ActualizarProyecto/>}/> 
+            </Route>
+
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]}/>}>
-              {/* Rutas para proyectos */}
-              <Route path='/inscribirProyecto' element={<InscribirEtapaEscolar/>}/>
-              <Route path='/proyecto/:id' element={<VisualizarProyecto/>}/>
-              <Route path='/editarProyecto/:id' element={<ActualizarProyecto/>}/>
-              <Route path='/misProyectos' element={<VisualizarListadoProyectos/>}/>
+              {/* Rutas con auth liberadas de estados */}
+              
               <Route path='/dashboard' element={<Dashboard/>}/>
-              <Route path='/postulacion' element={<Postulacion/>}/>
+              <Route path='/proyecto/:id' element={<VisualizarProyecto/>}/>
+              <Route path='/misProyectos' element={<VisualizarListadoProyectos/>}/>
+              <Route path='/perfil' element={<Profile/>}/>
+              <Route path='/postulacion' element={<Postulacion/>}/> {/*Se maneja por fecha */}
+
+
               <Route path='/evaluar' element={<ListadoEvaluaciones/>}/>
               <Route path='/evaluar/:id' element={<EvaluacionCard/>}/>
               <Route path='/evaluar/:id/iniciar' element={<Evaluacion/>}/>
+              <Route path='/evaluacion/:id' element={<EvaluacionCardConsulta />}/>
+              <Route path='/evaluacion/:id/consultar' element={<EvaluacionFormConsulta />}/>
+
             </Route>
-            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]}/>}>
-              {/* Rutas para feria */}
-              <Route path='/feria' element={<CrearFeria/>}/>
-              <Route path='/verFeria' element={<VisualizarFeriaActual/>}/> 
+
+            <Route element={<RequireAuth 
+              allowedRoles={[ROLES.Admin, ROLES.ComAsesora]}
+              allowedStates={[ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar]}/>}
+            >
+              <Route path='/crearCategoria' element={<Categorias/>}/>
+            </Route>
+          
+
+            <Route element={<RequireAuth 
+              allowedRoles={[ROLES.Admin, ROLES.ComAsesora]}/>}
+            >
+              {/* Rutas liberadas */}
+              {!feria && <Route path='/feria' element={<CrearFeria/>}/>}
+              <Route path='/verFeria' element={<VisualizarFeriaActual/>}/>
               <Route path='/verListaFerias' element={<VisualizarListadoFerias/>}/>
-              <Route path='/editarFeria' element={<ActualizarFeria/>}/> 
-              {/* Rutas para postulantes */}
-              <Route path='/seleccionarPostulantes' element={<SeleccionPostulantes/>}/>
-              <Route path='/postulante/:id' element={<VisualizarPostulante/>}/>
+              <Route path='/editarFeria' element={<ActualizarFeria/>}/>
               <Route path='/activarUsuarios' element={<VisualizarListadoPendienteActivacion/>}/>
               <Route path='/usuarioPendienteActivacion/:id' element={<VisualizarUsuarioPendienteActivacion/>}/> 
-              {/* Rutas para referentes */}
+              {/* Rutas para postulantes, liberadas por estado, se manejan por fecha */}
+              <Route path='/seleccionarPostulantes' element={<SeleccionPostulantes/>}/>
+              <Route path='/postulante/:id' element={<VisualizarPostulante/>}/>
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]} allowedStates={[ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar, ESTADOS.instanciaEscolar_Finalizada]}/>}>
               <Route path='/asignarReferentes' element={<AsignarReferentes/>}/>
             </Route>
+
+            <Route element={<RequireAuth 
+              allowedRoles={[ROLES.Admin, ROLES.ComAsesora]}
+              allowedStates={instanciaPromocion}/>}
+            >
+              <Route path='/promoverProyectos' element={feria?.estado === ESTADOS.instanciaRegional_ExposicionFinalizada ? <PromoverProyectos/> : <PromoverProyectosNacional /> }/>
+            </Route>
+            
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.RefEvaluador]}/>}>
               {/* Rutas para referentes */}
               <Route path='/proyectosParaAsignar' element={<ListadoProyectosAsignados />}/>

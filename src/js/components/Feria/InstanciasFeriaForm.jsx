@@ -6,7 +6,6 @@ const InstanciasFeriaForm = (props) => {
     const {handleDateChange, onBlurField, formValues, errors, disabled = {}} = props
 
 
-
     return (
         <div className="instancias-feria-form">
             <h2 className="instancias-feria-form__title">Instancias</h2>
@@ -113,6 +112,32 @@ const InstanciasFeriaForm = (props) => {
                     errors={errors.fechaFinEvaluacionProvincial}
                     required={true}
                     disabled={disabled ? disabled.fechaFinEvaluacionProvincial : false}
+                />}
+            />
+
+            <GrupoFechas 
+                title="Promoción de Proyectos"
+                date1={<InputField
+                    label='Fecha promoción a provincial: ' 
+                    name='fechaPromocionInstanciaRegional'
+                    type='date'
+                    onChange={handleDateChange}
+                    onBlur={onBlurField}
+                    value={formValues.fechaPromocionInstanciaRegional.split("T")[0]}
+                    errors={errors.fechaPromocionInstanciaRegional}
+                    required={true}
+                    disabled={disabled ? disabled.fechaPromocionInstanciaRegional : false}
+                />}
+                date2={<InputField
+                    label='Fecha promoción a nacional: ' 
+                    name='fechaPromocionInstanciaProvincial'
+                    type='date'
+                    onChange={handleDateChange}
+                    onBlur={onBlurField}
+                    value={formValues.fechaPromocionInstanciaProvincial.split("T")[0]}
+                    errors={errors.fechaPromocionInstanciaProvincial}
+                    required={true}
+                    disabled={disabled ? disabled.fechaPromocionInstanciaProvincial : false}
                 />}
             />
 

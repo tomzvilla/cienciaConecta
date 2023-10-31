@@ -3,11 +3,13 @@ import "../../../css/style.css"
 import Button from "../Button/Button"
 import ImageButton from "../ImageButton/ImageButton";
 import burger from '../../../assets/burger.svg'
+import DropdownButton from "../DropdownButton/DropdownButton";
+import DropdownButtonLink from "../DropdownButton/DropdownButtonLink";
 // hooks
 import useAuth from "../../hooks/useAuth";
 import useLogout from "../../hooks/useLogout";
 import { useNavigate} from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { uiActions } from "../../../store/ui-slice";
 
 const Navbar = (props) => {
@@ -15,9 +17,11 @@ const Navbar = (props) => {
     const navigate = useNavigate()
     const logout = useLogout()
     const dispatch = useDispatch()
+    const showNavbarMenu = useSelector(state => state.ui.navbarMenu)
 
     const signOut = async () => {
         await logout()
+        dispatch(uiActions.toggleNavbarMenu())
         navigate('/home')
     }
 
@@ -25,9 +29,16 @@ const Navbar = (props) => {
         navigate('/home')
     }
 
+    const navigatePerfil =  () => {
+        navigate('/perfil')
+    }
+
     const showSidebar = () => {
-        console.log('showSidebar')
         dispatch(uiActions.showSidebar())
+    }
+
+    const toggleNavbarMenu = () => {
+        dispatch(uiActions.toggleNavbarMenu())
     }
 
 
@@ -46,9 +57,10 @@ const Navbar = (props) => {
 
             <div className="navbar__button-container">
                 { auth?.roles ?
-                    <Button text="Salir" onClickHandler={signOut}/>
+                    // <Button text="Salir" onClickHandler={signOut}/>
+                    <DropdownButton img={require("../../../assets/user.png")} dropdown={showNavbarMenu} onClick={toggleNavbarMenu} navigatePerfil={navigatePerfil} signOut={signOut}/>
                     :
-                    <Button text="Ingresá" onClickHandler={props.openModal}/>
+                    <Button text="Ingresar" onClickHandler={props.openModal}/>
                 }
             </div>    
         </div>

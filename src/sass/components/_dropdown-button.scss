@@ -1,0 +1,22 @@
+.dropdown-button {
+    display: flex;
+    align-items: center;
+    //argin-top: 1rem;
+    padding: 1rem;
+    text-decoration: none;
+
+    &:hover {
+        background-color: $color-white;
+        border-radius: 100rem;
+        cursor: pointer;
+    }
+
+    &:hover &__image {
+        filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
+    }
+
+    &__image {
+        width: 5rem;
+        filter: brightness(100);
+    }
+}

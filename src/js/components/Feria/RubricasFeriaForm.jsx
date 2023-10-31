@@ -70,7 +70,12 @@ const RubricasFeriaForm = (props) => {
             </div>
 
 
-            <NuevaRubrica />
+            <div className="feria-rubrica-form__nueva-rubrica">
+                <NuevaRubrica />  
+            </div>
+
+
+            
         </>
     )
 }

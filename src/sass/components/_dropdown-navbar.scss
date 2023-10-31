@@ -1,0 +1,54 @@
+.dropdown-navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    z-index: 30;
+
+    position: absolute;
+    left: 80%;
+
+    background-color: white;
+    border: 1px solid grey;
+    list-style: none;
+    
+    border-radius: 2rem;
+    padding-left: 0;
+    
+    overflow: hidden;
+
+    opacity: 0;
+    transform: translateY(-1rem);
+    transition: opacity .3s ease-in-out, transform .8s ease-in-out;
+
+    &__item {
+        cursor: pointer;
+        width: 100%;  
+
+
+        & > p {
+            padding-left: 0;
+            color: $color-grey-dark;
+            text-decoration: none;
+            
+            padding: 1rem 2rem;
+
+
+            &:hover {
+                color: $color-primary;
+                background-color: $color-grey;
+            }
+
+            &:active {
+                color: $color-white;
+            }
+
+
+
+        }
+    }
+
+    &--animate {
+        opacity: 1;
+        transform: none;
+    }
+}

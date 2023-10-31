@@ -163,7 +163,6 @@ export const urlValidator = (url) => {
 };
 
 export const fileValidator = (file, msg, format) => {
-  console.log(file)
   let formato = '*'
   if(format === 'PDF') formato = 'application/pdf'
   else if(format === 'imágen') formato = 'image/'
@@ -236,6 +235,31 @@ export const ponderacionValidator = (ponderacion) => {
     return "Se debe ingresar una ponderación";
   } else if(parseInt(ponderacion) > 1 || parseInt(ponderacion) < 0) {
     return "La ponderación debe estar entre 0 y 1"
+  }
+  return "";
+};
+
+export const nombreCategoriaValidator = (nombreCategoria) => {
+  if (!nombreCategoria) {
+    return "Se debe ingresar un nombre para la categoría";
+  } else if (nombreCategoria.length > 150) {
+    return "El nombre de la categoría no puede contener mas de 150 caracteres"
+  }
+  return "";
+};
+
+export const abreviaturaValidator = (abreviatura) => {
+  if (!abreviatura) {
+    return "Se debe ingresar una abreviatura para la categoría";
+  } else if (abreviatura.length > 12) {
+    return "La abreviatura no puede contener mas de 12 caracteres"
+  }
+  return "";
+};
+
+export const colorValidator = (color) => {
+  if (!color) {
+    return "Se debe ingresar un color para la categoría";
   }
   return "";
 };

@@ -8,6 +8,7 @@ const TextareaInput = (props) => {
                 onChange={props.onChange}
                 value={props.value}
                 rows={3}
+                disabled={props.disabled}
             />
             {props.error && <small className='textarea-input__error'>{props.error}</small>}
         </div>

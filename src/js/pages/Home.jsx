@@ -7,6 +7,8 @@ import Modal from '../components/Modal/Modal'
 import LoginForm from '../components/LoginForm/LoginForm'
 import Navbar from '../components/Navbar/Navbar'
 import Metadata from '../components/Metadata/Metadata'
+import Footer from '../components/Footer/Footer'
+
 const Home = (props) => {
 
   const [modalIsOpen, setIsOpen] = useState(false)
@@ -38,6 +40,8 @@ const Home = (props) => {
          
         <Outlet/>
       </div>
+
+      <Footer/>
     
     </>
     

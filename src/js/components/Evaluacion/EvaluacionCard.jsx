@@ -10,8 +10,9 @@ import { useParams, useNavigate, useLocation } from "react-router"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useCategoriasNiveles from "../../hooks/useCategoriasNiveles"
-import { useSelector } from "react-redux"
-import { useState } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { evaluacionActions } from "../../../store/evaluacion-slice"
+import { ESTADOS } from "../../../App"
 
 import Swal from "sweetalert2"
 
@@ -19,14 +20,16 @@ const EvaluacionCard = () => {
     const { id } = useParams()
     const axiosPrivate = useAxiosPrivate()
     const location = useLocation()
-    const [link, setLink] = useState('')
-    const [confirm, setConfirm] = useState(true)
-
+    const dispatch = useDispatch()
 
     let proyecto = useSelector(state => state.evaluacion.listadoEvaluaciones.find(p => p._id === id))
+    const feria = useSelector(state => state.instancias.feria)
+    const endpoint = feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 'evaluacion' : feria?.estado === ESTADOS.instanciaRegional_EnExposicion ? 'exposicion' : 'exposicion-provincial'
 
+    const evaluationMsg = feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 'evaluación teórica regional' : feria?.estado === ESTADOS.instanciaRegional_EnExposicion ? 'evaluación de exposición regional' : 'evaluación de exposición provincial'
+    const evaluationMsgMayuscula = feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 'Evaluación Teórica Regional' : feria?.estado === ESTADOS.instanciaRegional_EnExposicion ? 'Evaluación de Exposición Regional' : 'Evaluación de Exposición Provincial' 
     // Si recarga la pagina se hacen estas consultas
-    const { data: proyectoData, isLoading } = useAxiosFetch(`/evaluacion/pendientes/${id}`, axiosPrivate, !!proyecto)
+    const { data: proyectoData, isLoading } = useAxiosFetch(`/${endpoint}/pendientes/${id}`, axiosPrivate, !!proyecto)
     const { data: categoriasData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate, !!proyecto)
     const { data: nivelesData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate, !!proyecto)
 
@@ -34,8 +37,13 @@ const EvaluacionCard = () => {
    
     if(!isLoading && proyectoData?.proyecto) {
         proyecto = proyectoMap(proyectoData)
-        proyecto['evaluacion'] = proyectoData.evaluacion 
-
+        proyecto['nombreEstado'] = proyectoData.nombreEstado
+        if(feria?.estado === ESTADOS.instanciaProvincial_EnExposicion) {
+            proyecto['exposicionProvincial'] = proyectoData.exposicion
+        } else {
+            proyecto['evaluacion'] = proyectoData.evaluacion
+            proyecto['exposicion'] = proyectoData.exposicion
+        }
     }
 
     const navigate = useNavigate()
@@ -106,7 +114,7 @@ const EvaluacionCard = () => {
 
     const handleConfirmar = () => {
         Swal.fire({
-            title: '¿Deseas confirmar la evaluación de proyecto?',
+            title: `¿Deseas confirmar la ${evaluationMsg} de proyecto?`,
             icon: 'question',
             text: 'Puede que otro evaluador haya hecho modificaciones, ¿estás seguro de confirmarla?',
             showCancelButton: true,
@@ -119,15 +127,21 @@ const EvaluacionCard = () => {
             if(result.isConfirmed) {
                 const success = await confirmarEvaluacion()
                 if(success) Swal.fire({
-                    title: '¡Evaluación Confirmada!',
-                    text: 'Confirmaste con éxito la evaluación de este proyecto',
+                    title: `¡${evaluationMsgMayuscula} Confirmada!`,
+                    text: `Confirmaste con éxito la ${evaluationMsg} de este proyecto`,
                     icon: 'success',
                     confirmButtonText: 'OK',
                     confirmButtonColor: '#00ACE6',
                 }).then((result) => {
-                    if(result.isConfirmed || result.isDismissed) { 
+                    if(result.isConfirmed || result.isDismissed) {
+                        feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 
+                        dispatch(evaluacionActions.actualizarListosEvaluacion(id)) 
+                        :
+                        feria?.estado === ESTADOS.instanciaRegional_EnExposicion ?
+                        dispatch(evaluacionActions.actualizarListosExposicion(id))
+                        :
+                        dispatch(evaluacionActions.actualizarListosExposicionProvincial(id))
                         navigate('/evaluar', {replace: true, state: { from:`${location.pathname}`}})
-                        
                     }
                 })
             }
@@ -137,7 +151,7 @@ const EvaluacionCard = () => {
 
     const confirmarEvaluacion = async () => {
         try {
-            const response = await axiosPrivate.get(`/evaluacion/confirmar/${id}`)
+            const response = await axiosPrivate.get(`/${endpoint}/confirmar/${id}`)
             return response.status === 200
         } catch (err) {
             let msg = ''
@@ -149,11 +163,11 @@ const EvaluacionCard = () => {
             } else if(err.response?.status === 401) {
                 msg = `No estas autorizado para realizar esta operación. <br> ${err.response.data.error}`
             } else {
-                msg = `Falló la confirmación de la evaluación <br> ${err.response.data.error}`
+                msg = `Falló la confirmación de la ${evaluationMsg} <br> ${err.response.data.error}`
             }
             Swal.fire({
                 html: msg,
-                title: 'Falló la confirmación de la evaluación',
+                title: `Falló la confirmación de la ${evaluationMsg}`,
                 icon: 'error',
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#00ACE6',
@@ -164,8 +178,7 @@ const EvaluacionCard = () => {
 
     return(
         proyecto ?
-        <Card title={proyecto.titulo}>
-            {console.log(proyecto)}
+        <Card title={proyecto.titulo} goBack={true}>
             <div className="evaluacion-card">
                 <div className="evaluacion-card__data">
                     <p>
@@ -198,50 +211,70 @@ const EvaluacionCard = () => {
                
                 
                 <div className="evaluacion-card__evaluacion">
-                    <strong>Evaluaciones</strong>
+                    <strong>{evaluationMsgMayuscula}</strong>
                     <div>
                         Realizadas:
-                        {!proyecto?.evaluacion ?
-
-                        proyecto.evaluadoresRegionales.map( e =>
-                            <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled />
-                        )
-                        :
-                        proyecto.evaluadoresRegionales.map( (e, index) =>
-                            <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled checked={index <= proyecto.evaluacion?.evaluadorId?.length - 1} />
-                        )
-                    }
+                        {
+                            feria.estado === ESTADOS.instanciaRegional_EnEvaluacion ?
+                            proyecto.evaluadoresRegionales.map( (e, index) =>
+                            <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.evaluacion?.evaluadorId?.length - 1} />)
+                            :
+                            feria.estado === ESTADOS.instanciaRegional_EnExposicion ?
+                            proyecto.evaluadoresRegionales.map( (e, index) =>
+                            <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.evaluacion?.evaluadorId?.length - 1} />)
+                            :
+                            proyecto.evaluadoresRegionales.map( (e, index) =>
+                            <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.exposicionProvincial?.evaluadorId?.length - 1} />)
+                        }
                     </div>
                     <div>
                         Confirmadas:
-                        {!proyecto?.evaluacion ?
-                        proyecto.evaluadoresRegionales.map( e =>
-                            <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled />
-                        )
-                        :
-                        proyecto.evaluadoresRegionales.map( (e, index) =>
-                            <input type="checkbox" key={e} id={e} value={'ponerValor'} disabled checked={index <= proyecto?.evaluacion.listo.length - 1} />
-
-                        )
-                    }
+                        {
+                            feria.estado === ESTADOS.instanciaRegional_EnEvaluacion ?
+                            proyecto.evaluadoresRegionales.map( (e, index) =>
+                            <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.evaluacion?.listo?.length - 1} />)
+                            :
+                            feria.estado === ESTADOS.instanciaRegional_EnExposicion ?
+                            proyecto.evaluadoresRegionales.map( (e, index) =>
+                            <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.evaluacion?.listo?.length - 1} />)
+                            :
+                            proyecto.evaluadoresRegionales.map( (e, index) =>
+                            <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.exposicionProvincial?.listo?.length - 1} />)
+                        }
                     </div>
                 </div>
             </div>
-
-
-            
             <div className="button-container">
                 <Button 
                     text='Evaluar' 
                     onClickHandler={iniciarEvaluacion}
                     activo={true}
                 />
-                <Button 
-                    text='Confirmar' 
-                    onClickHandler={handleConfirmar}
-                    activo={true}
-                    disabled={!proyecto?.evaluacion ? true : proyecto.evaluadoresRegionales.length > proyecto?.evaluacion?.evaluadorId?.length ? true : false}
-                />
+                {
+                    feria.estado === ESTADOS.instanciaRegional_EnEvaluacion ?
+                    <Button 
+                        text='Confirmar' 
+                        onClickHandler={handleConfirmar}
+                        activo={true}
+                        disabled={!proyecto?.evaluacion ? true : proyecto.evaluadoresRegionales.length > proyecto?.evaluacion?.evaluadorId?.length ? true : false}
+                    />
+                    :
+                    feria.estado === ESTADOS.instanciaRegional_EnExposicion ?
+                    <Button 
+                        text='Confirmar' 
+                        onClickHandler={handleConfirmar}
+                        activo={true}
+                        disabled={!proyecto?.exposicion ? true : proyecto.evaluadoresRegionales.length > proyecto?.exposicion?.evaluadorId?.length ? true : false}
+                    />
+                    :
+                    <Button 
+                        text='Confirmar' 
+                        onClickHandler={handleConfirmar}
+                        activo={true}
+                        disabled={!proyecto?.exposicionProvincial ? true : proyecto.evaluadoresRegionales.length > proyecto?.exposicionProvincial?.evaluadorId?.length ? true : false}
+                    />
+                }
+
             </div>
         </Card>
         :

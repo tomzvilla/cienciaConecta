@@ -1,9 +1,8 @@
 // components
 import InputField from "../InputField/InputField"
-import FileField from "../FileField/FileField"
 
 const DatosFeriaForm = (props) => {
-    const {handleChange, handleDateChange, handleFileChange, onBlurField, formValues, errors, disabled = {}} = props
+    const {handleChange, handleDateChange, onBlurField, formValues, errors, disabled = {}} = props
     return (
         <div className="datos-feria-form">
             <h2 className="datos-feria-form__title">Datos de la Feria</h2>
@@ -28,17 +27,6 @@ const DatosFeriaForm = (props) => {
                     onBlur={onBlurField}
                     value={formValues.descripcionFeria}
                     errors={errors.descripcionFeria}
-                    required={true}
-                />
-            </div>
-            <div className='datos-feria-form__input'>
-                <FileField
-                    label='Logotipo: ' 
-                    name='logo'
-                    onChange={handleFileChange}
-                    onBlur={onBlurField}
-                    errors={errors.logo}
-                    accept={'image/*'}
                     required={true}
                 />
             </div>

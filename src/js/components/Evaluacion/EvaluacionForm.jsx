@@ -7,11 +7,10 @@ import { useState, useEffect } from "react"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import { useNavigate, useLocation } from "react-router-dom"
 import useAuth from "../../hooks/useAuth"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { evaluacionActions } from "../../../store/evaluacion-slice"
-import { useSelector } from "react-redux"
-
 import Swal from "sweetalert2"
+import { ESTADOS } from "../../../App"
 
 const EvaluacionForm = (props) => {
     
@@ -24,11 +23,15 @@ const EvaluacionForm = (props) => {
     const from = location?.state?.from || 'dashboard'
 
     // TODO iniciar evaluacion
-    
     const evaluaciones = useSelector(state => state.evaluacion.criteriosConValores)
     const devoluciones = useSelector(state => state.evaluacion.devoluciones)
     const rubricas = useSelector(state => state.evaluacion.rubricas)
     const rubricaActual = useSelector(state => state.evaluacion.rubricaActual)
+    const feria = useSelector(state => state.instancias.feria)
+
+    // definicion dinamica del endpoint
+    const endpoint = feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 'evaluacion' : feria?.estado === ESTADOS.instanciaRegional_EnExposicion ? 'exposicion' : 'exposicion-provincial'
+    
 
     const [emptyValueAdded, setEmptyValueAdded] = useState(false)
 
@@ -54,9 +57,8 @@ const EvaluacionForm = (props) => {
         dispatch(evaluacionActions.cargarRubricas(rubricas))
 
         return async () => {
-            console.log('se cancela la evaluacion')
             try {
-                await axiosPrivate.delete(`/evaluacion/${projectId}`, 
+                await axiosPrivate.delete(`/${endpoint}/${projectId}`, 
                 { 
                     headers: { 
                         withCredentials: true,
@@ -76,7 +78,7 @@ const EvaluacionForm = (props) => {
             let errorMsg = ''
             if(evl.rubricaId === idRubricaActual) {
                 if(evl.opcionSeleccionada === '0' || evl.opcionSeleccionada === '') {
-                    errorMsg = 'Debe ingresar una opcion para este criterio'
+                    errorMsg = 'Debe ingresar una opción para este criterio'
                     isValid = false
                 }
                 dispatch(evaluacionActions.cargarError({rubricaId: evl.rubricaId, criterioId: evl.criterioId, error: errorMsg}))
@@ -88,7 +90,7 @@ const EvaluacionForm = (props) => {
         let errorMsg = ''
 
         if(!devolucion || devolucion.comentario === '') {
-            errorMsg = 'Debe ingresar una devolucion para la rubrica actual'
+            errorMsg = 'Debe ingresar una devolución para la rubrica actual'
             isValid = false
             dispatch(evaluacionActions.cargarErrorDevolucion({rubricaId: idRubricaActual, error: errorMsg}))
         } else if(devolucion?.error !== ''){
@@ -115,8 +117,10 @@ const EvaluacionForm = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        const firstTitle = feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? '¿Deseas evaluar este proyecto en la instancia regional?' : feria?.estado === ESTADOS.instanciaRegional_EnExposicion ? '¿Deseas evaluar la exposición de este proyecto en la instancia regional?' : '¿Deseas evaluar la exposición de este proyecto en la instancia provincial?'
+        const secondText = feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 'Evaluaste el proyecto con éxito' : feria?.estado === ESTADOS.instanciaRegional_EnExposicion ? 'Evaluaste la exposición regional del proyecto con éxito' : 'Evaluaste la exposición provincial del proyecto con éxito'
         Swal.fire({
-            title: '¿Deseas evaluar este proyecto?',
+            title: firstTitle,
             icon: 'question',
             showCancelButton: true,
             reverseButtons: true,
@@ -129,12 +133,19 @@ const EvaluacionForm = (props) => {
                 const success = await evaluarProyecto()
                 if(success) Swal.fire({
                     title: '¡Proyecto Evaluado!',
-                    text: 'Evaluaste el proyecto con éxito',
+                    text: secondText,
                     icon: 'success',
                     confirmButtonText: 'OK',
                     confirmButtonColor: '#00ACE6',
                 }).then((result) => {
-                    if(result.isConfirmed || result.isDismissed) { 
+                    if(result.isConfirmed || result.isDismissed) {
+                        feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 
+                        dispatch(evaluacionActions.actualizarRealizadosEvaluacion(projectId)) 
+                        :
+                        feria?.estado === ESTADOS.instanciaRegional_EnExposicion ?
+                        dispatch(evaluacionActions.actualizarRealizadosExposicion(projectId))
+                        :
+                        dispatch(evaluacionActions.actualizarRealizadosExposicionProvincial(projectId))
                         navigate(from, {replace: true, state: { from:`${location.pathname}`}})
                         
                     }
@@ -151,16 +162,14 @@ const EvaluacionForm = (props) => {
             comentarios: devoluciones
         }
         try {
-            const response = await axiosPrivate.post(`/evaluacion/${projectId}`, body, 
+            const response = await axiosPrivate.post(`/${endpoint}/${projectId}`, body, 
             {
                 headers: {'Content-Type': 'application/json'},
                 withCredentials: true
             })
-            console.log(response)
             if(response.status === 200) return true
         } catch (err) {
             let msg = ''
-            console.log(JSON.stringify(err.response.data))
             if(!err?.response){
                 msg = 'El servidor no respondió'
             } else if(err.response?.status === 403) {
@@ -182,7 +191,7 @@ const EvaluacionForm = (props) => {
 
 
     return(
-        <Card title={'Evaluacion de un Proyecto'}>
+        <Card title={'Evaluar el Proyecto'} goBack={true}>
             {emptyValueAdded && evaluacion.map(rubrica => (
                 <Rubrica key={rubrica._id} display={rubrica._id === rubricaActual} rubrica={rubrica}/>
             ))}

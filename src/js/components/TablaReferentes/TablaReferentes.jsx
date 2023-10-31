@@ -212,7 +212,7 @@ const TablaReferentes = (props) => {
                                 {
                                     if(header.value === 'referente') {
                                         return (
-                                            <td key={header.value} className="table-body-row__td">
+                                            <td key={header.value} className="table-body-row__td table-body-row__td--autocomplete">
                                                 { 
                                                     editing === index ? (
                                                         <AutocompletePersonas
@@ -244,8 +244,6 @@ const TablaReferentes = (props) => {
                                 )}
                                 <td className="table-body-row__td table-body-row__td--actions">
                                     <ImageButton callback={() => editarReferente(index)} small={true} alt="Editar" src={require("../../../assets/pencil.png")}/>
-                                </td>
-                                <td className="table-body-row__td table-body-row__td--actions">
                                     <ImageButton callback={() => borrarReferente(referente.sede)} small={true} alt="Borrar" src={require("../../../assets/x.png")}/>
                                 </td>
                                 
