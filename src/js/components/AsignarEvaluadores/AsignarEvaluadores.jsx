@@ -10,8 +10,6 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import { useSelector } from "react-redux"
 
 import Swal from "sweetalert2"
-import SmallTable from "../Table/SmallTable"
-
 
 const AsignarEvaluadores = (props) => {
 

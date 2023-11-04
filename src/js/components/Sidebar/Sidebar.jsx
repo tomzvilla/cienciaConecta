@@ -2,7 +2,7 @@ import SidebarLink from "./SidebarLink";
 import SidebarDropdown from "../SidebarDropdown/SidebarDropdown";
 // HOOKS
 import useAuth from "../../hooks/useAuth";
-import { useState } from "react";
+import { useState} from "react";
 import { ROLES } from '../../../App'
 import { useSelector } from "react-redux";
 
@@ -24,15 +24,15 @@ const Sidebar = () => {
     }
 
     return (
-        <nav className={`sidebar${!showSidebar ? ' show' : ''}`}>
+        <nav className={!showSidebar ? 'sidebar sidebar--show' : 'sidebar'}>
             <div className="sidebar__link-container">
                 {/* Links publicos  */}
                 <SidebarLink img={require("../../../assets/trofeo.png")} linkto={'/dashboard'} text="Inicio"/>
                   
                     <>
                         <SidebarDropdown dropdown={dropdown.proyectos} img={require("../../../assets/evaluador.png")} text="Proyectos" onClick={() => toggleDropdown('proyectos')}>
-                            <SidebarLink img={require("../../../assets/evaluador.png")} linkto={'/inscribirProyecto'} text="Inscribir proyecto"/>
-                            <SidebarLink img={require("../../../assets/evaluador.png")} linkto={'/misProyectos'} text="Ver proyectos"/>
+                            <SidebarLink img={require("../../../assets/evaluador.png")} linkto={'/inscribirProyecto'} text="Inscribir proyecto" dropdown={true}/>
+                            <SidebarLink img={require("../../../assets/evaluador.png")} linkto={'/misProyectos'} text="Ver proyectos" dropdown={true}/>
                         </SidebarDropdown>
                     </> 
 
@@ -42,10 +42,10 @@ const Sidebar = () => {
                 {auth?.roles?.find(role => [ROLES.ComAsesora, ROLES.Admin].includes(role)) && 
                     <>
                         <SidebarDropdown dropdown={dropdown.feria} img={require("../../../assets/colaboracion.png")} text="Feria" onClick={() => toggleDropdown('feria')}>
-                            <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/feria'} text="Crear Feria"/>
-                            <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/verFeria'} text="Ver Feria"/>
-                            <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/verListaFerias'} text="Listado de Ferias"/>
-                            <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/crearCategoria'} text="Categorías"/>
+                            <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/feria'} text="Crear Feria" dropdown={true}/>
+                            <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/verFeria'} text="Ver Feria" dropdown={true}/>
+                            <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/verListaFerias'} text="Listado de Ferias" dropdown={true}/>
+                            <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/crearCategoria'} text="Categorías" dropdown={true}/>
                         </SidebarDropdown>
 
                         <SidebarLink img={require("../../../assets/user.png")} linkto={'/asignarReferentes'} text="Referentes"/>
@@ -59,7 +59,7 @@ const Sidebar = () => {
                 
                 {auth?.roles?.find(role => [ROLES.Evaluador].includes(role)) && 
                     <>
-                        <SidebarLink img={require("../../../assets/user.png")} linkto={'/evaluar'} text="Evaluación"/>
+                        <SidebarLink img={require("../../../assets/pantalla.png")} linkto={'/evaluar'} text="Evaluación"/>
                     </>
                 }
                 {auth?.roles?.find(role => [ROLES.RefEvaluador].includes(role)) && 

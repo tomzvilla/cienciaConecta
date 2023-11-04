@@ -9,9 +9,7 @@ const DatosPostulante = (props) => {
     return (
         <div className="datos-postulante">
             <div className="datos-postulante__download">
-
-                <DownloadFile handleDownload={props.handleDownload} name="Curriculum Vitae" img={require("../../../assets/tarjeta.png")} loading={props.loading}/>
-
+                <DownloadFile cv={true} name="Curriculum Vitae" img={require("../../../assets/tarjeta.png")} loading={props.loading}/>
             </div>
             
             <p className="datos-postulante__dato">Sede: {props.sede}</p>

@@ -1,14 +1,21 @@
 .sidebar {
-    height: 100%;
-    width: 0;
-    transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-    transition: opacity 5s ease-in-out;
+    display: flex;
+    flex-direction: column;
     overflow-x: hidden;
-    left: 0;
-    border-right: 1px solid $color-grey-light;
-    margin: 0;
-    padding-top: 4rem;
 
+    padding-top: 4rem;
+    border-right: 1px solid $color-grey-light;
+
+
+    width: 0rem;
+    //opacity: 0;
+    //transition: width .3s ease-in-out, transform .8s ease-in-out;
+
+    &--show {
+        width: 30rem;
+        //opacity: 1;
+        transition: width .3s ease-in-out, transform .8s ease-in-out;
+    }
 
     &__dropdown-content {
         & > div {
@@ -21,13 +28,4 @@
 }
 
 
-.sidebar.show {
-    width: 30rem;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
 
-    border-right: 1px solid $color-grey-light;
-    padding-top: 4rem;
-    
-}
