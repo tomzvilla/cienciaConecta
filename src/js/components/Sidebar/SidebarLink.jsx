@@ -10,7 +10,7 @@ const SidebarLink = (props) => {
         <div className="sidebar-link">
             <Link to={props.linkto} state={{from: location.pathname}} className="sidebar-link__link">
                 <img className="sidebar-link__image" src={props.img} alt="" />
-                <p className="sidebar-link__text">{props.text}</p>
+                <p className={props.dropdown ? "sidebar-link__text sidebar-link__text--dropdown" : "sidebar-link__text"}>{props.text}</p>
             </Link>
         </div>
     )

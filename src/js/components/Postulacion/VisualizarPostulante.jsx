@@ -12,9 +12,6 @@ import useCategoriasNiveles from "../../hooks/useCategoriasNiveles"
 import useUtils from '../../hooks/useUtils'
 import capitalizeEachLetter from "../../utils/utils.js"
 
-import Swal from "sweetalert2"
-
-
 const VisualizarPostulante = (props) => {
     const axiosPrivate = useAxiosPrivate()
     const { id } = useParams()
@@ -39,44 +36,6 @@ const VisualizarPostulante = (props) => {
       cuil = postulacion?.datos_docente?.cuil ?? 'Cargando...'
     }
 
-    const handleDownload = async () => {
-      
-        const fileURL = await cargarCv();
-        if (fileURL) {
-          try {
-            const pdfWindow = window.open();
-            if(!pdfWindow) {
-              throw new Error('No se pudo abrir la ventana emergente. Verifique la configuración del navegador.')
-            }
-            pdfWindow.location.href = fileURL;
-            return fileURL
-          } catch (err) {
-            Swal.fire({
-              title: 'Hubo un problema',
-              icon: 'warning',
-              text: 'No se pudo abrir el CV en una nueva pestaña. Habilita las ventanas emergentes en tu navegador para resolver este problema.',
-              confirmButtonText: 'OK',
-              confirmButtonColor: '#00ACE6'
-            })
-          }
-        }
-
-        return fileURL
-    }
-
-    const cargarCv = async () => {
-        try {
-          const response = await axiosPrivate.get(`/evaluador/download/v3/cv/${id}`, { responseType: "blob"});
-          const file = new Blob([response.data], { type: "application/pdf" });
-          const fileURL = window.URL.createObjectURL(file);
-          return fileURL; 
-        } 
-        catch (error) {
-          console.log(error)
-          return null;
-        }
-    }
-
     const show = postulacion
 
     return (
@@ -91,7 +50,6 @@ const VisualizarPostulante = (props) => {
                         niveles={postulacion?.niveles}
                         categorias={postulacion?.categorias} 
                         antecedentes={postulacion?.antecedentes}
-                        handleDownload={handleDownload}
                     />
                 }
             </div>
