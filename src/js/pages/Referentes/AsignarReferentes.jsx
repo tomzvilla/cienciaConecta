@@ -6,7 +6,6 @@ import TablaReferentes from "../../components/TablaReferentes/TablaReferentes"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import { useEffect, useState } from "react"
-
 import { useDispatch } from "react-redux"
 import { referentesActions } from "../../../store/referentes-slice"
 
@@ -44,7 +43,7 @@ const AsignarReferentes = () => {
     }, [isLoading, isLoadingReferentes])
 
     return (
-        isLoading && isLoadingDocentes && loadingMapping && !data && !docenteData ?  
+        isLoading || isLoadingDocentes || loadingMapping || !data || !docenteData ?  
         <Spinner /> 
         :
         <Card title={'Asignar Referentes a Sedes'} wide={true}>

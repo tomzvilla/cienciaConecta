@@ -7,11 +7,10 @@ import { useState, useEffect } from "react"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import { useNavigate, useLocation } from "react-router-dom"
 import useAuth from "../../hooks/useAuth"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { evaluacionActions } from "../../../store/evaluacion-slice"
-import { useSelector } from "react-redux"
-
 import Swal from "sweetalert2"
+import { ESTADOS } from "../../../App"
 
 const EvaluacionForm = (props) => {
     
@@ -24,11 +23,15 @@ const EvaluacionForm = (props) => {
     const from = location?.state?.from || 'dashboard'
 
     // TODO iniciar evaluacion
-    const instancia = useSelector(state => state.instancias.instancia)
     const evaluaciones = useSelector(state => state.evaluacion.criteriosConValores)
     const devoluciones = useSelector(state => state.evaluacion.devoluciones)
     const rubricas = useSelector(state => state.evaluacion.rubricas)
     const rubricaActual = useSelector(state => state.evaluacion.rubricaActual)
+    const feria = useSelector(state => state.instancias.feria)
+
+    // definicion dinamica del endpoint
+    const endpoint = feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 'evaluacion' : feria?.estado === ESTADOS.instanciaRegional_EnExposicion ? 'exposicion' : 'exposicion-provincial'
+    
 
     const [emptyValueAdded, setEmptyValueAdded] = useState(false)
 
@@ -55,7 +58,6 @@ const EvaluacionForm = (props) => {
 
         return async () => {
             try {
-                const endpoint = instancia === 'regional' ? 'evaluacion' : 'exposicion'
                 await axiosPrivate.delete(`/${endpoint}/${projectId}`, 
                 { 
                     headers: { 
@@ -115,8 +117,8 @@ const EvaluacionForm = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const firstTitle = instancia === 'regional' ? '¿Deseas evaluar este proyecto?' : '¿Deseas evaluar la exposición de este proyecto?'
-        const secondText = instancia === 'regional' ? 'Evaluaste el proyecto con éxito' : 'Evaluaste la exposición del proyecto con éxito'
+        const firstTitle = feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? '¿Deseas evaluar este proyecto en la instancia regional?' : feria?.estado === ESTADOS.instanciaRegional_EnExposicion ? '¿Deseas evaluar la exposición de este proyecto en la instancia regional?' : '¿Deseas evaluar la exposición de este proyecto en la instancia provincial?'
+        const secondText = feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 'Evaluaste el proyecto con éxito' : feria?.estado === ESTADOS.instanciaRegional_EnExposicion ? 'Evaluaste la exposición regional del proyecto con éxito' : 'Evaluaste la exposición provincial del proyecto con éxito'
         Swal.fire({
             title: firstTitle,
             icon: 'question',
@@ -136,7 +138,14 @@ const EvaluacionForm = (props) => {
                     confirmButtonText: 'OK',
                     confirmButtonColor: '#00ACE6',
                 }).then((result) => {
-                    if(result.isConfirmed || result.isDismissed) { 
+                    if(result.isConfirmed || result.isDismissed) {
+                        feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 
+                        dispatch(evaluacionActions.actualizarRealizadosEvaluacion(projectId)) 
+                        :
+                        feria?.estado === ESTADOS.instanciaRegional_EnExposicion ?
+                        dispatch(evaluacionActions.actualizarRealizadosExposicion(projectId))
+                        :
+                        dispatch(evaluacionActions.actualizarRealizadosExposicionProvincial(projectId))
                         navigate(from, {replace: true, state: { from:`${location.pathname}`}})
                         
                     }
@@ -152,7 +161,6 @@ const EvaluacionForm = (props) => {
             evaluacion: evaluaciones,
             comentarios: devoluciones
         }
-        const endpoint = instancia === 'regional' ? 'evaluacion' : 'exposicion'
         try {
             const response = await axiosPrivate.post(`/${endpoint}/${projectId}`, body, 
             {

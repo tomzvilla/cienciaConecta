@@ -32,10 +32,7 @@ const ActualizarProyecto = () => {
                 <ProgressBar etapas={ETAPAS} etapaActual={etapaActual}/>
                 <ActualizarProyectoForm formData={data.proyecto} getEtapa={getEtapa}/>  
             </>
-            
-            
-            
-            
+
             }
         </>
     )

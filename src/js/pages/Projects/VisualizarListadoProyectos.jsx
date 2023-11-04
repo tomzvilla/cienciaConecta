@@ -18,7 +18,6 @@ const headers = [
 
 const VisualizarListadoProyectos = () => {
     const axiosPrivate = useAxiosPrivate()
-
     const {data, isLoading} = useAxiosFetch('/proyecto/misProyectos', axiosPrivate)
     const {data: categories} = useAxiosFetch('/categoria', axiosPrivate)
     const {data: levels} = useAxiosFetch('/nivel', axiosPrivate)
