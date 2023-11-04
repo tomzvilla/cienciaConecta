@@ -50,10 +50,10 @@ const Sidebar = () => {
                 {auth?.roles?.find(role => [ROLES.ComAsesora, ROLES.Admin].includes(role)) && 
                     <>
                         <SidebarDropdown dropdown={dropdown.feria} img={require("../../../assets/colaboracion.png")} text="Feria" onClick={() => toggleDropdown('feria')}>
-                            {!feria ? <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/feria'} text="Crear Feria" dropdown={true}//> : null}
-                            <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/verFeria'} text="Ver Feria" dropdown={true}//>
-                            <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/verListaFerias'} text="Listado de Ferias" dropdown={true}//>
-                            { [ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar].includes(feria?.estado) ? <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/crearCategoria'} text="Categorías" dropdown={true}//> : null }
+                            {!feria ? <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/feria'} text="Crear Feria" dropdown={true}/> : null}
+                            <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/verFeria'} text="Ver Feria" dropdown={true}/>
+                            <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/verListaFerias'} text="Listado de Ferias" dropdown={true}/>
+                            { [ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar].includes(feria?.estado) ? <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/crearCategoria'} text="Categorías" dropdown={true}/> : null }
                         </SidebarDropdown>
 
                         {[ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar, ESTADOS.instanciaEscolar_Finalizada].includes(feria?.estado) ? <SidebarLink img={require("../../../assets/user.png")} linkto={'/asignarReferentes'} text="Asignar Referentes"/> : null }
