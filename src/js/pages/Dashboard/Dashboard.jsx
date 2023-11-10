@@ -20,9 +20,7 @@ const Dashboard = () => {
     })
 
     const [dashboardActivo, setDashboardActivo] = useState(userRoles.roles.find(rol => rol !== "1" && rol !== "6"))
-
-    console.log(userRoles)
-
+    
     const location = useLocation()
 
     useEffect(() => {

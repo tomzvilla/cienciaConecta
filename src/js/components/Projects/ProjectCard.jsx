@@ -1,22 +1,27 @@
 // components
 import ProjectCardDetails from "./ProjectCardDetails"
-import ImageButton from "../ImageButton/ImageButton"
-import ImageLink from "../ImageLink/ImageLink"
-import Button from "../Button/Button"
+
 // hooks
 import { useNavigate, useLocation } from "react-router-dom"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import { useSelector } from "react-redux"
 import { instanciaEscolar } from "../../../App"
 import Swal from "sweetalert2"
+import Card from "../Card/Card"
+import ProjectCardHeader from "./ProjectCardHeader"
+import useAxiosFetch from "../../hooks/useAxiosFetch"
+import Spinner from "../Spinner/Spinner"
 
-const ProjectCard = ({ formData }) => {
+const ProjectCard = (props) => {
     const navigate = useNavigate()
     const location = useLocation()
     const from = location?.state?.from || '/dashboard'
     const feria = useSelector(state => state.instancias.feria)
 
     const axiosPrivate = useAxiosPrivate()
+
+    const {data: categoriaData, isLoading: loadingCategorias} = useAxiosFetch('/categoria', axiosPrivate)
+    const {data: nivelesData, isLoading: loadingNiveles} = useAxiosFetch('/nivel', axiosPrivate)
 
     const handleDelete = () => {
         if(!instanciaEscolar.includes(feria?.estado)){
@@ -52,7 +57,7 @@ const ProjectCard = ({ formData }) => {
                 cancelButtonColor: '#D4272D',
                 preConfirm: (proyectoInput) => {
                     try {
-                        if(proyectoInput !== formData.titulo){
+                        if(proyectoInput !== props.formData.titulo){
                             throw new Error('ERROR, el título de tu proyecto no coincide')
                         }
 
@@ -84,7 +89,7 @@ const ProjectCard = ({ formData }) => {
     
     const deleteProyecto = async () => {
         try {
-            await axiosPrivate.delete(`/proyecto/${formData._id}`)
+            await axiosPrivate.delete(`/proyecto/${props.formData._id}`)
             return true
         } catch (err) {
             let msg = ''
@@ -128,7 +133,7 @@ const ProjectCard = ({ formData }) => {
 
     const descargarQR = async () => {
         try {
-          const response = await axiosPrivate.get(`/proyecto/generarQR/${formData._id}`, { responseType: "blob"});
+          const response = await axiosPrivate.get(`/proyecto/generarQR/${props.formData._id}`, { responseType: "blob"});
           const file = new Blob([response.data], { type: "application/pdf" });
           const fileURL = window.URL.createObjectURL(file);
           return fileURL; 
@@ -138,31 +143,24 @@ const ProjectCard = ({ formData }) => {
           return null;
         }
     }
-    
+    console.log(props)
     return (
-        <div className="project-card">
-            <h2 className="project-card__titulo"> Proyecto de Feria 2023</h2>
+        
 
-            <div className="project-card__buttons">
-                <Button 
-                    text='Descargar QR' 
-                    onClickHandler={handleDownload}
-                    activo={true}
-                />
-                <ImageLink src={require("../../../assets/edit.png")} linkto={`/editarProyecto/${formData._id}`} alt="Editar Proyecto"/>
-                <ImageButton small={false} alt="Borrar" linkto={""} callback={handleDelete} src={require("../../../assets/x.png")}/>
-            </div>
-
+        <Card wide={true} header={<ProjectCardHeader datos={props.formData} handleDelete={handleDelete} handleDownload={handleDownload} goBack={props.goBack}/>}>
             
-                
             
-
+            {!loadingCategorias && !loadingNiveles ? 
+            
             <div className="project-card__details">
-                <ProjectCardDetails datos={formData}/>
+                <ProjectCardDetails datos={props.formData} categorias={categoriaData} niveles={nivelesData} />
             </div>
-            
-            
-        </div>
+            :
+            <Spinner/>
+        }
+
+
+        </Card>
     )
 }
 

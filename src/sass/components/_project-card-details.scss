@@ -16,4 +16,18 @@
         
     }
 
+    &__badges {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        //padding-top: 2rem;
+
+        &--first {
+            margin-top: 3rem;
+        }
+
+
+
+    }
+
 }

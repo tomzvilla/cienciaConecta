@@ -817,6 +817,36 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   grid-column: 1/4;
 }
 
+.project-card-header {
+  width: 100%;
+  display: flex;
+  background-color: #00ACE6;
+  color: #ffffff;
+  border-radius: 2rem 2rem 0rem 0;
+  align-items: center;
+  padding: 1.5rem 3rem;
+}
+.project-card-header__titulo {
+  margin-right: auto;
+  font-size: 4rem;
+  padding: 0 1rem;
+}
+.project-card-header__botones {
+  display: flex;
+  align-self: flex-end;
+  margin-left: auto;
+  align-items: center;
+}
+.project-card-header__img {
+  filter: brightness(100);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: 5rem;
+  height: 5rem;
+  margin: auto 2rem;
+}
+
 .project-card-details {
   color: #757575;
   padding: 0 2rem;
@@ -828,6 +858,14 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 .project-card-details__detail {
   margin-top: 1rem;
+}
+.project-card-details__badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.project-card-details__badges--first {
+  margin-top: 3rem;
 }
 
 .image-link {
