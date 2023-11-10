@@ -39,7 +39,7 @@ const VisualizarProyecto = () => {
     return (
         <>
             <Metadata title={'Proyecto'}/>
-            {!data ? <Spinner/> : <ProjectCard formData={project}/>}
+            {!data ? <Spinner/> : <ProjectCard formData={project} goBack={true}/>}
         </>
     )
 }

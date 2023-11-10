@@ -1,0 +1,40 @@
+.project-card-header {
+
+    width: 100%;
+    display: flex;
+
+    background-color: $color-primary;
+    color: $color-white;
+    border-radius: 2rem 2rem 0rem 0;
+    align-items: center;
+
+
+    //margin-left: -3rem;
+    padding: 1.5rem 3rem;
+
+    &__titulo {
+        margin-right: auto;
+        font-size: 4rem;
+        padding: 0 1rem;
+    }
+
+    &__botones {
+        display: flex;
+        align-self: flex-end;
+        margin-left: auto;
+        align-items: center;
+
+    }
+
+    &__img {
+        filter: brightness(100);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        
+        width: 5rem;
+        height: 5rem;
+        margin: auto 2rem;
+    }
+
+}
