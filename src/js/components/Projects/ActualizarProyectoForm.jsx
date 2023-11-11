@@ -225,12 +225,9 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
             if(formValues.registroPedagogico.nombre && !formValues.registroPedagogico.archivo) fieldsToExclude.push('registroPedagogico')
             if(formValues.autorizacionImagen.nombre && !formValues.autorizacionImagen.archivo) fieldsToExclude.push('autorizacionImagen')
         }
-
-        console.log(fieldsToExclude)
         
         const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true, fieldsToExclude: fieldsToExclude})
-        console.log(isValid)
-        console.log(errors)
+
         if(!isValid) return
 
         Swal.fire({
