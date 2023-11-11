@@ -87,7 +87,6 @@ function App() {
         <Route element={<PersistLoginInverse />}>
           <Route path='home' element={<Home/>}/>
           <Route path='/' element={<Home/>} />
-          <Route path='/unauthorized' element={<Unauthorized/>}/>
         </Route>
 
         <Route element={<Layout />}>
@@ -131,10 +130,7 @@ function App() {
 
             </Route>
 
-            <Route element={<RequireAuth 
-              allowedRoles={[ROLES.Admin, ROLES.ComAsesora]}
-              allowedStates={[ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar]}/>}
-            >
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]} allowedStates={[ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar]}/>}>
               <Route path='/crearCategoria' element={<Categorias/>}/>
             </Route>
           
@@ -174,6 +170,7 @@ function App() {
               {/* Rutas para referentes */}
               <Route path='/postulante/:id' element={<VisualizarPostulante/>}/>
             </Route>
+            <Route path='/unauthorized' element={<Unauthorized/>}/>
             <Route path='*' element={<NotFound/>}/>
           </Route>
 
