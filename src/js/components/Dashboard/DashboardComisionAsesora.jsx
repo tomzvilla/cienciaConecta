@@ -25,20 +25,17 @@ const DashboardComisionAsesora = (props) => {
                 cantidadProyectosEvaluados: data.feria.total_proyectosEvaluados,
             }
         )
-
     }
 
     return (
         <Card title="Feria de Ciencias y Tecnología 2024" wide={true}>
             {   
-            isLoading ? 
-
-            <Spinner/>
+            isLoading ? <Spinner/>
             :
             <div className="dashboard-comision">
                 <div className="dashboard-comision__details">
-                    <p>Próxima instancia: {data.feria.prox_instancia}</p>
-                    <p>Fin instancia {data.feria.instancia_actual}: {data.feria.prox_fecha}</p>
+                    <p><strong>Próxima instancia: </strong>{data.feria.prox_instancia}</p>
+                    <p><strong>Fin instancia {data.feria.instancia_actual}</strong>: {data.feria.prox_fecha}</p>
                 </div>
 
                 <Table headers={headers} acciones={false} data={data.feria.sedes}/>

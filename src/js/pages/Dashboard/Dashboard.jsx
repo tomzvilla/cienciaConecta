@@ -36,10 +36,6 @@ const Dashboard = () => {
         }
       
     })
-    
-
-    console.log(userRoles)
-
 
     return (
         <>

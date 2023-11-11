@@ -152,9 +152,9 @@ const ProjectCard = (props) => {
             
             {!loadingCategorias && !loadingNiveles ? 
             
-            <div className="project-card__details">
-                <ProjectCardDetails datos={props.formData} categorias={categoriaData} niveles={nivelesData} />
-            </div>
+            
+            <ProjectCardDetails datos={props.formData} categorias={categoriaData} niveles={nivelesData} />
+        
             :
             <Spinner/>
         }
