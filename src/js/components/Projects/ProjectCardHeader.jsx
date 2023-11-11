@@ -12,7 +12,6 @@ const ProjectCardHeader = (props) => {
         const from = location.state?.from || '/dashboard'
         navigate(from, {replace: true, state: {from:'/postulante/:id'}})
     }
-    console.log(props.goBack)
 
     return (
         <div className="project-card-header">

@@ -15,7 +15,6 @@ const ActualizarProyecto = () => {
     const axiosPrivate = useAxiosPrivate()
     const { id } = useParams()
     const { data } = useAxiosFetch(`/proyecto/${id}`, axiosPrivate)
-    if(data) console.log(data)
 
     const [etapaActual, setEtapaActual] = useState(ETAPAS.Escolar)
 
