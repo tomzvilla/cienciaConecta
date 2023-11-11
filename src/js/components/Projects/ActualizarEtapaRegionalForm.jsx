@@ -60,6 +60,7 @@ const ActualizarEtapaRegionalForm = (props) => {
                     errors={errors.carpetaCampo}
                     accept={'.pdf'}
                     required={true}
+                    nombreArchivo={formValues.carpetaCampo.nombre}
                 />
             </div>
             <div className='edit-project-form__input'>
@@ -71,6 +72,7 @@ const ActualizarEtapaRegionalForm = (props) => {
                     errors={errors.informeTrabajo}
                     accept={'.pdf'}
                     required={true}
+                    nombreArchivo={formValues.informeTrabajo.nombre}
                 />
             </div>
             <div className='edit-project-form__input'>
@@ -82,6 +84,7 @@ const ActualizarEtapaRegionalForm = (props) => {
                     errors={errors.registroPedagogico}
                     accept={'.pdf'}
                     required={true}
+                    nombreArchivo={formValues.registroPedagogico.nombre}
                 />
             </div>
             <div className='edit-project-form__input'>
@@ -93,6 +96,7 @@ const ActualizarEtapaRegionalForm = (props) => {
                     errors={errors.autorizacionImagen}
                     accept={'.pdf'}
                     required={true}
+                    nombreArchivo={formValues.autorizacionImagen.nombre}
                 />
             </div>
         </>

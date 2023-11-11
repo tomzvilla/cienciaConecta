@@ -49,15 +49,16 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 
 .sidebar {
-  height: 100%;
-  width: 0;
-  transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: opacity 5s ease-in-out;
+  display: flex;
+  flex-direction: column;
   overflow-x: hidden;
-  left: 0;
-  border-right: 1px solid #D9D9D9;
-  margin: 0;
   padding-top: 4rem;
+  border-right: 1px solid #D9D9D9;
+  width: 0rem;
+}
+.sidebar--show {
+  width: 30rem;
+  transition: width 0.3s ease-in-out, transform 0.8s ease-in-out;
 }
 .sidebar__dropdown-content > div {
   padding-left: 2.5rem;
@@ -65,20 +66,12 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   font-size: 2.3rem;
 }
 
-.sidebar.show {
-  width: 30rem;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  border-right: 1px solid #D9D9D9;
-  padding-top: 4rem;
-}
-
 .sidebar-link {
   display: flex;
   align-items: center;
   padding: 1rem;
   text-decoration: none;
+  cursor: pointer;
 }
 .sidebar-link--dropdown {
   padding-left: 2.5rem;
@@ -113,9 +106,10 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   color: #757575;
   text-decoration: none;
   width: 100%;
+  font-size: 2.5rem;
 }
 .sidebar-link__text--dropdown {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
 }
 .sidebar-link__link {
   color: inherit;
@@ -824,6 +818,36 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   grid-column: 1/4;
 }
 
+.project-card-header {
+  width: 100%;
+  display: flex;
+  background-color: #00ACE6;
+  color: #ffffff;
+  border-radius: 2rem 2rem 0rem 0;
+  align-items: center;
+  padding: 1.5rem 3rem;
+}
+.project-card-header__titulo {
+  margin-right: auto;
+  font-size: 4rem;
+  padding: 0 1rem;
+}
+.project-card-header__botones {
+  display: flex;
+  align-self: flex-end;
+  margin-left: auto;
+  align-items: center;
+}
+.project-card-header__img {
+  filter: brightness(100);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: 5rem;
+  height: 5rem;
+  margin: auto 2rem;
+}
+
 .project-card-details {
   color: #757575;
   padding: 0 2rem;
@@ -835,6 +859,14 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 .project-card-details__detail {
   margin-top: 1rem;
+}
+.project-card-details__badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.project-card-details__badges--first {
+  margin-top: 3rem;
 }
 
 .image-link {
