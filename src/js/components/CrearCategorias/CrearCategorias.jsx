@@ -136,9 +136,9 @@ const CrearCategorias = () => {
     }
 
     return (
-        <form className="datos-feria-form">
-            <h3>Nueva categoría</h3>
-            <div className='datos-feria-form__input'>
+        <form className="crear-categoria">
+            <h3 className="crear-categoria__title">Nueva categoría</h3>
+            <div className='crear-categoria__input'>
                 <InputField
                     label='Nombre: ' 
                     name='nombreCategoria'
@@ -150,7 +150,7 @@ const CrearCategorias = () => {
                     required={true}
                 />
             </div>
-            <div className='datos-feria-form__input'>
+            <div className='crear-categoria__input'>
                 <InputField
                     label='Abreviatura: ' 
                     name='abreviatura'
@@ -162,7 +162,7 @@ const CrearCategorias = () => {
                     required={true}
                 />
             </div>
-            <div className='datos-feria-form__input'>
+            <div className='crear-categoria__input'>
                 <InputField
                     label='Color: ' 
                     name='color'
@@ -174,10 +174,10 @@ const CrearCategorias = () => {
                     required={true}
                 />
             </div>
-            <div>
+            <div className='crear-categoria__badge'>
                 <PreviewBadge data={categoria}/>
             </div>
-            <div>
+            <div className='crear-categoria__button'>
                 <Button
                     text={'Agregar'}
                     activo={true}
