@@ -1,8 +1,8 @@
 import { useState } from "react"
 
-const FileField = ({ value, label, name, onChange, onBlur, errors, accept, required = false }) => {
+const FileField = ({ value, label, name, onChange, onBlur, errors, accept, required = false, nombreArchivo = '' }) => {
 
-    const [fileName, setFileName] = useState("")
+    const [fileName, setFileName] = useState(nombreArchivo)
     let modifier = !fileName ? "" : errors.error ? "--error" :"--loaded"
 
 

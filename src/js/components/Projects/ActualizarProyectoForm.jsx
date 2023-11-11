@@ -33,17 +33,17 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
         description: formData.descripcion,
         level: formData.nivel,
         category: formData.categoria,
-        departamento: '',
-        localidad: '',
+        departamento: formData.establecimientoEducativo.departamento,
+        localidad: formData.establecimientoEducativo.localidad,
         establecimientoSeleccionado: formData.establecimientoEducativo,
         privateSchool: isPrivate,
         schoolEmail: formData.emailEscuela,
         sede: formData.sede,
         videoPresentacion: formData.videoPresentacion,
-        carpetaCampo: formData.carpetaCampo,
-        informeTrabajo: formData.informeTrabajo,
-        registroPedagogico: formData.registroPedagogico,
-        autorizacionImagen: formData.autorizacionImagen,
+        carpetaCampo: { nombre: formData.nameCarpetaCampo, archivo: formData.carpetaCampo },
+        informeTrabajo: { nombre: formData.nameInformeTrabajo, archivo: formData.informeTrabajo },
+        registroPedagogico: { nombre: formData.nameRegistroPedagogicopdf, archivo: formData.registroPedagogico },
+        autorizacionImagen: { nombre: formData.nameAutorizacionImagen, archivo: formData.autorizacionImagen },
         grupoProyecto: formData.grupoProyecto.map(alumno => {
             return {
                 name: alumno.nombre,
@@ -70,7 +70,7 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
 
     const { data: categoriesData} = useAxiosFetch('/categoria', axiosPrivate)
     const { data: levelsData} = useAxiosFetch('/nivel', axiosPrivate)
-    // const { data: sedesData} = useAxiosFetch('/sedes', axiosPrivate) no esta listo el endpoint
+
     let categories = []
     let levels = []
 
@@ -155,7 +155,13 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
         e.preventDefault()
         let fieldsToExclude = []
         if(etapaActual === ETAPAS.Escolar) fieldsToExclude = ['sede','videoPresentacion','carpetaCampo','informeTrabajo','registroPedagogico','autorizacionImagen','grupoProyecto']
-        if(etapaActual === ETAPAS.Regional) fieldsToExclude = ['grupoProyecto']
+        if(etapaActual === ETAPAS.Regional) {
+            if(formValues.carpetaCampo.nombre) fieldsToExclude.push('carpetaCampo')
+            if(formValues.informeTrabajo.nombre) fieldsToExclude.push('informeTrabajo')
+            if(formValues.registroPedagogico.nombre) fieldsToExclude.push('registroPedagogico')
+            if(formValues.autorizacionImagen.nombre) fieldsToExclude.push('autorizacionImagen')
+            fieldsToExclude.push('grupoProyecto')
+        }
         const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true, fieldsToExclude: fieldsToExclude})
         if(etapaActual === ETAPAS.Escolar & isValid) setEtapaActual(ETAPAS.Regional)
         if(etapaActual === ETAPAS.Regional & isValid) setEtapaActual(ETAPAS.Grupo)
