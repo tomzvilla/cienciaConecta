@@ -263,9 +263,10 @@ const InscribirEtapaEscolarForm = () => {
     return (
         <Card title="Inscribir proyecto a etapa escolar">
             <form onSubmit={handleSubmit} className='register-project-form'>
+            <h2 className='register-project-form__subtitle'>Datos del proyecto: </h2>
             <div className='register-project-form__input'>
                 <InputField
-                    label='Titulo del proyecto: ' 
+                    label='Título: ' 
                     name='title'
                     type='text'
                     onChange={handleChange}
@@ -277,7 +278,7 @@ const InscribirEtapaEscolarForm = () => {
             </div>
             <div className='register-project-form__input'>
                 <InputField
-                    label='Descripción del proyecto: ' 
+                    label='Descripción: ' 
                     name='description'
                     type='textarea'
                     onChange={handleChange}
@@ -311,7 +312,7 @@ const InscribirEtapaEscolarForm = () => {
             <div className='register-project-form__input'>
                 {!categoriesData ?  
                     <SelectField
-                        label='Categoria:' 
+                        label='Categoría:' 
                         name='category'
                         dataValues={['Cargando']}
                         onChange={handleChange}
@@ -335,7 +336,7 @@ const InscribirEtapaEscolarForm = () => {
             <h2 className='register-project-form__subtitle'>Datos del establecimiento educativo: </h2>
             <div className='register-project-form__input'>
                 <SelectField
-                    label='Deparamento: ' 
+                    label='Departamento: ' 
                     name='departamento'
                     dataValues={search.departamentos}
                     onChange={handleChange}
