@@ -103,7 +103,7 @@ const VisualizarFeriaActual = () => {
     return (
         <>
             <Metadata title={'Feria'}/>
-            {!data ? (<Spinner />) : (<FeriaCard handleDelete={handleDelete} formData={data?.feriaActiva} />)}
+            {!data ? (<Spinner />) : (<FeriaCard handleDelete={handleDelete} datosFeria={data?.feriaActiva} />)}
         </>
        
     )

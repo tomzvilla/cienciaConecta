@@ -829,7 +829,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 .project-card-header__titulo {
   margin-right: auto;
-  font-size: 4rem;
+  font-size: 3rem;
   padding: 0 1rem;
 }
 .project-card-header__botones {
@@ -851,7 +851,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .project-card-details {
   color: #757575;
   padding: 0 2rem;
-  padding-bottom: 2rem;
+  padding-top: 2rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-column-gap: 5rem;
@@ -2122,6 +2122,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .asignar-evaluadores__button {
   grid-row: 3/4;
   grid-column: 1/3;
+  margin: auto;
 }
 
 .dropdown-navbar {
