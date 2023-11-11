@@ -6,10 +6,7 @@ import Metadata from "../../components/Metadata/Metadata"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 
-
 const estados = ["Inactiva", "Inicio", "Instancia escolar", "Instancia regional", "Evaluación regional", "Instancia provincial", "Evaluación provincial", "Finalización",]
-
-
 
 const headers = [
   {name: 'Nombre', value: 'nombre'},
@@ -24,25 +21,18 @@ const VisualizarListadoFerias = () => {
     const axiosPrivate = useAxiosPrivate()
 
     const {data, isLoading} = useAxiosFetch('/feria', axiosPrivate)
-    console.log(data)
 
     let ferias=[]
 
 
     if (data) {
-        ferias = data.ferias.map((feria, num) => ({
-
+        console.log(data)
+        ferias = data.ferias.map((feria) => ({
             ...feria,
             estado: estados[feria.estado],
-
         })
-        
         )
-
-
     }
-    
-    
 
     return (
       <>

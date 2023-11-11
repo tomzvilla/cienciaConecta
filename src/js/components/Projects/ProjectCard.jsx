@@ -143,7 +143,7 @@ const ProjectCard = (props) => {
           return null;
         }
     }
-    console.log(props)
+
     return (
         
 
