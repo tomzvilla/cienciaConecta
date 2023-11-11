@@ -84,24 +84,24 @@ const AsignarEvaluadores = (props) => {
     }
 
     return (
-        <Card wide={true} title={'Asignar evaluadores a proyecto'}>
+        <Card goBack={true} wide={true} title={'Asignar evaluadores a proyecto'}>
         
         <div className="asignar-evaluadores">
             <div className="asignar-evaluadores__details">
-                <p >
-                    Título:  {" "} {proyecto.titulo}
+                <p>
+                    <strong> Título: {" "}</strong> { " " + proyecto.titulo}
                 </p>
-                <p >
-                    Categoria: <Badge type={proyecto.categoria} />  
+                <p>
+                   <strong> Categoria: </strong><Badge type={proyecto.categoria} />  
                 </p>
-                <p >
-                    Nivel: <Badge type={proyecto.nivel} />
+                <p>
+                    <strong>Nivel: </strong><Badge type={proyecto.nivel} />
                 </p>
             </div>
 
             <div className="asignar-evaluadores__asignados">
                 <Card title={'Evaluadores Asignados'} className="project-card-table">
-                        <TablaEvaluadoresAsignados data={evaluadoresAsignados} />
+                    <TablaEvaluadoresAsignados data={evaluadoresAsignados} />
                 </Card>
             </div> 
 
@@ -111,17 +111,13 @@ const AsignarEvaluadores = (props) => {
             
             
              <div className="asignar-evaluadores__button">
-                 <div className="button-container">
-                     <Button 
-                         text='Volver' 
-                         onClickHandler={handleVolver}
-                     />
+                 
                      <Button 
                          text='Asignar' 
                          onClickHandler={handleAsignar}
                          activo={true}
                      />
-                 </div>
+                 
              </div>
            
             
