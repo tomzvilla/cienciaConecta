@@ -24,7 +24,7 @@ const VisualizarListadoFerias = () => {
     const axiosPrivate = useAxiosPrivate()
 
     const {data, isLoading} = useAxiosFetch('/feria', axiosPrivate)
-    console.log(data)
+    console.log(isLoading)
 
     let ferias=[]
 

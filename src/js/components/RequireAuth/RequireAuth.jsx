@@ -8,8 +8,6 @@ const RequireAuth = ({ allowedRoles, allowedStates }) => {
     const feria = useSelector(state => state.instancias.feria)
     const check = allowedStates?.length > 0
     console.log(feria)
-    console.log(check)
-    console.log(( !check || allowedStates.includes(feria.estado)))
 
     return (
         auth?.roles?.find(role => allowedRoles?.includes(role)) && ( !check || allowedStates.includes(feria.estado)) ? 

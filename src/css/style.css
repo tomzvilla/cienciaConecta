@@ -71,6 +71,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   align-items: center;
   padding: 1rem;
   text-decoration: none;
+  cursor: pointer;
 }
 .sidebar-link--dropdown {
   padding-left: 2.5rem;
