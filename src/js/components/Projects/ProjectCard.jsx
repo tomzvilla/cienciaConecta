@@ -143,7 +143,6 @@ const ProjectCard = (props) => {
           return null;
         }
     }
-    console.log(props)
     return (
         
 
@@ -151,10 +150,10 @@ const ProjectCard = (props) => {
             
             
             {!loadingCategorias && !loadingNiveles ? 
-            
-            
+                
             <ProjectCardDetails datos={props.formData} categorias={categoriaData} niveles={nivelesData} />
         
+
             :
             <Spinner/>
         }

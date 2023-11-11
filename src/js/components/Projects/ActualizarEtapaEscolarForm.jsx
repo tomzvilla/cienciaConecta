@@ -8,9 +8,10 @@ const ActualizarEtapaEscolarForm = (props) => {
 
     return (
         <>
+            <h2 className='register-project-form__subtitle'>Datos del proyecto: </h2>
             <div className='edit-project-form__input'>
                 <InputField
-                    label='Titulo del proyecto: ' 
+                    label='Título: ' 
                     name='title'
                     type='text'
                     onChange={handleChange}
@@ -22,7 +23,7 @@ const ActualizarEtapaEscolarForm = (props) => {
             </div>
             <div className='edit-project-form__input'>
                 <InputField
-                    label='Descripcion del proyecto: ' 
+                    label='Descripción: ' 
                     name='description'
                     type='textarea'
                     onChange={handleChange}
@@ -46,7 +47,7 @@ const ActualizarEtapaEscolarForm = (props) => {
             </div>
             <div className='edit-project-form__input'>
                 <SelectField
-                    label='Categoria:' 
+                    label='Categoría:' 
                     name='category'
                     dataValues={categories}
                     onChange={handleChange}

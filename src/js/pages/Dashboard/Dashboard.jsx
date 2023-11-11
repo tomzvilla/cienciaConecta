@@ -2,22 +2,36 @@
 import DashboardInicioFeria from "../../components/Dashboard/DashboardInicioFeria"
 import DashboardResponsable from "../../components/Dashboard/DashboardResponsable"
 import DashboardEvaluador from "../../components/Dashboard/DashboardEvaluador"
+import DashboardComisionAsesora from "../../components/Dashboard/DashboardComisionAsesora"
+import DashboardReferente from "../../components/Dashboard/DashboardReferente"
+import DashboardSelector from "../../components/Dashboard/DashboardSelector"
 import Metadata from "../../components/Metadata/Metadata"
 // hooks
 import useAuth from "../../hooks/useAuth"
 import { useLocation } from "react-router-dom"
 import { useEffect, useState } from "react"
-import DashboardComisionAsesora from "../../components/Dashboard/DashboardComisionAsesora"
-import DashboardReferente from "../../components/Dashboard/DashboardReferente"
-import DashboardSelector from "../../components/Dashboard/DashboardSelector"
+import useRefreshToken from "../../hooks/useRefreshToken"
 
 const rolesInicial = ['2', '3', '4', '5']
 
 const Dashboard = () => {
     const { auth } = useAuth()
+    const refresh = useRefreshToken()
     const [userRoles, setUserRoles] = useState({
         roles: auth.roles
     })
+
+    const validateRefreshToken = async () => {
+        try {
+            await refresh()
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        validateRefreshToken()
+    }, [])
 
     const [dashboardActivo, setDashboardActivo] = useState(userRoles.roles.find(rol => rol !== "1" && rol !== "6"))
     

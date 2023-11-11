@@ -80,7 +80,6 @@ export const instanciaPromocion = [ESTADOS.instanciaRegional_ExposicionFinalizad
 function App() {
 
   const feria = useSelector(state => state.instancias.feria)
-  console.log(feria)
 
   return (
     <>
