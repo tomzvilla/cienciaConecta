@@ -1,8 +1,6 @@
 // components
 import Badge from "./Badge"
 
-
-
 const PreviewBadge = (props) => {
 
     const defaultValue = {
@@ -12,10 +10,7 @@ const PreviewBadge = (props) => {
     }
 
     return (
-        <>
-            <Badge className={'preview-badge'} type={defaultValue} />
-        </>
-
+        <Badge className={'preview-badge'} type={defaultValue} />
     )
 
 }

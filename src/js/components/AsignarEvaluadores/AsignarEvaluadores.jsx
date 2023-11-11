@@ -101,7 +101,7 @@ const AsignarEvaluadores = (props) => {
 
             <div className="asignar-evaluadores__asignados">
                 <Card title={'Evaluadores Asignados'} className="project-card-table">
-                        <TablaEvaluadoresAsignados data={evaluadoresAsignados} />
+                    <TablaEvaluadoresAsignados data={evaluadoresAsignados} />
                 </Card>
             </div> 
 
