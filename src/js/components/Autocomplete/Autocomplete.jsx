@@ -31,22 +31,17 @@ const Autocomplete  = (props) => {
                 <label className="autocomplete__label">Establecimiento: </label>
                 <input disabled={disabled} className="autocomplete__input" type="text" onChange={onChange} onFocus={onFocus} value={value} placeholder= {"Ingresa un establecimiento..."}/>
                 { showResults && (<div className="autocomplete__container">
-                    {results?.map((item, index) => {
-                        if (index < 150) {
-                            if (item.nombre != "") {
-                                return ( 
-                                    <div 
-                                        onMouseDown={() => handleSelection(index)}
-                                        key={index}
-                                        className="autocomplete__auto"
-                                    >
-                                        {renderItem(item)}
-                                    </div>
-                                )
-
-                            }
-                        
-                    }})}
+                    {results?.slice(0, 150).filter(i => i.nombre !== "").map((item, index) => {
+                        return ( 
+                            <div 
+                                onMouseDown={() => handleSelection(index)}
+                                key={index}
+                                className="autocomplete__auto"
+                            >
+                                {renderItem(item)}
+                            </div>
+                        )
+                    })}
                 </div>)}
             </div>
         

@@ -153,27 +153,22 @@ const TablaPostulantes = (props) => {
                                     if(header.name === 'Categorías'){
                                         return (
                                             <td key={header.name} className="table-body-row__td table-body-row__td--badges">
-                                                {postulacion.categorias.map( (c, i) => {
-                                                    if (i < 2) {
-
-                                                    return (<Badge key={c._id} type={c} />)}})}
-
-                                                    {
+                                                {postulacion.categorias.slice(0, 3).map( (c) => (
+                                                    <Badge key={c._id} type={c} />
+                                                ))
+                                                }
+                                                {
                                                     postulacion.categorias.length > 3 ? <GenericBadge text="Más..."/> : ""
-
-
                                                 }   
-
                                             </td>
                                         )
                                     } 
                                     if(header.name === 'Niveles'){
                                         return (
                                             <td key={header.name} className="table-body-row__td table-body-row__td--badges">
-                                                {postulacion?.niveles?.length > 0 ? postulacion.niveles.map( (n, i) => {
-                                            
-                                                    if (i < 2) {
-                                                    return (<Badge  key={n._id} type={n} />)}})
+                                                {postulacion?.niveles?.length > 0 ? postulacion.niveles.slice(0, 3).map((n) => (
+                                                    <Badge key={n._id} type={n} />
+                                                ))
                                                 :
                                                 <GenericBadge text="Investigador"/>
                                                 }

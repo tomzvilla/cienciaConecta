@@ -14,7 +14,7 @@ const promocionesSlice = createSlice({
     reducers: {
         cargarProyectos(state, action) {
             state.listadoProyectos = action.payload
-            const promovidos = action.payload.map(p => {if(p.promovido) return p._id}).filter(p => p !== undefined)
+            const promovidos = action.payload.filter(p => p.promovido).map(p => p._id);
             state.selectedRows = promovidos
         },
         setLoadingProyectos(state, action) {
