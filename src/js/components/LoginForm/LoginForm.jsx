@@ -94,14 +94,19 @@ const LoginForm = () => {
           navigate(from, { replace: true })
         } catch (err) {
           setLoading(false)
-          console.log(err.response)
           let msg = ''
           if(!err?.response){
-            msg = 'El servidor no respondió'
+            msg = 'El servidor no respondió.'
           } else if(err.response?.status === 403) {
-            msg = 'Datos incorrectos intente nuevamente'
-          } else if(err.response?.status === 401) {
-            msg = 'No estas autorizado para realizar esta operación'
+            msg = 'Datos incorrectos intente nuevamente.'
+          } else if(err.response?.status === 404) {
+            msg = 'No existe un usuario registrado con ese CUIL.'
+          } else if(err.response?.status === 422) {
+            msg = 'Debes confirmar la cuenta antes de poder iniciar sesión, revisá tu casilla de correo electrónico.'
+          } else if(err.response?.status === 409) {
+            msg = 'Usuario pendiente de activación. Se le notificará por email cuando su cuenta se haya activado.'
+          }else if(err.response?.status === 401) {
+            msg = 'No estas autorizado para realizar esta operación.'
           } else {
             msg = `Falló el logueo <br> ${err.response.data.errors[0].msg}`
           }

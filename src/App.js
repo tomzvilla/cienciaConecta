@@ -99,11 +99,15 @@ function App() {
           </Route>
           <Route element={<PersistLogin />}>
             <Route element={<RequireAuth 
-              allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]} 
+              allowedRoles={[ ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.Docente]} 
               allowedStates={[ESTADOS.iniciada, ESTADOS.instanciaEscolar]}/>}
             >
               <Route path='/inscribirProyecto' element={<InscribirEtapaEscolar/>}/> 
             </Route>
+            <Route element={<RequireAuth allowedRoles={[ ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.Docente]} />}>
+              <Route path='/misProyectos' element={<VisualizarListadoProyectos/>}/>
+            </Route>
+
             <Route element={<RequireAuth 
               allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]} 
               allowedStates={[ESTADOS.iniciada, ESTADOS.instanciaEscolar, ESTADOS.instanciaEscolar_Finalizada ]}/>}
@@ -116,9 +120,7 @@ function App() {
               
               <Route path='/dashboard' element={<Dashboard/>}/>
               <Route path='/proyecto/:id' element={<VisualizarProyecto/>}/>
-              <Route path='/misProyectos' element={<VisualizarListadoProyectos/>}/>
               <Route path='/perfil' element={<Profile/>}/>
-              <Route path='/postulacion' element={<Postulacion/>}/> {/*Se maneja por fecha */}
 
 
               <Route path='/evaluar' element={<ListadoEvaluaciones/>}/>
@@ -127,6 +129,11 @@ function App() {
               <Route path='/evaluacion/:id' element={<EvaluacionCardConsulta />}/>
               <Route path='/evaluacion/:id/consultar' element={<EvaluacionFormConsulta />}/>
 
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={[ROLES.ResponsableProyecto, ROLES.Docente]}/>}>
+              {/* Rutas con auth liberadas de estados */}
+              <Route path='/postulacion' element={<Postulacion/>}/> {/*Se maneja por fecha */}
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]} allowedStates={[ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar]}/>}>

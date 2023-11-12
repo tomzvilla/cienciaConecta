@@ -32,18 +32,21 @@ const Sidebar = () => {
                 {/* Links publicos  */}
                 <SidebarLink img={require("../../../assets/trofeo.png")} linkto={'/dashboard'} text="Inicio"/>
 
-                <SidebarDropdown dropdown={dropdown.proyectos} img={require("../../../assets/evaluador.png")} text="Proyectos" onClick={() => toggleDropdown('proyectos')}>
-                    { [ESTADOS.iniciada, ESTADOS.instanciaEscolar].includes(feria?.estado) ?  
-                    <SidebarLink img={require("../../../assets/evaluador.png")} linkto={'/inscribirProyecto'} text="Inscribir proyecto" dropdown={true}/>
+                { auth?.roles?.find(role => [ROLES.Docente, ROLES.ResponsableProyecto, ROLES.Evaluador].includes(role)) ?
+                    <SidebarDropdown dropdown={dropdown.proyectos} img={require("../../../assets/evaluador.png")} text="Proyectos" onClick={() => toggleDropdown('proyectos')}>
+                        { [ESTADOS.iniciada, ESTADOS.instanciaEscolar].includes(feria?.estado) ?  
+                        <SidebarLink img={require("../../../assets/evaluador.png")} linkto={'/inscribirProyecto'} text="Inscribir proyecto" dropdown={true}/>
+                        :
+                        null
+                        }
+                        <SidebarLink img={require("../../../assets/evaluador.png")} linkto={'/misProyectos'} text="Ver proyectos" dropdown={true}/>
+                    </SidebarDropdown>
                     :
                     null
-                    }
-                    <SidebarLink img={require("../../../assets/evaluador.png")} linkto={'/misProyectos'} text="Ver proyectos" dropdown={true}/>
-                </SidebarDropdown>
-                <SidebarDropdown dropdown={dropdown.postulaciones} img={require("../../../assets/user.png")} text="Postulaciones" onClick={() => toggleDropdown('postulaciones')}>
-                    <SidebarLink img={require("../../../assets/user.png")} linkto={'/postulacion'} text="Postularme"/>
-                    {auth?.roles?.find(role => [ROLES.ComAsesora, ROLES.Admin].includes(role)) ? <SidebarLink img={require("../../../assets/user.png")} linkto={'/seleccionarPostulantes'} text="Lista Postulantes"/> : null}
-                </SidebarDropdown>
+                }
+
+                {auth?.roles?.find(role => [ROLES.Docente, ROLES.ResponsableProyecto].includes(role)) ? <SidebarLink img={require("../../../assets/user.png")} linkto={'/postulacion'} text="Postularme"/> : null}
+                {auth?.roles?.find(role => [ROLES.ComAsesora, ROLES.Admin].includes(role)) ? <SidebarLink img={require("../../../assets/user.png")} linkto={'/seleccionarPostulantes'} text="Lista Postulantes"/> : null}
                 
 
                 {/* Links de comision/admin */}

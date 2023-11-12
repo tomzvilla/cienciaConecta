@@ -1,6 +1,8 @@
 // components
 import FeriaCard from "../../components/FeriaCard/FeriaCard"
 import Spinner from "../../components/Spinner/Spinner"
+import BlankState from "../../components/BlankState/BlankState"
+import Card from "../../components/Card/Card"
 import Metadata from "../../components/Metadata/Metadata"
 // hooks
 import useAxiosFetch from "../../hooks/useAxiosFetch"
@@ -11,7 +13,7 @@ import Swal from "sweetalert2"
 const VisualizarFeriaActual = () => {
 
     const axiosPrivate = useAxiosPrivate()
-    const { data } = useAxiosFetch('/feria/activa', axiosPrivate)
+    const { data, isLoading } = useAxiosFetch('/feria/activa', axiosPrivate)
     const location = useLocation()
     const navigate = useNavigate()
     const from = location?.state?.from || '/dashboard'
@@ -102,7 +104,7 @@ const VisualizarFeriaActual = () => {
     return (
         <>
             <Metadata title={'Feria'}/>
-            {!data ? (<Spinner />) : (<FeriaCard handleDelete={handleDelete} datosFeria={data?.feriaActiva} />)}
+            {isLoading ? (<Spinner />) : data ? (<FeriaCard handleDelete={handleDelete} datosFeria={data?.feriaActiva} />) : <Card title={'Feria actual'}> <BlankState msg={'Actualmente no hay una feria activa.'}/> </Card> }
         </>
        
     )
