@@ -112,6 +112,7 @@ const NuevoCriterio = (props) => {
             else {
                 error = false
                 message = ''
+                value = parseInt(value)
             }
         } 
         if(name === 'nombre') {

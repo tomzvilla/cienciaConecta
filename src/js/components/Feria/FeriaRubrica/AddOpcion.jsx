@@ -81,7 +81,7 @@ const AddOpcion = (props) => {
             criterio: props.criterio, 
             opcion: {
                 nombre: opcion.nombreOpcion,
-                puntaje: opcion.puntaje
+                puntaje: parseInt(opcion.puntaje)
             }}))
         setErrors({
             nombreOpcion: {

@@ -81,7 +81,7 @@ const NuevaRubrica = (props) => {
         
         dispatch(feriaActions.agregarRubrica({
             nombreRubrica: rubrica.nombreRubrica,
-            ponderacion: rubrica.ponderacionRubrica,
+            ponderacion: parseInt(rubrica.ponderacionRubrica),
             criterios: [],
             exposicion: rubrica.exposicion,
         }))
