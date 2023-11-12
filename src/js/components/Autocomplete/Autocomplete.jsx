@@ -14,7 +14,8 @@ const Autocomplete  = (props) => {
     }, [results])
 
     const handleSelection = (selectedIndex) => {
-        const selectedItem = results[selectedIndex]
+        const resultsWithoutEmpty = results.filter(i => i.nombre !== "")
+        const selectedItem = resultsWithoutEmpty[selectedIndex]
         if(!selectedItem) return resetSearchComplete()
         onSelect && onSelect(selectedItem)
         resetSearchComplete()
