@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useParams, useNavigate, useLocation } from "react-router"
+import { useParams } from "react-router"
 
 import Swal from "sweetalert2"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
@@ -92,14 +92,14 @@ const DownloadFile = (props) => {
 
     
 
-    const handleDl = () => {
-        setLoading(true)
+    const handleDl = async () => {
+        props.video ? setLoading(false) : setLoading(true)
 
-        props.file ? handleDownload(props.file) : props.cv ? cargarCv() : handleOpen(props.video);
+        const response = props.file ? await handleDownload(props.file) : props.cv ? await cargarCv() : handleOpen(props.video);
 
-        setTimeout(function() {
-            setLoading(false)
-          }, 10000);
+        if(response) {
+          setLoading(false)
+        }
     }
 
     return (

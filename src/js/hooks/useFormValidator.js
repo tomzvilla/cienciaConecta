@@ -246,14 +246,14 @@ export const useFormValidator = (form) => {
         }
 
         if (nextErrors.carpetaCampo?.dirty && (field ? field === "carpetaCampo" : true)) {
-            const carpetaCampoMessage = fileValidator(carpetaCampo, " la carpeta de campo", 'PDF', form);
+            const carpetaCampoMessage = fileValidator(carpetaCampo.archivo, " la carpeta de campo", 'PDF', form);
             nextErrors.carpetaCampo.error = !!carpetaCampoMessage;
             nextErrors.carpetaCampo.message = carpetaCampoMessage;
             if (!!carpetaCampoMessage) isValid = false;
         }
 
         if (nextErrors.informeTrabajo?.dirty && (field ? field === "informeTrabajo" : true)) {
-            const informeTrabajoMessage = fileValidator(informeTrabajo, " el informe de trabajo",'PDF', form);
+            const informeTrabajoMessage = fileValidator(informeTrabajo.archivo, " el informe de trabajo",'PDF', form);
             nextErrors.informeTrabajo.error = !!informeTrabajoMessage;
             nextErrors.informeTrabajo.message = informeTrabajoMessage;
             if (!!informeTrabajoMessage) isValid = false;
@@ -261,14 +261,14 @@ export const useFormValidator = (form) => {
         }
 
         if (nextErrors.registroPedagogico?.dirty && (field ? field === "registroPedagogico" : true)) {
-            const registroPedagogicoMessage = fileValidator(registroPedagogico, " el registro pedagógico", 'PDF', form);
+            const registroPedagogicoMessage = fileValidator(registroPedagogico.archivo, " el registro pedagógico", 'PDF', form);
             nextErrors.registroPedagogico.error = !!registroPedagogicoMessage;
             nextErrors.registroPedagogico.message = registroPedagogicoMessage;
             if (!!registroPedagogicoMessage) isValid = false;
         }
 
         if (nextErrors.autorizacionImagen?.dirty && (field ? field === "autorizacionImagen" : true)) {
-            const autorizacionImagenMessage = fileValidator(autorizacionImagen, " la autorización de uso de imágen", 'PDF', form);
+            const autorizacionImagenMessage = fileValidator(autorizacionImagen.archivo, " la autorización de uso de imágen", 'PDF', form);
             nextErrors.autorizacionImagen.error = !!autorizacionImagenMessage;
             nextErrors.autorizacionImagen.message = autorizacionImagenMessage;
             if (!!autorizacionImagenMessage) isValid = false;

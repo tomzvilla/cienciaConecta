@@ -1,21 +1,22 @@
 // components
 import ProjectCardDetails from "./ProjectCardDetails"
-
+import Spinner from "../Spinner/Spinner"
+import Card from "../Card/Card"
+import ProjectCardHeader from "./ProjectCardHeader"
 // hooks
 import { useNavigate, useLocation } from "react-router-dom"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
-import { useSelector } from "react-redux"
-import { instanciaEscolar } from "../../../App"
-import Swal from "sweetalert2"
-import Card from "../Card/Card"
-import ProjectCardHeader from "./ProjectCardHeader"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
-import Spinner from "../Spinner/Spinner"
+import { useSelector, useDispatch } from "react-redux"
+import { instanciaEscolar } from "../../../App"
+import { instanciasActions } from "../../../store/instancias-slice"
+import Swal from "sweetalert2"
+
 
 const ProjectCard = (props) => {
     const navigate = useNavigate()
     const location = useLocation()
-    const from = location?.state?.from || '/dashboard'
+    const dispatch = useDispatch()
     const feria = useSelector(state => state.instancias.feria)
 
     const axiosPrivate = useAxiosPrivate()
@@ -77,7 +78,12 @@ const ProjectCard = (props) => {
                         confirmButtonColor: '#00ACE6',
                     }).then((result) => {
                         if(result.isConfirmed || result.isDismissed) {
-                            navigate(from, {replace: true, state: {from:`${location.pathname}`}})
+                            dispatch(instanciasActions.removeProyecto())
+                            if(location.pathname === '/dashboard') {
+                                navigate(0, {replace: true, state: {from:`${location.pathname}`}})
+                            } else {
+                                navigate('/dashboard', {replace: true, state: {from:`${location.pathname}`}})
+                            }
                         }
                     })
                 }

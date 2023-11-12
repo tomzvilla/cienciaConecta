@@ -183,13 +183,7 @@ const InscribirEtapaEscolarForm = () => {
                             localidad: '',
                             establecimientoSeleccionado: '',
                         })
-                        // const newRoles = location.state.userRoles.roles
-                        // newRoles.push('2')
-                        // console.log(newRoles)
-                        // location.state.setUserRoles({
-                        //     roles: newRoles
-                        // })
-                        navigate(from, {replace: true, state: {newRol:'2', from:'/inscribirProyecto'}})
+                        navigate('/dashboard', {replace: true, state: {newRol:'2', from:'/inscribirProyecto'}})
                         
                     }
                 })

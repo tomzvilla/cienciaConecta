@@ -34,10 +34,6 @@ const RubricasFeriaForm = (props) => {
     const ponderacionRubricasTeoricas = sumarPonderacionesTeoricas()
     const ponderacionRubricasExpo = sumarPonderacionesExpo()
 
-    const cerrarModal = () => {
-        setShowModal(false)
-    }
-
     const abrirOpciones = (e, rubrica, criterio) => {
         e.preventDefault()
         setSelectedCriterio(criterio)

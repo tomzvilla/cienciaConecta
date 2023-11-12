@@ -6,11 +6,13 @@ import BlankState from "../BlankState/BlankState"
 // hooks
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
+import { useDispatch } from "react-redux"
 import capitalizeEachLetter from "../../utils/utils"
-
+import { instanciasActions } from "../../../store/instancias-slice"
 
 const DashboardResponsable = () => {
     const axiosPrivate = useAxiosPrivate()
+    const dispatch = useDispatch()
 
     const {data, isLoading} = useAxiosFetch('/proyecto/misProyectos', axiosPrivate)
     const { data: categoriesData} = useAxiosFetch('/categoria', axiosPrivate)
@@ -22,7 +24,6 @@ const DashboardResponsable = () => {
     let proyectos = []
 
     if(data && categoriesData && levelsData) {
-
       proyectos = data.proyectos.map(obj => {
         nombreCat = categoriesData.categoria.find(element => element._id === obj.categoria)
         nombreLev = levelsData.nivel.find(element => element._id === obj.nivel)
@@ -31,7 +32,8 @@ const DashboardResponsable = () => {
         } else {
           return null
         }
-      }).filter(project => project !== null)
+      }).filter(project => project !== null).filter(p => p.estado !== '9')
+      dispatch(instanciasActions.cargarProyectos(proyectos.length))
     }
 
     return (

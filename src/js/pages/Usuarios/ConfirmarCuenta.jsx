@@ -7,7 +7,7 @@ import ConfirmacionCuenta from "../../components/Usuarios/ConfirmacionCuenta";
  const ConfirmarCuenta = () => {
     const {token} = useParams()
     const axiosPrivate = useAxiosPrivate()
-    const { data: msg, isLoading, error, status } = useAxiosFetch(`/auth/confirmar/${token}`, axiosPrivate)
+    const { isLoading, status } = useAxiosFetch(`/auth/confirmar/${token}`, axiosPrivate)
 
     let errorStatus = true
 

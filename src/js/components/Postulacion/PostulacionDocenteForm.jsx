@@ -156,9 +156,9 @@ const PostulacionDocenteForm = (props) => {
                 }
             )
             if(response.status === 200){
-            // endpoint para subir archivos no esta listo
-                const responseArchivos = await axiosPrivate.post('/evaluador/upload/cv', pdf,
-                {headers: {'Content-Type': 'multipart/form-data'}})}
+                await axiosPrivate.post('/evaluador/upload/cv', pdf,
+                {headers: {'Content-Type': 'multipart/form-data'}})
+            }
     
             return true
         } catch(err) {

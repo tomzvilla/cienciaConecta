@@ -25,13 +25,12 @@ const VisualizarPostulante = (props) => {
 
     const {data: categoriaData, isLoading: loadingCategorias} = useAxiosFetch('/categoria', axiosPrivate, !!postulacion)
     const {data: nivelesData, isLoading: loadingNiveles} = useAxiosFetch('/nivel', axiosPrivate, !!postulacion)
-    const {data: postulacionData, isLoading: isLoadingPostulacion} = useAxiosFetch(`/evaluador/postulaciones/${id}`, axiosPrivate, !!postulacion)
+    const {data: postulacionData } = useAxiosFetch(`/evaluador/postulaciones/${id}`, axiosPrivate, !!postulacion)
 
     const { evaluadorMap } = useCategoriasNiveles({ categoriaData: categoriaData, nivelData: nivelesData, enabled: !loadingCategorias && !loadingNiveles })
 
     if(postulacionData && categoriaData && nivelesData) {
       postulacion = evaluadorMap(postulacionData.postulacion)
-      console.log(postulacion)
       nombre = postulacion?.datos_docente?.nombre + " " + postulacion?.datos_docente?.apellido ?? 'Cargando...'
       cuil = postulacion?.datos_docente?.cuil ?? 'Cargando...'
     }

@@ -40,10 +40,10 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
         schoolEmail: formData.emailEscuela,
         sede: formData.sede,
         videoPresentacion: formData.videoPresentacion,
-        carpetaCampo: { nombre: formData.nameCarpetaCampo, archivo: formData.carpetaCampo },
-        informeTrabajo: { nombre: formData.nameInformeTrabajo, archivo: formData.informeTrabajo },
-        registroPedagogico: { nombre: formData.nameRegistroPedagogicopdf, archivo: formData.registroPedagogico },
-        autorizacionImagen: { nombre: formData.nameAutorizacionImagen, archivo: formData.autorizacionImagen },
+        carpetaCampo: { nombre: formData.nameCarpetaCampo, archivo: null },
+        informeTrabajo: { nombre: formData.nameInformeTrabajo, archivo: null },
+        registroPedagogico: { nombre: formData.nameRegistroPedagogicopdf, archivo: null },
+        autorizacionImagen: { nombre: formData.nameAutorizacionImagen, archivo: null },
         grupoProyecto: formData.grupoProyecto.map(alumno => {
             return {
                 name: alumno.nombre,
@@ -52,7 +52,6 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
             };
         }),
     })
-
 
     const [etapaActual, setEtapaActual] = useState(ETAPAS.Escolar)
 
@@ -64,7 +63,6 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
     const {errors, validateForm, onBlurField} = useFormValidator(formValues)
 
     useEffect(() => {
-        console.log(formValues)
         getEtapa(etapaActual)
     }, [etapaActual])
 
@@ -203,7 +201,10 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
         const file = e.target.files[0]
         const nextFormValueState = {
             ...formValues,
-            [name]: file
+            [name]: {
+                archivo: file,
+                nombre: file.name,
+            }
         }
         setFormValues(nextFormValueState)
         if (errors[name].dirty) {
@@ -217,7 +218,13 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
         let fieldsToExclude = []
         if(instanciaEscolar.includes(feria.estado)) {
             fieldsToExclude = ['sede', 'videoPresentacion', 'carpetaCampo', 'informeTrabajo', 'registroPedagogico', 'autorizacionImagen', 'grupoProyecto']
+        } else {
+            if(formValues.carpetaCampo.nombre && !formValues.carpetaCampo.archivo) fieldsToExclude.push('carpetaCampo')
+            if(formValues.informeTrabajo.nombre && !formValues.informeTrabajo.archivo) fieldsToExclude.push('informeTrabajo')
+            if(formValues.registroPedagogico.nombre && !formValues.registroPedagogico.archivo) fieldsToExclude.push('registroPedagogico')
+            if(formValues.autorizacionImagen.nombre && !formValues.autorizacionImagen.archivo) fieldsToExclude.push('autorizacionImagen')
         }
+        
         const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true, fieldsToExclude: fieldsToExclude})
 
         if(!isValid) return
@@ -278,10 +285,11 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
                         };
                     });
                     const pdfs = new FormData()
-                    pdfs.append('registroPedagogicopdf', registroPedagogico)
-                    pdfs.append('carpetaCampo', carpetaCampo)
-                    pdfs.append('informeTrabajo', informeTrabajo)
-                    pdfs.append('autorizacionImagen', autorizacionImagen)
+                    if(registroPedagogico.archivo) pdfs.append('registroPedagogicopdf', registroPedagogico.archivo)
+                    if(carpetaCampo.archivo) pdfs.append('carpetaCampo', carpetaCampo.archivo)
+                    if(informeTrabajo.archivo) pdfs.append('informeTrabajo', informeTrabajo.archivo)
+                    if(autorizacionImagen.archivo) pdfs.append('autorizacionImagen', autorizacionImagen.archivo)
+
                     response = await axiosPrivate.patch(`/proyecto/regional/${formData._id}`, 
                     JSON.stringify({ 
                         titulo: title, 
@@ -300,6 +308,7 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
                             withCredentials: true
                         }
                     )
+
                     if(response.status === 200){
                         await axiosPrivate.post(`/proyecto/regional/upload/${formData._id}`, pdfs,
                         {headers: {'Content-Type': 'multipart/form-data'}})

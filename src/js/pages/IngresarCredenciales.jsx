@@ -109,7 +109,7 @@ const IngresarCredenciales = () => {
     }
 
     return (
-        <Card title={'Reestablecer credenciales'}>
+        <Card title={'Reestablecer contraseña'}>
             <form onSubmit={handleSubmit} className='login-form'>
                 <div className='login-form__input '>
                     <InputField

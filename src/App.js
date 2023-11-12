@@ -39,7 +39,6 @@ import Categorias from './js/pages/Categorias'
 import EvaluacionCardConsulta from './js/components/Evaluacion/EvaluacionCardConsulta'
 import EvaluacionFormConsulta from './js/components/Evaluacion/EvaluacionFormConsulta'
 // DEV
-import Card from './js/components/Card/Card'
 import AuthVerify from './js/components/PersistLogin/AuthVerify'
 import ConfirmarCuenta from './js/pages/Usuarios/ConfirmarCuenta'
 import VisualizarListadoPendienteActivacion from './js/pages/Usuarios/VisualizarListadoPendienteActivacion'
@@ -87,7 +86,6 @@ function App() {
         <Route element={<PersistLoginInverse />}>
           <Route path='home' element={<Home/>}/>
           <Route path='/' element={<Home/>} />
-          <Route path='/unauthorized' element={<Unauthorized/>}/>
         </Route>
 
         <Route element={<Layout />}>
@@ -131,10 +129,7 @@ function App() {
 
             </Route>
 
-            <Route element={<RequireAuth 
-              allowedRoles={[ROLES.Admin, ROLES.ComAsesora]}
-              allowedStates={[ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar]}/>}
-            >
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]} allowedStates={[ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar]}/>}>
               <Route path='/crearCategoria' element={<Categorias/>}/>
             </Route>
           
@@ -151,7 +146,10 @@ function App() {
               <Route path='/usuarioPendienteActivacion/:id' element={<VisualizarUsuarioPendienteActivacion/>}/> 
               {/* Rutas para postulantes, liberadas por estado, se manejan por fecha */}
               <Route path='/seleccionarPostulantes' element={<SeleccionPostulantes/>}/>
-              <Route path='/postulante/:id' element={<VisualizarPostulante/>}/>
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora, ROLES.RefEvaluador]} />}>
+            <Route path='/postulante/:id' element={<VisualizarPostulante/>}/>
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]} allowedStates={[ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar, ESTADOS.instanciaEscolar_Finalizada]}/>}>
@@ -174,6 +172,7 @@ function App() {
               {/* Rutas para referentes */}
               <Route path='/postulante/:id' element={<VisualizarPostulante/>}/>
             </Route>
+            <Route path='/unauthorized' element={<Unauthorized/>}/>
             <Route path='*' element={<NotFound/>}/>
           </Route>
 

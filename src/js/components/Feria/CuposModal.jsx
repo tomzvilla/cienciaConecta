@@ -6,7 +6,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import InputField from "../InputField/InputField"
 import Button from "../Button/Button"
 const CuposModal = (props) => {
-    const {getSede, cerrarModal, confirmarCupo, getCupos} = props
+    const {getSede, confirmarCupo, getCupos} = props
     const axiosPrivate = useAxiosPrivate()
     const sede = getSede()
     const cuposData = getCupos(sede._id)
@@ -53,8 +53,6 @@ const CuposModal = (props) => {
         }
     })
 
-    //console.log(niveles)
-
     const generarNiveles = () => {
         const prevCupos = []
         niveles.forEach((nivel) => {
@@ -75,12 +73,6 @@ const CuposModal = (props) => {
         // on change handler
         prevCupos[name] = Math.abs(value)
         setCupos(prevCupos)
-    }
-
-    const handleCancelar = (e) => {
-        e.preventDefault()
-        setCupos([])
-        cerrarModal()
     }
 
     const handleConfirmarCupos = (e) => {
