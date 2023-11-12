@@ -46,6 +46,7 @@ const PromoverProyectos = () => {
     const buscarProyectos = async (sede, nivel) => {
         if(!sede || !nivel) return
         try {
+            setBuscaronProyectos(true)
             dispatch(promocionesActions.setLoadingProyectos(true))
             const res = await axiosPrivate.post('/promocion/provincial/proyectos', JSON.stringify({
                 nivel: nivel,
@@ -64,7 +65,6 @@ const PromoverProyectos = () => {
             }
             dispatch(promocionesActions.setLoadingProyectos(false))
             dispatch(promocionesActions.cargarProyectos(proyectos))
-            setBuscaronProyectos(true)
         } catch (err) {
             console.log(err)
         }

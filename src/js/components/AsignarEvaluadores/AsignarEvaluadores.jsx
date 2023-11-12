@@ -5,7 +5,6 @@ import ListadoEvaluadores from "./ListadoEvaluadores"
 import TablaEvaluadoresAsignados from "./TablaEvaluadoresAsignados"
 import Button from "../Button/Button"
 // hooks
-import { useNavigate, useLocation } from "react-router-dom"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import { useSelector } from "react-redux"
 
@@ -14,19 +13,12 @@ import Swal from "sweetalert2"
 const AsignarEvaluadores = (props) => {
 
     const proyecto = useSelector(state => state.referentes.proyectoEditando)
-    const navigate = useNavigate()
-    const location = useLocation()
     const axiosPrivate = useAxiosPrivate()
     
 
     const evaluadoresAsignados = proyecto.evaluadoresRegionales.map(e => {
         return props.evaluadores.find(evaluador => evaluador._id === e)
     }).filter(ev => ev !== undefined)
-
-    const handleVolver = () => {
-        const from = location?.state?.from || '/dashboard'
-        navigate(from, {replace: true, state: {from:`${location.pathname}`}})
-    }
 
     const handleAsignar = (e) => {
         e.preventDefault()

@@ -3,14 +3,12 @@ import ImageLink from "../ImageLink/ImageLink"
 import Badge from "../Badge/Badge"
 import Pagination from "../Pagination/Pagination"
 // hooks
-import { useNavigate } from "react-router-dom"
 import { useMemo, useState } from "react"
 import { useSelector } from "react-redux"
 
 const pageSize = 10
 
 const TablaProyectosReferente = (props) => {
-    const navigate = useNavigate()
 
     // state with redux
     const proyectosReferente = useSelector(state => state.referentes.proyectosReferente)
@@ -24,12 +22,6 @@ const TablaProyectosReferente = (props) => {
         return proyectosReferente.slice(firstPageIndex, lastPageIndex);
     }, [currentPage]);
 
-
-    const handleVolver = () => {
-        const from = props.location.state?.from || '/dashboard'
-        navigate(from, {replace: true, state: {from:`/proyectosParaAsignar`}})
-    }
-    
 
     return (
         <>

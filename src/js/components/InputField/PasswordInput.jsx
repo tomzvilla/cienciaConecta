@@ -17,9 +17,9 @@ const PasswordInput = ({ value, name, type, modifier, onChange, onBlur, required
 
             
             {!show ? 
-                <img src={require("../../../assets/passnot.png")} className={`password-input__img`} onClick={() => setShow(!show)}/>
+                <img src={require("../../../assets/passnot.png")} className={`password-input__img`} alt={'Mostrar/Ocultar contraseña'} onClick={() => setShow(!show)}/>
                 : 
-                <img src={require("../../../assets/pass.png")} className={`password-input__img`} onClick={() => setShow(!show)}/>
+                <img src={require("../../../assets/pass.png")} className={`password-input__img`} alt={'Mostrar/Ocultar contraseña'} onClick={() => setShow(!show)}/>
                 }
         </div>
             

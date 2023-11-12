@@ -154,7 +154,7 @@ const TablaReferentes = (props) => {
             })
 
             if(nuevosReferentes.length === 0) {
-                throw ({status: 422, msg: 'No se modificó ningún referente de evaluador'})
+                throw new Error({status: 422, msg: 'No se modificó ningún referente de evaluador'})
             }
             await axiosPrivate.post('referente', JSON.stringify({seleccion: nuevosReferentes}), {
                 headers: {'Content-Type': 'application/json'},

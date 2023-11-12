@@ -6,7 +6,6 @@ import DatosUsuario from "../components/Usuarios/DatosUsuario"
 import FormEditarPerfil from "../components/Usuarios/FormEditarPerfil"
 // hooks
 import { useState, useEffect } from "react"
-import useAxiosFetch from "../hooks/useAxiosFetch"
 import useAxiosPrivate from "../hooks/useAxiosPrivate"
 import useUtils from "../hooks/useUtils"
 import { useDispatch, useSelector } from "react-redux"

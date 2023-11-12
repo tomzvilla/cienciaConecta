@@ -1,5 +1,4 @@
 import ModalCard from "./ModalCard"
-import ModalHeader from "./ModalHeader"
 
 const Modal = (props) => {
     return (

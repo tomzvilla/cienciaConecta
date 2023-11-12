@@ -1,6 +1,7 @@
-import ImageButton from "../ImageButton/ImageButton"
+// components
 import ImageLink from "../ImageLink/ImageLink"
 import Button from "../Button/Button"
+// hooks
 import { useLocation, useNavigate } from "react-router-dom"
 
 
