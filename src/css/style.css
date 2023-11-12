@@ -650,6 +650,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 
 .signup-form {
   min-width: 45rem;
+  max-width: 45rem;
   min-height: 45rem;
   padding: 3rem 5rem;
   background-color: #ffffff;
@@ -1269,8 +1270,14 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .cupos-modal__nivel {
   padding: 1rem 2rem;
 }
+.cupos-modal__title {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
 .cupos-modal__button {
   padding-top: 3rem;
+  padding-bottom: 2rem;
   align-self: center;
 }
 
