@@ -7,7 +7,7 @@ const FiltroPromoverProyectos = (props) => {
             <div className="postulacion-form">
                 {props.sedes && <div className="postulacion-form__input">
                     <SelectField
-                        label='Sedes: ' 
+                        label='Sede: ' 
                         name='sedeSeleccionada'
                         dataValues={props.sedes}
                         onChange={props.handleChange}
@@ -18,7 +18,7 @@ const FiltroPromoverProyectos = (props) => {
                 </div>}
                 <div className="postulacion-form__input">
                     <SelectField
-                        label='Niveles: ' 
+                        label='Nivel: ' 
                         name='nivelSeleccionado'
                         dataValues={props.niveles}
                         onChange={props.handleChange}
@@ -29,7 +29,7 @@ const FiltroPromoverProyectos = (props) => {
                 </div>
                 <div className="postulacion-form__input">
                     <SelectField
-                        label='Categorías: ' 
+                        label='Categoría: ' 
                         name='categoria'
                         dataValues={props.categorias}
                         onChange={props.handleChange}

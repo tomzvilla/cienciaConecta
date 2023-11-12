@@ -1,6 +1,5 @@
 import { useParams } from "react-router"
 import Card from "../../components/Card/Card"
-import Spinner from "../../components/Spinner/Spinner"
 import { useDispatch, useSelector } from "react-redux"
 import PostulanteHeader from "../../components/Card/PostulanteHeader"
 import DatosUsuario from "../../components/Usuarios/DatosUsuario"
@@ -10,7 +9,6 @@ import { pendientesActions } from "../../../store/pendiente-slice"
 import { useLocation, useNavigate } from "react-router-dom";
 
 const VisualizarUsuarioPendienteActivacion = () => {
-    const show = true
     const location = useLocation()
     const navigate = useNavigate()
 

@@ -314,15 +314,6 @@ const ActualizarFeriaForm = (props) => {
 
         }
 
-    const handleDelete = async (e) => {
-        try {
-            e.preventDefault()
-        } catch (err) {
-            console.log(err)
-        }
-        setTimeout(() => { }, 2000);
-    }
-
     const handleVolver = (e) => {
         e.preventDefault()
         if(etapaActual === ETAPAS.Datos){
@@ -336,10 +327,6 @@ const ActualizarFeriaForm = (props) => {
 
     const handleDeleteSede = (nombreSede) => {
         setFormValues({...formValues, establecimientos: formValues.establecimientos.filter(obj => obj.nombre !== nombreSede)})
-    }
-
-    const handleDeleteSedeProvincial = () => {
-        setFormValues({...formValues, sedeProvincial: null})
     }
 
     useEffect(() => {

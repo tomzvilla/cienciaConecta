@@ -12,7 +12,6 @@ const VisualizarFeriaActual = () => {
 
     const axiosPrivate = useAxiosPrivate()
     const { data } = useAxiosFetch('/feria/activa', axiosPrivate)
-    if(data) console.log(data)
     const location = useLocation()
     const navigate = useNavigate()
     const from = location?.state?.from || '/dashboard'

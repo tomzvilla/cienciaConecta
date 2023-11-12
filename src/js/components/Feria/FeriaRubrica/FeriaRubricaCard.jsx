@@ -5,9 +5,7 @@ import NuevoCriterio from "./NuevoCriterio"
 import Card from "../../Card/Card"
 
 // hooks
-import { useState } from "react"
-import { useFormValidator } from "../../../hooks/useFormValidator"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { feriaActions } from "../../../../store/feria-slice"
 
 const headers = [

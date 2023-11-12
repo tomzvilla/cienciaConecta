@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useParams, useNavigate, useLocation } from "react-router"
+import { useParams } from "react-router"
 
 import Swal from "sweetalert2"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"

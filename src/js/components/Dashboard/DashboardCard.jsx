@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom"
 
 const DashboardCard = (props) => {
 
-    const {src, title, link, userRoles, setUserRoles} = props
+    const {src, title, link} = props
 
     const location = useLocation()
 

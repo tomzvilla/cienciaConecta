@@ -1,7 +1,6 @@
 // components
 import Table from "../Table/Table"
 import AddAlumno from "./AddAlumno"
-import InputField from "../InputField/InputField"
 
 //hooks
 import { useState } from "react"

@@ -3,19 +3,12 @@ import Badge from "../Badge/Badge";
 import ImageLink from "../ImageLink/ImageLink";
 
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom"
 import { ESTADOS } from "../../../App";
 
 const TablaEvaluaciones = (props) => {
 
     const listadoEvaluaciones = useSelector(state => state.evaluacion.listadoEvaluaciones)
     const feria = useSelector(state => state.instancias.feria)
-    const navigate = useNavigate()
-
-    const handleVolver = () => {
-        const from = props.location.state?.from || '/dashboard'
-        navigate(from, {replace: true, state: {from:'/evaluar'}})
-    }
 
     return(
         <>

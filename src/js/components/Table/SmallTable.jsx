@@ -4,7 +4,6 @@ import ImageLink from "../ImageLink/ImageLink";
 // Actualmente esta configurada solo para proyectos.
 const SmallTable = (props) => {
 
-    console.log(props.data)
     return (
         <table className="small-table">
             <thead className="small-table__header">

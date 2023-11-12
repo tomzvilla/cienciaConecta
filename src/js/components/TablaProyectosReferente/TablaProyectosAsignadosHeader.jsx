@@ -8,8 +8,6 @@ const TablaProyectosAsignadosHeader = (props) => {
         const from = location.state?.from || '/dashboard'
         navigate(from, {replace: true, state: {from:'/proyectosParaAsignar'}})
     }
-
-    console.log(props.wide)
     
     return (
         <div className={`postulante-header postulante-header--wide`}>

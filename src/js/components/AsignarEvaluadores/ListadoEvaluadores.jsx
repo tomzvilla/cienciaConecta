@@ -6,7 +6,7 @@ import Badge from "../Badge/Badge"
 import GenericBadge from "../Badge/GenericBadge"
 import BlankState from "../BlankState/BlankState"
 // hooks
-import { useState, useMemo } from "react"
+import { useState } from "react"
 import useUtils from "../../hooks/useUtils"
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
@@ -84,15 +84,11 @@ const ListadoEvaluadores = (props) => {
                                     if(header.name === 'Categorías'){
                                         return (
                                             <td key={header.name} className="table-body-row__td table-body-row__td--badges">
-                                                {evaluador.categorias.map( (c, i) => {
-                                                    if (i < 2) {
-
-                                                    return (<Badge key={c._id} type={c} />)}})}
-
-                                                    {
+                                                {evaluador.categorias.slice(0, 3).map( (c) => (
+                                                    <Badge key={c._id} type={c} />
+                                                ))}
+                                                {
                                                     evaluador.categorias.length > 3 ? <GenericBadge text="Más..."/> : ""
-
-
                                                 }   
 
                                             </td>
@@ -101,11 +97,9 @@ const ListadoEvaluadores = (props) => {
                                     else if(header.name === 'Niveles'){
                                         return (
                                             <td key={header.name} className="table-body-row__td table-body-row__td--badges">
-                                                {evaluador.niveles.map( (n, i) => {
-                                            
-                                                    if (i < 2) {
-                                                    return (<Badge  key={n._id} type={n} />)}})}
-
+                                                {evaluador.niveles.slice(0, 3).map( (n) => (
+                                                    <Badge key={n._id} type={n} />
+                                                ))}
                                                 {
                                                     evaluador.niveles.length > 3 ? <GenericBadge text="Más..."/> : ""
                                                 }    
@@ -131,7 +125,7 @@ const ListadoEvaluadores = (props) => {
                     )}
                 </tbody>
             </table>
-            <Pagination currentPage={currentPage} totalCount={evaluadores .length} pageSize={pageSize} onPageChange={page => setCurrentPage(page)} />
+            <Pagination currentPage={currentPage} totalCount={evaluadores.length} pageSize={pageSize} onPageChange={page => setCurrentPage(page)} />
         </>
         :
         <BlankState msg='No hay evaluadores para asignar' />

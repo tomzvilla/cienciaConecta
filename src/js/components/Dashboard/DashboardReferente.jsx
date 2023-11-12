@@ -10,9 +10,6 @@ const DashboardReferente = (props) => {
 
     const { data, isLoading } = useAxiosFetch('/referente/info', axiosPrivate)
 
-    console.log(data)
-
-
     return (
         <Card title="Feria de Ciencias y Tecnología 2024">
             {   

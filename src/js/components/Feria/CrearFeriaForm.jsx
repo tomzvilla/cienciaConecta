@@ -106,28 +106,6 @@ const CrearFeriaForm = (props) => {
         }
     }
 
-    // convertir fecha a la timezone 
-
-    const dateWithTimezone = (date) => {
-        let offsetUTC = date.getTimezoneOffset()
-        date.setMinutes(date.getMinutes() - offsetUTC)
-        offsetUTC = {
-            // positive sign unless offset is at least -00:30 minutes:
-            "s": offsetUTC < 30 ? '+' : '-',
-            // local time offset in unsigned hours:
-            "h": Math.floor(Math.abs(offsetUTC) / 60),
-            // local time offset minutes in unsigned integers:
-            "m": ~~Math.abs(offsetUTC) % 60
-        };
-        offsetUTC = offsetUTC.s + // explicit offset sign
-            // unsigned hours in HH, dividing colon:
-            ('0'+Math.abs(offsetUTC.h)+':').slice(-3) +
-            // minutes are represented as either 00 or 30:
-            ('0'+(offsetUTC.m < 30 ? 0 : 30)).slice(-2);
-        
-        return date.toISOString().replace('Z', offsetUTC)
-    }
-
     const dateWithGMT3 = (date) => {
         let nuevaFecha = date.toISOString().slice(0,22)
         let zonaHoraria = "-03:00"

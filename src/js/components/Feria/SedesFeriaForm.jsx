@@ -85,7 +85,6 @@ const SedesFeriaForm = (props) => {
             ...formValues, 
             establecimientos: selectedSedes
         })
-        console.log(formValues)
         
     }
 

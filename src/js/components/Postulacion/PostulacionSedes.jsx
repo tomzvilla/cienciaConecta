@@ -13,7 +13,7 @@ const headers = [
 
 const PostulacionSedes = (props) => {
 
-    const {formValues, setFormValues, error, setError} = props
+    const {formValues, setFormValues, error} = props
 
     const axiosPrivate = useAxiosPrivate()
     const { data: sedesData} = useAxiosFetch('/establecimiento/sedes/regional', axiosPrivate)

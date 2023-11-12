@@ -1,10 +1,7 @@
 import "../../../css/style.css"
 // components
 import Button from "../Button/Button"
-import ImageButton from "../ImageButton/ImageButton";
-import burger from '../../../assets/burger.svg'
 import DropdownButton from "../DropdownButton/DropdownButton";
-import DropdownButtonLink from "../DropdownButton/DropdownButtonLink";
 // hooks
 import useAuth from "../../hooks/useAuth";
 import useLogout from "../../hooks/useLogout";
