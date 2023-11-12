@@ -10,7 +10,7 @@ const ConfirmacionCuenta = (props) => {
                 <div className="blank-state">
                     <img src={require("../../../assets/blank.png")} alt="Error" className="blank-state__img blank-state__img--error"/>
                     <h3 className="blank-state__text">Hubo un problema confirmando tu cuenta,
-                        ¡Intentá otra vez mas tarde!</h3>
+                        ¡Intentá de nuevo mas tarde!</h3>
                 </div>
                 :
                 <div className="blank-state">
