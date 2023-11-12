@@ -331,12 +331,15 @@ const CrearFeriaForm = (props) => {
     }
 
     const handleDeleteSede = (nombreSede) => {
-        setFormValues({...formValues, establecimientos: formValues.establecimientos.filter(obj => obj.nombre !== nombreSede)})
+        const sede = formValues.establecimientos.find(obj => obj.nombre === nombreSede)
+        const prevCupos = [...formValues.cupos]
+        const newCupos = prevCupos.filter(c => c.sede !== sede._id)
+        setFormValues({...formValues, establecimientos: formValues.establecimientos.filter(obj => obj.nombre !== nombreSede), cupos: newCupos})
     }
 
 
     return (
-        <Card title="Registrar Feria de Ciencias y Tecnología" wide={true}>
+        <Card title="Registrar Feria de Ciencias y Tecnología" wide={false}>
             <form className='crear-feria-form'>
             {etapaActual === ETAPAS.Datos && <DatosFeriaForm
                 handleChange={handleChange}
