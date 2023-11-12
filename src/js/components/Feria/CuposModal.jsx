@@ -12,10 +12,6 @@ const CuposModal = (props) => {
     const cuposData = getCupos(sede._id)
     const [cupos, setCupos] = useState(cuposData)
     
-    // verifica si ya existen cupos para la sede
-
-    
-
     // Cargar niveles
     
     let niveles = []
@@ -30,54 +26,33 @@ const CuposModal = (props) => {
             return 0;
           });
     }
-    const nivelesSede = sede.niveles
-    niveles.forEach((nivel, i) => {
-        if (!nivelesSede.inicial) {
-            if (nivel.codigo === "1") delete niveles[i]
-        }
 
-        if (!nivelesSede.primario) {
-            if (nivel.codigo === "2") delete niveles[i]
-            if (nivel.codigo === "3") delete niveles[i]
-            
-        }
-
-        if (!nivelesSede.secundario) {
-            if (nivel.codigo === "4") delete niveles[i]
-            if (nivel.codigo === "5") delete niveles[i]
-        }
-
-        if (!nivelesSede.terciario) {
-            if (nivel.codigo === "6") delete niveles[i]
-            if (nivel.codigo === "7") delete niveles[i]
-        }
-    })
-
-    const generarNiveles = () => {
-        const prevCupos = []
-        niveles.forEach((nivel) => {
-            if(nivel._id !== 0 && !prevCupos[nivel._id]) prevCupos[nivel._id] = '0'
-        })
+    // const generarNiveles = () => {
+    //     const prevCupos = []
+    //     niveles.forEach((nivel) => {
+    //         if(nivel._id !== 0 && !prevCupos[nivel._id]) prevCupos[nivel._id] = '0'
+    //     })
 
         
 
-        setCupos(prevCupos)
-    }
+    //     setCupos(prevCupos)
+    // }
 
     const handleChange = (e) => {
         let {name, value} = e.target
-        const prevCupos = {...cupos}
-        if(parseInt(value) <= 0) value = Math.abs(value)
+        const newValue = Math.abs(parseInt(value, 10)) || '';
         // cargar todos los niveles 
-        generarNiveles()
+        // generarNiveles()
         // on change handler
-        prevCupos[name] = Math.abs(value)
-        setCupos(prevCupos)
+        setCupos((prevCupos) => ({
+            ...prevCupos,
+            [name]: newValue
+        }));
     }
 
     const handleConfirmarCupos = (e) => {
         e.preventDefault()
-        if(cupos.length !== niveles.length) generarNiveles()
+        // if(cupos.length !== niveles.length) generarNiveles()
         const cuposSede = [];
 
         for (const categoria in cupos) {
@@ -110,7 +85,7 @@ const CuposModal = (props) => {
                             onChange={handleChange}
                             onBlur={() => {}}
                             value={
-                                cupos.length === 0 ? 0 : cupos[nivel._id]
+                                cupos[nivel._id] ?? ''
                             }
                             errors={null}
                             required={true}
