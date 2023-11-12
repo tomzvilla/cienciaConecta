@@ -6,6 +6,7 @@ import Spinner from "../Spinner/Spinner"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import SmallTable from "../Table/SmallTable"
+import BlankState from "../BlankState/BlankState"
 
 const DashboardEvaluador= () => {
     const axiosPrivate = useAxiosPrivate()
@@ -18,8 +19,8 @@ const DashboardEvaluador= () => {
     }
     
     return (
-        <Card title={'Dashboard'}>
-            {!isLoading && evaluador ? 
+        <Card title='Resumen de Evaluador'>
+            {isLoading ? <Spinner/> : evaluador ? 
 
             <div className="dashboard-evaluador">
                 <div className="dashboard-evaluador__instancia">
@@ -29,17 +30,16 @@ const DashboardEvaluador= () => {
                 
                 <div className="dashboard-evaluador__proyectos">
                     <h4>Proyectos</h4>
-                    <p>Asignados: {evaluador.cant_proyectos_asignados}</p>
-                    <p>Pendientes de evaluación: {evaluador.cant_proyectos_pendientes}</p>
+                    <p>Asignados: {evaluador.cant_proyectos_asignados ? evaluador.cant_proyectos_asignados : 0}</p>
+                    <p>Pendientes de evaluación: {evaluador.cant_proyectos_pendientes ? evaluador.cant_proyectos_pendientes : 0}</p>
                 </div>
                 
-                
                 <div className="dashboard-evaluador__tabla">
-                    <SmallTable title="Proyectos Activos" data={evaluador.proyectos_asignados} viewPath={'/proyecto'}/> 
+                    {evaluador.proyectos_asignados.length > 0 ? <SmallTable title="Proyectos Activos" data={evaluador.proyectos_asignados} viewPath={'/proyecto'}/>  : "" }
                 </div> 
             </div>
                 :
-            <Spinner/> 
+            <BlankState msg='No pudimos encontrar estos datos. ¡Intentá de nuevo mas tarde!' />
             }
         </Card>
     )

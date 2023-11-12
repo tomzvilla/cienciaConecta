@@ -1,6 +1,8 @@
 // Components
 import TableCard from "../../components/Table/TableCard"
 import Spinner from "../../components/Spinner/Spinner"
+import BlankState from "../../components/BlankState/BlankState"
+import Card from "../../components/Card/Card"
 import Metadata from "../../components/Metadata/Metadata"
 // Hooks
 import useAxiosFetch from "../../hooks/useAxiosFetch"
@@ -20,7 +22,7 @@ const headers = [
 const VisualizarListadoFerias = () => {
     const axiosPrivate = useAxiosPrivate()
 
-    const {data, isLoading} = useAxiosFetch('/feria', axiosPrivate)
+    const { data, isLoading } = useAxiosFetch('/feria', axiosPrivate)
 
     let ferias=[]
 
@@ -37,7 +39,7 @@ const VisualizarListadoFerias = () => {
     return (
       <>
         <Metadata title={'Feria'}/>
-        {isLoading ? (<Spinner />) : data.ferias.length === 0 ? (<p>No hay ferias inscriptas</p>) : (<TableCard title="Mis Ferias" headers={headers} data={ferias} viewPath={'/feria'} editPath={'/editarFeria'} />)}
+        {isLoading ? (<Spinner />) : data.ferias.length === 0 ? (<Card title={'Listado de Ferias'}> <BlankState msg={'No hay ferias para mostrar'}/> </Card> ) : (<TableCard title="Listado de Ferias" headers={headers} data={ferias} viewPath={'/feria'} editPath={'/editarFeria'} />)}
       </>
     )
   

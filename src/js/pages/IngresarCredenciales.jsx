@@ -91,7 +91,7 @@ const IngresarCredenciales = () => {
             if(!err?.response){
                 msg = 'El servidor no respondió'
             } else if(err.response?.status === 400) {
-                msg = 'El período de confirmación del cambio de contraseña expiró. Por favor, intente nuevamente.'
+                msg = 'El período de confirmación del cambio de contraseña expiró o el token no es válido. Por favor, intente nuevamente.'
             } else if(err.response?.status === 401) {
                 msg = 'No estas autorizado para realizar esta operación'
             } else {

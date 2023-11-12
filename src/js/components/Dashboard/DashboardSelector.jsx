@@ -2,7 +2,7 @@ const ROLES = {
     "Administrador": '1',
     "Responsable de Proyecto": '2',
     "Evaluador": '3',
-    "Referente Evaluador": '4',
+    "Referente de Evaluador": '4',
     "Comisión Asesora": '5',
     "Docente": '6',
   };
@@ -25,6 +25,8 @@ const DashboardSelector = (props) => {
                                 <p>{ Object.keys(ROLES).find(key => ROLES[key] === rol) }</p>
                             </div>
                             )
+                        } else {
+                            return ""
                         }
                     }
                 )

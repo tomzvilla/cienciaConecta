@@ -1,5 +1,6 @@
 import useAxiosFetch from "../../hooks/useAxiosFetch";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import BlankState from "../BlankState/BlankState";
 import Card from "../Card/Card";
 import Spinner from "../Spinner/Spinner";
 import Table from "../Table/Table"
@@ -14,7 +15,7 @@ const headers = [
 const DashboardComisionAsesora = (props) => {
     const axiosPrivate = useAxiosPrivate()
 
-    const { data, isLoading } = useAxiosFetch('/feria/info', axiosPrivate)
+    const { data, isLoading, error, status } = useAxiosFetch('/feria/info', axiosPrivate)
 
     if (data && !isLoading) {
         data.feria.sedes.push(
@@ -28,10 +29,12 @@ const DashboardComisionAsesora = (props) => {
     }
 
     return (
-        <Card title="Feria de Ciencias y Tecnología 2024" wide={true}>
+        <Card title="Resumen de Feria" wide={true}>
             {   
             isLoading ? <Spinner/>
-            :
+
+            : data ? 
+
             <div className="dashboard-comision">
                 <div className="dashboard-comision__details">
                     <p><strong>Próxima instancia: </strong>{data.feria.prox_instancia}</p>
@@ -40,6 +43,8 @@ const DashboardComisionAsesora = (props) => {
 
                 <Table headers={headers} acciones={false} data={data.feria.sedes}/>
             </div>
+                :
+            <BlankState msg="No hay una feria activa ahora mismo. ¡Intentá de nuevo mas tarde!"/>
             }   
         </Card >
     )
