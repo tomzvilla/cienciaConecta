@@ -31,7 +31,6 @@ const VisualizarPostulante = (props) => {
 
     if(postulacionData && categoriaData && nivelesData) {
       postulacion = evaluadorMap(postulacionData.postulacion)
-      console.log(postulacion)
       nombre = postulacion?.datos_docente?.nombre + " " + postulacion?.datos_docente?.apellido ?? 'Cargando...'
       cuil = postulacion?.datos_docente?.cuil ?? 'Cargando...'
     }

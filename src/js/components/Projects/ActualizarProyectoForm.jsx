@@ -63,7 +63,6 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
     const {errors, validateForm, onBlurField} = useFormValidator(formValues)
 
     useEffect(() => {
-        console.log(formValues)
         getEtapa(etapaActual)
     }, [etapaActual])
 

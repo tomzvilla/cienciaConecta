@@ -53,8 +53,6 @@ const CuposModal = (props) => {
         }
     })
 
-    //console.log(niveles)
-
     const generarNiveles = () => {
         const prevCupos = []
         niveles.forEach((nivel) => {

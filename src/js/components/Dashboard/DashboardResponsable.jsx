@@ -19,7 +19,6 @@ const DashboardResponsable = () => {
     let proyectos = []
 
     if(data && categoriesData && levelsData) {
-      console.log(data.proyectos)
       proyectos = data.proyectos.map(obj => {
         const category = categoriesData.categoria.find(element => element._id === obj.categoria)
         const level = levelsData.nivel.find(element => element._id === obj.nivel)

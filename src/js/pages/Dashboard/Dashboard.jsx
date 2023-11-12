@@ -32,7 +32,6 @@ const Dashboard = () => {
 
     const validateRefreshToken = async () => {
         try {
-            console.log('se llamo al refresh')
             await refresh()
         } catch (err) {
             console.log(err)
@@ -40,11 +39,7 @@ const Dashboard = () => {
     }
 
     const validateNewRoles = () => {
-        console.log('se validaron los roles')
-        console.log(userRoles)
         if(location?.state?.newRol === '2' && !userRoles.roles.includes('2')) {
-            console.log('entro al if para agregar el rol')
-
             const newRoles = [...userRoles.roles, '2']
             setUserRoles({
                 roles: newRoles
@@ -53,7 +48,6 @@ const Dashboard = () => {
             setDashboardActivo('2')
         }
         if(!nroProyectos && nroProyectos === 0) {
-            console.log('Entro a borrar el rol')
             const newRoles = [...userRoles.roles].filter(r => r !== '2')
             setUserRoles({
                 roles: newRoles
