@@ -41,7 +41,7 @@ const SedeProvincialForm = (props) => {
             <Spinner />
             :
             (<div className="cupos-modal">   
-                <h2 className='sedes-feria-form__title'>Cupos Provinciales: </h2>
+                <h2 className='cupos-modal__title'>Cupos Provinciales </h2>
                 {niveles && niveles.map((nivel) =>
                     nivel._id !== 0 ? (
                         <div key={nivel._id} className="cupos-modal__nivel"> 

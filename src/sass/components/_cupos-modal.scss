@@ -7,13 +7,19 @@
 
     &__nivel {
         padding: 1rem 2rem;
+    }
 
+    &__title {
+        font-size: 3rem;
+        text-align: center;
+        margin-bottom: 1rem;
     }
     
 
 
     &__button {
         padding-top: 3rem;
+        padding-bottom: 2rem;
         align-self: center;
     }
 
