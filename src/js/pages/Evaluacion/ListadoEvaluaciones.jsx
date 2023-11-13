@@ -61,10 +61,12 @@ const ListadoEvaluaciones = () => {
     if(feria.estado !== ESTADOS.instanciaProvincial_EnExposicion && !isLoading && listadoData?.proyectos) {
         let proyectosFiltrados = []
         if(feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion) {
-            proyectosFiltrados = listadoData?.proyectos.filter(p => parseInt(p.estado) < 3 && !p.exposicion)
+            proyectosFiltrados = listadoData?.proyectos.filter(p => (parseInt(p.estado) === 1 && !p?.evaluacion) || (parseInt(p.estado) === 2 && p.evaluacion ))
             // proyectosFiltrados = listadoData?.proyectos.filter(p => parseInt(p.estado) < 3)
         } else {
-            proyectosFiltrados = listadoData?.proyectos.filter(p => parseInt(p.estado) <= 3 && p.exposicion)
+            console.log(listadoData)
+            proyectosFiltrados = listadoData?.proyectos.filter(p => parseInt(p.estado) === 2 && (parseInt(p.evaluacion.estado) === 3 || p.exposicion))
+            console.log(proyectosFiltrados)
             // proyectosFiltrados = listadoData?.proyectos.filter(p => parseInt(p.estado) >= 3)
         }
         const proyectos = proyectosMapping(proyectosFiltrados)
