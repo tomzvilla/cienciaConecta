@@ -6,8 +6,9 @@ const CardHeader = (props) => {
     const navigate = useNavigate()
 
     const handleClick = () => {
-        const from = location.state?.from || '/dashboard'
-        navigate(from, {replace: true, state: {from:'/evaluar/:id'}})
+        const from = props.goBack || '/dashboard'
+        navigate(from, {replace: true, state: {from:`${location.pathname}`}})
+
     }
 
     return (

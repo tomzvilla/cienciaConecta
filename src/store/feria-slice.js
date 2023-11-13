@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     rubricas: [],
+    listadoFerias: [],
 }
 
 const feriaSlice = createSlice({
@@ -52,6 +53,9 @@ const feriaSlice = createSlice({
         },
         borrarRubricas(state) {
             state.rubricas = []
+        },
+        cargarListadoFerias(state, action) {
+            state.listadoFerias = action.payload
         }
     }
 })

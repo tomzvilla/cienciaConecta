@@ -40,6 +40,7 @@ const ListadoProyectosAsignados = () => {
         isLoading && !proyectosData?.proyectos ?
         <Spinner />
         :
+
         <Card wide={true} header={<CardHeader title={'Listado de proyectos asignados'} wide={true} />}>
             {status !== 204 ?
                 <TablaProyectosReferente headers={headers} />

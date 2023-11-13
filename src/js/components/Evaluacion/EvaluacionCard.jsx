@@ -4,7 +4,7 @@ import Badge from "../Badge/Badge"
 import Button from "../Button/Button"
 import DownloadFile from "../DownloadFile/DownloadFile"
 import Spinner from "../Spinner/Spinner"
-
+import BlankState from "../BlankState/BlankState"
 // hooks
 import { useParams, useNavigate, useLocation } from "react-router"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
@@ -29,7 +29,7 @@ const EvaluacionCard = () => {
     const evaluationMsg = feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 'evaluación teórica regional' : feria?.estado === ESTADOS.instanciaRegional_EnExposicion ? 'evaluación de exposición regional' : 'evaluación de exposición provincial'
     const evaluationMsgMayuscula = feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 'Evaluación Teórica Regional' : feria?.estado === ESTADOS.instanciaRegional_EnExposicion ? 'Evaluación de Exposición Regional' : 'Evaluación de Exposición Provincial' 
     // Si recarga la pagina se hacen estas consultas
-    const { data: proyectoData, isLoading } = useAxiosFetch(`/${endpoint}/pendientes/${id}`, axiosPrivate, !!proyecto)
+    const { data: proyectoData, isLoading, status} = useAxiosFetch(`/${endpoint}/pendientes/${id}`, axiosPrivate, !!proyecto)
     const { data: categoriasData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate, !!proyecto)
     const { data: nivelesData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate, !!proyecto)
 
@@ -121,7 +121,7 @@ const EvaluacionCard = () => {
 
     return(
         proyecto ?
-        <Card title={proyecto.titulo} goBack={true}>
+        <Card title={proyecto.titulo} goBack={'/evaluar'}>
             <div className="evaluacion-card">
                 <div className="evaluacion-card__data">
                     <p>
@@ -164,7 +164,7 @@ const EvaluacionCard = () => {
                             :
                             feria.estado === ESTADOS.instanciaRegional_EnExposicion ?
                             proyecto.evaluadoresRegionales.map( (e, index) =>
-                            <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.evaluacion?.evaluadorId?.length - 1} />)
+                            <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.exposicion?.evaluadorId?.length - 1} />)
                             :
                             proyecto.evaluadoresRegionales.map( (e, index) =>
                             <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.exposicionProvincial?.evaluadorId?.length - 1} />)
@@ -179,7 +179,7 @@ const EvaluacionCard = () => {
                             :
                             feria.estado === ESTADOS.instanciaRegional_EnExposicion ?
                             proyecto.evaluadoresRegionales.map( (e, index) =>
-                            <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.evaluacion?.listo?.length - 1} />)
+                            <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.exposicion?.listo?.length - 1} />)
                             :
                             proyecto.evaluadoresRegionales.map( (e, index) =>
                             <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.exposicionProvincial?.listo?.length - 1} />)
@@ -220,6 +220,9 @@ const EvaluacionCard = () => {
 
             </div>
         </Card>
+        :
+        status >= 400 ?
+        <Card title={'Evaluar proyecto'}> <BlankState msg={'El proyecto no es válido o todavía no comenzó la evaluación'} /> </Card>
         :
         <Spinner/>
         
