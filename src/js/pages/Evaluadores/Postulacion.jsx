@@ -25,9 +25,9 @@ const Postulacion = () => {
             </>
             :
             fecha <= new Date(feria?.fechas_evaluador.fechaInicioPostulacionEvaluadores) ?
-            <Card title={'Postulacion'}><BlankState msg={`La fecha de postulación aún no llegó, por favor esperá hasta el ${formatDate(new Date(feria?.fechas_evaluador.fechaInicioPostulacionEvaluadores))}`}/></Card>
+            <Card title={'Postulación'}><BlankState msg={`Todavía no llego la fecha de postulación, por favor esperá hasta el ${formatDate(new Date(feria?.fechas_evaluador.fechaInicioPostulacionEvaluadores))}`}/></Card>
             :
-            <Card title={'Postulacion'}><BlankState msg={'La fecha de postulación expiró. Esperamos que participe en la siguiente edición de la Feria de Ciencias y Tecnología.'}/></Card>
+            <Card title={'Postulación'}><BlankState msg={'La fecha de postulación expiró. ¡Esperamos tu participación en la próxima Feria de Ciencias y Tecnología!'}/></Card>
             }
         </>
 

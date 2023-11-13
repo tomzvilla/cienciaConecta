@@ -80,7 +80,7 @@ const SeleccionPostulantes = () => {
                         fecha >= new Date(feria?.fechas_evaluador.fechaInicioPostulacionEvaluadores) && fecha <= new Date(feria?.fechas_evaluador.fechaInicioAsignacionProyectos) ?
                         <>
                             {!postulacionesListado ?
-                            <BlankState msg={"Actualmente no hay ninguna postulación. Vuelva más tarde."} /> 
+                            <BlankState msg="Actualmente no hay ninguna postulación, ¡Intentá de nuevo mas tarde!" /> 
                             :
                             <>
                                 <h6 className="table-custom-page__text">Seleccioná los postulantes que serán evaluadores durante la feria</h6>
@@ -90,9 +90,9 @@ const SeleccionPostulantes = () => {
                         </>
                         :
                         fecha <= new Date(feria?.fechas_evaluador.fechaInicioPostulacionEvaluadores) ?
-                        <BlankState msg={`La fecha de postulación aún no llegó, por favor esperá hasta el ${formatDate(new Date(feria?.fechas_evaluador.fechaInicioPostulacionEvaluadores))}`}/>
+                        <BlankState msg={`Todavía no llego la fecha de postulación, por favor esperá hasta el ${formatDate(new Date(feria?.fechas_evaluador.fechaInicioPostulacionEvaluadores))}`}/>
                         :
-                        <BlankState msg={'La fecha de seleccionar postulantes a evaluador expiró. Por favor, indique a los referentes de evaluador que asignen evaluadores a los proyectos.'}/>
+                        <BlankState msg={'La fecha de seleccionar postulantes a evaluador expiró.'}/>
                         }
                 </Card>
             </div>

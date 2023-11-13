@@ -12,7 +12,6 @@ import { feriaActions } from "../../../store/feria-slice"
 import { ETAPAS } from '../../components/Feria/CrearFeriaForm'
 
 const ActualizarFeria = () => {
-
     const axiosPrivate = useAxiosPrivate()
     const dispatch = useDispatch()
     const [etapaActual, setEtapaActual] = useState(ETAPAS.Datos)
@@ -33,11 +32,15 @@ const ActualizarFeria = () => {
       dispatch(feriaActions.cargarRubricas(data.feriaActiva.criteriosEvaluacion))
     }
 
+    const getEtapa = (etapa) => {
+      setEtapaActual(etapa)
+  }
+
     return (
       <>
         <ProgressBar etapas={ETAPAS} etapaActual={etapaActual}/>
         <Metadata title={'Feria'}/>
-        {!data || !sedesData ? (<Spinner />) : (<ActualizarFeriaForm formData={data?.feriaActiva} sedes={sedes}/>)}
+        {!data || !sedesData ? (<Spinner />) : (<ActualizarFeriaForm formData={data?.feriaActiva} sedes={sedes} getEtapa={getEtapa}/>)}
       </>
     )
         
