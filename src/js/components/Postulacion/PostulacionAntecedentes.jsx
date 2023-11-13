@@ -12,7 +12,7 @@ const headers = [
 
 const currentYear = new Date().getFullYear();
 const years = [{nombre: '', id:1}];
-for (let year = currentYear-1; year >= 1900; year--) {
+for (let year = currentYear-1; year >= currentYear - 5; year--) {
     let name = year.toString()
     years.push({
         nombre: name,
