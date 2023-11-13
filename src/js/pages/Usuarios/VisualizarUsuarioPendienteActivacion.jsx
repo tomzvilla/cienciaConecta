@@ -75,7 +75,7 @@ const VisualizarUsuarioPendienteActivacion = () => {
                 }).then((result) => {
                     if(result.isConfirmed || result.isDismissed) {
                         dispatch(pendientesActions.actualizarUsuariosPendientes([usuario._id]))
-                        navigate(location.state?.from || '/dashboard', {replace: true, state: {from:'/activarUsuario/:id'}})
+                        navigate(location.state?.from || '/dashboard', {replace: true, state: {from:`${location.pathname}`}})
     
                     }
                 })

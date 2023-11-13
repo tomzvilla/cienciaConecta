@@ -121,7 +121,7 @@ const EvaluacionCard = () => {
 
     return(
         proyecto ?
-        <Card title={proyecto.titulo} goBack={true}>
+        <Card title={proyecto.titulo} goBack={'/evaluar'}>
             <div className="evaluacion-card">
                 <div className="evaluacion-card__data">
                     <p>
@@ -164,7 +164,7 @@ const EvaluacionCard = () => {
                             :
                             feria.estado === ESTADOS.instanciaRegional_EnExposicion ?
                             proyecto.evaluadoresRegionales.map( (e, index) =>
-                            <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.evaluacion?.evaluadorId?.length - 1} />)
+                            <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.exposicion?.evaluadorId?.length - 1} />)
                             :
                             proyecto.evaluadoresRegionales.map( (e, index) =>
                             <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.exposicionProvincial?.evaluadorId?.length - 1} />)
@@ -179,7 +179,7 @@ const EvaluacionCard = () => {
                             :
                             feria.estado === ESTADOS.instanciaRegional_EnExposicion ?
                             proyecto.evaluadoresRegionales.map( (e, index) =>
-                            <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.evaluacion?.listo?.length - 1} />)
+                            <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.exposicion?.listo?.length - 1} />)
                             :
                             proyecto.evaluadoresRegionales.map( (e, index) =>
                             <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.exposicionProvincial?.listo?.length - 1} />)
