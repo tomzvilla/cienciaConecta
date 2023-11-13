@@ -76,7 +76,7 @@ const AsignarEvaluadores = (props) => {
     }
 
     return (
-        <Card goBack={true} wide={true} title={'Asignar evaluadores a proyecto'}>
+        <Card goBack={`/proyectosParaAsignar`} wide={true} title={'Asignar evaluadores a proyecto'}>
         
         <div className="asignar-evaluadores">
             <div className="asignar-evaluadores__details">

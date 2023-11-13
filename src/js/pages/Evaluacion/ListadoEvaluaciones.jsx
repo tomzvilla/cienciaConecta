@@ -63,7 +63,7 @@ const ListadoEvaluaciones = () => {
         if(feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion) {
             proyectosFiltrados = listadoData?.proyectos.filter(p => (parseInt(p.estado) === 1 && !p?.evaluacion) || (parseInt(p.estado) === 2 && p.evaluacion ))
         } else {
-            proyectosFiltrados = listadoData?.proyectos.filter(p => parseInt(p.estado) === 2 && (parseInt(p.evaluacion.estado) === 3 || p.exposicion))
+            proyectosFiltrados = listadoData?.proyectos.filter(p => (parseInt(p.estado) === 2 && (parseInt(p.evaluacion.estado) === 3 || p.exposicion)) || parseInt(p.estado) === 3 )
         }
         const proyectos = proyectosMapping(proyectosFiltrados)
         dispatch(evaluacionActions.cargarTablaEvaluacionesPendientes(proyectos))
@@ -82,7 +82,7 @@ const ListadoEvaluaciones = () => {
 
     return (
         <div className="table-custom-page">
-            <Card goBack={true} title={titulos[feria?.estado] ?? 'Listado de Evaluaciones'} wide={true}>
+            <Card title={titulos[feria?.estado] ?? 'Listado de Evaluaciones'} wide={true}>
                     {loading ? 
                         <Spinner /> 
                         : parseInt(feria?.estado) < 4 || parseInt(feria?.estado) === 5 || parseInt(feria?.estado) === 7 || parseInt(feria?.estado) === 8 || parseInt(feria?.estado) > 9 ?

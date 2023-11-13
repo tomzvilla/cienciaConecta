@@ -195,7 +195,7 @@ const EvaluacionForm = (props) => {
 
 
     return(
-        <Card title={'Evaluar el Proyecto'} goBack={true}>
+        <Card title={'Evaluar el Proyecto'} goBack={`/evaluar/${projectId}`}>
             {emptyValueAdded && evaluacion.map(rubrica => (
                 <Rubrica key={rubrica._id} display={rubrica._id === rubricaActual} rubrica={rubrica}/>
             ))}
