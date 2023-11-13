@@ -117,6 +117,9 @@ const EvaluacionForm = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        const isValid = validarRubrica(rubricaActual)
+        if(!isValid) return
+        
         const firstTitle = feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? '¿Deseas evaluar este proyecto en la instancia regional?' : feria?.estado === ESTADOS.instanciaRegional_EnExposicion ? '¿Deseas evaluar la exposición de este proyecto en la instancia regional?' : '¿Deseas evaluar la exposición de este proyecto en la instancia provincial?'
         const secondText = feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 'Evaluaste el proyecto con éxito' : feria?.estado === ESTADOS.instanciaRegional_EnExposicion ? 'Evaluaste la exposición regional del proyecto con éxito' : 'Evaluaste la exposición provincial del proyecto con éxito'
         Swal.fire({
@@ -146,6 +149,7 @@ const EvaluacionForm = (props) => {
                         dispatch(evaluacionActions.actualizarRealizadosExposicion(projectId))
                         :
                         dispatch(evaluacionActions.actualizarRealizadosExposicionProvincial(projectId))
+                        
                         navigate(from, {replace: true, state: { from:`${location.pathname}`}})
                         
                     }

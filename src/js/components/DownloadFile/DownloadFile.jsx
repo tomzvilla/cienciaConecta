@@ -32,7 +32,7 @@ const DownloadFile = (props) => {
             Swal.fire({
               title: 'Hubo un problema',
               icon: 'warning',
-              text: 'No se pudo abrir el CV en una nueva pestaña. Habilita las ventanas emergentes en tu navegador para resolver este problema.',
+              text: 'No se pudo abrir el archivo en una nueva pestaña. Habilita las ventanas emergentes en tu navegador para resolver este problema.',
               confirmButtonText: 'OK',
               confirmButtonColor: '#00ACE6'
             })

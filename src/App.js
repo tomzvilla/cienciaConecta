@@ -114,7 +114,10 @@ function App() {
             >
               <Route path='/editarProyecto/:id' element={<ActualizarProyecto/>}/> 
             </Route>
-
+            <Route element={<RequireAuth allowedRoles={[ ROLES.Evaluador, ROLES.RefEvaluador]}/>}>
+              <Route path='/evaluar' element={<ListadoEvaluaciones/>}/>
+              <Route path='/evaluar/:id' element={<EvaluacionCard/>}/>
+            </Route>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]}/>}>
               {/* Rutas con auth liberadas de estados */}
               
@@ -122,9 +125,6 @@ function App() {
               <Route path='/proyecto/:id' element={<VisualizarProyecto/>}/>
               <Route path='/perfil' element={<Profile/>}/>
 
-
-              <Route path='/evaluar' element={<ListadoEvaluaciones/>}/>
-              <Route path='/evaluar/:id' element={<EvaluacionCard/>}/>
               <Route path='/evaluar/:id/iniciar' element={<Evaluacion/>}/>
               <Route path='/evaluacion/:id' element={<EvaluacionCardConsulta />}/>
               <Route path='/evaluacion/:id/consultar' element={<EvaluacionFormConsulta />}/>
