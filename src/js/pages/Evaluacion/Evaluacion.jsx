@@ -15,7 +15,6 @@ const Evaluacion = () => {
     const location = useLocation()
     const navigate = useNavigate()
     const from = location?.state?.from || `/dashboard`
-    
     const feria = useSelector(state => state.instancias.feria)
     const evaluationMsg = feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 'evaluación teórica en instancia regional' : feria?.estado === ESTADOS.instanciaRegional_EnExposicion ? 'evaluación de exposición en instancia regional' : 'evaluación de exposición en instancia provincial'
     const endpoint = feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 'evaluacion' : feria?.estado === ESTADOS.instanciaRegional_EnExposicion ? 'exposicion' : 'exposicion-provincial'

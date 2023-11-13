@@ -5,33 +5,25 @@ import Pagination from "../Pagination/Pagination";
 import BlankState from "../BlankState/BlankState";
 // hooks
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom"
 import { useState } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import Swal from "sweetalert2";
 import { pendientesActions } from "../../../store/pendiente-slice";
 
-const pageSize = 5
+const pageSize = 10
 
 const TablaActivacion = (props) => {
 
-    //const listadoEvaluaciones = useSelector(state => state.evaluacion.listadoEvaluaciones)
     const pendientes = useSelector(state => state.pendientes.listadoPendientes)
-    const navigate = useNavigate()
+    const selectedFilas = useSelector(state => state.pendientes.selectedRows)
     const dispatch = useDispatch()
     const axiosPrivate = useAxiosPrivate()
-    const [selectedRows, setSelectedRows] = useState([])
-
-    const handleVolver = () => {
-        const from = props.location.state?.from || '/dashboard'
-        navigate(from, {replace: true, state: {from:'/evaluar'}})
-    }
 
     const toggleRowSelection = (usuarioId) => {
-        if (selectedRows.includes(usuarioId)) {
-          setSelectedRows(selectedRows.filter((id) => id !== usuarioId));
+        if (selectedFilas.includes(usuarioId)) {
+            dispatch(pendientesActions.cargarSelectedRows(selectedFilas.filter((id) => id !== usuarioId)))
         } else {
-          setSelectedRows([...selectedRows, usuarioId]);
+            dispatch(pendientesActions.cargarSelectedRows([...selectedFilas, usuarioId]))
         }
     }
 
@@ -49,7 +41,7 @@ const TablaActivacion = (props) => {
         try {
             const response = await axiosPrivate.post(`/auth/alta`,
 
-                JSON.stringify({usuarios: selectedRows}),
+                JSON.stringify({usuarios: selectedFilas}),
                 {
                     headers: {'Content-Type': 'application/json'},
                     withCredentials: true
@@ -81,7 +73,7 @@ const TablaActivacion = (props) => {
 
 
     const handleSeleccion = () => {
-        if(selectedRows.length === 0) {
+        if(selectedFilas.length === 0) {
             Swal.fire({
                 text: '¡No puede activar usuarios sin marcar ninguno!',
                 title: 'Error al activar usuarios',
@@ -112,8 +104,8 @@ const TablaActivacion = (props) => {
                     confirmButtonColor: '#00ACE6',
                 }).then((result) => {
                     if(result.isConfirmed || result.isDismissed) {
-                        dispatch(pendientesActions.actualizarUsuariosPendientes(selectedRows))
-                        setSelectedRows([])
+                        dispatch(pendientesActions.actualizarUsuariosPendientes(selectedFilas))
+                        dispatch(pendientesActions.cargarSelectedRows([]))
                         
                     }
                 })
@@ -136,7 +128,7 @@ const TablaActivacion = (props) => {
 
                 <tbody className="table__body">
                     {pendientes && currentTableData.map((data, index) => {
-                        const isChecked = selectedRows.includes(data._id);
+                        const isChecked = selectedFilas.includes(data._id);
                         return (
                             <tr key={data._id} className="table-body-row">
                                 {props.headers.map(header => {
@@ -163,10 +155,6 @@ const TablaActivacion = (props) => {
             </table>
             <Pagination currentPage={currentPage} totalCount={pendientes.length} pageSize={pageSize} onPageChange={page => setCurrentPage(page)} />
             <div className="button-container">
-                <Button 
-                    text='Volver' 
-                    onClickHandler={handleVolver}
-                />
                 <Button 
                     text='Seleccionar' 
                     onClickHandler={handleSeleccion}

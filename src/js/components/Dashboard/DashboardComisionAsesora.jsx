@@ -17,15 +17,20 @@ const DashboardComisionAsesora = (props) => {
 
     const { data, isLoading, error, status } = useAxiosFetch('/feria/info', axiosPrivate)
 
+    let sedes = []
+
     if (data && !isLoading) {
-        data.feria.sedes.push(
-            {
-                nombre: "Total:",
-                cantidadProyectosPresentados: data.feria.total_proyectosPresentados,
-                cantidadEvaluadores: data.feria.total_evaluadores,
-                cantidadProyectosEvaluados: data.feria.total_proyectosEvaluados,
-            }
-        )
+        sedes = data.feria.sedes
+        if(!data.feria.sedes.find(s => s.nombre === "Total:")) {
+            sedes.push(
+                {
+                    nombre: "Total:",
+                    cantidadProyectosPresentados: data.feria.total_proyectosPresentados,
+                    cantidadEvaluadores: data.feria.total_evaluadores,
+                    cantidadProyectosEvaluados: data.feria.total_proyectosEvaluados,
+                }
+            )
+        }
     }
 
     return (
@@ -41,7 +46,7 @@ const DashboardComisionAsesora = (props) => {
                     <p><strong>Fin instancia {data.feria.instancia_actual}</strong>: {data.feria.prox_fecha}</p>
                 </div>
 
-                <Table headers={headers} acciones={false} data={data.feria.sedes}/>
+                <Table headers={headers} acciones={false} data={sedes}/>
             </div>
                 :
             <BlankState msg="No hay una feria activa ahora mismo. ¡Intentá de nuevo mas tarde!"/>

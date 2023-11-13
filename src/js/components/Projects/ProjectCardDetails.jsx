@@ -25,22 +25,26 @@ const ProjectCardDetails = (props) => {
                     <strong>Descripción: </strong> 
                     {props.datos.descripcion}
                 </p>
-                <p className="project-card-details__badges">
-                    <strong>Categoria: </strong> 
-                    <Badge  key={cat?._id} type={cat}/>
+                <p className="project-card-details__detail">
+                    <strong>Estado: </strong> 
+                    {props.datos.nombreEstado}
                 </p>
                 <p className="project-card-details__detail">
                     <strong>Escuela: </strong> 
                     {props.datos.nombreEscuela}
                 </p>
-                <p className="project-card-details__badges">
-                    <strong>Nivel: </strong> 
-                    <Badge  key={level?._id} type={level}/>
-                </p>
-                <p className="project-card-details__detail">
-                    <strong>Estado: </strong> 
-                    {props.datos.nombreEstado}
-                </p>
+                <div className="project-card-details__badge-container">
+                    <p className="project-card-details__badges">
+                        <strong>Nivel: </strong> 
+                        <Badge  key={level?._id} type={level}/>
+                    </p>
+                    <p className="project-card-details__badges">
+                        <strong>Categoria: </strong> 
+                        <Badge  key={cat?._id} type={cat}/>
+                    </p>
+                </div>
+                
+                
         </div>
     );
 }
