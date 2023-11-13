@@ -135,12 +135,10 @@ const SedesFeriaForm = (props) => {
     const confirmarCupo = (cupos) => {
         setShowModal(false)
         const prevCupos = [...formValues.cupos]
-
         for (const cupo of cupos) {
-            const existingIndex = prevCupos.findIndex(c1 => c1.sede === cupo.id && c1.nivel === cupo.nivel);
-            
+            const existingIndex = prevCupos.findIndex(c1 => c1.sede === cupo.sede && c1.nivel === cupo.nivel);
             if (existingIndex !== -1) {
-              prevCupos[existingIndex].cantidad = Math.abs(cupo.cantidad);
+                prevCupos[existingIndex].cantidad = Math.abs(cupo.cantidad);
             } else {
                 prevCupos.push(cupo);
             }

@@ -40,6 +40,9 @@ const FormEditarPerfil = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true})
+        if(!isValid) return
+        
         Swal.fire({
             title: '¿Deseas actualizar tus datos?',
             icon: 'question',

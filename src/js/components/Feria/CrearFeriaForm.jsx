@@ -331,7 +331,10 @@ const CrearFeriaForm = (props) => {
     }
 
     const handleDeleteSede = (nombreSede) => {
-        setFormValues({...formValues, establecimientos: formValues.establecimientos.filter(obj => obj.nombre !== nombreSede)})
+        const sede = formValues.establecimientos.find(obj => obj.nombre === nombreSede)
+        const prevCupos = [...formValues.cupos]
+        const newCupos = prevCupos.filter(c => c.sede !== sede._id)
+        setFormValues({...formValues, establecimientos: formValues.establecimientos.filter(obj => obj.nombre !== nombreSede), cupos: newCupos})
     }
 
 

@@ -18,7 +18,10 @@ const Postulacion = () => {
     return (
         <>
             <Metadata title={'Postularme como Evaluador'}/>
-            {fecha >= new Date(feria?.fechas_evaluador.fechaInicioPostulacionEvaluadores) && fecha < new Date(feria?.fechas_evaluador.fechaFinPostulacionEvaluadores) ?
+            { !feria ?
+            <Card title={'Postulacion'}><BlankState msg={`No hay ninguna Feria de Ciencias y Tecnología activa en este momento. Podes acceder a nuestros canales oficiales para tener más detalles del calendario.`}/></Card>
+            :
+            fecha >= new Date(feria?.fechas_evaluador.fechaInicioPostulacionEvaluadores) && fecha < new Date(feria?.fechas_evaluador.fechaFinPostulacionEvaluadores) ?
             <>
                 {isDocente === null && <DocenteEvaluadorCard setIsDocente={setIsDocente} />}
                 {isDocente !== null && (<PostulacionDocenteForm isDocente={isDocente}/>)}
