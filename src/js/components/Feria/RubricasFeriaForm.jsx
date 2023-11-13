@@ -34,6 +34,7 @@ const RubricasFeriaForm = (props) => {
     const ponderacionRubricasTeoricas = sumarPonderacionesTeoricas()
     const ponderacionRubricasExpo = sumarPonderacionesExpo()
 
+
     const abrirOpciones = (e, rubrica, criterio) => {
         e.preventDefault()
         setSelectedCriterio(criterio)
@@ -61,17 +62,16 @@ const RubricasFeriaForm = (props) => {
                         />
                     )
                 )}
-                {rubricasAlmacenadas.some(r => !r.exposicion) && ponderacionRubricasTeoricas !== 100 ? <div className="feria-rubrica-card__error">La suma de las ponderaciones de las rúbricas teóricas debe dar 100</div> : null}
-                {rubricasAlmacenadas.some(r => r.exposicion) && ponderacionRubricasExpo !== 100 ? <div className="feria-rubrica-card__error">La suma de las ponderaciones de las rúbricas de exposición debe dar 100</div> : null}
+                {!rubricasAlmacenadas.some(r => !r.exposicion) ? <div className="feria-rubrica-card__error">Se debe ingresar como mínimo una rúbrica teórica</div> : null}
+                {!rubricasAlmacenadas.some(r => r.exposicion) ? <div className="feria-rubrica-card__error">Se debe ingresar como mínimo una rúbrica de exposición</div> : null}      
+                { ponderacionRubricasTeoricas !== 100 ? <div className="feria-rubrica-card__error">La suma de las ponderaciones de las rúbricas teóricas debe dar 100</div> : null}
+                { ponderacionRubricasExpo !== 100 ? <div className="feria-rubrica-card__error">La suma de las ponderaciones de las rúbricas de exposición debe dar 100</div> : null}
             </div>
 
 
             <div className="feria-rubrica-form__nueva-rubrica">
                 <NuevaRubrica />  
             </div>
-
-
-            
         </>
     )
 }

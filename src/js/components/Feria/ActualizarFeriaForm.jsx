@@ -218,7 +218,7 @@ const ActualizarFeriaForm = (props) => {
                     confirmButtonColor: '#00ACE6',
                 }).then((result) => {
                     if(result.isConfirmed || result.isDismissed) { 
-                        navigate(from, {replace: true, state: {newRol:'2', from:'/feria'}})
+                        navigate(from, {replace: true, state: { from:'/feria' }})
                         
                     }
                 })
