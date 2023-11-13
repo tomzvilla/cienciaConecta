@@ -62,12 +62,8 @@ const ListadoEvaluaciones = () => {
         let proyectosFiltrados = []
         if(feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion) {
             proyectosFiltrados = listadoData?.proyectos.filter(p => (parseInt(p.estado) === 1 && !p?.evaluacion) || (parseInt(p.estado) === 2 && p.evaluacion ))
-            // proyectosFiltrados = listadoData?.proyectos.filter(p => parseInt(p.estado) < 3)
         } else {
-            console.log(listadoData)
             proyectosFiltrados = listadoData?.proyectos.filter(p => parseInt(p.estado) === 2 && (parseInt(p.evaluacion.estado) === 3 || p.exposicion))
-            console.log(proyectosFiltrados)
-            // proyectosFiltrados = listadoData?.proyectos.filter(p => parseInt(p.estado) >= 3)
         }
         const proyectos = proyectosMapping(proyectosFiltrados)
         dispatch(evaluacionActions.cargarTablaEvaluacionesPendientes(proyectos))
