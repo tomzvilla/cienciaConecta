@@ -33,7 +33,7 @@ const VisualizarListadoProyectos = () => {
         } else {
           return null
         }
-      }).filter(project => project !== null)
+      }).filter(project => project !== null).filter(project => parseInt(project.estado) !== 9)
     }
     
 
