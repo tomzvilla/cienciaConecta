@@ -19,7 +19,7 @@ const DownloadFile = (props) => {
 
     const handleDownload = async (link) => {
       
-        const fileURL = await downloadFile(link);
+        const fileURL = props.file ? await downloadFile(link) : await cargarCv();
         if (fileURL) {
           try {
             const pdfWindow = window.open();
@@ -95,7 +95,7 @@ const DownloadFile = (props) => {
     const handleDl = async () => {
         props.video ? setLoading(false) : setLoading(true)
 
-        const response = props.file ? await handleDownload(props.file) : props.cv ? await cargarCv() : handleOpen(props.video);
+        const response = props.file ? await handleDownload(props.file) : props.cv ? await handleDownload() : handleOpen(props.video);
 
         if(response) {
           setLoading(false)
