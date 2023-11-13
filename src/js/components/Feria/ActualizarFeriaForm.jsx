@@ -178,6 +178,14 @@ const ActualizarFeriaForm = (props) => {
             })
         })
 
+        if(criteriosEvaluacion.some(r => r.exposicion)) {
+            errorMessage = 'Se debe incluir por lo mínimo una rúbrica de exposición'
+        }
+
+        if(criteriosEvaluacion.some(r => !r.exposicion)) {
+            errorMessage = 'Se debe incluir por lo mínimo una rúbrica teórica'
+        }
+
         return errorMessage
 
     }
@@ -218,7 +226,7 @@ const ActualizarFeriaForm = (props) => {
                     confirmButtonColor: '#00ACE6',
                 }).then((result) => {
                     if(result.isConfirmed || result.isDismissed) { 
-                        navigate(from, {replace: true, state: {newRol:'2', from:'/feria'}})
+                        navigate(from, {replace: true, state: { from:'/feria' }})
                         
                     }
                 })
@@ -320,7 +328,14 @@ const ActualizarFeriaForm = (props) => {
             navigate(from, { replace: true })
         }
         if(etapaActual === ETAPAS.Instancias) setEtapaActual(ETAPAS.Datos)
-        if(etapaActual === ETAPAS.SedesRegionales) setEtapaActual(ETAPAS.Instancias)
+        if(etapaActual === ETAPAS.SedesRegionales) {
+            setFormValues({
+                ...formValues,
+                departamento: '',
+                localidad: '',
+            })
+            setEtapaActual(ETAPAS.Instancias)
+        } 
         if(etapaActual === ETAPAS.SedeProvincial) setEtapaActual(ETAPAS.SedesRegionales)
         if(etapaActual === ETAPAS.Criterios) setEtapaActual(ETAPAS.SedeProvincial)
     }
