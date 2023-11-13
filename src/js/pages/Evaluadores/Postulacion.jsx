@@ -17,7 +17,6 @@ const Postulacion = () => {
     const feria = useSelector(state => state.instancias.feria)
     const fecha = new Date()
     const { auth } = useAuth()
-    console.log(auth)
 
     return (
         <>
