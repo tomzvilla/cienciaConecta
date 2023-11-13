@@ -1868,6 +1868,15 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   margin-top: 0;
   align-self: center;
 }
+.evaluacion-card__puntaje {
+  font-size: 2.3rem;
+  color: #757575;
+  font-weight: 300;
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
 .evaluacion-card__files {
   grid-column: 2/3;
   grid-row: 1/3;

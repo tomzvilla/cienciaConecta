@@ -40,6 +40,7 @@ const headers = [
     };
 
     if (!isLoading && usuarios) {
+        console.log(usuarios)
         usuariosPendientes = usuarios?.usuarios?.map(element => {
             element.nombre = element.datos_docente.nombre + " " + element.datos_docente.apellido 
             element.cuil = formatCuil(element.cuil)

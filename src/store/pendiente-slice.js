@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     listadoPendientes: [],
+    selectedRows: [],
 }
 
 const pendientesSlice = createSlice({
@@ -14,6 +15,9 @@ const pendientesSlice = createSlice({
         actualizarUsuariosPendientes(state, action) {
             const nuevoListado = state.listadoPendientes.filter(p => !action.payload.includes(p._id))
             state.listadoPendientes = nuevoListado
+        },
+        cargarSelectedRows(state, action) {
+            state.selectedRows = action.payload
         }
     }
 })

@@ -31,6 +31,17 @@
         }
     }
 
+    &__puntaje {
+        font-size: 2.3rem;
+        color: $color-grey-dark;
+        font-weight: 300;
+        margin-top: 2rem;
+
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
 
 
     &__files {

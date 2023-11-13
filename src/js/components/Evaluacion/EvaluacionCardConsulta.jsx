@@ -95,7 +95,7 @@ const EvaluacionCardConsulta = () => {
 
     return(
         !isLoading ?
-        <Card title={proyecto.titulo}>
+        <Card title={proyecto.titulo} goBack={'/promoverProyectos'}>
             <div className="evaluacion-card">
                 <div className="evaluacion-card__data">
                     <p>
@@ -114,17 +114,15 @@ const EvaluacionCardConsulta = () => {
                         <strong >Estado: </strong> 
                         {proyecto.nombreEstado}
                     </p>
-
-
                 </div>
                 
                 <div className="evaluacion-card__files">
-                    <DownloadFile onClick={() => handleDownload('informeTrabajo')} name="Informe de trabajo" img={require("../../../assets/tarjeta.png")}/>
-                    <DownloadFile onClick={() => handleDownload('carpetaCampo')} name="Carpeta de Campo" img={require("../../../assets/tarjeta.png")}/>
-                    <DownloadFile onClick={() => handleDownload('registroPedagogico')} name="Registro Pedagógico" img={require("../../../assets/tarjeta.png")}/>
-                    <DownloadFile onClick={() => handleOpen(proyecto.videoPresentacion)} name="Video" img={require("../../../assets/tarjeta.png")}/>
+                    <DownloadFile file='informeTrabajo'  name="Informe de trabajo" img={require("../../../assets/tarjeta.png")}/>
+                    <DownloadFile file='carpetaCampo'  name="Carpeta de Campo" img={require("../../../assets/tarjeta.png")}/>
+                    <DownloadFile file='registroPedagogico' name="Registro Pedagógico" img={require("../../../assets/tarjeta.png")}/>
+                    <DownloadFile video={proyecto.videoPresentacion}  name="Video" img={require("../../../assets/tarjeta.png")}/>
                 </div>
-                <div>
+                <div className="evaluacion-card__puntaje">
                     <p>Puntaje: {puntaje}</p>
                 </div>
                 <div className="button-container">
