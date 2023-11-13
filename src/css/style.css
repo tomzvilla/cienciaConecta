@@ -76,6 +76,10 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .sidebar-link--dropdown {
   padding-left: 2.5rem;
 }
+.sidebar-link--active {
+  background-color: #D9D9D9;
+  color: #00ACE6;
+}
 .sidebar-link:hover {
   background-color: #D9D9D9;
   color: #00ACE6;
@@ -101,6 +105,9 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   width: 4rem;
   filter: brightness(0) invert(50%) sepia(0%) saturate(1527%) hue-rotate(229deg) brightness(90%) contrast(89%);
 }
+.sidebar-link__image--active {
+  filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
+}
 .sidebar-link__text {
   padding-left: 1rem;
   color: #757575;
@@ -110,6 +117,9 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 .sidebar-link__text--dropdown {
   font-size: 2.2rem;
+}
+.sidebar-link__text--active {
+  color: #00ACE6;
 }
 .sidebar-link__link {
   color: inherit;
@@ -138,8 +148,9 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 .button:hover {
   transition: all 200ms ease-out;
-  box-shadow: 0px 1.4rem 2rem rgba(0, 0, 0, 0.34);
+  box-shadow: 0rem 1rem 4rem rgba(0, 0, 0, 0.5);
   background-color: #00ACE6;
+  border: 1px solid #ffffff;
   color: #ffffff;
 }
 .button:focus {
@@ -152,9 +163,10 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 .button--activo:hover {
   transition: all 200ms ease-out;
-  box-shadow: 0px 1.4rem 2rem rgba(0, 0, 0, 0.34);
+  box-shadow: 0rem 1rem 4rem rgba(0, 0, 0, 0.5);
   background-color: #ffffff;
   color: #00ACE6;
+  border: none;
 }
 .button--activo:focus {
   transition: all 400ms ease-out;
@@ -167,7 +179,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 .button--borrar:hover {
   transition: all 200ms ease-out;
-  box-shadow: 0px 1.4rem 2rem rgba(0, 0, 0, 0.34);
+  box-shadow: 0rem 1rem 4rem rgba(0, 0, 0, 0.5);
   background-color: #ffffff;
   color: #E63B0B;
 }
@@ -819,6 +831,30 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   grid-column: 1/4;
 }
 
+.feria-card {
+  background-color: #ffffff;
+  width: 70%;
+  padding: 3rem 6rem;
+  box-shadow: 0px 45px 77px 27px rgba(0, 0, 0, 0.25);
+  border-radius: 2rem;
+  margin: 0 auto;
+  margin-bottom: 8rem;
+  display: grid;
+  grid-template-columns: repeat(1fr, 2);
+  grid-template-rows: repeat(1fr, 2);
+}
+.feria-card__details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 5rem;
+  color: #757575;
+  padding: 2rem;
+  font-size: 2.5rem;
+}
+.feria-card__details > p {
+  margin-top: 1rem;
+}
+
 .project-card-header {
   width: 100%;
   display: flex;
@@ -850,24 +886,25 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 
 .project-card-details {
-  color: #757575;
-  padding: 0 2rem;
-  padding-top: 2rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-column-gap: 5rem;
+  color: #757575;
+  padding: 2rem;
   font-size: 2.5rem;
 }
 .project-card-details__detail {
   margin-top: 1rem;
+  grid-column: 1/2;
 }
 .project-card-details__badges {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
 }
-.project-card-details__badges--first {
-  margin-top: 3rem;
+.project-card-details__badge-container {
+  grid-column: 2/3;
+  grid-row: 1/4;
 }
 
 .image-link {

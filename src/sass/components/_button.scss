@@ -23,9 +23,9 @@
 
     &:hover {
         transition: all 200ms ease-out;
-        box-shadow: 0px 1.4rem 2rem rgba(0, 0, 0, .34);
+        box-shadow: 0rem 1rem 4rem rgba(0, 0, 0, .5);
         background-color: $color-primary;
-        
+        border: 1px solid $color-white;
         color: $color-white;
     }
 
@@ -40,10 +40,11 @@
 
         &:hover {
             transition: all 200ms ease-out;
-            box-shadow: 0px 1.4rem 2rem rgba(0, 0, 0, .34);
+            box-shadow: 0rem 1rem 4rem rgba(0, 0, 0, .5);
             background-color: $color-white;
         
             color: $color-primary;
+            border: none;
         }
 
         &:focus {
@@ -59,7 +60,7 @@
 
         &:hover {
             transition: all 200ms ease-out;
-            box-shadow: 0px 1.4rem 2rem rgba(0, 0, 0, .34);
+            box-shadow: 0rem 1rem 4rem rgba(0, 0, 0, .5);
             background-color: $color-white;
         
             color: $color-red;

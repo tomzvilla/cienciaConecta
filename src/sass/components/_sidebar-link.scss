@@ -10,6 +10,11 @@
         padding-left: 2.5rem;
     }
 
+    &--active {
+        background-color: $color-grey-light;
+        color: $color-primary;
+    }
+
 
     &:hover {
         background-color: $color-grey-light;
@@ -23,7 +28,6 @@
     &:hover &__image {
         width: 4rem;
         filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
-        
     }
 
     &:active {
@@ -45,6 +49,10 @@
     &__image {
         width: 4rem;
         filter: brightness(0) invert(50%) sepia(0%) saturate(1527%) hue-rotate(229deg) brightness(90%) contrast(89%);
+
+        &--active {
+            filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
+        }
     }
 
     &__text {
@@ -56,6 +64,10 @@
 
         &--dropdown {
             font-size: 2.2rem;
+        }
+
+        &--active {
+            color: $color-primary;
         }
         
     }

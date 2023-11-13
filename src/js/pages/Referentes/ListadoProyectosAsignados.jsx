@@ -3,6 +3,7 @@ import TablaProyectosReferente from "../../components/TablaProyectosReferente/Ta
 import Spinner from "../../components/Spinner/Spinner"
 import Card from "../../components/Card/Card"
 import BlankState from "../../components/BlankState/BlankState"
+
 // hooks
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
@@ -15,9 +16,8 @@ import CardHeader from "../../components/Card/CardHeader"
 const headers = [
     {name: 'Título' , value: 'titulo'},
     {name: 'Nivel' , value: 'nivel'},
-    {name: 'Categoría' , value: 'categoria'},
-]
-
+    {name: 'Categoría' , value: 'categoria'},]
+    
 const ListadoProyectosAsignados = () => {
     const axiosPrivate = useAxiosPrivate()
     const dispatch = useDispatch()
@@ -36,12 +36,11 @@ const ListadoProyectosAsignados = () => {
     const feria = useSelector(state => state.instancias.feria)
     const fecha = new Date()
 
-
     return (
         isLoading && !proyectosData?.proyectos ?
         <Spinner />
         :
-        <Card wide={true} header={<CardHeader title={'Listado de proyectos asignados'} wide={true} goBack={true}/>}>
+        <Card wide={true} header={<CardHeader title={'Listado de proyectos asignados'} wide={true} />}>
             {status !== 204 ?
                 <TablaProyectosReferente headers={headers} />
                 :
@@ -52,7 +51,6 @@ const ListadoProyectosAsignados = () => {
             }
         </Card>
     )
-
 }
 
 export default ListadoProyectosAsignados

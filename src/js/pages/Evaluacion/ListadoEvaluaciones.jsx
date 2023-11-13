@@ -84,7 +84,7 @@ const ListadoEvaluaciones = () => {
 
     return (
         <div className="table-custom-page">
-            <Card goBack={true} title={titulos[feria?.estado] ?? 'Listado de Evaluaciones'} wide={true}>
+            <Card title={titulos[feria?.estado] ?? 'Listado de Evaluaciones'} wide={true}>
                     {loading ? 
                         <Spinner /> 
                         : parseInt(feria?.estado) < 4 || parseInt(feria?.estado) === 5 || parseInt(feria?.estado) === 7 || parseInt(feria?.estado) === 8 || parseInt(feria?.estado) > 9 ?
