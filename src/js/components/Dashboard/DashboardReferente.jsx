@@ -24,8 +24,8 @@ const DashboardReferente = (props) => {
                 {data.referente.instancia_actual === "Regional" ? 
                     <div className="dashboard-referente__details">
                         <h4><strong>Proyectos</strong></h4>
-                        <p><strong>Proyectos pendientes de asignación: </strong>{data.referente.cant_proyectos_pendientes_asignacion}</p>
-                        <p><strong>Proyectos en la sede: </strong>{data.referente.cant_proyectos_sede}</p>
+                        <p><strong>Proyectos pendientes de evaluación: </strong>{data.referente.cant_proyectos_por_evaluar_regional}</p>
+                        <p><strong>Proyectos pendientes de confirmación: </strong>{data.referente.cant_proyectos_por_confirmar_regional}</p>
                         <p><strong>Cantidad de evaluadores asignados: </strong>{data.referente.evaluadores.length} </p>
                     </div>
                     :

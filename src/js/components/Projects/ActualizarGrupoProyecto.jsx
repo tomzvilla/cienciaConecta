@@ -67,7 +67,7 @@ const ActualizarGrupoProyecto = ({ data, handleAddAlumno, handleDeleteAlumno, fo
             <AddAlumno  handleChange={handleChange} onBlurField={onBlurField} alumno={alumno} errors={errors} handleAdd={handleAdd}/>
             
 
-            {formErrors.dirty && formErrors.error && <small>{formErrors.message}</small>}
+            {formErrors.dirty && formErrors.error && <small className='file-field__error'>{formErrors.message}</small>}
         </div>
     )
 }

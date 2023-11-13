@@ -31,7 +31,7 @@ const DashboardEvaluador= () => {
                 <div className="dashboard-evaluador__proyectos">
                     <h4>Proyectos</h4>
                     <p>Asignados: {evaluador.cant_proyectos_asignados ? evaluador.cant_proyectos_asignados : 0}</p>
-                    <p>Pendientes de evaluación: {evaluador.cant_proyectos_pendientes ? evaluador.cant_proyectos_pendientes : 0}</p>
+                    <p>En proceso de evaluación: {evaluador.cant_proyectos_pendientes ? evaluador.cant_proyectos_pendientes : 0}</p>
                 </div>
                 
                 <div className="dashboard-evaluador__tabla">
