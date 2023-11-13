@@ -6,7 +6,6 @@ const PostulanteHeader = (props) => {
 
     const handleClick = () => {
         const from = location.state?.from || '/dashboard'
-        console.log(from)
         navigate(from, {replace: true, state: {from:`${location.pathname}`}})
     }
     
