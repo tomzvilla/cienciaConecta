@@ -21,8 +21,6 @@ const EvaluacionForm = (props) => {
     const navigate = useNavigate()
     const { auth } = useAuth()
     const from = location?.state?.from || 'dashboard'
-    console.log(from)
-    console.log(location)
     // TODO iniciar evaluacion
     const evaluaciones = useSelector(state => state.evaluacion.criteriosConValores)
     const devoluciones = useSelector(state => state.evaluacion.devoluciones)
