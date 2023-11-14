@@ -4,8 +4,8 @@ import SelectField from "../SelectField/SelectField"
 const FiltroPromoverProyectos = (props) => {
     return (        
         <>
-            <div className="postulacion-form">
-                {props.sedes && <div className="postulacion-form__input">
+            <div className="promover-proyectos">
+                {props.sedes && <div className="promover-proyectos__input">
                     <SelectField
                         label='Sede: ' 
                         name='sedeSeleccionada'
@@ -16,7 +16,7 @@ const FiltroPromoverProyectos = (props) => {
                         required={true}
                     />
                 </div>}
-                <div className="postulacion-form__input">
+                <div className="promover-proyectos__input">
                     <SelectField
                         label='Nivel: ' 
                         name='nivelSeleccionado'
@@ -27,7 +27,7 @@ const FiltroPromoverProyectos = (props) => {
                         required={true}
                     />
                 </div>
-                <div className="postulacion-form__input">
+                <div className="promover-proyectos__input">
                     <SelectField
                         label='Categoría: ' 
                         name='categoria'

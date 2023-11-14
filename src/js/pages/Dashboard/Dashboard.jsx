@@ -65,8 +65,6 @@ const Dashboard = () => {
         ejecutar()
     }, [])
 
-    
-
     return (
         loadingRoles ?
         <Spinner />
@@ -75,12 +73,9 @@ const Dashboard = () => {
             <Metadata title={'Feria'}/>
             <div className="dashboard">
                 <h1 className="dashboard__title">Feria de Ciencias y Tecnología {new Date().getFullYear()}</h1>
-
                 {!rolesInicial.some(role => userRoles.roles.includes(role)) ?
                     <DashboardInicioFeria /> 
-                    
                     : 
-
                     <>
                         <DashboardSelector roles={userRoles.roles} dashboardActivo={dashboardActivo} setDashboardActivo={setDashboardActivo}/>
 
