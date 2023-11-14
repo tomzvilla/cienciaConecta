@@ -77,7 +77,7 @@ const ActualizarEtapaRegionalForm = (props) => {
             </div>
             <div className='edit-project-form__input'>
                 <FileField
-                    label='Registro Pedagogico: ' 
+                    label='Registro Pedagógico: ' 
                     name='registroPedagogico'
                     onChange={handleFileChange}
                     onBlur={onBlurField}

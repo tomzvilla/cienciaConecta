@@ -333,7 +333,7 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
                 }
                 Swal.fire({
                   html: msg,
-                  title: 'Fallo la actualización',
+                  title: 'Falló la actualización',
                   icon: 'error',
                   confirmButtonText: 'OK',
                   confirmButtonColor: '#00ACE6',

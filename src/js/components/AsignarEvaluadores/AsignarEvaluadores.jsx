@@ -36,7 +36,7 @@ const AsignarEvaluadores = (props) => {
             if(result.isConfirmed) {
                 const success = await asignarEvaluadores()
                 if(success) Swal.fire({
-                    title: 'Evaluadores asignados!',
+                    title: '¡Evaluadores asignados!',
                     text: 'Asignaste los evaluadores al proyecto con éxito',
                     icon: 'success',
                     confirmButtonText: 'OK',
@@ -84,7 +84,7 @@ const AsignarEvaluadores = (props) => {
                     <strong> Título: {" "}</strong> { " " + proyecto.titulo}
                 </p>
                 <p>
-                   <strong> Categoria: </strong><Badge type={proyecto.categoria} />  
+                   <strong> Categoría: </strong><Badge type={proyecto.categoria} />  
                 </p>
                 <p>
                     <strong>Nivel: </strong><Badge type={proyecto.nivel} />
