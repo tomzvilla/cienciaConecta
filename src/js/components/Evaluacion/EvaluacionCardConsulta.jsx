@@ -125,13 +125,14 @@ const EvaluacionCardConsulta = () => {
                 <div className="evaluacion-card__puntaje">
                     <p>Puntaje: {puntaje}</p>
                 </div>
-                <div className="button-container">
-                    <Button 
-                        text='Ver evaluacion' 
-                        onClickHandler={verEvaluacion}
-                        activo={true}
-                    />
+                <div className="evaluacion-card__button-container">
+                      <Button 
+                          text='Ver evaluacion' 
+                          onClickHandler={verEvaluacion}
+                          activo={true}
+                      />
                 </div>
+                
 
             </div>
         </Card>
