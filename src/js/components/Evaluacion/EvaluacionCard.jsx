@@ -30,7 +30,7 @@ const EvaluacionCard = () => {
     const evaluationMsg = feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 'evaluación teórica regional' : feria?.estado === ESTADOS.instanciaRegional_EnExposicion ? 'evaluación de exposición regional' : 'evaluación de exposición provincial'
     const evaluationMsgMayuscula = feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 'Evaluación Teórica Regional' : feria?.estado === ESTADOS.instanciaRegional_EnExposicion ? 'Evaluación de Exposición Regional' : 'Evaluación de Exposición Provincial' 
     // Si recarga la pagina se hacen estas consultas
-    const { data: proyectoData, isLoading, status} = useAxiosFetch(`/${endpoint}/pendientes/${id}`, axiosPrivate, !!proyecto)
+    const { data: proyectoData, isLoading, status} = useAxiosFetch(`/${endpointConsulta}/pendientes/${id}`, axiosPrivate, !!proyecto)
     const { data: categoriasData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate, !!proyecto)
     const { data: nivelesData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate, !!proyecto)
 
