@@ -180,7 +180,7 @@ const TablaReferentes = (props) => {
             }
             Swal.fire({
                 html: msg,
-                title: 'Fallo la asignación',
+                title: 'Falló la asignación',
                 icon: 'error',
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#00ACE6',

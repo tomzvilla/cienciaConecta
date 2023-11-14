@@ -103,7 +103,7 @@ const EvaluacionCardConsulta = () => {
                         {proyecto.descripcion}
                     </p>
                     <p>
-                        <strong >Categoria: </strong> 
+                        <strong >Categoría: </strong> 
                         <Badge type={proyecto.categoria} />
                     </p>
                     <p>
@@ -127,7 +127,7 @@ const EvaluacionCardConsulta = () => {
                 </div>
                 <div className="evaluacion-card__button-container">
                       <Button 
-                          text='Ver evaluacion' 
+                          text='Ver evaluación' 
                           onClickHandler={verEvaluacion}
                           activo={true}
                       />

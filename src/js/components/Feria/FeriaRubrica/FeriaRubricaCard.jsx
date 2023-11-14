@@ -48,7 +48,7 @@ const FeriaRubricaCard = (props) => {
     return (
         <Card header={
                         <div className="feria-rubrica-card__header">
-                            <h4>{`${rubrica.nombreRubrica} - Ponderación: ${rubrica.ponderacion} - Exposicion: ${rubrica.exposicion ? 'Si' : 'No'}`}</h4>
+                            <h4>{`${rubrica.nombreRubrica} - Ponderación: ${rubrica.ponderacion} - Exposición: ${rubrica.exposicion ? 'Si' : 'No'}`}</h4>
                             <ImageButton
                                 alt="Eliminar Rúbrica"
                                 callback={handleBorrarRubrica} 

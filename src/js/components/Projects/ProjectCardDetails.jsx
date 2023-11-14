@@ -37,7 +37,7 @@ const ProjectCardDetails = (props) => {
                         <Badge  key={level?._id} type={level}/>
                     </p>
                     <p className="project-card-details__badges">
-                        <strong>Categoria: </strong> 
+                        <strong>Categoría: </strong> 
                         <Badge  key={cat?._id} type={cat}/>
                     </p>
                 </div>
