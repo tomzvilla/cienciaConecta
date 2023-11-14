@@ -1,11 +1,14 @@
 .badge {
-    display: block;
+    display: inline-block;
     padding: .5rem 2rem;
     width: max-content;
     border-radius: 2rem;
     color: white;
     text-align: center;
     margin: 1rem;
+    //margin: auto;
+
+    vertical-align: middle;
 
     font-size: 2rem;
 }

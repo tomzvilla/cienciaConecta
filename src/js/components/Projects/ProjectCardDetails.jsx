@@ -14,13 +14,11 @@ const ProjectCardDetails = (props) => {
         return item ? item : null;
     }
 
-
     const level = findNivel(props.datos.nivel)
     const cat = findCategoria(props.datos.categoria)
 
     return (
         <div className="project-card-details">
-
                 <p className="project-card-details__detail">
                     <strong>Descripción: </strong> 
                     {props.datos.descripcion}
@@ -43,11 +41,8 @@ const ProjectCardDetails = (props) => {
                         <Badge  key={cat?._id} type={cat}/>
                     </p>
                 </div>
-                
-                
         </div>
     );
 }
-
 
 export default ProjectCardDetails;
