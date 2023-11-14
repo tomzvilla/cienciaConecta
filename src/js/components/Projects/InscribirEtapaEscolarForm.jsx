@@ -216,7 +216,7 @@ const InscribirEtapaEscolarForm = () => {
                 }
                 Swal.fire({
                 html: msg,
-                title: 'Fallo la inscripción',
+                title: 'Falló la inscripción',
                 icon: 'error',
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#00ACE6',
@@ -316,7 +316,7 @@ const InscribirEtapaEscolarForm = () => {
                         required={true}
                     /> :
                     <SelectField
-                        label='Categoria:' 
+                        label='Categoría:' 
                         name='category'
                         dataValues={categories}
                         onChange={handleChange}

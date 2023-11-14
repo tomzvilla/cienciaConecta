@@ -130,7 +130,7 @@ const EvaluacionCard = () => {
                         {proyecto.descripcion}
                     </p>
                     <p>
-                        <strong >Categoria: </strong> 
+                        <strong >Categoría: </strong> 
                         <Badge type={proyecto.categoria} />
                     </p>
                     <p>
