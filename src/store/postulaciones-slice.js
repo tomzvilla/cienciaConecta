@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     listadoPostulantes: [],
+    selectedRows: [],
 }
 
 const postulacionesSlice = createSlice({
@@ -14,6 +15,9 @@ const postulacionesSlice = createSlice({
         actualizarPostulaciones(state, action) {
             const nuevoListado = state.listadoPostulantes.filter(p => !action.payload.includes(p._id))
             state.listadoPostulantes = nuevoListado
+        },
+        cargarSelectedRows(state, action) {
+            state.selectedRows = action.payload
         }
     }
 })

@@ -156,7 +156,7 @@ const SedesFeriaForm = (props) => {
             const cuposSede = formValues.cupos.filter(s => s.sede === selectedSede);
             let newCupos = {}
             cuposSede.forEach(cupo => {
-                const { nivel, cantidad} = cupo
+                const { nivel, cantidad } = cupo
                 newCupos = {...newCupos, [nivel]: cantidad }
             })
             return newCupos
