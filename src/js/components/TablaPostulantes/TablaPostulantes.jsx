@@ -14,11 +14,11 @@ import { postulacionesActions } from "../../../store/postulaciones-slice"
 import { useDispatch } from "react-redux"
 import GenericBadge from "../Badge/GenericBadge"
 
-const pageSize = 5
+const pageSize = 10
 
 const TablaPostulantes = (props) => {
 
-    const [selectedRows, setSelectedRows] = useState([])
+    const selectedRows = useSelector(state => state.postulaciones.selectedRows) || []
     const navigate = useNavigate()
     const axiosPrivate = useAxiosPrivate()
 
@@ -39,9 +39,9 @@ const TablaPostulantes = (props) => {
 
     const toggleRowSelection = (postulanteId) => {
         if (selectedRows.includes(postulanteId)) {
-          setSelectedRows(selectedRows.filter((id) => id !== postulanteId));
+            dispatch(postulacionesActions.cargarSelectedRows(selectedRows.filter((id) => id !== postulanteId)));
         } else {
-          setSelectedRows([...selectedRows, postulanteId]);
+            dispatch(postulacionesActions.cargarSelectedRows(([...selectedRows, postulanteId])));
         }
     }
 
@@ -78,7 +78,7 @@ const TablaPostulantes = (props) => {
                 }).then((result) => {
                     if(result.isConfirmed || result.isDismissed) {
                         dispatch(postulacionesActions.actualizarPostulaciones(selectedRows))
-                        setSelectedRows([])
+                        dispatch(postulacionesActions.cargarSelectedRows([]))
                         navigate(0)
                     }
                 })

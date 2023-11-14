@@ -12,7 +12,7 @@ const CrearFeria = () => {
     const [etapaActual, setEtapaActual] = useState(ETAPAS.Datos)
 
     const dispatch = useDispatch()
-    dispatch(feriaActions.borrarRubricas)
+    dispatch(feriaActions.borrarRubricas())
     
     const getEtapa = (etapa) => {
         setEtapaActual(etapa)
