@@ -24,7 +24,7 @@ const DashboardReferente = (props) => {
                     <p><strong>Fin instancia {data.referente.instancia_actual}: </strong>{data.referente.prox_fecha}</p>
                 </div>
 
-                {feria > 3 && feria <= 7 ? 
+                {feria?.estado > 3 && feria?.estado <= 7 ? 
                     <div className="dashboard-referente__details">
                         <h4><strong>Proyectos</strong></h4>
                         <p><strong>Proyectos pendientes de evaluación: </strong>{data.referente.cant_proyectos_por_evaluar_regional}</p>
@@ -32,7 +32,7 @@ const DashboardReferente = (props) => {
                         <p><strong>Cantidad de evaluadores asignados: </strong>{data.referente.evaluadores.length} </p>
                     </div>
                     :
-                    feria > 7 ? 
+                    feria?.estado > 7 ? 
                     <div className="dashboard-referente__details">
                         <h4>Proyectos</h4>
                         <p>Proyectos pendientes de evaluación: {data.referente.cant_proyectos_por_evaluar_provincial}</p>
