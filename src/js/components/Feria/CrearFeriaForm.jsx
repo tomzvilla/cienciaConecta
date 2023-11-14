@@ -152,11 +152,11 @@ const CrearFeriaForm = (props) => {
             })
         })
 
-        if(criteriosEvaluacionAlmacenados.some(r => r.exposicion)) {
+        if(!criteriosEvaluacionAlmacenados.some(r => r.exposicion)) {
             errorMessage = 'Se debe incluir por lo mínimo una rúbrica de exposición'
         }
 
-        if(criteriosEvaluacionAlmacenados.some(r => !r.exposicion)) {
+        if(!criteriosEvaluacionAlmacenados.some(r => !r.exposicion)) {
             errorMessage = 'Se debe incluir por lo mínimo una rúbrica teórica'
         }
 
