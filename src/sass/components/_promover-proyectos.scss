@@ -1,0 +1,23 @@
+.promover-proyectos {
+    width: 100%;
+    color: $color-grey-dark;
+
+    display: flex;
+    flex-direction: column;
+    padding-top: 2rem;
+
+
+    &__input {
+        padding: 3rem 0rem;
+        width: 80%;
+        max-width: 80%;
+        margin: auto;
+        
+    }
+
+    &__error {
+        font-size: 2rem;
+        color: $color-red;
+    }
+
+}

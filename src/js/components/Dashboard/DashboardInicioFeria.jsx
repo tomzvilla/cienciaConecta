@@ -7,7 +7,7 @@ const DashboardInicioFeria = (props) => {
 
     return (
         <div className="dashboard-inicio-feria">
-            <p className="dashboard-inicio-feria__text"> A continuación, elegí como querés empezar: </p>
+            <p className="dashboard-inicio-feria__text"> A continuación, elegí cómo querés empezar: </p>
             <DashboardCard 
                 src={imagenProyecto}
                 title={'Inscribí tu proyecto'}
