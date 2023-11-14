@@ -25,6 +25,7 @@ const EvaluacionCard = () => {
     let proyecto = useSelector(state => state.evaluacion.listadoEvaluaciones.find(p => p._id === id))
     const feria = useSelector(state => state.instancias.feria)
     const endpoint = feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 'evaluacion' : feria?.estado === ESTADOS.instanciaRegional_EnExposicion ? 'exposicion' : 'exposicion-provincial'
+    const endpointConsulta = (feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion || feria?.estado === ESTADOS.instanciaRegional_EnExposicion) ? 'evaluacion' : 'exposicion-provincial'
 
     const evaluationMsg = feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 'evaluación teórica regional' : feria?.estado === ESTADOS.instanciaRegional_EnExposicion ? 'evaluación de exposición regional' : 'evaluación de exposición provincial'
     const evaluationMsgMayuscula = feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 'Evaluación Teórica Regional' : feria?.estado === ESTADOS.instanciaRegional_EnExposicion ? 'Evaluación de Exposición Regional' : 'Evaluación de Exposición Provincial' 
