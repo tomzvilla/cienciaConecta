@@ -8,6 +8,15 @@
     padding: 3rem 2rem;
     text-align: center;
 
+    
+    @media screen and (max-width: $bp-medium) {
+        font-size: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    @media screen and (max-width: $bp-small) {
+        padding: 1rem;
+    }
 
     &--loading {
         --border-size: .6rem;
@@ -54,7 +63,13 @@
         margin-left: auto;
         width: 5rem;
         height: 5rem;
-        filter: brightness(0) saturate(100%) invert(54%) sepia(0%) saturate(130%) hue-rotate(134deg) brightness(85%) contrast(94%);;
+        filter: brightness(0) saturate(100%) invert(54%) sepia(0%) saturate(130%) hue-rotate(134deg) brightness(85%) contrast(94%);
+
+
+        @media screen and (max-width: $bp-medium) {
+            width: 3rem;
+            height: 3rem;
+        }
 
         &--disabled {
             filter: brightness(0) saturate(100%) invert(97%) sepia(0%) saturate(0%) hue-rotate(149deg) brightness(90%) contrast(94%);

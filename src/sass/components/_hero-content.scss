@@ -2,7 +2,7 @@
     //background-color: $color-primary;
     background:  linear-gradient(135deg, $color-primary, $color-primary-light 100%);
     width: 50%;
-    height: 70vh;
+    height: 75rem;
     display: flex;
     flex-direction: column;
     color: $color-white;
@@ -19,9 +19,60 @@
     justify-content: center;
     border-radius: 0px 0px 10rem 0px;
 
+    @media screen and (max-width: $bp-huge) {
+        height: 60rem;
+
+    }
+
+    @media screen and (max-width: $bp-largest) {
+        height: 50rem;
+
+    }
+
+    
+    @media screen and (max-width: $bp-large) {
+        height: 40rem;   
+        padding: 4rem;
+        padding-bottom: 0; 
+    }
+
+    @media screen and (max-width: $bp-medium) {
+        width: 100%;
+        border-radius: 0px 0px 10rem 0px;
+        height: 50rem;
+        background:  linear-gradient(135deg, $color-primary, $color-primary-light 100%);
+        position: relative;
+        top: 0;
+        left: 0;
+        padding: 0;
+    }
+
     &__title {
         font-size: 9rem;
         width: 90%;
+
+        @media screen and (max-width: $bp-huge) {
+            font-size: 7rem;
+            width: 90%;
+            
+
+        }
+
+        @media screen and (max-width: $bp-largest) {
+            font-size: 5rem;
+        }
+
+        @media screen and (max-width: $bp-large) {
+            font-size: 4rem;
+        }
+
+        @media screen and (max-width: $bp-medium) {
+            width: auto;
+            align-self: center;
+            font-size: 5rem;        
+        }
+
+    
     }
 
 
@@ -30,6 +81,18 @@
         font: $font-primary;
         font-weight: 100;
         font-size: 3rem;
+
+        @media screen and (max-width: $bp-large) {
+            font-size: 2.5rem;
+        }
+
+        @media screen and (max-width: $bp-medium) {
+            align-self: center;
+            font-size: 3rem;
+            width: 75%;
+            text-align: center;
+        }
+
         
     }
 

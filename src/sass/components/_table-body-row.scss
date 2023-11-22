@@ -7,17 +7,25 @@
         color: $color-grey-dark;
         padding: 2rem 0rem;
         margin: auto;
-        //white-space: nowrap;
-        //overflow: hidden;
-        //text-overflow: ellipsis;
         text-overflow: initial;
         text-wrap: balance;
 
-        // ?
         min-width: 15rem;
+
+        @media screen and (max-width: $bp-small) {
+            padding: 1rem 0rem;
+            font-size: 1.5rem;
+            min-width: 8rem;
+
+            
+        }
         
         &--autocomplete {
             min-width: 30rem;
+
+            @media screen and (max-width: $bp-small) {
+                min-width: 15rem;
+            }
         }
 
         &--actions {
@@ -35,6 +43,10 @@
             vertical-align: text-top;
             height: 2.3rem;
 
+            @media screen and (max-width: $bp-small) {
+                width: 1.5rem;
+                height: 1.5rem;
+            }
 
             &:hover {
                 color: $color-primary;

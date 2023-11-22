@@ -6,7 +6,7 @@ import Button from "../Button/Button"
 import BlankState from "../BlankState/BlankState"
 import Spinner from "../Spinner/Spinner"
 // hooks
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate, useLocation } from "react-router"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
@@ -26,6 +26,7 @@ const TablaPromoverProyectos = (props) => {
     const loadingProyectos = useSelector(state => state.promociones.loadingProyectos)
     const selectedRows = useSelector(state => state.promociones.selectedRows)
     const cupos = useSelector(state => state.promociones.cupos)
+    const [resize, setResize] = useState(window.innerWidth <= 1200);
 
     const navigate = useNavigate()
     const location = useLocation()
@@ -61,7 +62,6 @@ const TablaPromoverProyectos = (props) => {
                 dispatch(promocionesActions.toggleSelectedRow(proyectoId))
             }
         }
-        
     }
 
     const handlePromocion = () => {
@@ -155,6 +155,20 @@ const TablaPromoverProyectos = (props) => {
         navigate(`/evaluacion/${proyecto._id}`, {replace: true, state: {from:`${location.pathname}`}})
     }
 
+    const handleResize = () => {
+        setResize(window.innerWidth <= 1200);
+      };
+    
+      useEffect(() => {
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+          window.removeEventListener('resize', handleResize);
+        };
+      }, []);
+
+
+
 
     return (
         <>
@@ -165,6 +179,8 @@ const TablaPromoverProyectos = (props) => {
                 proyectos.length > 0 ?
                 <table className="table">
                     <thead className="table__header">
+
+                    {!resize ? 
                         <tr>
                             {props.headers.map(header => {
                                 return (
@@ -175,12 +191,22 @@ const TablaPromoverProyectos = (props) => {
                             <th scope="col" className="table-header__head">Acciones</th>
                             <th scope="col" className="table-header__head">Seleccionar</th>
                         </tr>
+
+                        :
+
+                        <tr>
+                            <th scope="col" key={props.headers[0].value} className="table-header__head">{props.headers[0].name}</th>
+                            <th scope="col" className="table-header__head">Acciones</th>
+                            <th scope="col" className="table-header__head">Seleccionar</th>
+                        </tr>
+                    }
                     </thead>
 
                     <tbody className="table__body">
                         {proyectos && currentTableData.map((proyecto) => {
                             const isChecked = selectedRows.includes(proyecto._id)
                             return (
+                                !resize ? 
                                 <tr key={proyecto._id} className="table-body-row">
                                     {props.headers.map(header => {
                                         if(header.name === 'Categoría'){
@@ -200,6 +226,22 @@ const TablaPromoverProyectos = (props) => {
                                         else return (
                                         <td key={header.name} className="table-body-row__td" >{proyecto[`${header?.value}`]}</td>
                                     )})}
+                                    <td className="table-body-row__td table-body-row__td--actions">
+                                        <ImageButton callback={() => verEvaluacion(proyecto)} linkto={`${props.viewPath}/${proyecto._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/>
+                                    </td>
+                                    <td className="table-body-row__td">
+                                        <input
+                                            type="checkbox"
+                                            checked={isChecked}
+                                            onChange={() => toggleRowSelection(proyecto._id)}
+                                        />
+                                    </td>   
+                                </ tr>
+
+                                :
+
+                                <tr key={proyecto._id} className="table-body-row">
+                                    <td key={props.headers[0].name} className="table-body-row__td" >{proyecto[props.headers[0].value]}</td>
                                     <td className="table-body-row__td table-body-row__td--actions">
                                         <ImageButton callback={() => verEvaluacion(proyecto)} linkto={`${props.viewPath}/${proyecto._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/>
                                     </td>

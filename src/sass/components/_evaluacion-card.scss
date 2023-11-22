@@ -4,6 +4,17 @@
 
     grid-template-columns: 60% 40%;
 
+    grid-column-gap: 2rem;
+
+    @media screen and (max-width: $bp-medium) {
+        padding: 1rem 3rem;
+    }
+
+    @media screen and (max-width: $bp-small) {
+        display: flex;
+        flex-direction: column;
+    }
+
     &__data {
         grid-column: 1 / 2;
         grid-row: 1 / 2;
@@ -20,6 +31,11 @@
             align-items: center;
             flex-wrap: wrap;
 
+            @media screen and (max-width: $bp-medium) {
+                font-size: 2rem;
+                margin-top: 1rem;
+            }
+
 
             & > strong {
                 font-weight: 500;
@@ -34,8 +50,11 @@
     &__puntaje {
         font-size: 2.3rem;
         color: $color-grey-dark;
-        font-weight: 300;
         margin-top: 1rem;
+
+        @media screen and (max-width: $bp-medium) {
+            font-size: 2rem;
+        }
 
         display: flex;
         align-items: center;
@@ -73,6 +92,10 @@
             margin-top: 1rem;
             display: flex;
             align-items: center;
+
+            @media screen and (max-width: $bp-medium) {
+                font-size: 2rem;
+            }
 
             & > input {
                 margin-left: 1rem;

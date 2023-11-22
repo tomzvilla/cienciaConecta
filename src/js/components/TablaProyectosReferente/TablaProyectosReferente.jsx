@@ -3,12 +3,13 @@ import ImageLink from "../ImageLink/ImageLink"
 import Badge from "../Badge/Badge"
 import Pagination from "../Pagination/Pagination"
 // hooks
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useSelector } from "react-redux"
 
 const pageSize = 10
 
 const TablaProyectosReferente = (props) => {
+    const [resize, setResize] = useState(window.innerWidth <= 1200);
 
     // state with redux
     const proyectosReferente = useSelector(state => state.referentes.proyectosReferente)
@@ -22,11 +23,24 @@ const TablaProyectosReferente = (props) => {
         return proyectosReferente.slice(firstPageIndex, lastPageIndex);
     }, [currentPage]);
 
+        const handleResize = () => {
+          setResize(window.innerWidth <= 1200);
+        };
+      
+        useEffect(() => {
+          window.addEventListener('resize', handleResize);
+
+          return () => {
+            window.removeEventListener('resize', handleResize);
+          };
+        }, []);
+
 
     return (
         <>
             <table className="table">
                 <thead className="table__header">
+                    {!resize ? 
                     <tr>
                         {props.headers.map(header => {
                             return (
@@ -36,12 +50,24 @@ const TablaProyectosReferente = (props) => {
                         }
                         <th scope="col" className="table-header__head">Evaluadores Asignados</th>
                         <th scope="col" className="table-header__head">Acciones</th>
-                    </tr>
+                    </tr> 
+                    
+                    : 
+
+                    <tr>
+                        <th scope="col" className="table-header__head">{props.headers[0].name}</th>
+                        <th scope="col" className="table-header__head">Acciones</th>
+                    </tr> 
+                    
+                    }
+                    
                         
                 </thead>
                 <tbody className="table__body">
-                    {proyectosReferente && currentTableData.map((proyecto) => {
-                        return (
+                    {proyectosReferente && currentTableData.map((proyecto) => 
+
+                        (!resize ?
+                        
                             <tr key={proyecto._id} className="table-body-row">
                                 {props.headers.map(header => {
                                     if(header.name === 'Categoría'){
@@ -68,9 +94,20 @@ const TablaProyectosReferente = (props) => {
                                     <ImageLink linkto={`asignar/${proyecto._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/> 
                                 </td>
                             </ tr>
+                        
+                        :
+
+                            <tr key={proyecto._id} className="table-body-row">
+                                <td key={props.headers[0].name} className="table-body-row__td" >{proyecto[props.headers[0]?.value]}</td>
+
+                                <td className="table-body-row__td table-body-row__td--actions">
+                                    <ImageLink linkto={`asignar/${proyecto._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/> 
+                                </td>
+                            </tr>
+
                         )
                         
-                    }
+                    
                     )}
                 </tbody>
             </table>

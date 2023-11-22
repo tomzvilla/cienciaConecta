@@ -4,6 +4,10 @@
 
     font-size: 2rem;
     color: $color-grey-dark;
+
+    @media screen and (max-width: $bp-medium) {
+        font-size: 1.8rem;
+    }
     
     &--error {
         color: $color-red;
@@ -36,6 +40,15 @@
         
         text-overflow: ellipsis;  
 
+        @media screen and (max-width: $bp-medium) {
+            font-size: 2rem;
+            height: 3rem;
+        }
+
+        @media screen and (max-width: $bp-medium) {
+            font-size: 1.7rem;
+        }
+
 
         &--error {
             border: 1px solid $color-red;
@@ -62,6 +75,10 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+
+        @media screen and (max-width: $bp-medium) {
+            font-size: 1.5rem;
+        }
     }
 
     &__error {

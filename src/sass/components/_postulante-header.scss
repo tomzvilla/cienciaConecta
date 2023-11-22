@@ -10,6 +10,10 @@
     padding: 1.5rem 0rem;
     border-radius: 2rem 2rem 0rem 0;
 
+    @media screen and (max-width: $bp-medium) {
+        padding: 1rem 0rem;
+    }
+
     
 
     &__title {
@@ -17,13 +21,28 @@
         grid-row: 1 / 2;
         font-size: 3.5rem;
 
+        @media screen and (max-width: $bp-medium) {
+            font-size: 2rem;
+        }
+        @media screen and (max-width: $bp-small) {
+            font-size: 2rem;
+        }
+
     }
 
     &__subtitle {
         grid-column: 2 / 3;
         grid-row: 2 / 3;
         font-size: 2rem;
-        font-weight: normal;        
+        font-weight: normal;      
+        
+        @media screen and (max-width: $bp-medium) {
+            font-size: 1.7rem;
+        }
+
+        @media screen and (max-width: $bp-small) {
+            font-size: 1.5rem;
+        }
     }
 
     &__img {
@@ -33,6 +52,18 @@
         height: 5rem;
         margin: auto 2rem;
         padding-top: 1rem;
+
+        @media screen and (max-width: $bp-medium) {
+            width: 3rem;
+            height: 3rem;
+        }
+
+        @media screen and (max-width: $bp-small) {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+
+        
     }
 
     &__img-container {

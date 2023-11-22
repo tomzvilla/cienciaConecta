@@ -152,8 +152,6 @@ const EvaluacionCard = () => {
                     <DownloadFile video={proyecto.videoPresentacion}  name="Video" img={require("../../../assets/tarjeta.png")}/>
                 </div>
 
-               
-                
                 <div className="evaluacion-card__evaluacion">
                     <strong>{evaluationMsgMayuscula}</strong>
                     <div>
