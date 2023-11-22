@@ -38,6 +38,8 @@ import PromoverProyectosNacional from './js/pages/PromoverProyectos/PromoverProy
 import Categorias from './js/pages/Categorias'
 import EvaluacionCardConsulta from './js/components/Evaluacion/EvaluacionCardConsulta'
 import EvaluacionFormConsulta from './js/components/Evaluacion/EvaluacionFormConsulta'
+import Grafico from './js/components/Graficos/Grafico'
+import Mapa from './js/components/Graficos/Mapa'
 // DEV
 import AuthVerify from './js/components/PersistLogin/AuthVerify'
 import ConfirmarCuenta from './js/pages/Usuarios/ConfirmarCuenta'
@@ -98,6 +100,8 @@ function App() {
 
           </Route>
           <Route element={<PersistLogin />}>
+            <Route path='/reportes' element={<Grafico/>} />
+            <Route path='/mapa' element={<Mapa />} />
             <Route element={<RequireAuth 
               allowedRoles={[ ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.Docente]} 
               allowedStates={[ESTADOS.iniciada, ESTADOS.instanciaEscolar]}/>}
