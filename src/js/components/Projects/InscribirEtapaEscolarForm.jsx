@@ -255,9 +255,9 @@ const InscribirEtapaEscolarForm = () => {
   
     return (
         <Card title="Inscribir proyecto a etapa escolar">
-            <form onSubmit={handleSubmit} className='register-project-form'>
-            <h2 className='register-project-form__subtitle'>Datos del proyecto: </h2>
-            <div className='register-project-form__input'>
+            <form onSubmit={handleSubmit} className='project-form'>
+            <h2 className='project-form__subtitle'>Datos del proyecto: </h2>
+            <div className='project-form__input'>
                 <InputField
                     label='Título: ' 
                     name='title'
@@ -269,7 +269,7 @@ const InscribirEtapaEscolarForm = () => {
                     required={true}
                 />
             </div>
-            <div className='register-project-form__input'>
+            <div className='project-form__input'>
                 <InputField
                     label='Descripción: ' 
                     name='description'
@@ -281,7 +281,7 @@ const InscribirEtapaEscolarForm = () => {
                     required={true}
                 />
             </div>
-            <div className='register-project-form__input'>
+            <div className='project-form__input'>
                 {!levelsData? <SelectField
                     label='Nivel: ' 
                     name='level'
@@ -302,7 +302,7 @@ const InscribirEtapaEscolarForm = () => {
                     required={true}
                 />}
             </div>
-            <div className='register-project-form__input'>
+            <div className='project-form__input'>
                 {!categoriesData ?  
                     <SelectField
                         label='Categoría:' 
@@ -326,8 +326,8 @@ const InscribirEtapaEscolarForm = () => {
                     />
                 }
             </div>
-            <h2 className='register-project-form__subtitle'>Datos del establecimiento educativo: </h2>
-            <div className='register-project-form__input'>
+            <h2 className='project-form__subtitle'>Datos del establecimiento educativo: </h2>
+            <div className='project-form__input'>
                 <SelectField
                     label='Departamento: ' 
                     name='departamento'
@@ -339,7 +339,7 @@ const InscribirEtapaEscolarForm = () => {
                     required={true}
                 />
             </div>
-            <div className='register-project-form__input'>
+            <div className='project-form__input'>
                 <SelectField
                     label='Localidad: ' 
                     name='localidad'
@@ -352,7 +352,7 @@ const InscribirEtapaEscolarForm = () => {
                     disabled={!formValues.departamento}
                 />
             </div>
-            <div className='register-project-form__input'>
+            <div className='project-form__input'>
                 <Autocomplete 
                     results={results} 
                     onChange={handleFilter} 
@@ -363,7 +363,7 @@ const InscribirEtapaEscolarForm = () => {
                     value={autocompleteValue?.nombre}
                 />
             </div>
-            <div className='register-project-form__input'>
+            <div className='project-form__input'>
                 <SelectField
                     label='¿Pertenece a escuela privada?' 
                     name='privateSchool'
@@ -375,7 +375,7 @@ const InscribirEtapaEscolarForm = () => {
                     required={true}
                 />
             </div>
-            <div className='register-project-form__input'>
+            <div className='project-form__input'>
                 <InputField
                     label='Email de la escuela' 
                     name='schoolEmail'
