@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom'
 import RequireAuth from './js/components/RequireAuth/RequireAuth'
 import PersistLogin from './js/components/PersistLogin/PersistLogin'
 import PersistLoginInverse from './js/components/PersistLogin/PersistLoginInverse'
+import CheckNotification from './js/components/Notification/CheckNotification'
 
 import LoginPage from './js/pages/LoginPage'
 import Signup from './js/pages/Signup'
@@ -185,6 +186,7 @@ function App() {
 
         </Route>
       </Routes>
+      <CheckNotification />
       <AuthVerify />
     </>
   );
