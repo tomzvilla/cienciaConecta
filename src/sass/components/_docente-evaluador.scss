@@ -11,15 +11,25 @@
         font-size: 3.5rem;
         font-weight: 500;
         margin-bottom: 5rem;
-        
 
+        @media screen and (max-width: $bp-medium) {
+            font-size: 3rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
     }
-
+    
+    
+    
     &__buttons {
         display: flex;   
 
         button:first-child {
             margin-right: 5rem;
+
+            @media screen and (max-width: $bp-small) {
+                margin-right: 2rem;
+            }
         }
 
 

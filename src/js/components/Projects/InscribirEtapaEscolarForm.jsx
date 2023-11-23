@@ -253,7 +253,6 @@ const InscribirEtapaEscolarForm = () => {
         setResults(search.establecimientos)
     }
   
-
     return (
         <Card title="Inscribir proyecto a etapa escolar">
             <form onSubmit={handleSubmit} className='register-project-form'>
@@ -388,7 +387,7 @@ const InscribirEtapaEscolarForm = () => {
                     required={true}
                 />
             </div>
-            <div className='register-project-form__button'>
+            <div className='button-container'>
                     <Button text='Volver' onClickHandler={handleVolver}/>
                     <Button text='Continuar' activo={true}/>
             </div>

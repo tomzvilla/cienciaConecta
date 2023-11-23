@@ -1,0 +1,12 @@
+.categoria-form {
+    display: flex;
+    flex-direction: column;
+    color: $color-grey-dark;
+    align-items: center;
+    width: 95%;
+
+    @media screen and (max-width: $bp-small) {
+        width: 80%;
+     }
+
+}

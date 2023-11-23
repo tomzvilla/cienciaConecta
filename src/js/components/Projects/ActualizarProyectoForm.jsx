@@ -431,7 +431,7 @@ return (
             formErrors={errors.grupoProyecto}
         
         />}
-        <div className='edit-project-form__button'>
+        <div className='button-container'>
             <Button 
                 text='Volver' 
                 onClickHandler={handleVolver}

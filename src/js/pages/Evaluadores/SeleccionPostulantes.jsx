@@ -12,21 +12,16 @@ import useUtils from "../../hooks/useUtils"
 // state
 import { postulacionesActions } from "../../../store/postulaciones-slice"
 import { useDispatch, useSelector } from "react-redux"
+import { useEffect, useState } from "react"
 
-const headers = [
-    {name: 'Nombre', value: 'nombre'},
-    {name: 'Apellido', value: 'apellido'},
-    {name: 'CUIL', value: 'cuil'},
-    {name: 'Niveles', value: 'niveles'},
-    {name: 'Categorías', value: 'categorias'},
-]
+
 
 const SeleccionPostulantes = () => {
 
     const axiosPrivate = useAxiosPrivate()
     const location = useLocation()
     const dispatch = useDispatch()
-
+    const [resize, setResize] = useState(window.innerWidth <= 1200);
     const { formatDate } = useUtils()
     const feria = useSelector(state => state.instancias.feria)
     const fecha = new Date()
@@ -35,6 +30,16 @@ const SeleccionPostulantes = () => {
     const {data, isLoading} = useAxiosFetch('/evaluador/postulaciones', axiosPrivate)
     const {data: categoriaData} = useAxiosFetch('/categoria', axiosPrivate)
     const {data: nivelesData} = useAxiosFetch('/nivel', axiosPrivate)
+
+    const headers = !resize ? [
+        {name: 'Nombre', value: 'nombre'},
+        {name: 'Apellido', value: 'apellido'},
+        {name: 'Niveles', value: 'niveles'},
+        {name: 'Categorías', value: 'categorias'},
+    ] : [
+        {name: 'Nombre', value: 'nombre'},
+        {name: 'Apellido', value: 'apellido'},
+    ];
 
     if(!isLoading && categoriaData && nivelesData) {
         postulacionesListado = data?.postulaciones?.map(p => {
@@ -69,6 +74,18 @@ const SeleccionPostulantes = () => {
         dispatch(postulacionesActions.cargarPostulaciones(postulacionesListado))
     }
 
+    const handleResize = () => {
+        setResize(window.innerWidth <= 1200);
+      };
+    
+      useEffect(() => {
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+          window.removeEventListener('resize', handleResize);
+        };
+      }, []);
+
     return (
         <>
             <Metadata title={'Seleccionar Postulantes'}/>
@@ -84,7 +101,7 @@ const SeleccionPostulantes = () => {
                             :
                             <>
                                 <h6 className="table-custom-page__text">Seleccioná los postulantes que serán evaluadores durante la feria</h6>
-                                <TablaPostulantes location={location} headers={headers} viewPath={'/postulante'}/>
+                                <TablaPostulantes  resize={resize} location={location} headers={headers} viewPath={'/postulante'}/>
                             </>
                             }
                         </>

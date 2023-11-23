@@ -15,28 +15,23 @@ const ActualizarProyecto = () => {
     const axiosPrivate = useAxiosPrivate()
     const { id } = useParams()
     const { data } = useAxiosFetch(`/proyecto/${id}`, axiosPrivate)
-
     const [etapaActual, setEtapaActual] = useState(ETAPAS.Escolar)
 
     const getEtapa = (etapa) => {
         setEtapaActual(etapa)
     }
 
-
     return (
         <>
             <Metadata title={'Proyectos'}/>
             {!data ? <Spinner/> : 
-            
             <>
                 <ProgressBar etapas={ETAPAS} etapaActual={etapaActual}/>
                 <ActualizarProyectoForm formData={data.proyecto} getEtapa={getEtapa}/>  
             </>
-
             }
         </>
     )
-
 }
 
 export default ActualizarProyecto

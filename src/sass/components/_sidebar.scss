@@ -8,11 +8,27 @@
 
 
     width: 6rem;
-    //transition: width 3s linear;
+
+    @media screen and (max-width: $bp-small) {
+        padding: 1rem 0;
+        width: 0;
+        height: 0;
+        border-bottom: 1px solid $color-grey;
+        border-radius: 0 0 2rem 2rem;
+    }
 
     &--show {
         width: 30rem;
         transition: width .3s linear;
+        
+
+        @media screen and (max-width: $bp-small) {
+            width: 100%;
+            height: min-content;
+            z-index: 10;
+            transition: height .3s linear;
+            background-color: $color-white;
+        }
     }
 
     &__dropdown-content {
