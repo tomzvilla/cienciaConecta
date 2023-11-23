@@ -7,13 +7,19 @@
 
     &__text {
         color: $color-grey-dark;
-       
         margin-right: .5rem;
+
+        @media screen and (max-width: $bp-small) {
+           text-align: center;
+          }
     }
 
 
     &__link {
         color: $color-primary;
+        @media screen and (max-width: $bp-small) {
+            text-align: center;
+           }
     }
 
 }

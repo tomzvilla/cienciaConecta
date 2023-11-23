@@ -8,10 +8,23 @@
     align-items: center;
     padding: 1.5rem 3rem;
 
+    @media screen and (max-width: $bp-small) {
+        padding: 1rem;
+      }
+
     &__titulo {
         margin-right: auto;
         font-size: 3rem;
         padding: 0 1rem;
+
+        @media screen and (max-width: $bp-medium) {
+            font-size: 2rem;
+          }
+
+          @media screen and (max-width: $bp-medium) {
+            font-size: 1.6rem;
+            text-align: center;
+          }
     }
 
     &__botones {
@@ -22,13 +35,19 @@
     }
 
     &__img {
-        filter: brightness(100);
+        filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(286deg) brightness(105%) contrast(101%);
         cursor: pointer;
         display: flex;
         align-items: center;
         width: 5rem;
         height: 5rem;
         margin: auto 2rem;
+
+        @media screen and (max-width: $bp-medium) {
+            margin: auto 1rem;
+            width: 3rem;
+            height: 3rem;
+          }
     }
 
 }

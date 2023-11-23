@@ -1,11 +1,14 @@
+import { useEffect, useState } from "react";
 import Table from "../Table/Table"
 
 
 const SeleccionSedes = (props) => {
-    const headers = [
+    const [resize, setResize] = useState(window.innerWidth <= 1000);
+
+    const headers = !resize ? [
         {name: 'Establecimiento', value: 'nombre'},
         {name: 'CUE', value: 'cue'},
-    ]
+    ] : [{name: 'Establecimiento', value: 'nombre'},]
 
     const handleDelete = (e, item) => {
         e.preventDefault()
@@ -16,6 +19,19 @@ const SeleccionSedes = (props) => {
         e.preventDefault()
         props.handleCupos(e, item.nombre)
     }
+
+    
+    const handleResize = () => {
+        setResize(window.innerWidth <= 1000);
+      };
+    
+      useEffect(() => {
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+          window.removeEventListener('resize', handleResize);
+        };
+      }, []);
 
 
     const show = props.establecimientos[0] === null ? false : props.establecimientos?.length === 0 ? false : true 

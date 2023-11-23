@@ -5,7 +5,7 @@ import Pagination from "../Pagination/Pagination";
 import BlankState from "../BlankState/BlankState";
 // hooks
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import Swal from "sweetalert2";
 import { pendientesActions } from "../../../store/pendiente-slice";
@@ -13,11 +13,11 @@ import { pendientesActions } from "../../../store/pendiente-slice";
 const pageSize = 10
 
 const TablaActivacion = (props) => {
-
     const pendientes = useSelector(state => state.pendientes.listadoPendientes)
     const selectedFilas = useSelector(state => state.pendientes.selectedRows)
     const dispatch = useDispatch()
     const axiosPrivate = useAxiosPrivate()
+    const [resize, setResize] = useState(window.innerWidth <= 1000);
 
     const toggleRowSelection = (usuarioId) => {
         if (selectedFilas.includes(usuarioId)) {
@@ -113,23 +113,54 @@ const TablaActivacion = (props) => {
         })
     }
 
+    const handleResize = () => {
+        setResize(window.innerWidth <= 1000);
+      };
+    
+      useEffect(() => {
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+          window.removeEventListener('resize', handleResize);
+        };
+      }, []);
+
     return(
         pendientes.length !== 0 ?
         <>
             <table className="table">
                 <thead className="table__header">
+                    {!resize ? 
                     <tr className="table-header">
                         <th scope="col" className="table-header__head">Nombre</th>
                         <th scope="col" className="table-header__head">CUIL</th>
                         <th scope="col" className="table-header__head">Ver</th>
                         <th scope="col" className="table-header__head">Seleccionar</th>
                     </tr>
+
+                    :
+
+                    <tr className="table-header">
+                        <th scope="col" className="table-header__head">Nombre</th>
+                        <th scope="col" className="table-header__head">Ver</th>
+                        <th scope="col" className="table-header__head">Seleccionar</th>
+                    </tr>
+
+
+
+
+                    }
                 </thead>
 
                 <tbody className="table__body">
                     {pendientes && currentTableData.map((data, index) => {
+                        
                         const isChecked = selectedFilas.includes(data._id);
                         return (
+                        !resize ?
+                        
+                        
+                            
                             <tr key={data._id} className="table-body-row">
                                 {props.headers.map(header => {
                                      return (
@@ -148,9 +179,30 @@ const TablaActivacion = (props) => {
                                     />
                                 </td>   
                             </ tr>
-                        )
+
+                            :
+
+                            <tr key={data._id} className="table-body-row">
+                                <td key={props.headers[0].name} className="table-body-row__td" >{data[`${props.headers[0].value}`]}</td>
+
+                                <td className="table-body-row__td table-body-row__td--actions">
+                                    <ImageLink small={true} src={require("../../../assets/ver.png")} linkto={`/usuarioPendienteActivacion/${data._id}`} alt="Ver usuario"/>
+                                </td>
+
+                                <td className="table-body-row__td">
+                                    <input
+                                        type="checkbox"
+                                        checked={isChecked}
+                                        onChange={() => toggleRowSelection(data._id)}
+                                    />
+                                </td>   
+                            </ tr>
                         
-                    })}
+                        
+                        )}
+                    
+                    
+                    )}
                 </tbody>
             </table>
             <Pagination currentPage={currentPage} totalCount={pendientes.length} pageSize={pageSize} onPageChange={page => setCurrentPage(page)} />

@@ -6,6 +6,10 @@
     padding: 1rem 0rem;
     margin-bottom: 2rem;
 
+    @media screen and (max-width: $bp-small) {
+        width: 90%;
+      }
+
     &__title {
         font-size: 2.5rem;
         text-align: center;
@@ -14,6 +18,11 @@
         
         font-weight: 500;
         //margin-bottom: 1rem;
+
+        @media screen and (max-width: $bp-medium) {
+            font-size: 2.3rem;
+            align-self: center;
+          }
     }
 
     &__sub {
@@ -24,6 +33,11 @@
         
         font-weight: 500;
         margin-top: 1rem ;
+
+        @media screen and (max-width: $bp-medium) {
+            font-size: 1.8rem;
+            align-self: center;
+          }
     }
 
 

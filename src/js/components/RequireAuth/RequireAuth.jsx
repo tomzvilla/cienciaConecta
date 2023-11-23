@@ -7,7 +7,6 @@ const RequireAuth = ({ allowedRoles, allowedStates }) => {
     const location = useLocation()
     const feria = useSelector(state => state.instancias.feria)
     const check = allowedStates?.length > 0
-    console.log(feria)
 
     return (
         

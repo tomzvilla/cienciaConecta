@@ -20,6 +20,15 @@
     transform: translateY(-1rem);
     transition: opacity .3s ease-in-out, transform .8s ease-in-out;
 
+    @media screen and (max-width: $bp-medium) {
+        left: 50%;
+    }
+
+
+    @media screen and (max-width: $bp-small) {
+        left: 40%;
+    }
+
     &__item {
         cursor: pointer;
         width: 100%;  
@@ -31,6 +40,17 @@
             text-decoration: none;
             
             padding: 1rem 2rem;
+
+
+            @media screen and (max-width: $bp-medium) {
+                padding: 1rem;
+                font-size: 2.5rem;
+            }
+
+            @media screen and (max-width: $bp-small) {
+                padding: .7rem 1rem;
+                font-size: 2rem;
+            }
 
 
             &:hover {

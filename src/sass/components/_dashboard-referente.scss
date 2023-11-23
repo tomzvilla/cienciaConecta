@@ -7,19 +7,37 @@
     width: 80%;
 
     & > :last-child {
-        padding-top: 3rem;
+        padding-top: 2rem;
+
+        @media screen and (max-width: $bp-medium) {
+            padding-top: 1.5rem;
+        }
     }
 
     &__details {
-        padding-top: 1rem;
+        padding-top: .5rem;
+        font-size: 2.5rem;
 
         & > h4 {
             font-weight: normal;
+
+            @media screen and (max-width: $bp-small) {
+                font-size: 2rem;
+            }
         }
         
         & > p {
             padding-top: 1rem;
             font-size: 2.5rem;
+
+
+            @media screen and (max-width: $bp-medium) {
+                font-size: 2rem;
+            }
+
+            @media screen and (max-width: $bp-small) {
+                font-size: 1.5rem;
+            }
         }
     }
 }

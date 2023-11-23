@@ -2,12 +2,21 @@
     position: relative;
     display: flex;
     z-index: 0;
+
+    
+    @media screen and (max-width: $bp-medium) {
+        display: none;
+    }
    
     &__image {
         margin-left: auto;
         //padding-right: 2rem;
         border-radius: 0px 0px 0px 10rem ;
         width: 60%;
+
+        @media screen and (max-width: $bp-large) {
+            //display: none;
+        }
     }
 }
 

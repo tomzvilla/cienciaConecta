@@ -2,13 +2,15 @@ import SidebarLink from "./SidebarLink";
 import SidebarDropdown from "../SidebarDropdown/SidebarDropdown";
 // HOOKS
 import useAuth from "../../hooks/useAuth";
-import { useState} from "react";
+import { useState, useEffect} from "react";
 import { ROLES } from '../../../App'
 import { ESTADOS } from "../../../App";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { uiActions } from "../../../store/ui-slice";
 
 const Sidebar = () => {
     const { auth } = useAuth()
+    const dispatch = useDispatch()
     const [dropdown, setDropdown] = useState({
         feria: false,
         proyectos: false,
@@ -19,12 +21,20 @@ const Sidebar = () => {
     const showSidebar = useSelector(state => state.ui.sidebar)
     const feria = useSelector(state => state.instancias.feria)
 
+
+    const toggleSidebar = () => {
+        dispatch(uiActions.showSidebar())
+    }
+
     const toggleDropdown = (type) => {
         setDropdown({
             ...dropdown,
             [type]: !dropdown[type],
         })
     }
+
+    
+
 
     return (
         <nav className={!showSidebar ? 'sidebar sidebar--show' : 'sidebar'}>

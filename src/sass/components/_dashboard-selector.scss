@@ -1,18 +1,23 @@
 .dashboard-selector {
-
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     margin-bottom: 4rem;
 
+    @media screen and (max-width: $bp-medium) {
+        margin-bottom: 2rem;
+    }
 
     &__button {
-
         box-shadow: 0px 0.4rem 2rem rgba(0, 0, 0, 0.25);
         min-width: 30rem;
         border-radius: 2rem;
         transition: all 400ms ease-in-out;
         cursor: pointer;
+
+        @media screen and (max-width: $bp-medium) {
+            min-width: 15rem;
+        }
         
         & > p {
             margin: auto;
@@ -22,6 +27,16 @@
             padding: 1rem 3rem;
             transition: all 400ms ease-in-out;
             text-wrap: nowrap;
+
+            @media screen and (max-width: $bp-medium) {
+                font-size: 1.8rem;
+                padding: 1rem;
+            }
+
+            @media screen and (max-width: $bp-small) {
+                font-size: 1.5rem;
+                text-wrap: wrap;
+            }
         }
 
         &:hover {

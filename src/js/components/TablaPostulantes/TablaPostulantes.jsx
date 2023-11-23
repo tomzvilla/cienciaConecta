@@ -4,7 +4,7 @@ import Button from "../Button/Button"
 import Badge from "../Badge/Badge"
 import Pagination from "../Pagination/Pagination"
 // hooks
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 
@@ -126,12 +126,13 @@ const TablaPostulantes = (props) => {
         }
     }
 
-
     return (
         <>
             <table className="table">
 
                 <thead className="table__header">
+                    {!props.resize ?
+                    
                     <tr>
                         {props.headers.map(header => {
                             return (
@@ -142,12 +143,24 @@ const TablaPostulantes = (props) => {
                         <th scope="col" className="table-header__head">Acciones</th>
                         <th scope="col" className="table-header__head">Seleccionar</th>
                     </tr>
+
+                    :
+
+                    <tr>
+                        <th scope="col" className="table-header__head">Nombre</th>
+                        <th scope="col" className="table-header__head">Acciones</th>
+                        <th scope="col" className="table-header__head">Seleccionar</th>
+                    </tr>
+                    
+                
+                }
                 </thead>
 
                 <tbody className="table__body">
                     {postulaciones && currentTableData.map((postulacion, index) => {
                         const isChecked = selectedRows.includes(postulacion._id);
                         return (
+                            !props.resize ? 
                             <tr key={postulacion._id} className="table-body-row">
                                 {props.headers.map(header => {
                                     if(header.name === 'Categorías'){
@@ -181,6 +194,24 @@ const TablaPostulantes = (props) => {
                                     else return (
                                     <td key={header.name} className="table-body-row__td" >{postulacion[`${header?.value}`]}</td>
                                 )})}
+                                <td className="table-body-row__td">
+                                    <ImageLink linkto={`${props.viewPath}/${postulacion._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/>
+                                </td>
+                                <td className="table-body-row__td">
+                                    <input
+                                        type="checkbox"
+                                        checked={isChecked}
+                                        onChange={() => toggleRowSelection(postulacion._id)}
+                                    />
+                                </td>   
+                            </ tr>
+
+                            :
+
+                            <tr key={postulacion._id} className="table-body-row">
+
+                                <td key={props.headers[0].name} className="table-body-row__td" >{postulacion[`${props.headers[0]?.value}`] + " " + postulacion[`${props.headers[1]?.value}`]}</td>
+
                                 <td className="table-body-row__td">
                                     <ImageLink linkto={`${props.viewPath}/${postulacion._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/>
                                 </td>

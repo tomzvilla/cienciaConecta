@@ -191,7 +191,7 @@ const PostulacionDocenteForm = (props) => {
             {etapaActual === ETAPAS.Antecedentes && (<PostulacionAntecedentes formValues={formValues} setFormValues={setFormValues} error={error} setError={setError}/>)}
             {etapaActual === ETAPAS.Datos && (<PostulacionDatos formValues={formValues} setFormValues={setFormValues} errors={errors} validateForm={validateForm} onBlurField={onBlurField}/>)}
             
-            <div className='edit-project-form__button'>
+            <div className='button-container'>
                 <Button 
                     text='Atras' 
                     onClickHandler={handleVolver}

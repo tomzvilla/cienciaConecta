@@ -14,6 +14,11 @@
         display: flex;
         cursor: pointer;
 
+        @media screen and (max-width: $bp-small) {
+            font-size: 1.7;
+            padding: 1rem .5rem;
+        }
+
         &:hover > img {
             filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
             transition: all 300ms ease-in-out;

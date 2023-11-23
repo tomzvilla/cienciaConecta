@@ -7,16 +7,26 @@ import Card from "../../Card/Card"
 // hooks
 import { useDispatch } from "react-redux"
 import { feriaActions } from "../../../../store/feria-slice"
-
-const headers = [
-    {name: 'Criterios', value: 'nombre'},
-    {name: 'Ponderación', value: 'ponderacion'},
-]
+import { useEffect, useState } from "react"
 
 const FeriaRubricaCard = (props) => {
 
     const { rubrica, abrirOpciones } = props
+    const [resize, setResize] = useState(window.innerWidth <= 800);
     const dispatch = useDispatch()
+
+    const headers = !resize ? [
+        {name: 'Criterios', value: 'nombre'},
+        {name: 'Ponderación', value: 'ponderacion'},
+    ] : [{name: 'Criterios - Pond.', value: 'nombrePonderacion'}]
+
+    function addNombrePonderacion(rubrica) {
+        return rubrica && rubrica.criterios
+          ? { ...rubrica, criterios: rubrica.criterios.map(criterio => ({ ...criterio, nombrePonderacion: `${criterio.nombre} - ${criterio.ponderacion}` })) }
+          : rubrica;
+      }
+
+    const updatedRubricas = addNombrePonderacion(rubrica);
 
     const sumarPonderacionesCriterios = () => {
         let suma = 0;
@@ -45,6 +55,19 @@ const FeriaRubricaCard = (props) => {
 
     }
 
+    const handleResize = () => {
+        setResize(window.innerWidth <= 800);
+      };
+    
+      useEffect(() => {
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+          window.removeEventListener('resize', handleResize);
+        };
+      }, []);
+
+
     return (
         <Card header={
                         <div className="feria-rubrica-card__header">
@@ -63,7 +86,7 @@ const FeriaRubricaCard = (props) => {
                     modalTitle="Opciones"
                     callback={handleBorrarCriterio}
                     headers={headers}
-                    data={rubrica.criterios}
+                    data={!resize ? rubrica.criterios : updatedRubricas.criterios}
                 />
             </div>
 
@@ -71,9 +94,7 @@ const FeriaRubricaCard = (props) => {
             <p className="feria-rubrica-card__error">La suma de la ponderación de los criterios debe dar 100</p> : null}
 
 
-            <div className="feria-rubrica-card__nuevo-container">
-                <NuevoCriterio rubrica={rubrica} />
-            </div>
+            <NuevoCriterio rubrica={rubrica} />
             
         </Card>
     )

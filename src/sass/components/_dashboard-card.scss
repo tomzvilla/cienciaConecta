@@ -2,10 +2,9 @@
     display: flex;
     flex-direction: column;
     
-    
     background-color: $color-white;
-    width: 30%;
-    padding: 8rem 2rem;
+    width: 45rem;
+    padding: 6rem 0rem;
 
     box-shadow: 0px 45px 77px 27px rgba(0, 0, 0, 0.25);
     border-radius: 2rem;
@@ -17,16 +16,50 @@
     align-items: center;
     transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 
+    @media screen and (max-width: $bp-largest) {
+        width: 30rem;
+        padding: 4rem 2rem;
+     }
+
+     @media screen and (max-width: $bp-large) {
+        width: 25rem;
+        padding: 4rem 1rem;
+        box-shadow: 0px 45px 77px 27px rgba(0, 0, 0, 0.15);
+     }
+
+     @media screen and (max-width: $bp-small) {
+        width: 15rem;
+        padding: 4rem 1rem;
+        box-shadow: 0px 45px 77px 27px rgba(0, 0, 0, 0.1);
+     }
+
 
     &:hover {
         box-shadow: 0px 45px 77px 27px rgba(0, 0, 0, 0.3);
         transform: scale(1.01);
+
+        @media screen and (max-width: $bp-large) {
+            box-shadow: 0px 45px 77px 27px rgba(0, 0, 0, 0.2);
+         }
     }
 
 
     &__img {
         width: 23rem;
         filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
+
+        @media screen and (max-width: $bp-largest) {
+            width: 15rem;
+         }
+
+         @media screen and (max-width: $bp-large) {
+            width: 12rem;
+         }
+
+         @media screen and (max-width: $bp-small) {
+            width: 7rem;
+         }
+    
     }
 
     &__text {
@@ -36,11 +69,16 @@
         width: 100%;
         margin: auto;
         font-weight: normal;
-
         font-size: 3.2rem;
         text-align: center;
-        
-        
+
+        @media screen and (max-width: $bp-largest) {
+            font-size: 2.5rem;
+         }
+
+         @media screen and (max-width: $bp-medium) {
+            font-size: 2rem;
+         }
     }
 
     &__link {

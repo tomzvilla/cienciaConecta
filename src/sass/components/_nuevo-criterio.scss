@@ -7,11 +7,13 @@
     justify-content: space-between;
     margin: 0 auto;
 
-
+    @media screen and (max-width: $bp-small) {
+        width: 90%;
+    } 
 
     &__title {
         font-size: 2.3rem;
-        min-width: 80%;
+        min-width: 90%;
         color: $color-grey-dark;
     }
 
@@ -19,21 +21,29 @@
 
 
     &__input {
-        //width: 80%;
-        //max-width: 80%;
         padding: 1rem 0;
-        //margin: auto 0;
 
         &--ponderacion {
             width: 20%;
             max-width: 20%;
             margin-left: auto;
 
+            @media screen and (max-width: $bp-small) {
+                width: 15%;
+            max-width: 15%;
+            margin-right: auto;
+            } 
+
         }
 
         &--criterio {
             width: 40%;
             max-width: 40%;
+
+            @media screen and (max-width: $bp-small) {
+                width: 30%;
+            max-width: 30%;
+            } 
             
         }
         

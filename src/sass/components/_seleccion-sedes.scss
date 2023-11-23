@@ -6,23 +6,40 @@
     padding-left: 3rem;
     width: 90%;
 
+    @media screen and (max-width: $bp-medium) {
+        padding-left: 0rem;
+        align-self: center;
+    }  
+
 
     &__title {
         font-size: 3rem;
-        //text-align: center;
         font-weight: 500;
-        //padding: 2rem 0rem;
         margin-top: 1rem;
         align-self: flex-start;
+
+        @media screen and (max-width: $bp-medium) {
+            font-size: 2.5rem;
+        }  
+
+        @media screen and (max-width: $bp-small) {
+            font-size: 2.3rem;
+            align-self: center;
+        }  
     }
 
     &__blank {
         font-size: 2rem;
-        //text-align: center;
         color: $color-grey-dark;
         font-weight: 500;
-        //padding: 2rem 0rem;
         align-self: flex-start;
+
+        @media screen and (max-width: $bp-small) {
+            font-size: 1.8rem;
+            align-self: center;
+        } 
+
+        
     }
 
 }

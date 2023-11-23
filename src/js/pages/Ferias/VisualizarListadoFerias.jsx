@@ -1,5 +1,4 @@
 // Components
-import TableCard from "../../components/Table/TableCard"
 import Spinner from "../../components/Spinner/Spinner"
 import BlankState from "../../components/BlankState/BlankState"
 import Card from "../../components/Card/Card"

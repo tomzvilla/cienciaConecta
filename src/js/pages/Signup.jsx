@@ -11,6 +11,7 @@ import Metadata from '../components/Metadata/Metadata'
 
 import axios from '../../api/axios'
 import Swal from 'sweetalert2'
+import Card from '../components/Card/Card'
 const SIGNUP_URL = '/auth/register'
 
 const Signup = () => {
@@ -171,12 +172,14 @@ const Signup = () => {
       <div className='signup'>
       <SignupProgress avanzar={avanzar} confirmar={confirmar}/>
       
-      {!confirmar ?
-      <SignupForm personal={!avanzar} handleChange={handleChange} onBlurField={onBlurField} 
-                  formValues={formValues}
-                  errors={errors} onSubmit={handleSubmit} handleAvanzar={handleAvanzar} handleVolver={handleVolver}/>
-                  : <SignupConfirm  formValues={formValues} handleVolver={handleVolver} handleSubmit={handleSubmit}/>
-      }
+      <Card title="Registrarse">
+        {!confirmar ?
+        <SignupForm personal={!avanzar} handleChange={handleChange} onBlurField={onBlurField} 
+                    formValues={formValues}
+                    errors={errors} onSubmit={handleSubmit} handleAvanzar={handleAvanzar} handleVolver={handleVolver}/>
+                    : <SignupConfirm  formValues={formValues} handleVolver={handleVolver} handleSubmit={handleSubmit}/>
+        }
+      </Card>
       </div>
     </>
   )

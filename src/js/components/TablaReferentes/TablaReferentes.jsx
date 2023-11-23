@@ -257,7 +257,7 @@ const TablaReferentes = (props) => {
             </table>
 
             {<Pagination currentPage={currentPage} totalCount={referentesData.referentes.length} pageSize={pageSize} onPageChange={page => handlePageChange(page)} />}
-            <div className='register-project-form__button'>
+            <div className='button-container'>
                 <Button text='Volver' onClickHandler={handleVolver}/>
                 <Button text='Asignar' onClickHandler={handleSubmit} activo={true}/>
             </div>

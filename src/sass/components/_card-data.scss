@@ -1,21 +1,30 @@
 .card-data {
     font-weight: 400;
     color: $color-grey-dark;
-    width: 90%;
+    margin: 0 auto;
 
     border-bottom: 1px solid $color-grey-dark;
     padding: .5rem 0rem;
     margin-bottom: 1rem;
+
+    
 
 
     &__title {
         font-size: 2rem;
         margin-bottom: .5rem;
 
+        @media screen and (max-width: $bp-small) {
+            font-size: 2rem;
+          }
     }
 
     &__value {
         font-size: 2rem;
+        
+        @media screen and (max-width: $bp-small) {
+            font-size: 1.8rem;
+          }
         
     }
   
