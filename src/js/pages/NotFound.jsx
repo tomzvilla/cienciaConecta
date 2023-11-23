@@ -5,6 +5,7 @@ import notFound from '../../assets/not_found.png'
 import useAuth from '../hooks/useAuth'
 import { useLocation, Navigate, useNavigate } from 'react-router-dom'
 import useLogout from '../hooks/useLogout'
+import Card from '../components/Card/Card'
 
 const NotFound = () => {
   const { auth } = useAuth()
@@ -23,13 +24,15 @@ const NotFound = () => {
 
   return (
     auth?.accessToken ? 
-    (<div className='not-found'>
-        <img className='not-found__img' src={notFound} alt='Imágen que representa página no encontrada'/>
-        <h2 className='not-found__title'>PÁGINA NO ENCONTRADA</h2>
-        <p className='not-found__text'>
+    (
+    <Card title="Usuario no autorizado">
+    <div className='unauthorized'>
+        <img className='unauthorized__img' src={notFound} alt='Imágen que representa página no encontrada'/>
+        <h2 className='unauthorized__title'>PÁGINA NO ENCONTRADA</h2>
+        <p className='unauthorized__text'>
           La página que estás buscando no existe.
         </p>
-        <div className='not-found__buttons'>
+        <div className='unauthorized__buttons'>
           <Button 
             text='Salir' 
             onClickHandler={signOut}
@@ -40,7 +43,9 @@ const NotFound = () => {
             activo={true}
           />
         </div>
-    </div> )
+    </div> 
+    </Card>
+    )
     : 
     (<Navigate to='/home' state={{ from: location }} replace />)
   )

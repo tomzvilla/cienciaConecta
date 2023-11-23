@@ -26,17 +26,21 @@ const Layout = (props) => {
 
   const home = location.pathname === '/' ? true : location.pathname === '/home' ? true : false;
   const signup = location.pathname === '/signup' ? true : false;
+  const recuperarCredenciales = location.pathname === '/recuperarCredenciales' ? true : false;
+  const login = location.pathname === '/login' ? true : false;
 
   const showSidebar = useSelector(state => state.ui.sidebar)
 
+  const nonSidebarPage = signup || home || recuperarCredenciales || login;
+
   return (
-    <div className="layout">
+    <div className={nonSidebarPage ?  "layout--not-side" : showSidebar ? "layout--side" : "layout" }>
       <nav className="layout__nav">
         <Navbar openModal={openModal} closeModal={closeModal} home={home}/>
       </nav>
 
 
-      {signup || home ? (
+      {nonSidebarPage ? (
 
           <>
             <main className="layout__main layout__main--full-width">
@@ -61,7 +65,7 @@ const Layout = (props) => {
         }
         
         
-        <main className={showSidebar ?  "layout__main layout__main--full-width" : "layout__main" }>
+        <main className="layout__main">
           {/* <LinkPage /> */}
           <Outlet context={[openModal, closeModal, modalIsOpen]}/>
         </main>

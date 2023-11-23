@@ -1,6 +1,7 @@
 import FooterLinks from "./FooterLinks";
 import FooterImagenes from "./FooterImagenes";
 import FooterRedes from "./FooterRedes";
+import { useEffect, useState } from "react";
 
 const linksip = [ {"titulo":"Gestión Abierta", "link":"https://gestionabierta.cba.gov.ar/"}, 
                     {"titulo": "Portal de Transparencia", "link": "https://transparencia.cba.gov.ar/"},
@@ -13,16 +14,45 @@ const linkscc = [ {"titulo": "Prensa", "link": "https://prensa.cba.gov.ar/"},
                     {"titulo": "Apps", "link": "https://www.cba.gov.ar/ciudadano/"}     ]
 
 const Footer = () => {
+    const [resize, setResize] = useState(window.innerWidth <= 1000);
+
+    const handleResize = () => {
+        setResize(window.innerWidth <= 1000);
+      };
+    
+      useEffect(() => {
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+          window.removeEventListener('resize', handleResize);
+        };
+      }, []);
+
 
     return (
-        <div className="footer">
-            
-            <FooterImagenes />
-            <FooterLinks title="Informacion Pública" links={linksip}/>
-            <FooterLinks title="Canales de Comunicación" links={linkscc}/>
-            <FooterRedes />
-        </div>
-    );
+            <>
+            {!resize ?
+                <div className="footer">
+                    <FooterImagenes />
+                    <FooterLinks title="Informacion Pública" links={linksip}/>
+                    <FooterLinks title="Canales de Comunicación" links={linkscc}/>
+                    <FooterRedes />
+                </div>
+                :
+                <div className="footer footer--resize">
+                    <div className="footer__images">
+                        <FooterLinks title="Informacion Pública" links={linksip}/>
+                        <FooterLinks title="Canales de Comunicación" links={linkscc}/>
+                    </div>
+                    
+                    <div className="footer__images">
+                        <FooterImagenes />
+                        <FooterRedes />
+                    </div>
+                </div>
+            }
+        </>
+    )
 }
 
 export default Footer;

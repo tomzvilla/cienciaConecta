@@ -4,15 +4,12 @@
     padding: 1rem 0rem;
     margin-top: 2rem;
 
-    //align-self: flex-end;
-
     border-collapse: collapse;
+
+    @media screen and (max-width: $bp-medium) {
+        width: 90%;
+    }
     
-    
-
-
-
-
     &__alumno {
         margin: auto auto;
         font-size: 2rem;
@@ -24,8 +21,6 @@
         margin-top: 0;
 
 
-
-
         &:last-child {
             width: min-content;
             align-self: center;
@@ -34,6 +29,11 @@
         &--antecedentes {
             width: max-content;
             margin-right: 3rem;
+
+            @media screen and (max-width: $bp-small) {
+                margin-right: .5rem;
+                max-width: 40%;
+            }
 
             &:last-child {
                 

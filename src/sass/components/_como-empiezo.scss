@@ -1,13 +1,26 @@
 .como-empiezo {
     display: grid;
-    grid-template-columns: 2;
+    grid-template-columns: min-content fit-content;
     grid-template-rows: 4;
-    grid-column-gap: 25rem;
-    padding: 20rem 20rem;
+    grid-column-gap: 5rem;
+    padding: 20rem 0rem;
     //width: 50vw;
+    align-self: center;
     
 
     color: $color-primary;
+
+    @media screen and (max-width: $bp-medium) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10rem 0;
+    }
+
+    @media screen and (max-width: $bp-small) {
+        padding-top: 10rem;
+        padding-bottom: 5rem;
+    }
 
     &__img {
         width: 40rem;
@@ -16,29 +29,70 @@
         border-radius: 100%;
         object-fit: cover;
         grid-row: 1 / 4;
+
+        @media screen and (max-width: $bp-largest) {
+            width: 30rem;
+            height: 30rem;
+        }
+
+        @media screen and (max-width: $bp-medium) {
+            margin-top: 5rem;
+            width: 40rem;
+            height: 40rem;
+        }
+
+        @media screen and (max-width: $bp-small) {
+            margin-top: 5rem;
+            width: 30rem;
+            height: 30rem;
+        }
     }
 
     &__title {
         grid-column: 2 / 3;
-        font-size: 8rem;
+        font-size: 7rem;
         grid-row: 1 / 3;
+        text-wrap: nowrap;
+        @media screen and (max-width: $bp-largest) {
+            font-size: 5rem;
+        }
 
     }
 
     &__text {
         grid-column: 2 / 3;
         grid-row: 2 / 3;
-        font-size: 3rem;
+        font-size: 2.5rem;
         margin-top: 8rem;
-        padding-right: 5rem;
+        width: 70rem;
+
+        @media screen and (max-width: $bp-largest) {
+            width: 45rem;
+            margin-top: 4rem;
+            font-size: 2.3rem;
+        }
+
+        @media screen and (max-width: $bp-medium) {
+           text-align: center;
+           margin-top: 1rem;
+        }
+
+        @media screen and (max-width: $bp-small) {
+            text-align: center;
+            margin-top: 1rem;
+            width: 40rem;
+         }
         
     }
 
     &__button {
         grid-column: 2 / 3;
         grid-row: 3 / 4;
-        align-self: center;
         justify-self: center;
+
+        @media screen and (max-width: $bp-medium) {
+            margin-top: 3rem;
+         }
     }
 
 }

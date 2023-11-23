@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
 import {useLocation, Link, useMatch} from "react-router-dom"
 
 // Recibe una imagen, un texto, y un link para navegar onClick
 const SidebarLink = (props) => {
     const location = useLocation()
+    const showSidebar = useSelector(state => state.ui.sidebar)
 
     const checkRoute = (path, current) =>{
         return current.startsWith(path)
@@ -46,8 +48,10 @@ const SidebarLink = (props) => {
     return (
         <div className={active ? "sidebar-link sidebar-link--active" : "sidebar-link"}>
             <Link to={props.linkto} state={{from: location.pathname}} className="sidebar-link__link">
-                <img className={active ? "sidebar-link__image sidebar-link__image--active" : "sidebar-link__image"} src={props.img} alt="" />
-                <p className="sidebar-link__text" id={props.linkto}>{props.text}</p>
+                <img className={active ? "sidebar-link__image sidebar-link__image--active" : "sidebar-link__image"} src={props.img} alt={props.text} />
+
+                {!showSidebar ? <p className="sidebar-link__text" id={props.linkto}>{props.text}</p> : ""}
+                
             </Link>
         </div>
     )

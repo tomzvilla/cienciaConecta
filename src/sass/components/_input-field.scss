@@ -1,8 +1,12 @@
 .input-field {
     display: flex;
     flex-direction: column;
-    //margin-left: auto;
     font-size: 2rem;
+
+
+    @media screen and (max-width: $bp-medium) {
+        font-size: 1.8rem;
+    }
 
     &:focus-within {
         .input-field__label {
@@ -16,7 +20,6 @@
         &--error {
             color: $color-red;
         }
-
     }
 
     & > input[type=checkbox] {
@@ -24,11 +27,11 @@
         vertical-align: text-top;
         height: 2.3rem;
         margin-top: 2rem;
-        // margin-left: 4rem;
         
-
-        //margin-left: auto;
-
+        @media screen and (max-width: $bp-medium) {
+            width: 2rem;
+            height: 2rem;
+        }
 
         &:hover {
             color: $color-primary;
@@ -41,50 +44,43 @@
         }
     }
 
-
     &__input {
         font-size: 2rem;
         height: 4rem;
         border: 0px;
         border-bottom: 1px solid $color-grey-dark;
-        //padding: .5rem 3rem;
         outline: none;
         color: $color-grey-dark;
 
+        @media screen and (max-width: $bp-medium) {
+            font-size: 2rem;
+            height: 3rem;
+        }
 
-        
-        
-        
+        @media screen and (max-width: $bp-medium) {
+            font-size: 1.7rem;
+            height: 2.5rem;
+        }
 
         &:focus {
             border-bottom: 2px solid $color-primary;
             transition: all 50ms linear;
-
         }
-
-        
 
         &--error {
             border-bottom: 2px solid $color-red;
         } 
     }
 
-    
-
-
-
-
     &__error {
         color: $color-red;
         font-size: 1.5rem;
         margin-top: 1rem;
-        //width: 30rem;
-        //display: flex;
         flex-wrap: wrap;
         flex: 1;
-        
+
+        @media screen and (max-width: $bp-medium) {
+            font-size: 1.4rem;
+        }
     }
-
-
-    
 }

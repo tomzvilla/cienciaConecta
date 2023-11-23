@@ -8,6 +8,11 @@
         color: $color-grey-dark;
         padding: 2rem;
 
+        @media screen and (max-width: $bp-small) {
+           font-size: 1.8rem;
+           text-align: center;
+        }
+
     }
 
 

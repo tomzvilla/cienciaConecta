@@ -1,7 +1,16 @@
 .dashboard {
     display: flex;
     flex-direction: column;
+    align-items: center;
     padding: 0rem 6rem;
+
+    @media screen and (max-width: $bp-medium) {
+        padding: 0rem 3rem;
+    }
+
+    @media screen and (max-width: $bp-small) {
+        padding: 0rem 1rem;
+    }
 
 
     &__title {
@@ -9,6 +18,16 @@
         color: $color-primary;
         margin-bottom: 5rem;
         align-self: flex-start;
+
+        @media screen and (max-width: $bp-medium) {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        @media screen and (max-width: $bp-small) {
+            font-size: 2.5rem;
+        }
     }
     
 }

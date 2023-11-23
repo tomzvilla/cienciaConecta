@@ -95,7 +95,6 @@ function App() {
             <Route path='/confirmar/:token' element={<ConfirmarCuenta/>}/>
             <Route path='/recuperarCredenciales' element={<RecuperarCredenciales />}/>
             <Route path='/reestablecerCredenciales/:token' element={<IngresarCredenciales />}/>
-
           </Route>
           <Route element={<PersistLogin />}>
             <Route element={<RequireAuth 

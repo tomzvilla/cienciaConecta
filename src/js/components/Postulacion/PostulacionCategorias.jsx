@@ -52,7 +52,10 @@ const PostulacionCategorias = (props) => {
     return(
         <div className="postulacion-form">
             <h5 className="postulacion-form__title">Elegí las categorías que querés evaluar</h5>
-            <Table data={formValues.categorias} headers={headers} callback={handleDelete}/>
+            <div className="postulacion-form__table ">
+                <Table data={formValues.categorias} headers={headers} callback={handleDelete}/>
+            </div>
+            
             <div className="postulacion-form__input">
                 <SelectField
                     label='Categorías: ' 

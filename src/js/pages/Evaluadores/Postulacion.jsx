@@ -22,10 +22,10 @@ const Postulacion = () => {
         <>
             <Metadata title={'Postularme como Evaluador'}/>
             { !feria ?
-            <Card title={'Postulacion'}><BlankState msg={`No hay ninguna Feria de Ciencias y Tecnología activa en este momento. Podes acceder a nuestros canales oficiales para tener más detalles del calendario.`}/></Card>
+            <Card title={'Postulación'}><BlankState msg={`No hay ninguna Feria de Ciencias y Tecnología activa en este momento. Podes acceder a nuestros canales oficiales para tener más detalles del calendario.`}/></Card>
             :
             auth?.roles?.find(role => role === ROLES.RefEvaluador ) ?
-            <Card title={'Postulacion'}><BlankState msg={`Un referente de evaluador no puede postularse como evaluador.`}/></Card>
+            <Card title={'Postulación'}><BlankState msg={`Un referente de evaluador no puede postularse como evaluador.`}/></Card>
             :
             fecha >= new Date(feria?.fechas_evaluador.fechaInicioPostulacionEvaluadores) && fecha < new Date(feria?.fechas_evaluador.fechaFinPostulacionEvaluadores) ?
             <>

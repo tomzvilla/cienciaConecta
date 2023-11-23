@@ -1,18 +1,29 @@
 .dashboard-comision {
     
-
-
     &__details {
         display: flex;
         justify-content: space-around;
         width: 100%;
         padding: 1rem 0rem;
+
+        @media screen and (max-width: $bp-small) {
+            padding: .5rem 0rem;
+            flex-direction: column;
+        }
         
         
         & > p {
             padding-top: 2rem;
             font-size: 2.5rem;
             color: $color-grey-dark;
+
+            @media screen and (max-width: $bp-medium) {
+                font-size: 2rem;
+            }
+
+            @media screen and (max-width: $bp-small) {
+                font-size: 1.8rem;
+            }
 
         }
 

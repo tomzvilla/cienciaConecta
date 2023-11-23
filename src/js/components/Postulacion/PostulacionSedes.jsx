@@ -5,6 +5,7 @@ import Table from "../Table/Table"
 // hooks
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
+import { useEffect, useState } from "react"
 
 const headers = [
     {name: 'Sedes', value: 'nombre'},
@@ -12,11 +13,16 @@ const headers = [
 ]
 
 const PostulacionSedes = (props) => {
-
     const {formValues, setFormValues, error} = props
 
     const axiosPrivate = useAxiosPrivate()
     const { data: sedesData} = useAxiosFetch('/establecimiento/sedes/regional', axiosPrivate)
+    const [resize, setResize] = useState(window.innerWidth <= 800);
+
+    const headers = !resize ? [
+        {name: 'Sedes', value: 'nombre'},
+        {name: 'CUE', value: 'cue'},
+    ] : [{name: 'Sedes', value: 'nombre'},]
 
     let sedes = []
     if(sedesData){
@@ -29,6 +35,19 @@ const PostulacionSedes = (props) => {
             return 0;
         });
     }
+
+    const handleResize = () => {
+        setResize(window.innerWidth <= 800);
+      };
+    
+      useEffect(() => {
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+          window.removeEventListener('resize', handleResize);
+        };
+      }, []);
+      
 
     const handleChange = (e) => {
         e.preventDefault()

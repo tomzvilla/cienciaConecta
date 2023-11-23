@@ -8,8 +8,10 @@ import useLogout from "../../hooks/useLogout";
 import { useLocation, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { uiActions } from "../../../store/ui-slice";
+import { useEffect, useState } from "react";
 
 const Navbar = (props) => {
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const {auth} = useAuth()
     const navigate = useNavigate()
     const logout = useLogout()
@@ -38,6 +40,19 @@ const Navbar = (props) => {
         dispatch(uiActions.toggleNavbarMenu())
     }
 
+    const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+      };
+    
+      useEffect(() => {
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+          window.removeEventListener('resize', handleResize);
+        };
+      }, []);
+      
+
 
     const modifier = props.home ? "--home" : ""
 
@@ -45,12 +60,13 @@ const Navbar = (props) => {
         <div className={`navbar navbar${modifier}`}>
             { auth?.roles ? 
             <div onClick={showSidebar} className="navbar__burguer">
-                {/* <input type="checkbox" /> */}
                 <span/>
                 <span/>
                 <span/>
             </div> : null }
-            <h1 className="navbar__logo" onClick={navigateHome}>CienciaConecta</h1>
+
+            {window.innerWidth <= 600 ? <img className="navbar__img" onClick={navigateHome} src={require("../../../assets/isotipo-cortado.png")}/> : <h1 className="navbar__logo" onClick={navigateHome}>CienciaConecta</h1>}
+            
 
             <div className="navbar__button-container">
                 { auth?.roles ?

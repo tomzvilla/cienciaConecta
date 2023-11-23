@@ -10,11 +10,25 @@
         margin-top: 2rem;
         margin-right: auto;
 
+        @media screen and (max-width: $bp-medium) {
+            font-size: 2.3rem;
+        }
+
+        @media screen and (max-width: $bp-small) {
+            padding: 0 1rem;
+            font-size: 1.8rem;
+            margin-top: 1.5rem;
+        }
+
     }
 
     &__btn {
         margin-top: 4rem;
         align-self: center;
+
+        @media screen and (max-width: $bp-medium) {
+            margin-top: 2rem;
+        }
     }
 
 

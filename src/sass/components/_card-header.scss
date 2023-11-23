@@ -8,6 +8,15 @@
         padding: 1.5rem 0rem;
         border-radius: 2rem 2rem 0rem 0;
 
+        @media screen and (max-width: $bp-medium) {
+            font-size: 2.3rem;
+          }
+
+        @media screen and (max-width: $bp-small) {
+            font-size: 2rem;
+            text-align: center;
+          }
+
 
         display: flex;
         justify-content: space-around;
@@ -18,12 +27,21 @@
             margin-left: -3rem;
             padding: 1.5rem 3rem;
 
+            @media screen and (max-width: $bp-small) {
+                margin-left: -1rem;
+                padding: 1.5rem 1rem;
+            }
+            
         }
     
     &__title {
         font-weight: 300;
         padding: 0 3rem;
         margin: auto;
+
+        @media screen and (max-width: $bp-small) {
+            padding: 0 1rem;
+          }
     }
 
     
@@ -34,6 +52,11 @@
         height: 5rem;
         margin: auto 0rem;
         padding-top: 1rem;
+
+        @media screen and (max-width: $bp-medium) {
+            width: 3rem;
+            height: 3rem;
+        }
     }
 
     &__img-container {

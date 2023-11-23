@@ -6,7 +6,7 @@ import Badge from "../Badge/Badge"
 import GenericBadge from "../Badge/GenericBadge"
 import BlankState from "../BlankState/BlankState"
 // hooks
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import useUtils from "../../hooks/useUtils"
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
@@ -25,7 +25,7 @@ const headers = [
 const pageSize = 10
 
 const ListadoEvaluadores = (props) => {
-
+    const [resize, setResize] = useState(window.innerWidth <= 1200);
     const evaluadores = useSelector(state => state.referentes.evaluadoresProyecto)
     const proyecto = useSelector(state => state.referentes.proyectoEditando)
 
@@ -58,11 +58,25 @@ const ListadoEvaluadores = (props) => {
         dispatch(referentesActions.asignarEvaluador(idEvaluador))
     }
 
+    const handleResize = () => {
+        setResize(window.innerWidth <= 1200);
+      };
+    
+      useEffect(() => {
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+          window.removeEventListener('resize', handleResize);
+        };
+      }, []);
+
     return (
         evaluadores.length !== 0 && evaluadores.some(ev => ev.asignado !== true) ?
         <>
             <table className="table">
                 <thead className="table__header">
+                    {!resize ? 
+
                     <tr>
                         {headers.map(header => {
                             return (
@@ -73,13 +87,26 @@ const ListadoEvaluadores = (props) => {
                         <th scope="col" className="table-header__head">Ver</th>
                         <th scope="col" className="table-header__head">Asignar</th>
                     </tr>
+
+                    :
+
+                    <tr>
+                        <th scope="col" className="table-header__head">{headers[0].name}</th>
+                        <th scope="col" className="table-header__head">Ver</th>
+                        <th scope="col" className="table-header__head">Asignar</th>
+                    </tr>
+                     
+                }
+                    
                 </thead>
                 <tbody className="table__body">
                     {evaluadores && currentTableData.map((evaluador) => {
-                        console.log(evaluador.proyectosAsignados < 5)
-                        console.log(evaluador.asignado)
+                        
                         if(!evaluador.asignado && evaluador.proyectosAsignados < 5) return (
-                            <tr key={evaluador._id} className="table-body-row">
+
+                            !resize ? 
+
+                                <tr key={evaluador._id} className="table-body-row">
                                 {headers.map(header => {
                                     if(header.name === 'Categorías'){
                                         return (
@@ -119,6 +146,25 @@ const ListadoEvaluadores = (props) => {
                                     <ImageButton small={true} src={require("../../../assets/add.png")} callback={() => handleAdd(evaluador._id)} text="Asignar"/>
                                 </td>   
                             </ tr>
+
+
+                            :
+
+                            <tr key={evaluador._id} className="table-body-row">
+                                <td key={headers[0].name} className="table-body-row__td" >{evaluador.datos_docente[headers[0]?.value] + " " + evaluador.datos_docente[headers[1]?.value]}</td>
+                                <td className="table-body-row__td table-body-row__td--actions">
+                                    <ImageLink linkto={`/postulante/${evaluador._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/>
+                                </td>
+                                <td className="table-body-row__td">
+                                    <ImageButton small={true} src={require("../../../assets/add.png")} callback={() => handleAdd(evaluador._id)} text="Asignar"/>
+                                </td>   
+                            </ tr>
+                            
+                            
+                            
+                            
+
+                            
                         )
                         
                     }

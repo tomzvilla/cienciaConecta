@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import useAxiosFetch from "../../hooks/useAxiosFetch";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import BlankState from "../BlankState/BlankState";
@@ -14,7 +15,7 @@ const headers = [
 
 const DashboardComisionAsesora = (props) => {
     const axiosPrivate = useAxiosPrivate()
-
+    const [resize, setResize] = useState(window.innerWidth <= 600);
     const { data, isLoading, error, status } = useAxiosFetch('/feria/info', axiosPrivate)
 
     let sedes = []
@@ -33,6 +34,21 @@ const DashboardComisionAsesora = (props) => {
         }
     }
 
+    const lastSede = sedes[sedes.length - 1];
+
+    const handleResize = () => {
+        setResize(window.innerWidth <= 600);
+      };
+    
+      useEffect(() => {
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+          window.removeEventListener('resize', handleResize);
+        };
+      }, []);
+
+
     return (
         <Card title="Resumen de Feria" wide={true}>
             {   
@@ -44,9 +60,17 @@ const DashboardComisionAsesora = (props) => {
                 <div className="dashboard-comision__details">
                     <p><strong>Próxima instancia: </strong>{data.feria.prox_instancia}</p>
                     <p><strong>Fin instancia {data.feria.instancia_actual}</strong>: {data.feria.prox_fecha}</p>
+                    {resize ? 
+                    <>
+                        <p><strong>Totales</strong></p>
+                        <p><strong>Proyectos presentados</strong>: {lastSede.cantidadProyectosEvaluados}</p>
+                        <p><strong>Proyectos evaluados</strong>: {lastSede.cantidadProyectosEvaluados}</p>
+                        <p><strong>Cant. Evaluadores</strong>: {lastSede.cantidadEvaluadores}</p>
+                    </>
+                    : ""}
                 </div>
 
-                <Table headers={headers} acciones={false} data={sedes}/>
+                {!resize ? <Table headers={headers} acciones={false} data={sedes}/> :""}
             </div>
                 :
             <BlankState msg="No hay una feria activa ahora mismo. ¡Intentá de nuevo mas tarde!"/>
