@@ -13,6 +13,7 @@ import instanciasSlice from './instancias-slice'
 import perfilSlice from "./perfil-slice";
 import promocionesSlice from "./promocion-slice";
 import categoriasSlice from "./categorias-slice";
+import notificacionesSlice from "./notificaciones-slice";
 
 const store = configureStore({
     reducer: { 
@@ -27,6 +28,7 @@ const store = configureStore({
         perfil: perfilSlice.reducer,
         promociones: promocionesSlice.reducer,
         categorias: categoriasSlice.reducer,
+        notificaciones: notificacionesSlice.reducer,
     }
 })
 

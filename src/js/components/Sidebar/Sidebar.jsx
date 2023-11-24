@@ -87,6 +87,7 @@ const Sidebar = () => {
                         <SidebarLink img={require("../../../assets/user.png")} linkto={'/proyectosParaAsignar'} text="Asignar Proyectos"/>
                     </>
                 }
+                <SidebarLink img={require("../../../assets/campana.png")} linkto={'/notificaciones'} text="Notificaciones"/>
 
             </div>
             

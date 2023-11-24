@@ -7,6 +7,7 @@ import DashboardReferente from "../../components/Dashboard/DashboardReferente"
 import DashboardSelector from "../../components/Dashboard/DashboardSelector"
 import Spinner from "../../components/Spinner/Spinner"
 import Metadata from "../../components/Metadata/Metadata"
+import NotificationList from "../../components/Notification/NotificationList"
 // hooks
 import useAuth from "../../hooks/useAuth"
 import { useLocation } from "react-router-dom"
@@ -90,8 +91,7 @@ const Dashboard = () => {
                         }
                     </>
             
-                    }
-                
+                }
             </div>
         </>
 
