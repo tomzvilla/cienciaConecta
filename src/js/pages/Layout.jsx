@@ -2,15 +2,46 @@ import { Outlet } from "react-router-dom"
 import Navbar from "../components/Navbar/Navbar"
 import Footer from "../components/Footer/Footer"
 import Sidebar from "../components/Sidebar/Sidebar"
-
+import { Toaster } from 'sonner';
 import { useLocation } from 'react-router-dom';
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import useAuth from "../hooks/useAuth";
 import { useSelector } from "react-redux";
 
 const Layout = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false)
+
+  const [notificationPosition, setNotificationPosition] = useState('bottom-right')
+
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  const handleResize = () => {
+    setWindowSize({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+  };
+
+  // Agrega el event listener para manejar el cambio de tamaño de la ventana
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (windowSize.width < 600) {
+      setNotificationPosition('top-center');
+    } else {
+      setNotificationPosition('bottom-right');
+    }
+  }, [windowSize.width]);
+
   const { auth } = useAuth()
 
   const openModal = () => {
@@ -39,11 +70,10 @@ const Layout = (props) => {
         <Navbar openModal={openModal} closeModal={closeModal} home={home}/>
       </nav>
 
-
       {nonSidebarPage ? (
-
           <>
             <main className="layout__main layout__main--full-width">
+              <Toaster position={notificationPosition} closeButton  />
               <Outlet context={[openModal, closeModal, modalIsOpen]}/>
             </main> 
             
@@ -54,30 +84,18 @@ const Layout = (props) => {
 
         ) :
       <>
-
-        
-        { auth?.accessToken ?
-          <aside className="layout__side">
-            <Sidebar />
-          </aside>
-          :
-          null
-        }
-        
+        { auth?.accessToken ? <aside className="layout__side"> <Sidebar /> </aside> : null }
         
         <main className="layout__main">
-          {/* <LinkPage /> */}
+          <Toaster position={notificationPosition} closeButton  />
           <Outlet context={[openModal, closeModal, modalIsOpen]}/>
         </main>
 
         <footer className="layout__footer">
           <Footer />
         </footer>
-
       </>
       }
-
-      
     </div>
   )
 }
