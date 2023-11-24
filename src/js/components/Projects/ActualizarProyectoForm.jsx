@@ -13,6 +13,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { useSelector } from "react-redux"
 import { instanciaEscolar } from "../../../App"
 import Swal from "sweetalert2"
+import Card from "../Card/Card"
 
 export const ETAPAS = {
     Escolar: '1',
@@ -400,8 +401,8 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
   
 
 return (
-    <form className='edit-project-form'>
-        <h2 className='edit-project-form__title'> Editar proyecto </h2>
+    <Card title="Editar proyecto">
+    <form className='project-form'>
         { (!categoriesData || !levelsData) && <div> <Spinner /> </div>}
         { etapaActual === ETAPAS.Escolar && categoriesData && levelsData && <ActualizarEtapaEscolarForm 
             handleChange={handleChange}
@@ -431,7 +432,7 @@ return (
             formErrors={errors.grupoProyecto}
         
         />}
-        <div className='edit-project-form__button'>
+        <div className='button-container'>
             <Button 
                 text='Volver' 
                 onClickHandler={handleVolver}
@@ -446,6 +447,7 @@ return (
             />}
         </div>
     </form>
+    </Card>
 )
 }
 

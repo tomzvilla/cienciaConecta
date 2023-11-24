@@ -115,6 +115,9 @@ const EvaluacionCardConsulta = () => {
                         {proyecto.nombreEstado}
                     </p>
                 </div>
+                <div className="evaluacion-card__puntaje">
+                    <p>Puntaje: {puntaje}</p>
+                </div>
                 
                 <div className="evaluacion-card__files">
                     <DownloadFile file='informeTrabajo'  name="Informe de trabajo" img={require("../../../assets/tarjeta.png")}/>
@@ -122,9 +125,7 @@ const EvaluacionCardConsulta = () => {
                     <DownloadFile file='registroPedagogico' name="Registro Pedagógico" img={require("../../../assets/tarjeta.png")}/>
                     <DownloadFile video={proyecto.videoPresentacion}  name="Video" img={require("../../../assets/tarjeta.png")}/>
                 </div>
-                <div className="evaluacion-card__puntaje">
-                    <p>Puntaje: {puntaje}</p>
-                </div>
+                
                 <div className="evaluacion-card__button-container">
                       <Button 
                           text='Ver evaluación' 

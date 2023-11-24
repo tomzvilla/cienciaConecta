@@ -4,7 +4,7 @@ import ImageButton from "../ImageButton/ImageButton"
 import Pagination from "../Pagination/Pagination"
 import Card from "../Card/Card"
 // hooks
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 
@@ -28,6 +28,7 @@ const ListadoFerias = (props) => {
 
     // pagination state
     const [currentPage, setCurrentPage] = useState(1);
+    const [resize, setResize] = useState(window.innerWidth <= 800);
 
     const calculateCurrentTableData = () => {
         const firstPageIndex = (currentPage - 1) * pageSize;
@@ -51,12 +52,25 @@ const ListadoFerias = (props) => {
             confirmButtonColor: '#00ACE6',
         })
     }
+
+    const handleResize = () => {
+        setResize(window.innerWidth <= 800);
+      };
     
+      useEffect(() => {
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+          window.removeEventListener('resize', handleResize);
+        };
+      }, []);
 
     return (
         <Card title={'Listado de ferias'}>
             <table className="table">
                 <thead className="table__header">
+
+                {!resize ? 
                     <tr>
                         {headers.map(header => {
                             return (
@@ -66,17 +80,39 @@ const ListadoFerias = (props) => {
                         }
                         <th scope="col" className="table-header__head">Acciones</th>
                     </tr>
+                        :
+                    <tr>
+                        <th scope="col" key={headers[0].value} className="table-header__head">{headers[0].name}</th>
+                        <th scope="col" className="table-header__head">Acciones</th>
+                    </tr>
+                    }
+
                 </thead>
 
                 <tbody className="table__body">
                     {ferias && currentTableData.map((feria) => {
                         const feriaActual = feria.estado !== ESTADOS.finalizada
                         return (
+                            !resize ? 
                             <tr key={feria._id} className="table-body-row">
                                 {headers.map(header => {
                                     return (
                                     <td key={header.name} className="table-body-row__td" >{feria[`${header?.value}`]}</td>
                                 )})}
+                                <td className="table-body-row__td table-body-row__td--actions">
+                                    <ImageLink linkto={feriaActual ? `/verFeria` : `/feria/${feria._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/>
+                                    {feriaActual ?
+                                    <ImageLink small={true} alt="Editar" linkto={`/editarFeria`} src={require("../../../assets/edit.png")}/>
+                                    :
+                                    <ImageButton small={true} alt="Editar" callback={showAlert} src={require("../../../assets/edit.png")}/>
+                                    }
+                                </td>  
+                            </ tr>
+
+                            :
+
+                            <tr key={feria._id} className="table-body-row">
+                                <td key={headers[0].name} className="table-body-row__td" >{feria[`${headers[0]?.value}`]}</td>
                                 <td className="table-body-row__td table-body-row__td--actions">
                                     <ImageLink linkto={feriaActual ? `/verFeria` : `/feria/${feria._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/>
                                     {feriaActual ?

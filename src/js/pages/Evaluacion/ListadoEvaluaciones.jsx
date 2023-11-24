@@ -11,13 +11,7 @@ import { evaluacionActions } from "../../../store/evaluacion-slice";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router"
 import { ESTADOS } from "../../../App"
-
-const headers = [
-    {name: 'Título', value: 'titulo'},
-    {name: 'Nivel', value: 'nivel'},
-    {name: 'Categoría', value: 'categoria'},
-    {name: 'Estado', value: 'nombreEstado'},
-]
+import { useEffect, useState } from "react"
 
 const mensajes = {
     '0': 'La evaluación de los proyectos en instancia regional aún no ha comenzado. ¡Intentá de nuevo mas tarde!',
@@ -44,7 +38,18 @@ const ListadoEvaluaciones = () => {
     const dispatch = useDispatch()
     const location = useLocation()
     const feria = useSelector(state => state.instancias.feria)
+    const [resize, setResize] = useState(window.innerWidth <= 1200);
 
+
+    const headers = !resize ? [
+        {name: 'Título', value: 'titulo'},
+        {name: 'Nivel', value: 'nivel'},
+        {name: 'Categoría', value: 'categoria'},
+        {name: 'Estado', value: 'nombreEstado'},
+    ] : [
+        {name: 'Título', value: 'titulo'},
+    ]
+    
     // Instancia regional
     const { data: listadoData, isLoading } = useAxiosFetch('/evaluacion/pendientes', axiosPrivate, feria.estado === ESTADOS.instanciaProvincial_EnExposicion)
     const { data: categoriasData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate)
@@ -80,6 +85,20 @@ const ListadoEvaluaciones = () => {
         dispatch(evaluacionActions.cargarTablaEvaluacionesPendientes(proyectosConExpo))
     }
 
+    
+
+    const handleResize = () => {
+        setResize(window.innerWidth <= 1200);
+      };
+    
+      useEffect(() => {
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+          window.removeEventListener('resize', handleResize);
+        };
+      }, []);
+
     return (
         <div className="table-custom-page">
             <Card title={titulos[feria?.estado] ?? 'Listado de Evaluaciones'} wide={true}>
@@ -92,7 +111,7 @@ const ListadoEvaluaciones = () => {
                             {listadoData?.length === 0 ?
                             <BlankState msg={`No hay ${feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 'proyectos' : 'exposiciones'} pendientes de evaluación. ¡Intentá de nuevo mas tarde!`} />
                             :
-                            <TablaEvaluaciones location={location} headers={headers}/>}
+                            <TablaEvaluaciones resize={resize} location={location} headers={headers}/>}
                         </>
                     }
             </Card>

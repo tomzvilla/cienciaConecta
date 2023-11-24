@@ -5,7 +5,12 @@
         color: $color-grey-dark;
         font-weight: normal;
         text-align: center;
-        padding: 2rem 1rem;
+        padding: 2rem .5rem;
+
+        @media screen and (max-width: $bp-small) {
+            padding: 1rem .5rem;
+            font-size: 1.6rem;
+        }
     }
 
 }

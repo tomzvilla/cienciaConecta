@@ -15,14 +15,22 @@ const TablaEvaluaciones = (props) => {
             <table className="table">
 
                 <thead className="table__header">
-                    <tr className="table-header">
-                        <th scope="col" className="table-header__head">Título</th>
-                        <th scope="col" className="table-header__head">Nivel</th>
-                        <th scope="col" className="table-header__head">Categoría</th>
-                        <th scope="col" className="table-header__head">Estado</th>
-                        <th scope="col" className="table-header__head">Acciones</th>
-                        <th scope="col" className="table-header__head">Confirmadas</th>
-                    </tr>
+                    {!props.resize ?
+                        <tr className="table-header">
+                            <th scope="col" className="table-header__head">Título</th>
+                            <th scope="col" className="table-header__head">Nivel</th>
+                            <th scope="col" className="table-header__head">Categoría</th>
+                            <th scope="col" className="table-header__head">Estado</th>
+                            <th scope="col" className="table-header__head">Acciones</th>
+                            <th scope="col" className="table-header__head">Confirmadas</th>
+                        </tr>
+                        :
+                        <tr className="table-header">
+                            <th scope="col" className="table-header__head">Título</th>
+                            <th scope="col" className="table-header__head">Acciones</th>
+                            <th scope="col" className="table-header__head">Confirmadas</th>
+                        </tr>
+                }
                 </thead>
 
                 <tbody className="table__body">

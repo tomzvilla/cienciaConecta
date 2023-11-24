@@ -8,8 +8,8 @@ const ActualizarEtapaEscolarForm = (props) => {
 
     return (
         <>
-            <h2 className='register-project-form__subtitle'>Datos del proyecto: </h2>
-            <div className='edit-project-form__input'>
+            <h2 className='project-form__subtitle'>Datos del proyecto: </h2>
+            <div className='project-form__input'>
                 <InputField
                     label='Título: ' 
                     name='title'
@@ -21,7 +21,7 @@ const ActualizarEtapaEscolarForm = (props) => {
                     required={true}
                 />
             </div>
-            <div className='edit-project-form__input'>
+            <div className='project-form__input'>
                 <InputField
                     label='Descripción: ' 
                     name='description'
@@ -33,7 +33,7 @@ const ActualizarEtapaEscolarForm = (props) => {
                     required={true}
                 />
             </div>
-            <div className='edit-project-form__input'>
+            <div className='project-form__input'>
                 <SelectField
                     label='Nivel: ' 
                     name='level'
@@ -45,7 +45,7 @@ const ActualizarEtapaEscolarForm = (props) => {
                     required={true}
                 />
             </div>
-            <div className='edit-project-form__input'>
+            <div className='project-form__input'>
                 <SelectField
                     label='Categoría:' 
                     name='category'
@@ -57,8 +57,8 @@ const ActualizarEtapaEscolarForm = (props) => {
                     required={true}
                 />
             </div>
-            <h2 className='register-project-form__subtitle'>Datos del establecimiento educativo: </h2>
-            <div className='register-project-form__input'>
+            <h2 className='project-form__subtitle'>Datos del establecimiento educativo: </h2>
+            <div className='project-form__input'>
                 <SelectField
                     label='Deparamento: ' 
                     name='departamento'
@@ -70,7 +70,7 @@ const ActualizarEtapaEscolarForm = (props) => {
                     required={true}
                 />
             </div>
-            <div className='register-project-form__input'>
+            <div className='project-form__input'>
                 <SelectField
                     label='Localidad: ' 
                     name='localidad'
@@ -83,7 +83,7 @@ const ActualizarEtapaEscolarForm = (props) => {
                     disabled={!formValues.departamento}
                 />
             </div>
-            <div className='register-project-form__input'>
+            <div className='project-form__input'>
                 <Autocomplete 
                     results={results} 
                     onChange={handleFilter} 
@@ -94,7 +94,7 @@ const ActualizarEtapaEscolarForm = (props) => {
                     value={autocompleteValue?.nombre}
                 />
             </div>
-            <div className='edit-project-form__input'>
+            <div className='project-form__input'>
                 <SelectField
                     label='¿Pertenece a escuela privada?' 
                     name='privateSchool'
@@ -106,7 +106,7 @@ const ActualizarEtapaEscolarForm = (props) => {
                     required={true}
                 />
             </div>
-            <div className='edit-project-form__input'>
+            <div className='project-form__input'>
                 <InputField
                     label='Email de la escuela' 
                     name='schoolEmail'

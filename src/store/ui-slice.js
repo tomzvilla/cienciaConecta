@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const getViewportWidth = () => window.innerWidth;
+
 const initialState = {
-    sidebar: false,
+    sidebar: getViewportWidth() <= 1200,
     navbarMenu: false,
 }
 

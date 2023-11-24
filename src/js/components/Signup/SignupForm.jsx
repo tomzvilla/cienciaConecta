@@ -11,12 +11,11 @@ const SignupForm = (props) => {
 
     const volverHome = () => {
       navigate('/home', { replace: true})
-
     }
 
     return (
         props.personal ? 
-        
+
         <form  className="signup-form">
           <div className='signup-form__input'>
             <InputField
@@ -71,11 +70,6 @@ const SignupForm = (props) => {
           </div>
           
           
-          
-          
-          
-          
-          
           <div className='signup-form__button-container signup-form__button-container--double'>
             <Button text='Volver' onClickHandler={volverHome} activo={false}/>
             <Button text='Avanzar' onClickHandler={props.handleAvanzar} activo={true}/>
@@ -84,7 +78,6 @@ const SignupForm = (props) => {
           </form>
 
           :
-        
           <form className='signup-form'>
           <div className='signup-form__input'>
             <InputField
@@ -137,9 +130,6 @@ const SignupForm = (props) => {
                 required={true}
             />    
           </div>
-        
-          
-          
           
           <div className='signup-form__button-container signup-form__button-container--double'>
             <Button text='Volver' onClickHandler={props.handleVolver} activo={false}/>

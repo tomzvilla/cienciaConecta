@@ -3,11 +3,22 @@
     display: flex;
     flex-direction: column;
     width: max-content;
-
+    
+    @media screen and (max-width: $bp-large) {
+        margin-left: 2rem;
+      }
 
     &__title {
         font-size: 3rem;
         margin-bottom: 1rem;
+
+        @media screen and (max-width: $bp-largest) {
+            font-size: 2.5rem;
+          }
+
+          @media screen and (max-width: $bp-medium) {
+            font-size: 2rem;
+          }
     }
 
 
@@ -16,6 +27,14 @@
         margin-top: .5rem;
         color: inherit;
         text-decoration: none;
+
+        @media screen and (max-width: $bp-largest) {
+            font-size: 2rem;
+          }
+
+          @media screen and (max-width: $bp-medium) {
+            font-size: 1.5rem;
+          }
 
         &:active {
             color: inherit;

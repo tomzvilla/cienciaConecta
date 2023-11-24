@@ -27,7 +27,7 @@ const ActualizarEtapaRegionalForm = (props) => {
 
     return (
         <>
-            <div className='edit-project-form__input'>
+            <div className='project-form__input'>
                 <SelectField
                     label='Sede del Proyecto: ' 
                     name='sede'
@@ -39,7 +39,7 @@ const ActualizarEtapaRegionalForm = (props) => {
                     required={true}
                 />
             </div>
-            <div className='edit-project-form__input'>
+            <div className='project-form__input'>
                 <InputField
                     label='Enlace a video del proyecto: ' 
                     name='videoPresentacion'
@@ -51,7 +51,7 @@ const ActualizarEtapaRegionalForm = (props) => {
                     required={true}
                 />
             </div>
-            <div className='edit-project-form__input'>
+            <div className='project-form__input'>
                 <FileField
                     label='Carpeta de campo: ' 
                     name='carpetaCampo'
@@ -63,7 +63,7 @@ const ActualizarEtapaRegionalForm = (props) => {
                     nombreArchivo={formValues.carpetaCampo.nombre}
                 />
             </div>
-            <div className='edit-project-form__input'>
+            <div className='project-form__input'>
                 <FileField
                     label='Informe de trabajo: ' 
                     name='informeTrabajo'
@@ -75,7 +75,7 @@ const ActualizarEtapaRegionalForm = (props) => {
                     nombreArchivo={formValues.informeTrabajo.nombre}
                 />
             </div>
-            <div className='edit-project-form__input'>
+            <div className='project-form__input'>
                 <FileField
                     label='Registro Pedagógico: ' 
                     name='registroPedagogico'
@@ -87,7 +87,7 @@ const ActualizarEtapaRegionalForm = (props) => {
                     nombreArchivo={formValues.registroPedagogico.nombre}
                 />
             </div>
-            <div className='edit-project-form__input'>
+            <div className='project-form__input'>
                 <FileField
                     label='Autorización de uso de imagen: ' 
                     name='autorizacionImagen'

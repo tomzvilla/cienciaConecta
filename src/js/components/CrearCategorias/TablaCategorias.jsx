@@ -8,7 +8,6 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import Swal from "sweetalert2"
 
 const TablaCategorias = (props) => {
-
     const axiosPrivate = useAxiosPrivate()
     // state with redux
     const categorias = useSelector(state => state.categorias.categorias)

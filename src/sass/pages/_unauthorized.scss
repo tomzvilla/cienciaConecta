@@ -1,37 +1,54 @@
 .unauthorized{
-    width:  70%;
-    height: 70%;
-    margin: 0 auto;
-    margin-top: 3rem;
-    background-color: $color-white;
-    border-radius: 2rem;
-    box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.20), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 3.5rem;
+    padding: 3rem;
+    color: $color-grey-dark;
+
+    @media screen and (max-width: $bp-medium) {
+        padding: 1rem;
+    }
 
     &__title {
-        font-weight: 600;
+        font-weight: 400;
         font-size: 4rem;
         margin: 3rem;
+        text-align: center;
+
+        @media screen and (max-width: $bp-medium) {
+            font-size: 3rem;
+            margin: 2rem;
+        }
+
+        @media screen and (max-width: $bp-small) {
+            font-size: 2.3rem;
+            margin: 2rem 1rem;
+        }
     }
 
     &__text {
         font-size: 2rem;
-        max-width: 90rem;
         text-align: center;
-        color: $color-grey-dark;
+
+        @media screen and (max-width: $bp-medium) {
+            font-size: 1.8rem;
+        }
     }
 
     &__img {
-        height: 125px;
-        width: 125px;
-        margin-top: 3rem;
+        height: 10rem;
+        width: 10rem;
+        margin-top: 2rem;
+        filter: invert(46%) sepia(0%) saturate(0%) hue-rotate(64deg) brightness(99%) contrast(89%);
+
+        @media screen and (max-width: $bp-medium) {
+            height: 8rem;
+            width: 8rem;
+        }
     }
 
     &__buttons {
-        margin-top: 6rem;
+        margin-top: 3rem;
         width: 100%;
         display: flex;
         align-items: center;

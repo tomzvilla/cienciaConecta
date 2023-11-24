@@ -11,4 +11,9 @@
     vertical-align: middle;
 
     font-size: 2rem;
+
+    @media screen and (max-width: $bp-medium) {
+        font-size: 1.5rem;
+        padding: .5rem 1rem;
+      }
 }

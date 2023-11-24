@@ -6,6 +6,10 @@
 
     justify-content: space-around;
     align-items: center;
+
+    @media screen and (max-width: $bp-medium) {
+        padding: 1rem 0rem;
+    }
     
 
     &__title {
@@ -14,6 +18,10 @@
         font-weight: 500;
         //padding: 2rem 0rem;
         margin-bottom: 2rem;
+
+        @media screen and (max-width: $bp-medium) {
+            font-size: 2rem;
+        }
         
     }
     &__input {

@@ -49,7 +49,7 @@ const Rubrica = ({ rubrica, display, readOnly = false }) => {
                 />
                 </div>)
             })}
-            <div className="rubrica__textarea">
+            <div className="rubrica__input">
                 <TextareaInput disabled={readOnly} label="Devolución: " name={rubrica.nombreRubrica} onChange={onChange} value={devolucionActual.comentario} error={devolucionActual.error}/>
 
             </div>

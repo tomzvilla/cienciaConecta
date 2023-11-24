@@ -28,7 +28,7 @@ const AutocompletePersonas  = (props) => {
     return (
         
             <div onBlur={resetSearchComplete} className="autocomplete">
-                <input name={props.name} disabled={disabled} className="autocomplete__input" type="text" onChange={onChange} onFocus={onFocus} value={value} placeholder= {"Ingresa un cuil..."}/>
+                <input name={props.name} disabled={disabled} className="autocomplete__input autocomplete__input--personas" type="text" onChange={onChange} onFocus={onFocus} value={value} placeholder= {"Ingresa un cuil..."}/>
                 { showResults && isFocused && (<div className="autocomplete__container">
                     {results?.slice(0,150).map((item, index) => {
                         return ( 

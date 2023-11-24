@@ -5,9 +5,13 @@
     font-size: 2rem;
     color: $color-grey-dark;
 
-    
+    @media screen and (max-width: $bp-medium) {
+        font-size: 1.8rem;
+    }
 
-
+    @media screen and (max-width: $bp-small) {
+        font-size: 1.6rem;
+    }
 
     &:focus-within {
         .input-field__label {
@@ -24,8 +28,6 @@
 
     }
 
-    
-
     &__input {
         font-size: 1.7rem;
         height: 4rem;
@@ -35,7 +37,24 @@
         padding-left: 1rem;
         outline: none;
         color: $color-grey-dark;
-        
+
+        @media screen and (max-width: $bp-medium) {
+            height: 3rem;
+            font-size: 1.5rem;
+        }
+
+        &--personas {
+            @media screen and (max-width: $bp-medium) {
+                height: 3rem;
+                max-width: 15rem;
+                font-size: 1.5rem;
+            }
+    
+            @media screen and (max-width: $bp-small) {
+                max-width: 10rem;
+            }
+
+        }
 
         &:focus {
             border: 1px solid $color-primary;
