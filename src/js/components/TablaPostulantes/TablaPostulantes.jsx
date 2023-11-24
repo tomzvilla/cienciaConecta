@@ -58,7 +58,7 @@ const TablaPostulantes = (props) => {
         }
 
         Swal.fire({
-            title: '¿Deseas convertir en evaluadores a los postualntes seleccionados?',
+            title: '¿Deseas convertir en evaluadores a los postulantes seleccionados?',
             icon: 'question',
             showCancelButton: true,
             reverseButtons: true,
