@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom'
 import RequireAuth from './js/components/RequireAuth/RequireAuth'
 import PersistLogin from './js/components/PersistLogin/PersistLogin'
 import PersistLoginInverse from './js/components/PersistLogin/PersistLoginInverse'
+import CheckNotification from './js/components/Notification/CheckNotification'
 
 import LoginPage from './js/pages/LoginPage'
 import Signup from './js/pages/Signup'
@@ -38,6 +39,7 @@ import PromoverProyectosNacional from './js/pages/PromoverProyectos/PromoverProy
 import Categorias from './js/pages/Categorias'
 import EvaluacionCardConsulta from './js/components/Evaluacion/EvaluacionCardConsulta'
 import EvaluacionFormConsulta from './js/components/Evaluacion/EvaluacionFormConsulta'
+import NotificationList from './js/components/Notification/NotificationList'
 // DEV
 import AuthVerify from './js/components/PersistLogin/AuthVerify'
 import ConfirmarCuenta from './js/pages/Usuarios/ConfirmarCuenta'
@@ -178,12 +180,14 @@ function App() {
               {/* Rutas para referentes */}
               <Route path='/postulante/:id' element={<VisualizarPostulante/>}/>
             </Route>
+            <Route path='/notificaciones' element={<NotificationList />}/>
             <Route path='/unauthorized' element={<Unauthorized/>}/>
             <Route path='*' element={<NotFound/>}/>
           </Route>
 
         </Route>
       </Routes>
+      <CheckNotification />
       <AuthVerify />
     </>
   );
