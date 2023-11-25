@@ -1,0 +1,56 @@
+.navbar-campana {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    margin-right: 3rem;
+    position: relative;
+
+    @media screen and (max-width: $bp-small) {
+        margin-right: 1rem;
+    }
+
+    &:hover {
+        background-color: $color-white;
+        border-radius: 100rem;
+        cursor: pointer;
+    }
+
+    &:hover &__img {
+        filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
+    }
+
+    &:hover &__numero {
+        background-color: $color-primary;
+        color: $color-white;
+    }
+
+
+    &__img {
+        align-self: center;
+        height: 5rem;
+        width: 5rem;
+        margin: auto;
+        filter: saturate(0) brightness(100);
+    }
+
+    &__numero {
+        color: $color-primary;
+        background-color: $color-white;
+        font-size: 2rem;
+        padding: 0rem .8rem;
+        
+        text-align: center;
+        border-radius: 100%;
+        margin: auto;
+        z-index: 5;
+
+
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+
+    
+
+    
+}

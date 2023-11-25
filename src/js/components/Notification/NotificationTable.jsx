@@ -92,14 +92,19 @@ const NotificationTable = (props) => {
                     {notificaciones && currentTableData.map(notificacion => {
                         const formatoFecha = new Date(notificacion.timestamp).toLocaleDateString('es-AR', opciones)
                         return (
-                            <tr key={notificacion._id} className="table-body-row">
-                                <td style={parseInt(notificacion.estado) === 2 ? {color: 'red'} : {color: 'grey'}}>
+                            <tr key={notificacion._id} className={parseInt(notificacion.estado) === 2 ? "table-body-row table-body-row--leida" :  "table-body-row" }>
+                                <td className="table-body-row__td">
                                     {notificacion.mensaje}
                                     <br />
                                     {formatoFecha}
                                 </td>
                                 <td className="table-body-row__td">
-                                    <ImageButton small={true} src={require("../../../assets/verificado.png")} callback={() => readNotification(notificacion._id)} text="Marcar como leída"/>
+                                    <img 
+                                        className={parseInt(notificacion.estado) === 2 ? "table-body-row__imagen-notificacion table-body-row__imagen-notificacion--leida" : "table-body-row__imagen-notificacion"} 
+                                        src={require("../../../assets/verificado.png")} 
+                                        alt="Marcar como leída" 
+                                        onClick={() => readNotification(notificacion._id)}
+                                    />
                                 </td>   
                             </ tr>
                         )

@@ -13,6 +13,8 @@
         background-color: transparent;
     }
 
+    
+
     &__burguer {
         align-self: center;
         margin-left: 4rem;
@@ -95,6 +97,7 @@
     &__button-container {
         margin-left: auto;
         margin-right: 12rem;
+        display: flex;
 
         @media screen and (max-width: $bp-largest) {
             margin-right: 6rem;
