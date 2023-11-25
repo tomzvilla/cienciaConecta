@@ -420,6 +420,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .navbar__button-container {
   margin-left: auto;
   margin-right: 12rem;
+  display: flex;
 }
 @media screen and (max-width: 75em) {
   .navbar__button-container {
@@ -1266,9 +1267,14 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .image-link {
   margin: auto;
 }
+.image-link > a {
+  display: flex;
+  align-items: center;
+}
 .image-link__image {
   min-width: 8rem;
   width: 8rem;
+  margin: auto;
   min-height: 8rem;
   height: 8rem;
   filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
@@ -1439,6 +1445,27 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 
 .table-body-row {
   border-bottom: 1px solid black;
+}
+.table-body-row--leida {
+  background-color: #EFEFEF;
+}
+.table-body-row__imagen-notificacion {
+  min-width: 3.4rem;
+  width: 3.4rem;
+  height: 3.4rem;
+  min-height: 3.4rem;
+  filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
+}
+.table-body-row__imagen-notificacion--leida {
+  filter: brightness(0) saturate(100%) invert(46%) sepia(1%) saturate(0%) hue-rotate(142deg) brightness(97%) contrast(85%);
+}
+@media screen and (max-width: 37.5em) {
+  .table-body-row__imagen-notificacion {
+    min-width: 3rem;
+    width: 3rem;
+    min-height: 3rem;
+    height: 3rem;
+  }
 }
 .table-body-row__td {
   font-size: 1.8rem;
@@ -2558,7 +2585,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 
 .generic-badge {
-  display: flex;
+  display: inline-block;
   padding: 1rem;
   width: fit-content;
   border-radius: 2rem;
@@ -3595,6 +3622,51 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   .categoria-form {
     width: 80%;
   }
+}
+
+.navbar-campana {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  margin-right: 3rem;
+  position: relative;
+}
+@media screen and (max-width: 37.5em) {
+  .navbar-campana {
+    margin-right: 1rem;
+  }
+}
+.navbar-campana:hover {
+  background-color: #ffffff;
+  border-radius: 100rem;
+  cursor: pointer;
+}
+.navbar-campana:hover .navbar-campana__img {
+  filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
+}
+.navbar-campana:hover .navbar-campana__numero {
+  background-color: #00ACE6;
+  color: #ffffff;
+}
+.navbar-campana__img {
+  align-self: center;
+  height: 5rem;
+  width: 5rem;
+  margin: auto;
+  filter: saturate(0) brightness(100);
+}
+.navbar-campana__numero {
+  color: #00ACE6;
+  background-color: #ffffff;
+  font-size: 2rem;
+  padding: 0rem 0.8rem;
+  text-align: center;
+  border-radius: 100%;
+  margin: auto;
+  z-index: 5;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 }
 
 .login {
