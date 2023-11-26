@@ -2,9 +2,9 @@
 import Button from "../Button/Button"
 import Pagination from "../Pagination/Pagination"
 import ImageButton from "../ImageButton/ImageButton"
+import BlankState from "../BlankState/BlankState"
 // hooks
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import { useSelector, useDispatch } from "react-redux"
 import { notificacionesActions } from "../../../store/notificaciones-slice"
@@ -15,7 +15,6 @@ const pageSize = 10
 
 const NotificationTable = (props) => {
 
-    const navigate = useNavigate()
     const axiosPrivate = useAxiosPrivate()
 
     // state with redux
@@ -81,41 +80,47 @@ const NotificationTable = (props) => {
 
     return (
         <>
-            <table className="table">
-                <thead className="table__header">
-                    <tr>
-                        <th scope="col" className="table-header__head">Notificación</th>
-                        <th scope="col" className="table-header__head">Marcar como leída</th>
-                    </tr>
-                </thead>
-                <tbody className="table__body">
-                    {notificaciones && currentTableData.map(notificacion => {
-                        const formatoFecha = new Date(notificacion.timestamp).toLocaleDateString('es-AR', opciones)
-                        return (
-                            <tr key={notificacion._id} className="table-body-row">
-                                <td style={parseInt(notificacion.estado) === 2 ? {color: 'red'} : {color: 'grey'}}>
-                                    {notificacion.mensaje}
-                                    <br />
-                                    {formatoFecha}
-                                </td>
-                                <td className="table-body-row__td">
-                                    <ImageButton small={true} src={require("../../../assets/verificado.png")} callback={() => readNotification(notificacion._id)} text="Marcar como leída"/>
-                                </td>   
-                            </ tr>
-                        )
-                        
-                    }
-                    )}
-                </tbody>
-            </table>
-            <Pagination currentPage={currentPage} totalCount={notificaciones?.length} pageSize={pageSize} onPageChange={page => setCurrentPage(page)} />
-                <div className="button-container">
-                    <Button 
-                        text='Marcar todas como leídas' 
-                        onClickHandler={readAllNotifications}
-                        activo={true}
-                    />
-                </div>
+            {notificaciones.length > 0 ?
+            <>
+                <table className="table">
+                    <thead className="table__header">
+                        <tr>
+                            <th scope="col" className="table-header__head">Notificación</th>
+                            <th scope="col" className="table-header__head">Marcar como leída</th>
+                        </tr>
+                    </thead>
+                    <tbody className="table__body">
+                        {notificaciones && currentTableData.map(notificacion => {
+                            const formatoFecha = new Date(notificacion.timestamp).toLocaleDateString('es-AR', opciones)
+                            return (
+                                <tr key={notificacion._id} className="table-body-row">
+                                    <td style={parseInt(notificacion.estado) === 2 ? {color: 'red'} : {color: 'grey'}}>
+                                        {notificacion.mensaje}
+                                        <br />
+                                        {formatoFecha}
+                                    </td>
+                                    <td className="table-body-row__td">
+                                        <ImageButton small={true} src={require("../../../assets/verificado.png")} callback={() => readNotification(notificacion._id)} text="Marcar como leída"/>
+                                    </td>   
+                                </ tr>
+                            )
+                            
+                        }
+                        )}
+                    </tbody>
+                </table>
+                <Pagination currentPage={currentPage} totalCount={notificaciones?.length} pageSize={pageSize} onPageChange={page => setCurrentPage(page)} />
+                    <div className="button-container">
+                        <Button 
+                            text='Marcar todas como leídas' 
+                            onClickHandler={readAllNotifications}
+                            activo={true}
+                        />
+                    </div>
+            </>
+            :
+            <BlankState msg={'No posees notificaciones.'}/>
+            }
 
         </>
     )
