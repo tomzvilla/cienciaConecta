@@ -5,6 +5,10 @@
     min-height: 100vh;
     max-width: 100vw;
 
+    @media screen and (max-width: $bp-medium) {
+        grid-template-columns: 6rem auto;
+    }
+
     @media screen and (max-width: $bp-small) {
         grid-template-columns: auto;
     }
