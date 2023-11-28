@@ -77,6 +77,7 @@ const Sidebar = () => {
                             <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/verFeria'} text="Ver Feria" dropdown={true}/>
                             <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/verListaFerias'} text="Listado de Ferias" dropdown={true}/>
                             { [ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar].includes(feria?.estado) ? <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/crearCategoria'} text="Categorías" dropdown={true}/> : null }
+                            { [ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar].includes(feria?.estado) ? <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/cargarEstablecimientos'} text="Establecimientos" dropdown={true}/> : null }
                         </SidebarDropdown>
 
                         {[ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar, ESTADOS.instanciaEscolar_Finalizada].includes(feria?.estado) ? <SidebarLink img={require("../../../assets/user.png")} linkto={'/asignarReferentes'} text="Asignar Referentes"/> : null }

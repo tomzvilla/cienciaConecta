@@ -1,0 +1,22 @@
+.cargar-establecimientos {
+    width: 90%;
+    color: $color-grey-dark;
+    display: flex;
+    flex-direction: column;
+
+    &__text {
+        font-size: 2.5rem;
+        margin: 2rem 0;
+
+        @media screen and (max-width: $bp-medium) {
+            font-size: 2rem;
+         }
+    }
+
+
+    &__button {
+        margin: auto;
+        margin-top: 3rem;
+
+    }
+}

@@ -3681,6 +3681,26 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   right: 1rem;
 }
 
+.cargar-establecimientos {
+  width: 90%;
+  color: #757575;
+  display: flex;
+  flex-direction: column;
+}
+.cargar-establecimientos__text {
+  font-size: 2.5rem;
+  margin: 2rem 0;
+}
+@media screen and (max-width: 50em) {
+  .cargar-establecimientos__text {
+    font-size: 2rem;
+  }
+}
+.cargar-establecimientos__button {
+  margin: auto;
+  margin-top: 3rem;
+}
+
 .login {
   background-color: rgba(0, 0, 0, 0.3);
 }
