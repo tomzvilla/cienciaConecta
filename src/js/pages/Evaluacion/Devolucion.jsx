@@ -19,8 +19,6 @@ const Devolucion = () => {
 
     const { data, isLoading, status } = useAxiosFetch(`/devoluciones/${id}`, axiosPrivate)
 
-    if(!isLoading) console.log(data)
-
     const verEvaluacion = (event) => {
         switch (event) {
             case 'evaluacion': {

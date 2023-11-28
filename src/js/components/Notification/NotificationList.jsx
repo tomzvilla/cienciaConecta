@@ -19,7 +19,6 @@ const NotificationList = () => {
 
     useEffect(() => {
         if(!isLoading) {
-            console.log(data)
             dispatch(notificacionesActions.cargarNotificaciones(data))
             setIsLoadingNotificacion(false)
         }
