@@ -4,18 +4,20 @@ const ProjectCardDetails = (props) => {
 
     const findNivel = (nivel) => {
         const level = nivel.nombre ?? nivel
-        const item = props.niveles.nivel.find((nivel) => level === nivel.nombre)
+        const item = props.niveles.find((nivel) => level === nivel.nombre)
         return item ? item : null;
     }
 
     const findCategoria = (categoria) => {
         const cat = categoria.nombre ?? categoria
-        const item = props.categorias.categoria.find((categoria) => cat === categoria.nombre)
+        const item = props.categorias.find((categoria) => cat === categoria.nombre)
         return item ? item : null;
     }
 
-    const level = findNivel(props.datos.nivel)
-    const cat = findCategoria(props.datos.categoria)
+    console.log(props.datos)
+
+    const level = typeof props.datos.nivel === "string" ? findNivel(props.datos.nivel) : props.datos.nivel
+    const cat = typeof props.datos.categoria === "string" ? findCategoria(props.datos.categoria) : props.datos.categoria
 
     return (
         <div className="project-card-details">

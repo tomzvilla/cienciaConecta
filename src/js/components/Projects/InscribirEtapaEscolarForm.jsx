@@ -11,6 +11,7 @@ import { useNavigate, useLocation } from "react-router-dom"
 import { useFormValidator } from "../../hooks/useFormValidator"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
+import { useSelector } from "react-redux"
 
 import Swal from "sweetalert2"
 
@@ -28,6 +29,8 @@ const InscribirEtapaEscolarForm = () => {
         establecimientoSeleccionado: '',
     })
 
+    const niveles = useSelector(state => state.niveles.niveles)
+    const categorias = useSelector(state => state.categorias.categorias)
     const axiosPrivate = useAxiosPrivate()
     const navigate = useNavigate()
     const location = useLocation()
@@ -35,14 +38,15 @@ const InscribirEtapaEscolarForm = () => {
 
     const {errors, validateForm, onBlurField} = useFormValidator(formValues)
 
-    const { data: categoriesData} = useAxiosFetch('/categoria', axiosPrivate)
-    const { data: levelsData} = useAxiosFetch('/nivel', axiosPrivate)
-    let categories = []
-    if(categoriesData){
+    const { data: categoriesData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate, categorias.length !== 0)
+    const { data: levelsData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate, niveles.length !== 0)
+
+    let categories = [{_id: 0, nombre: ""}, ...categorias]
+    if(!loadingCategorias && categorias.length === 0){
         categories = [{_id: 0, nombre: ""}, ...categoriesData.categoria]
     }
-    let levels = []
-    if(levelsData){
+    let levels = [{_id: 0, nombre: "", codigo: '0'}, ...niveles]
+    if(!loadingNiveles && niveles.length === 0){
         levels = [{_id: 0, nombre: "", codigo: '0'}, ...levelsData.nivel].sort((level1, level2) => {
             if (level1.codigo < level2.codigo) {
             return -1; 
@@ -282,16 +286,7 @@ const InscribirEtapaEscolarForm = () => {
                 />
             </div>
             <div className='project-form__input'>
-                {!levelsData? <SelectField
-                    label='Nivel: ' 
-                    name='level'
-                    dataValues={['Cargando']}
-                    onChange={handleChange}
-                    onBlur={onBlurField}
-                    value={formValues.level}
-                    errors={errors.level}
-                    required={true}
-                />: <SelectField
+                <SelectField
                     label='Nivel: ' 
                     name='level'
                     dataValues={levels}
@@ -300,31 +295,19 @@ const InscribirEtapaEscolarForm = () => {
                     value={formValues.level}
                     errors={errors.level}
                     required={true}
-                />}
+                />
             </div>
             <div className='project-form__input'>
-                {!categoriesData ?  
-                    <SelectField
-                        label='Categoría:' 
-                        name='category'
-                        dataValues={['Cargando']}
-                        onChange={handleChange}
-                        onBlur={onBlurField}
-                        value={formValues.category}
-                        errors={errors.category}
-                        required={true}
-                    /> :
-                    <SelectField
-                        label='Categoría:' 
-                        name='category'
-                        dataValues={categories}
-                        onChange={handleChange}
-                        onBlur={onBlurField}
-                        value={formValues.category}
-                        errors={errors.category}
-                        required={true}
-                    />
-                }
+                <SelectField
+                    label='Categoría:' 
+                    name='category'
+                    dataValues={categories}
+                    onChange={handleChange}
+                    onBlur={onBlurField}
+                    value={formValues.category}
+                    errors={errors.category}
+                    required={true}
+                />
             </div>
             <h2 className='project-form__subtitle'>Datos del establecimiento educativo: </h2>
             <div className='project-form__input'>

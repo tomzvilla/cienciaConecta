@@ -40,6 +40,7 @@ import Categorias from './js/pages/Categorias'
 import EvaluacionCardConsulta from './js/components/Evaluacion/EvaluacionCardConsulta'
 import EvaluacionFormConsulta from './js/components/Evaluacion/EvaluacionFormConsulta'
 import NotificationList from './js/components/Notification/NotificationList'
+import Devolucion from './js/pages/Evaluacion/Devolucion'
 // DEV
 import AuthVerify from './js/components/PersistLogin/AuthVerify'
 import ConfirmarCuenta from './js/pages/Usuarios/ConfirmarCuenta'
@@ -135,6 +136,7 @@ function App() {
             <Route element={<RequireAuth allowedRoles={[ROLES.ResponsableProyecto, ROLES.Docente]}/>}>
               {/* Rutas con auth liberadas de estados */}
               <Route path='/postulacion' element={<Postulacion/>}/> {/*Se maneja por fecha */}
+              <Route path='/devolucion/:id' element={<Devolucion/>}/> 
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]} allowedStates={[ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar]}/>}>

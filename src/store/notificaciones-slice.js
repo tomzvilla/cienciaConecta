@@ -9,7 +9,8 @@ const notificacionesSlice = createSlice({
     initialState: initialState,
     reducers: {
         cargarNotificaciones(state, action) {
-            state.notificaciones = action.payload;
+            let array = [...action.payload]
+            state.notificaciones = array.reverse();
         },
         marcarComoLeidas(state, action) {
             const prevNotifications = [...state.notificaciones]

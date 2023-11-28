@@ -49,11 +49,14 @@ const ListadoEvaluaciones = () => {
     ] : [
         {name: 'Título', value: 'titulo'},
     ]
+
+    const niveles = useSelector(state => state.niveles.niveles)
+    const categorias = useSelector(state => state.categorias.categorias)
     
     // Instancia regional
     const { data: listadoData, isLoading } = useAxiosFetch('/evaluacion/pendientes', axiosPrivate, feria.estado === ESTADOS.instanciaProvincial_EnExposicion)
-    const { data: categoriasData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate)
-    const { data: nivelesData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate)
+    const { data: categoriasData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate, categorias.length !== 0)
+    const { data: nivelesData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate, niveles.length !== 0)
 
     // Instancia provincial
     const { data: listadoDataProvincial, isLoading: isLoadingProvincial } = useAxiosFetch('/exposicion-provincial/pendientes', axiosPrivate, !(feria.estado === ESTADOS.instanciaProvincial_EnExposicion))
@@ -61,7 +64,7 @@ const ListadoEvaluaciones = () => {
     // loading
     const loading = feria.estado === ESTADOS.instanciaProvincial_EnExposicion ? isLoadingProvincial : isLoading
     
-    const { proyectosMapping } = useCategoriasNiveles({ categoriaData: categoriasData, nivelData: nivelesData, enabled: !loadingCategorias && !loadingNiveles && !loading })
+    const { proyectosMapping } = useCategoriasNiveles({ categoriaData: categoriasData, nivelData: nivelesData, enabled: !loadingCategorias && !loadingNiveles && !loading, nivelesCargados: niveles, categoriasCargadas: categorias })
 
     if(feria.estado !== ESTADOS.instanciaProvincial_EnExposicion && !isLoading && listadoData?.proyectos) {
         let proyectosFiltrados = []
