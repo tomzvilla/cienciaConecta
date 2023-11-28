@@ -5,6 +5,7 @@ import AddAlumno from "./AddAlumno"
 //hooks
 import { useState } from "react"
 import { useFormValidator } from "../../hooks/useFormValidator"
+import BlankState from "../BlankState/BlankState"
 
 const ActualizarGrupoProyecto = ({ data, handleAddAlumno, handleDeleteAlumno, formErrors}) => {
     const [alumno, setAlumno] = useState({
@@ -59,7 +60,12 @@ const ActualizarGrupoProyecto = ({ data, handleAddAlumno, handleDeleteAlumno, fo
     return (
 
         <div className="actualizar-grupo">
-            <Table data={data} headers={headers} callback={handleDelete}/>
+            
+            {data.length ? 
+                <Table data={data} headers={headers} callback={handleDelete}/> 
+                    : 
+                <BlankState msg="Todavía no hay alumnos en este grupo. Probá agregando uno abajo o intentá de nuevo mas tarde."/>
+            }
             
 
 
