@@ -1607,6 +1607,18 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 @media screen and (max-width: 50em) {
   .add-alumno {
     width: 90%;
+    margin: auto;
+    margin-top: 2rem;
+  }
+}
+@media screen and (max-width: 37.5em) {
+  .add-alumno {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 70% 30%;
+    width: 100%;
+    margin-left: auto;
+    margin-top: 2rem;
   }
 }
 .add-alumno__alumno {
@@ -1618,19 +1630,25 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   margin-bottom: 2rem;
   margin-top: 0;
 }
+@media screen and (max-width: 37.5em) {
+  .add-alumno__alumno {
+    width: 80%;
+    grid-column: 1/2;
+  }
+}
 .add-alumno__alumno:last-child {
   width: min-content;
   align-self: center;
 }
+@media screen and (max-width: 37.5em) {
+  .add-alumno__alumno:last-child {
+    grid-column: 2/3;
+    grid-row: 1/4;
+  }
+}
 .add-alumno__alumno--antecedentes {
   width: max-content;
   margin-right: 3rem;
-}
-@media screen and (max-width: 37.5em) {
-  .add-alumno__alumno--antecedentes {
-    margin-right: 0.5rem;
-    max-width: 40%;
-  }
 }
 .add-alumno__alumno--antecedentes:last-child {
   margin-top: auto;
