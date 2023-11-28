@@ -28,6 +28,8 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
     }
 
     const feria = useSelector(state => state.instancias.feria)
+    const niveles = useSelector(state => state.niveles.niveles)
+    const categorias = useSelector(state => state.categorias.categorias)
     
     const [formValues, setFormValues] = useState({
         title: formData.titulo,
@@ -67,16 +69,16 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
         getEtapa(etapaActual)
     }, [etapaActual])
 
-    const { data: categoriesData} = useAxiosFetch('/categoria', axiosPrivate)
-    const { data: levelsData} = useAxiosFetch('/nivel', axiosPrivate)
+    const { data: categoriesData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate, categorias.length !== 0)
+    const { data: levelsData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate, niveles.length !== 0)
 
-    let categories = []
-    let levels = []
+    let categories = [{_id: 0, nombre: ""}, ...categorias]
+    let levels = [{_id: 0, nombre: "", codigo: '0'}, ...niveles]
 
-    if(categoriesData){
+    if(!loadingCategorias && categorias.length === 0){
         categories = [{_id: 0, nombre: ""}, ...categoriesData.categoria]
     }
-    if(levelsData){
+    if(!loadingNiveles && niveles.length === 0){
         levels = [{_id: 0, nombre: ""}, ...levelsData.nivel].sort((level1, level2) => {
             if (level1.codigo < level2.codigo) {
               return -1; 
@@ -403,8 +405,7 @@ const ActualizarProyectoForm = ({ formData, getEtapa }) => {
 return (
     <Card title="Editar proyecto">
     <form className='project-form'>
-        { (!categoriesData || !levelsData) && <div> <Spinner /> </div>}
-        { etapaActual === ETAPAS.Escolar && categoriesData && levelsData && <ActualizarEtapaEscolarForm 
+        { etapaActual === ETAPAS.Escolar && <ActualizarEtapaEscolarForm 
             handleChange={handleChange}
             onBlurField={onBlurField}
             formValues={formValues}

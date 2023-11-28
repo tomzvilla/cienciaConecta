@@ -5,6 +5,7 @@ import Table from "../Table/Table"
 // hooks
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
+import { useSelector } from "react-redux"
 
 const headers = [
     {name: 'Categoría', value: 'nombre'}
@@ -14,12 +15,14 @@ const PostulacionCategorias = (props) => {
 
     const {formValues, setFormValues, error, setError} = props
 
+    const categorias = useSelector(state => state.categorias.categorias)
     const axiosPrivate = useAxiosPrivate()
 
-    let categories = []
-    const { data: categoriesData} = useAxiosFetch('/categoria', axiosPrivate)
-    if(categoriesData){
-        categories = [{_id: 0, nombre: ""}, ...categoriesData.categoria]
+    let categories = [{_id: 0, nombre: ""}, ...categorias]
+
+    const { data: categoriaData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate, categorias.length !== 0)
+    if(!loadingCategorias && categorias.length === 0){
+        categories = [{_id: 0, nombre: ""}, ...categoriaData.categoria]
     }
 
     const handleChange = (e) => {

@@ -5,15 +5,23 @@ import Spinner from "../Spinner/Spinner"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useCategoriasNiveles from "../../hooks/useCategoriasNiveles"
+import { useSelector } from "react-redux"
 const SedeProvincialForm = (props) => {
 
     const { setFormValues, formValues } = props
     const axiosPrivate = useAxiosPrivate()
 
+    const nivelesState = useSelector(state => state.niveles.niveles)
+    
+    // Cargar niveles
+    
+    let niveles = [{_id: 0, nombre: "", codigo: '0'}, ...nivelesState]
 
-    const { data: nivelesData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate)
+    const { data: nivelesData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate, nivelesState.length !== 0)
 
-    const { niveles } = useCategoriasNiveles({ categoriaData: null, nivelData: nivelesData, enabled: !loadingNiveles })
+    const { niveles: nivelesMappeados } = useCategoriasNiveles({ categoriaData: null, nivelData: nivelesData, enabled: !loadingNiveles })
+
+    niveles = nivelesState.length === 0 ? nivelesMappeados : nivelesState
 
     const handleChangeCupos = (e) => {
         e.preventDefault()
@@ -35,9 +43,8 @@ const SedeProvincialForm = (props) => {
         })
     }
 
-
     return (
-            loadingNiveles ?
+            (!loadingNiveles && nivelesState.length !== 0) ?
             <Spinner />
             :
             (<div className="cupos-modal">   
