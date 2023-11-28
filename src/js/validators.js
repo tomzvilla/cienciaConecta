@@ -166,6 +166,7 @@ export const fileValidator = (file, msg, format) => {
   let formato = '*'
   if(format === 'PDF') formato = 'application/pdf'
   else if(format === 'imágen') formato = 'image/'
+  else if(format === 'xlsx') formato = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
   if (!file) {
     return "Tenés que subir " + msg; 
   } else if (!file.type?.startsWith(formato)){

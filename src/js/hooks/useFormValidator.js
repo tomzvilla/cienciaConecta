@@ -107,6 +107,7 @@ export const useFormValidator = (form) => {
             nombreCriterio,
             ponderacion,
             curriculum,
+            excel,
             nombreCategoria,
             abreviatura,
             color,
@@ -467,6 +468,13 @@ export const useFormValidator = (form) => {
             nextErrors.curriculum.error = !!curriculumMessage;
             nextErrors.curriculum.message = curriculumMessage;
             if (!!curriculumMessage) isValid = false;
+        }
+
+        if (nextErrors.excel?.dirty && (field ? field === "excel" : true)) {
+            const excelMessage = fileValidator(excel, " el Excel", 'xlsx', form);
+            nextErrors.excel.error = !!excelMessage;
+            nextErrors.excel.message = excelMessage;
+            if (!!excelMessage) isValid = false;
         }
 
         if (nextErrors.nombreCategoria?.dirty && (field ? field === "nombreCategoria" : true)) {
