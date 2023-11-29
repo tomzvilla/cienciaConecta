@@ -25,7 +25,6 @@ const ListadoFerias = (props) => {
 
     // state with redux
     const ferias = useSelector(state => state.feria.listadoFerias) || []
-    console.log(ferias)
 
     // pagination state
     const [currentPage, setCurrentPage] = useState(1);
@@ -38,11 +37,6 @@ const ListadoFerias = (props) => {
     };
       
     const currentTableData = calculateCurrentTableData();
-
-    const handleVolver = () => {
-        const from = props.location.state?.from || '/dashboard'
-        navigate(from, {replace: true, state: {from:'/seleccionarPostulantes'}})
-    }
 
     const showAlert = () => {
         Swal.fire({
@@ -93,7 +87,6 @@ const ListadoFerias = (props) => {
                 <tbody className="table__body">
                     {ferias && currentTableData.map((feria) => {
                         const feriaActual = feria.estado !== ESTADOS.finalizada
-                        console.log(feriaActual)
                         return (
                             !resize ? 
                             <tr key={feria._id} className="table-body-row">
