@@ -14,6 +14,7 @@ import perfilSlice from "./perfil-slice";
 import promocionesSlice from "./promocion-slice";
 import categoriasSlice from "./categorias-slice";
 import notificacionesSlice from "./notificaciones-slice";
+import reportesSlice from "./reportes-slice";
 import nivelesSlice from "./niveles-slice";
 
 const store = configureStore({
@@ -30,6 +31,7 @@ const store = configureStore({
         promociones: promocionesSlice.reducer,
         categorias: categoriasSlice.reducer,
         notificaciones: notificacionesSlice.reducer,
+        reportes: reportesSlice.reducer,
         niveles: nivelesSlice.reducer,
     }
 })

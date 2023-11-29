@@ -83,7 +83,7 @@ const Sidebar = () => {
                         {[ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar, ESTADOS.instanciaEscolar_Finalizada].includes(feria?.estado) ? <SidebarLink img={require("../../../assets/user.png")} linkto={'/asignarReferentes'} text="Asignar Referentes"/> : null }
                         {[ESTADOS.instanciaRegional_ExposicionFinalizada, ESTADOS.instanciaProvincial_ExposicionFinalizada].includes(feria?.estado) ? <SidebarLink img={require("../../../assets/foco.png")} linkto={'/promoverProyectos'} text="Promover Proyectos"/> : null }
                         <SidebarLink img={require("../../../assets/verificado.png")} linkto={'/activarUsuarios'} text="Activar Usuarios"/>
-
+                        <SidebarLink img={require("../../../assets/puntos.png")} linkto={'/reportes'} text="Reportes"/>
                     </> 
                 }
                 {/* Links de evaluadores */}

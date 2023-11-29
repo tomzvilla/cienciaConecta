@@ -82,7 +82,7 @@ const Signup = () => {
       if(response.status === 201) {
         Swal.fire({
           title: 'Registro confirmado',
-          text: '¡Te registraste con éxito en CienciaConecta! Ahora debes esperar que un administrador autorice tu cuenta',
+          text: '¡Te registraste con éxito en CienciaConecta! Ahora debes ingresar a tu correo para confirmar tu cuenta.',
           icon: 'success',
           confirmButtonText: 'OK',
           confirmButtonColor: '#00ACE6',

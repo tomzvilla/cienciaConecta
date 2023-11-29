@@ -40,6 +40,7 @@ import Categorias from './js/pages/Categorias'
 import EvaluacionCardConsulta from './js/components/Evaluacion/EvaluacionCardConsulta'
 import EvaluacionFormConsulta from './js/components/Evaluacion/EvaluacionFormConsulta'
 import NotificationList from './js/components/Notification/NotificationList'
+import Reportes from './js/pages/Reportes/Reportes'
 import Devolucion from './js/pages/Evaluacion/Devolucion'
 // DEV
 import AuthVerify from './js/components/PersistLogin/AuthVerify'
@@ -154,7 +155,8 @@ function App() {
               <Route path='/verListaFerias' element={<VisualizarListadoFerias/>}/>
               <Route path='/editarFeria' element={<ActualizarFeria/>}/>
               <Route path='/activarUsuarios' element={<VisualizarListadoPendienteActivacion/>}/>
-              <Route path='/usuarioPendienteActivacion/:id' element={<VisualizarUsuarioPendienteActivacion/>}/> 
+              <Route path='/usuarioPendienteActivacion/:id' element={<VisualizarUsuarioPendienteActivacion/>}/>
+              <Route path='/reportes' element={<Reportes />}/>
               {/* Rutas para postulantes, liberadas por estado, se manejan por fecha */}
               <Route path='/seleccionarPostulantes' element={<SeleccionPostulantes/>}/>
             </Route>
