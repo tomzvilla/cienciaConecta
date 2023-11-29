@@ -21,11 +21,12 @@ const FeriaCardHeader = (props) => {
             
             <h2 className="project-card-header__titulo"> {props.datosFeria.nombre}</h2>
 
-
+            {props.feriaActual &&
             <div className="project-card-header__botones">
                 <ImageLink img={<img alt="Editar Proyecto" src={require("../../../assets/edit.png")}  className="project-card-header__img"/>} linkto={`/editarFeria`}/>
                 <img alt="Borrar" src={require("../../../assets/x.png")} onClick={props.handleDelete} className="project-card-header__img"/>
             </div>
+            }
 
         </div>
     );

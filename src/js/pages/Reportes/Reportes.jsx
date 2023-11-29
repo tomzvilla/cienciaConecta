@@ -50,7 +50,6 @@ const Reportes = () => {
     const dispatch = useDispatch()
     const loadingReporte = useSelector(state => state.reportes.loadingReporte)
     const listadoReportes = useSelector(state => state.reportes.listadoReportes)
-    const [reports, setReports] = useState([]);
     const [pdf, setPdf] = useState(new jsPDF('p', 'px', 'a4'));
 
     const { data: feriaData, isLoading } = useAxiosFetch('/feria', axiosPrivate)

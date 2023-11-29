@@ -9,39 +9,22 @@ import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import { useDispatch } from "react-redux"
 import { feriaActions } from "../../../store/feria-slice"
-const estados = ["Inactiva", "Inicio", "Instancia escolar", "Instancia regional", "Evaluación regional", "Instancia provincial", "Evaluación provincial", "Finalización",]
-
-const headers = [
-  {name: 'Nombre', value: 'nombre'},
-  {name: 'Descripcion', value: 'descripcion'},
-//   {name: 'Proyectos Inscriptos', value: 'proyectosInscriptos'},
-//   {name: 'Evaluador', value: 'evaluadores'},
-//   {name: 'Fecha Próxima Instancia', value: 'proximaFecha'},
-  {name: 'Estado', value: 'estado' }
-]
 
 const VisualizarListadoFerias = () => {
     const axiosPrivate = useAxiosPrivate()
     const dispatch = useDispatch()
+    let loading = true
     const { data, isLoading } = useAxiosFetch('/feria', axiosPrivate)
 
-    let ferias=[]
-
-
-    if (data) {
-        console.log(data)
-        ferias = data.ferias.map((feria) => ({
-            ...feria,
-            estado: estados[feria.estado],
-        }))
-
-        dispatch(feriaActions.cargarListadoFerias(ferias))
+    if (!isLoading) {
+        dispatch(feriaActions.cargarListadoFerias(data.ferias))
+        loading = false
     }
 
     return (
       <>
         <Metadata title={'Feria'}/>
-        {isLoading ? (<Spinner />) : data.ferias.length === 0 ? (<Card title={'Listado de Ferias'}> <BlankState msg={'No hay ferias para mostrar'}/> </Card> ) : (<ListadoFerias />)}
+        {loading ? (<Spinner />) : data.ferias.length === 0 ? (<Card title={'Listado de Ferias'}> <BlankState msg={'No hay ferias para mostrar'}/> </Card> ) : (<ListadoFerias />)}
       </>
     )
   
