@@ -17,6 +17,8 @@ const ProyectoAsignarEvaluadores = () => {
     const axiosPrivate = useAxiosPrivate()
     const dispatch = useDispatch()
 
+    const niveles = useSelector(state => state.niveles.niveles)
+    const categorias = useSelector(state => state.categorias.categorias)
 
     let proyecto = useSelector(state => state.referentes.proyectosReferente)?.find(p => p._id === id)
     if(proyecto) {
@@ -24,11 +26,11 @@ const ProyectoAsignarEvaluadores = () => {
     }
     // Si recarga la pagina se hacen estas consultas
     const { data: proyectoData, isLoading } = useAxiosFetch(`/proyecto/${id}`, axiosPrivate, !!proyecto)
-    const { data: categoriasData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate)
-    const { data: nivelesData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate)
+    const { data: categoriasData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate, categorias.length !== 0)
+    const { data: nivelesData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate, niveles.length !== 0)
     const { data: evaluadoresData, isLoading: loadingEvaluadores } = useAxiosFetch(`/referente/evaluadores/${id}`, axiosPrivate)
 
-    const { evaluadorMapping, proyectoMap } = useCategoriasNiveles({ categoriaData: categoriasData, nivelData: nivelesData, enabled: !loadingCategorias && !loadingNiveles && (!loadingEvaluadores || !isLoading) })
+    const { evaluadorMapping, proyectoMap } = useCategoriasNiveles({ categoriaData: categoriasData, nivelData: nivelesData, enabled: !loadingCategorias && !loadingNiveles && (!loadingEvaluadores || !isLoading), categoriasCargadas: categorias, nivelesCargados: niveles })
     
     if(!isLoading && proyectoData?.proyecto) {
         proyecto = proyectoMap(proyectoData)

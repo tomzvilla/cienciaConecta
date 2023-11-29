@@ -2,6 +2,7 @@
 import { useState } from "react"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
+import { useSelector } from "react-redux"
 // components
 import InputField from "../InputField/InputField"
 import Button from "../Button/Button"
@@ -11,12 +12,14 @@ const CuposModal = (props) => {
     const sede = getSede()
     const cuposData = getCupos(sede._id)
     const [cupos, setCupos] = useState(cuposData)
+    const nivelesData = useSelector(state => state.niveles.niveles)
     
     // Cargar niveles
     
-    let niveles = []
-    const { data: levelsData} = useAxiosFetch('/nivel', axiosPrivate)
-    if(levelsData){
+    let niveles = [{_id: 0, nombre: "", codigo: '0'}, ...nivelesData]
+
+    const { data: levelsData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate, nivelesData.length !== 0)
+    if(!loadingNiveles && nivelesData.length === 0){
         niveles = [{_id: 0, nombre: "", codigo: '0'}, ...levelsData.nivel].sort((level1, level2) => {
             if (level1.codigo < level2.codigo) {
               return -1; 
@@ -27,16 +30,6 @@ const CuposModal = (props) => {
           });
     }
 
-    // const generarNiveles = () => {
-    //     const prevCupos = []
-    //     niveles.forEach((nivel) => {
-    //         if(nivel._id !== 0 && !prevCupos[nivel._id]) prevCupos[nivel._id] = '0'
-    //     })
-
-        
-
-    //     setCupos(prevCupos)
-    // }
 
     const handleChange = (e) => {
         let {name, value} = e.target

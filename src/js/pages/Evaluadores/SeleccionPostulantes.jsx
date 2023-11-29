@@ -24,12 +24,14 @@ const SeleccionPostulantes = () => {
     const [resize, setResize] = useState(window.innerWidth <= 1200);
     const { formatDate } = useUtils()
     const feria = useSelector(state => state.instancias.feria)
+    const niveles = useSelector(state => state.niveles.niveles)
+    const categorias = useSelector(state => state.categorias.categorias)
     const fecha = new Date()
 
     let postulacionesListado = []
     const {data, isLoading} = useAxiosFetch('/evaluador/postulaciones', axiosPrivate)
-    const {data: categoriaData} = useAxiosFetch('/categoria', axiosPrivate)
-    const {data: nivelesData} = useAxiosFetch('/nivel', axiosPrivate)
+    const { data: categoriaData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate, categorias.length !== 0)
+    const { data: nivelesData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate, niveles.length !== 0)
 
     const headers = !resize ? [
         {name: 'Nombre', value: 'nombre'},
@@ -41,22 +43,33 @@ const SeleccionPostulantes = () => {
         {name: 'Apellido', value: 'apellido'},
     ];
 
-    if(!isLoading && categoriaData && nivelesData) {
+    if(!isLoading && ((!loadingCategorias && !loadingNiveles) || (niveles.length !== 0 && categorias.length !== 0))) {
         postulacionesListado = data?.postulaciones?.map(p => {
-
             const nombre = p.datos_docente.nombre
             const apellido = p.datos_docente.apellido
             const cuil = p.datos_docente.cuil
-            const categoriasCompletas = p.categorias.map((categoriaId) => {
+            const categoriasCompletas = categorias.length === 0 ? 
+            p.categorias.map((categoriaId) => {
                 const categoria = categoriaData.categoria.find((c) => c._id === categoriaId);
                 return categoria ? categoria : undefined;
-            });
+            })
+            :
+            p.categorias.map((categoriaId) => {
+                const categoria = categorias.find((c) => c._id === categoriaId);
+                return categoria ? categoria : undefined;
+            })
             let nivelesCompletos = []
             if(p.niveles.length > 0){
-                nivelesCompletos = p.niveles.map((nivelId) => {
+                nivelesCompletos = niveles.length === 0 ?  
+                p.niveles.map((nivelId) => {
                     const nivel = nivelesData.nivel.find((n) => n._id === nivelId);
                     return nivel ? nivel : undefined;
-                });
+                })
+                :
+                p.niveles.map((nivelId) => {
+                    const nivel = niveles.find((n) => n._id === nivelId);
+                    return nivel ? nivel : undefined;
+                })
             }
             
             return {
@@ -91,7 +104,7 @@ const SeleccionPostulantes = () => {
             <Metadata title={'Seleccionar Postulantes'}/>
             <div className="table-custom-page">
                 <Card title="Lista de Postulantes" wide={true}>
-                        {isLoading || !categoriaData || !nivelesData ? 
+                        {!isLoading && ((!loadingCategorias && !loadingNiveles) && (niveles.length !== 0 && categorias.length !== 0)) ? 
                         <Spinner/> 
                         :
                         fecha >= new Date(feria?.fechas_evaluador.fechaInicioPostulacionEvaluadores) && fecha <= new Date(feria?.fechas_evaluador.fechaInicioAsignacionProyectos) ?

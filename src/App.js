@@ -41,6 +41,7 @@ import EvaluacionCardConsulta from './js/components/Evaluacion/EvaluacionCardCon
 import EvaluacionFormConsulta from './js/components/Evaluacion/EvaluacionFormConsulta'
 import NotificationList from './js/components/Notification/NotificationList'
 import Reportes from './js/pages/Reportes/Reportes'
+import Devolucion from './js/pages/Evaluacion/Devolucion'
 // DEV
 import AuthVerify from './js/components/PersistLogin/AuthVerify'
 import ConfirmarCuenta from './js/pages/Usuarios/ConfirmarCuenta'
@@ -48,6 +49,7 @@ import VisualizarListadoPendienteActivacion from './js/pages/Usuarios/Visualizar
 import VisualizarUsuarioPendienteActivacion from './js/pages/Usuarios/VisualizarUsuarioPendienteActivacion'
 
 import { useSelector } from 'react-redux'
+import Establecimientos from './js/pages/Establecimientos.jsx'
 
 // ROLES
 
@@ -126,7 +128,6 @@ function App() {
               <Route path='/dashboard' element={<Dashboard/>}/>
               <Route path='/proyecto/:id' element={<VisualizarProyecto/>}/>
               <Route path='/perfil' element={<Profile/>}/>
-
               <Route path='/evaluar/:id/iniciar' element={<Evaluacion/>}/>
               <Route path='/evaluacion/:id' element={<EvaluacionCardConsulta />}/>
               <Route path='/evaluacion/:id/consultar' element={<EvaluacionFormConsulta />}/>
@@ -136,10 +137,12 @@ function App() {
             <Route element={<RequireAuth allowedRoles={[ROLES.ResponsableProyecto, ROLES.Docente]}/>}>
               {/* Rutas con auth liberadas de estados */}
               <Route path='/postulacion' element={<Postulacion/>}/> {/*Se maneja por fecha */}
+              <Route path='/devolucion/:id' element={<Devolucion/>}/> 
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]} allowedStates={[ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar]}/>}>
               <Route path='/crearCategoria' element={<Categorias/>}/>
+              <Route path='/cargarEstablecimientos' element={<Establecimientos/>}/>
             </Route>
           
 

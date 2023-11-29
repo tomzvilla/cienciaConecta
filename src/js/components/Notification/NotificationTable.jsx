@@ -121,7 +121,6 @@ const NotificationTable = (props) => {
             :
             <BlankState msg={'No posees notificaciones.'}/>
             }
-
         </>
     )
 

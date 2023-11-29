@@ -33,8 +33,18 @@ const Sidebar = () => {
         })
     }
 
+    useEffect(() => {
+        if (showSidebar) {
+            const updatedDropdown = {};
+            for (const key in dropdown) {
+            if (dropdown.hasOwnProperty(key)) {
+                updatedDropdown[key] = false;
+            }
+            setDropdown(updatedDropdown)
+            }
+        }
+    }, [showSidebar])
     
-
 
     return (
         <nav className={!showSidebar ? 'sidebar sidebar--show' : 'sidebar'}>
@@ -55,8 +65,8 @@ const Sidebar = () => {
                     null
                 }
 
-                {auth?.roles?.find(role => [ROLES.Docente, ROLES.ResponsableProyecto].includes(role)) ? <SidebarLink img={require("../../../assets/user.png")} linkto={'/postulacion'} text="Postularme"/> : null}
-                {auth?.roles?.find(role => [ROLES.ComAsesora, ROLES.Admin].includes(role)) ? <SidebarLink img={require("../../../assets/user.png")} linkto={'/seleccionarPostulantes'} text="Lista Postulantes"/> : null}
+                {auth?.roles?.find(role => [ROLES.Docente, ROLES.ResponsableProyecto].includes(role)) ? <SidebarLink img={require("../../../assets/tarjeta.png")} linkto={'/postulacion'} text="Postularme"/> : null}
+                {auth?.roles?.find(role => [ROLES.ComAsesora, ROLES.Admin].includes(role)) ? <SidebarLink img={require("../../../assets/tarjeta.png")} linkto={'/seleccionarPostulantes'} text="Lista Postulantes"/> : null}
                 
 
                 {/* Links de comision/admin */}
@@ -67,13 +77,13 @@ const Sidebar = () => {
                             <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/verFeria'} text="Ver Feria" dropdown={true}/>
                             <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/verListaFerias'} text="Listado de Ferias" dropdown={true}/>
                             { [ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar].includes(feria?.estado) ? <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/crearCategoria'} text="Categorías" dropdown={true}/> : null }
+                            { [ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar].includes(feria?.estado) ? <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/cargarEstablecimientos'} text="Establecimientos" dropdown={true}/> : null }
                         </SidebarDropdown>
 
                         {[ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar, ESTADOS.instanciaEscolar_Finalizada].includes(feria?.estado) ? <SidebarLink img={require("../../../assets/user.png")} linkto={'/asignarReferentes'} text="Asignar Referentes"/> : null }
-                        {[ESTADOS.instanciaRegional_ExposicionFinalizada, ESTADOS.instanciaProvincial_ExposicionFinalizada].includes(feria?.estado) ? <SidebarLink img={require("../../../assets/user.png")} linkto={'/promoverProyectos'} text="Promover Proyectos"/> : null }
-                        <SidebarLink img={require("../../../assets/user.png")} linkto={'/activarUsuarios'} text="Activar Usuarios"/>
+                        {[ESTADOS.instanciaRegional_ExposicionFinalizada, ESTADOS.instanciaProvincial_ExposicionFinalizada].includes(feria?.estado) ? <SidebarLink img={require("../../../assets/foco.png")} linkto={'/promoverProyectos'} text="Promover Proyectos"/> : null }
+                        <SidebarLink img={require("../../../assets/verificado.png")} linkto={'/activarUsuarios'} text="Activar Usuarios"/>
                         <SidebarLink img={require("../../../assets/puntos.png")} linkto={'/reportes'} text="Reportes"/>
-
                     </> 
                 }
                 {/* Links de evaluadores */}
@@ -88,7 +98,7 @@ const Sidebar = () => {
                         <SidebarLink img={require("../../../assets/user.png")} linkto={'/proyectosParaAsignar'} text="Asignar Proyectos"/>
                     </>
                 }
-                <SidebarLink img={require("../../../assets/campana.png")} linkto={'/notificaciones'} text="Notificaciones"/>
+                {/* <SidebarLink img={require("../../../assets/campana.png")} linkto={'/notificaciones'} text="Notificaciones"/> */}
 
             </div>
             

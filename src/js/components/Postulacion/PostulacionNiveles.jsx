@@ -5,7 +5,7 @@ import Table from "../Table/Table"
 // hooks
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
-
+import { useSelector } from "react-redux"
 const headers = [
     {name: 'Nivel', value: 'nombre'}
 ]
@@ -14,11 +14,13 @@ const PostulacionNiveles = (props) => {
 
     const {formValues, setFormValues, error, setError} = props
 
+    const nivelesData = useSelector(state => state.niveles.niveles)
     const axiosPrivate = useAxiosPrivate()
 
-    let niveles = []
-    const { data: levelsData} = useAxiosFetch('/nivel', axiosPrivate)
-    if(levelsData){
+    let niveles = [{_id: 0, nombre: "", codigo: '0'}, ...nivelesData]
+    const { data: levelsData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate, nivelesData.length !== 0)
+
+    if(!loadingNiveles && nivelesData.length === 0){
         niveles = [{_id: 0, nombre: "", codigo: '0'}, ...levelsData.nivel].sort((level1, level2) => {
             if (level1.codigo < level2.codigo) {
               return -1; 
