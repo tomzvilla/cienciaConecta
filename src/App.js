@@ -42,6 +42,7 @@ import EvaluacionFormConsulta from './js/components/Evaluacion/EvaluacionFormCon
 import NotificationList from './js/components/Notification/NotificationList'
 import Reportes from './js/pages/Reportes/Reportes'
 import Devolucion from './js/pages/Evaluacion/Devolucion'
+import VisualizarFeria from './js/pages/Ferias/VisualizarFeria.jsx'
 // DEV
 import AuthVerify from './js/components/PersistLogin/AuthVerify'
 import ConfirmarCuenta from './js/pages/Usuarios/ConfirmarCuenta'
@@ -152,6 +153,7 @@ function App() {
               {/* Rutas liberadas */}
               {!feria && <Route path='/feria' element={<CrearFeria/>}/>}
               <Route path='/verFeria' element={<VisualizarFeriaActual/>}/>
+              <Route path='/feria/:id' element={<VisualizarFeria/>}/>
               <Route path='/verListaFerias' element={<VisualizarListadoFerias/>}/>
               <Route path='/editarFeria' element={<ActualizarFeria/>}/>
               <Route path='/activarUsuarios' element={<VisualizarListadoPendienteActivacion/>}/>

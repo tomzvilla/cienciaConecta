@@ -5,12 +5,12 @@ import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import Spinner from "../Spinner/Spinner"
 
-const FeriaCard = ({ datosFeria, handleDelete }) => {
+const FeriaCard = ({ datosFeria, handleDelete, feriaActual = true }) => {
     const axiosPrivate = useAxiosPrivate()
     const { data, isLoading } = useAxiosFetch('/feria/info', axiosPrivate)
     
     return (
-        <Card wide={true} className="feria-card" header={<FeriaCardHeader handleDelete={handleDelete} datosFeria={datosFeria}/>}>
+        <Card wide={true} className="feria-card" header={<FeriaCardHeader feriaActual={feriaActual} handleDelete={handleDelete} datosFeria={datosFeria}/>}>
 
             {isLoading ? <Spinner /> :
                 <div className="feria-card__details">
