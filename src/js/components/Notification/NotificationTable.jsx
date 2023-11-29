@@ -43,6 +43,7 @@ const NotificationTable = (props) => {
 
             if(response.status === 200) {
                 dispatch(notificacionesActions.marcarComoLeidas([idNotificacion]))
+                dispatch(notificacionesActions.actualizarNumeroNotificaciones())
             } else {
                 dispatch(notificacionesActions.marcarComoNoLeidas([idNotificacion]))
             }
@@ -67,6 +68,7 @@ const NotificationTable = (props) => {
 
             if(response.status === 200) {
                 dispatch(notificacionesActions.marcarComoLeidas(newNotifications))
+                dispatch(notificacionesActions.actualizarNumeroNotificaciones())
             } else {
                 dispatch(notificacionesActions.marcarComoNoLeidas(newNotifications))
             }
@@ -93,8 +95,8 @@ const NotificationTable = (props) => {
                         {notificaciones && currentTableData.map(notificacion => {
                             const formatoFecha = new Date(notificacion.timestamp).toLocaleDateString('es-AR', opciones)
                             return (
-                                <tr key={notificacion._id} className="table-body-row">
-                                    <td style={parseInt(notificacion.estado) === 2 ? {color: 'red'} : {color: 'grey'}}>
+                                <tr key={notificacion._id} className={parseInt(notificacion.estado) === 2 ? "table-body-row table-body-row--leida" :  "table-body-row" }>
+                                    <td className="table-body-row__td">
                                         {notificacion.mensaje}
                                         <br />
                                         {formatoFecha}

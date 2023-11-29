@@ -10,7 +10,7 @@ import Metadata from "../../components/Metadata/Metadata"
 // hooks
 import useAuth from "../../hooks/useAuth"
 import { useLocation } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import useRefreshToken from "../../hooks/useRefreshToken"
 import { useSelector, useDispatch } from "react-redux"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
