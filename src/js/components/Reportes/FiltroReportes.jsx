@@ -1,9 +1,9 @@
 // components
 import SelectField from "../SelectField/SelectField"
 
-const notFiltros = ['cantEvaluadores', 'cantProyectos']
-const notFerias = ['cantProyectos']
-const notGraficos = ['cantProyectos']
+const notFiltros = ['cantidadEvaluadores', 'cantidadProyectosFeria']
+const notFerias = ['cantidadProyectosFeria']
+const notGraficos = ['cantidadProyectosFeria', 'cantidadEvaluadores']
 
 const FiltroReportes = (props) => {
     return (        
@@ -27,6 +27,7 @@ const FiltroReportes = (props) => {
                             name='filtroSeleccionado'
                             dataValues={props.filtros}
                             onChange={props.handleChange}
+                            value={props.searchState.filtroSeleccionado}
                             onBlur={() => {}}
                             errors={null}
                             required={true}
@@ -41,6 +42,7 @@ const FiltroReportes = (props) => {
                             label='Feria: ' 
                             name='feriaSeleccionada'
                             dataValues={props.ferias}
+                            value={props.searchState.feriaSeleccionada}
                             onChange={props.handleChange}
                             onBlur={() => {}}
                             errors={null}
@@ -50,12 +52,13 @@ const FiltroReportes = (props) => {
                 : 
                 null
                 }
-                {!notGraficos.includes(props.reporteSeleccionado) ?
+                {!notGraficos.includes(props.reporteSeleccionado) && props.searchState.filtroSeleccionado !== "departamento" ?
                     <div className="promover-proyectos__input">
                         <SelectField
                             label='Grafico: ' 
                             name='graficoSeleccionado'
                             dataValues={props.graficos}
+                            value={props.searchState.graficoSeleccionado}
                             onChange={props.handleChange}
                             onBlur={() => {}}
                             errors={null}

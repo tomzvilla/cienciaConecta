@@ -5,6 +5,7 @@ import Card from "../../components/Card/Card"
 import BlankState from '../../components/BlankState/BlankState'
 import Grafico from "../../components/Reportes/Grafico"
 import Button from "../../components/Button/Button"
+import TablaReportes from "../../components/Reportes/TablaReportes"
 // hooks
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
@@ -16,14 +17,14 @@ import html2canvas from "html2canvas";
 
 const reportes = [
     {nombre: '', _id: ''},
-    {nombre: 'Cantidad de proyectos aprobados', _id: 'cantProyectosAprobados'},
-    {nombre: 'Cantidad de proyectos desaprobados', _id: 'cantProyectosDesaprobados'},
-    {nombre: 'Porcentaje de proyectos aprobados', _id: 'porcentajeProyectosAprobados'},
-    {nombre: 'Cantidad de proyectos inscriptos', _id: 'cantProyectosInscriptos'},
-    {nombre: 'Porcentaje de proyectos inscriptos', _id: 'porcentajeProyectosInscriptos'},
+    {nombre: 'Cantidad de proyectos aprobados', _id: 'cantidadProyectosAprobados'},
+    {nombre: 'Cantidad de proyectos desaprobados', _id: 'cantidadProyectosDesaprobados'},
+    {nombre: 'Porcentaje de proyectos aprobados', _id: 'porcProyectosAprobados'},
+    {nombre: 'Cantidad de proyectos inscriptos', _id: 'cantidadProyectosInscriptos'},
+    {nombre: 'Porcentaje de proyectos inscriptos', _id: 'porcProyectosInscriptos'},
     {nombre: 'Puntaje promedio', _id: 'puntajePromedio'},
-    {nombre: 'Cantidad de evaluadores por departamento', _id: 'cantEvaluadores'},
-    {nombre: 'Cantidad de proyectos inscriptos en cada feria', _id: 'cantProyectos'},
+    {nombre: 'Cantidad de evaluadores por departamento', _id: 'cantidadEvaluadores'},
+    {nombre: 'Cantidad de proyectos inscriptos en cada feria', _id: 'cantidadProyectosFeria'},
 ]
 
 const filtros = [
@@ -39,30 +40,18 @@ const graficos = [
     {nombre: 'Pastel', _id: 'pastel'},
 ]
 
-const notFiltros = ['cantEvaluadores', 'cantProyectos']
-const notFerias = ['cantProyectos']
-const notGraficos = ['cantProyectos']
-
-// TODO ESTO DEBE VENIR DEL BACK
-
-const labelList = {
-    categoria: ['Lengua', 'Matematica', 'Cs Naturales', 'Cs Sociales', 'Robotica', 'Educacion Fisica', 'Lengua', 'Matematica', 'Cs Naturales', 'Cs Sociales', 'Robotica', 'Educacion Fisica'],
-    departamento: ['PRESIDENTE ROQUE SAENZ PEÑA', 'TERCERO ARRIBA', 'JUAREZ CELMAN', 'SOBREMONTE', 'TULUMBA', 'ISCHILIN', 'TOTORAL', 'CRUZ DEL EJE', 'COLON', 
-    'PUNILLA', 'CAPITAL', 'GENERAL SAN MARTIN', 'SANTA MARIA', 'MINAS', 'POCHO', 'SAN ALBERTO', 'SAN JAVIER', 'RIO SEGUNDO', 'SAN JUSTO', 'UNION', 'RIO PRIMERO',
-    'MARCOS JUAREZ', 'RIO CUARTO','GENERAL ROCA', 'CALAMUCHITA','RIO SECO'],
-    nivel: ['Inicial', 'Primario A', 'Primario B', 'Secundario A', 'Secundario B', 'Superior'],
-}
-
-const getRandomInt = (min, max) => {
-    return Math.floor(Math.random() * (max - min)) + min;
-  }
+const notFiltros = ['cantidadEvaluadores', 'cantidadProyectosFeria']
+const notFerias = ['cantidadProyectosFeria']
+const notGraficos = ['cantidadProyectosFeria', 'cantidadEvaluadores']
 
 const Reportes = () => {
 
     const axiosPrivate = useAxiosPrivate()
     const dispatch = useDispatch()
     const loadingReporte = useSelector(state => state.reportes.loadingReporte)
+    const listadoReportes = useSelector(state => state.reportes.listadoReportes)
     const [reports, setReports] = useState([]);
+    const [pdf, setPdf] = useState(new jsPDF('p', 'px', 'a4'));
 
     const { data: feriaData, isLoading } = useAxiosFetch('/feria', axiosPrivate)
 
@@ -73,24 +62,12 @@ const Reportes = () => {
         graficoSeleccionado: '',
     })
 
-    
-    const data = {
-        labels: labelList[searchState.filtroSeleccionado],
-        datasets: [
-            {
-                label: 'Proyectos aprobados',
-                //data: [getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100)],
-                data: [getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100), 
-                    getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100),
-                    getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100),
-                    getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100), getRandomInt(10, 100),
-                    getRandomInt(10, 100), getRandomInt(10, 100)],
-                backgroundColor: ['rgba(0, 172, 230, 0.7)'],
-                borderColor: 'rgb(53, 162, 235)',
-                fill: true
-            }
-        ]
-    }
+    const [reporteBuscado, setReporteBuscado] = useState({
+        reporte: '',
+        filtro: '',
+        feria: '',
+        grafico: '',
+    })
 
     const [buscaronReporte, setBuscaronReporte] = useState(false)
 
@@ -109,41 +86,84 @@ const Reportes = () => {
     if(!isLoading) {
         ferias = feriaData.ferias.map(f => {return {nombre: f.nombre, _id: f._id}})
         ferias.unshift({nombre: '', _id: ''})
+        ferias.push({nombre: 'Todas', _id: 'all'})
     }
 
-    const obtenerReporte = async (reporte, filtro, feria, grafico) => {
+    const getEndpoint = () => {
+        let endpoint = '/reportes/' + searchState.reporteSeleccionado + '?'
+        if(searchState.filtroSeleccionado !== '' && !notFiltros.includes(searchState.reporteSeleccionado)) {
+            endpoint += `&filtro=${searchState.filtroSeleccionado}`
+        }
+        if(searchState.feriaSeleccionada !== '' && searchState.feriaSeleccionada !== 'all') {
+            endpoint += `&feria=${searchState.feriaSeleccionada}`
+        }
+        console.log(searchState.reporteSeleccionado)
+        if(searchState.reporteSeleccionado === 'cantidadProyectosAprobados' || searchState.reporteSeleccionado === 'cantidadProyectosDesaprobados' || searchState.reporteSeleccionado === 'porcProyectosAprobados' ) {
+            endpoint += '&puntaje=100'
+        }
+        return endpoint
 
-        if(!reporte) return
+    }
 
-        if(!notFiltros.includes(reporte) && !filtro) return
-        if(!notGraficos.includes(reporte) && !grafico) return
-        if(!notFerias.includes(reporte) && !feria) return
+    const obtenerReporte = async () => {
+
+
+        if(!searchState.reporteSeleccionado) return
+
+        if(!notFiltros.includes(searchState.reporteSeleccionado) && !searchState.filtroSeleccionado) return
+        if(!notGraficos.includes(searchState.reporteSeleccionado) && searchState.filtroSeleccionado !== 'departamento' && !searchState.graficoSeleccionado) return
+        if(!notFerias.includes(searchState.reporteSeleccionado) && !searchState.feriaSeleccionada) return
+
+        const endpoint = getEndpoint()
 
         try {
             dispatch(reportesActions.setLoadingReporte(true))
             setBuscaronReporte(true)
-            // TODO, consulta para obtener el reporte
+            setReporteBuscado({})
+            const { data: reporteData } = await axiosPrivate.get(endpoint, axiosPrivate)
+
+            setReporteBuscado({
+                reporte: searchState.reporteSeleccionado,
+                feria: searchState.feriaSeleccionada,
+                grafico: searchState.graficoSeleccionado,
+                filtro: searchState.filtroSeleccionado,
+            })
+            setSearchState({
+                ...searchState,
+                filtroSeleccionado: '',
+                feriaSeleccionada: '',
+                graficoSeleccionado: '',  
+            })
+            dispatch(reportesActions.setData(reporteData))
 
             dispatch(reportesActions.setLoadingReporte(false))
+            return true
         } catch (err) {
             console.log(err)
         }
 
     }
 
-    const handleAddReport = () => {
-        obtenerReporte(searchState.reporteSeleccionado, searchState.filtroSeleccionado, searchState.feriaSeleccionada, searchState.graficoSeleccionado)
-        setReports(prevReports => [...prevReports, data]);
+    const handleAddReport = async (titulo) => {
+        div2pdf()
+        dispatch(reportesActions.agregarReporte({titulo: titulo}))
+    }
+
+    const handleRemoveReport = (titulo, index) => {
+        console.log(index)
+        dispatch(reportesActions.borrarReporte({titulo: titulo}))
+        setPdf((prevPdf) => {
+            prevPdf.deletePage(index + 1); // Suma 1 porque las páginas en jsPDF comienzan desde 1
+            return prevPdf;
+        });
     }
 
     const div2pdf = () => {
         let input = window.document.getElementsByClassName("div2PDF")[0];
-
         html2canvas(input)
             .then(canvas => {
             const img = canvas.toDataURL("image/png");
-            console.log(img)
-            const pdf = new jsPDF('p', 'px', 'a4');
+
             const pageWidth = pdf.internal.pageSize.getWidth();
             const pageHeight = pdf.internal.pageSize.getHeight();
         
@@ -156,9 +176,18 @@ const Reportes = () => {
         
             const marginX = (pageWidth - canvasWidth) / 2;
             const marginY = (pageHeight - canvasHeight) / 2;
-            pdf.addImage(img, 'svg', marginX, marginY, canvasWidth, canvasHeight);
-            pdf.save("chart.pdf");
+            
+            setPdf((prevPdf) => {
+                if(listadoReportes.length !== 0) pdf.addPage();
+                prevPdf.addImage(img, 'svg', marginX, marginY, canvasWidth, canvasHeight);
+                return prevPdf;
+            });
+            // pdf.save("chart.pdf");
         }).catch(err => console.log(err))
+    }
+
+    const imprimirPdf = () => {
+        pdf.save("informe.pdf");
     }
 
     return(
@@ -168,40 +197,31 @@ const Reportes = () => {
                 <Spinner />
                 :
                 <>
-                    <FiltroReportes reporteSeleccionado={searchState.reporteSeleccionado} filtros={filtros} reportes={reportes} ferias={ferias} graficos={graficos} handleChange={handleChange}/>
+                    <FiltroReportes searchState={searchState} reporteSeleccionado={searchState.reporteSeleccionado} filtros={filtros} reportes={reportes} ferias={ferias} graficos={graficos} handleChange={handleChange}/>
                     <div className="button-container">
                         <Button 
                             text='Ver' 
-                            onClickHandler={() => obtenerReporte(searchState.reporteSeleccionado, searchState.filtroSeleccionado, searchState.feriaSeleccionada, searchState.graficoSeleccionado)}
-                            activo={true}
-                        />
-                        <Button 
-                            text='Agregar a listado' 
-                            onClickHandler={handleAddReport}
-                            activo={true}
-                        />
-                        <Button 
-                            text='Imprimir' 
-                            onClickHandler={div2pdf}
+                            onClickHandler={() => obtenerReporte()}
                             activo={true}
                         />
                     </div>
                     {!buscaronReporte ?
                     <BlankState msg={'Ingrese un reporte, un filtro y una feria para generar un informe.'} />
                     :
+                    loadingReporte ?
+                    <Spinner />
+                    :
                     <Grafico
-                        filtro={filtros.find((el) => el._id === searchState.filtroSeleccionado)}
-                        reporte={reportes.find((el) => el._id === searchState.reporteSeleccionado)}
-                        feria={ferias.find((el) => el._id === searchState.feriaSeleccionada)}
-                        grafico={searchState.graficoSeleccionado}
-                        data={data}
+                        filtro={filtros.find((el) => el._id === reporteBuscado.filtro)}
+                        reporte={reportes.find((el) => el._id === reporteBuscado.reporte)}
+                        feria={ferias.find((el) => el._id === reporteBuscado.feria)}
+                        grafico={reporteBuscado.grafico}
+                        handleAddReport={handleAddReport}
                     />
                     }
+                    {listadoReportes.length !== 0 && <TablaReportes imprimirPdf={imprimirPdf} handleRemoveReport={handleRemoveReport} />}
                 </>
-
-            
             }
-
         </Card>
     )
 
