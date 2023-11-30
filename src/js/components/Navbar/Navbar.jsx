@@ -34,6 +34,10 @@ const Navbar = (props) => {
         navigate('/perfil')
     }
 
+    const navigateChangePassword =  () => {
+        navigate('/cambiarCredenciales')
+    }
+
     const showSidebar = () => {
         dispatch(uiActions.showSidebar())
     }
@@ -74,7 +78,7 @@ const Navbar = (props) => {
                 { auth?.roles ?
                     <>
                         <NavbarCampana />
-                        <DropdownButton img={require("../../../assets/user.png")} dropdown={showNavbarMenu} onClick={toggleNavbarMenu} navigatePerfil={navigatePerfil} signOut={signOut}/>
+                        <DropdownButton img={require("../../../assets/user.png")} dropdown={showNavbarMenu} onClick={toggleNavbarMenu} navigatePerfil={navigatePerfil} navigateChangePassword={navigateChangePassword} signOut={signOut}/>
                     </>
                    :
                     <Button text="Ingresar" onClickHandler={location.pathname !== '/home' ? navigateHome : props.openModal }/>

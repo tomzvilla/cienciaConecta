@@ -31,7 +31,7 @@ const DropdownButton = (props) => {
                 <img className="dropdown-button__image" src={props.img} alt="Perfil" />
             </div>
             
-            {props.dropdown && <NavbarDropdown navigatePerfil={props.navigatePerfil} signOut={props.signOut} menuRef={menuRef}/>}
+            {props.dropdown && <NavbarDropdown navigateChangePassword={props.navigateChangePassword} navigatePerfil={props.navigatePerfil} signOut={props.signOut} menuRef={menuRef}/>}
         </>
     )
 
