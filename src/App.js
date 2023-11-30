@@ -43,6 +43,7 @@ import NotificationList from './js/components/Notification/NotificationList'
 import Reportes from './js/pages/Reportes/Reportes'
 import Devolucion from './js/pages/Evaluacion/Devolucion'
 import VisualizarFeria from './js/pages/Ferias/VisualizarFeria.jsx'
+import CambiarPassword from './js/pages/CambiarPassword.jsx'
 // DEV
 import AuthVerify from './js/components/PersistLogin/AuthVerify'
 import ConfirmarCuenta from './js/pages/Usuarios/ConfirmarCuenta'
@@ -129,6 +130,7 @@ function App() {
               <Route path='/dashboard' element={<Dashboard/>}/>
               <Route path='/proyecto/:id' element={<VisualizarProyecto/>}/>
               <Route path='/perfil' element={<Profile/>}/>
+              <Route path='/cambiarCredenciales' element={<CambiarPassword/>}/>
               <Route path='/evaluar/:id/iniciar' element={<Evaluacion/>}/>
               <Route path='/evaluacion/:id' element={<EvaluacionCardConsulta />}/>
               <Route path='/evaluacion/:id/consultar' element={<EvaluacionFormConsulta />}/>
