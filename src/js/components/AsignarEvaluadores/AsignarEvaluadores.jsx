@@ -58,6 +58,8 @@ const AsignarEvaluadores = (props) => {
                 msg = 'El servidor no respondió'
             } else if(err.response?.status === 403) {
                 msg = 'Datos incorrectos intente nuevamente'
+            } else if(err.response?.status === 422) {
+                msg = `Ha ocurrido un error al asignar evaluadores al proyecto <br> ${err.response.data.errors[0]}`
             } else if(err.response?.status === 401) {
                 msg = 'No estas autorizado para realizar esta operación'
             } else {
