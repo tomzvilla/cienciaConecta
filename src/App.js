@@ -103,6 +103,40 @@ function App() {
             <Route path='/recuperarCredenciales' element={<RecuperarCredenciales />}/>
             <Route path='/reestablecerCredenciales/:token' element={<IngresarCredenciales />}/>
           </Route>
+          {/* RUTEO CUANDO NO HAY FERIA */}
+          {!feria && 
+          <Route element={<PersistLogin />}>
+            <Route element={<RequireAuth allowedRoles={[ ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.Docente]} />}>
+              <Route path='/misProyectos' element={<VisualizarListadoProyectos/>}/>
+            </Route>
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]}/>}>
+              {/* Rutas con auth liberadas de estados */}
+              <Route path='/dashboard' element={<Dashboard/>}/>
+              <Route path='/proyecto/:id' element={<VisualizarProyecto/>}/>
+              <Route path='/perfil' element={<Profile/>}/>
+              <Route path='/cambiarCredenciales' element={<CambiarPassword/>}/>
+            </Route>
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]} />}>
+              <Route path='/crearCategoria' element={<Categorias/>}/>
+              <Route path='/cargarEstablecimientos' element={<Establecimientos/>}/>
+            </Route>
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]}/>}>
+              {/* Rutas liberadas */}
+              <Route path='/feria' element={<CrearFeria/>}/>
+              <Route path='/feria/:id' element={<VisualizarFeria/>}/>
+              <Route path='/verListaFerias' element={<VisualizarListadoFerias/>}/>
+              <Route path='/activarUsuarios' element={<VisualizarListadoPendienteActivacion/>}/>
+              <Route path='/usuarioPendienteActivacion/:id' element={<VisualizarUsuarioPendienteActivacion/>}/>
+              <Route path='/reportes' element={<Reportes />}/>
+            </Route>
+            <Route path='/notificaciones' element={<NotificationList />}/>
+            <Route path='/unauthorized' element={<Unauthorized/>}/>
+            <Route path='*' element={<NotFound/>}/>
+          </Route>
+          }
+
+          {/* RUTEO CUANDO HAY FERIA */}
+          {feria && 
           <Route element={<PersistLogin />}>
             <Route element={<RequireAuth 
               allowedRoles={[ ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.Docente]} 
@@ -145,13 +179,10 @@ function App() {
 
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]} allowedStates={[ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar]}/>}>
               <Route path='/crearCategoria' element={<Categorias/>}/>
-              <Route path='/cargarEstablecimientos' element={<Establecimientos/>}/>
             </Route>
           
 
-            <Route element={<RequireAuth 
-              allowedRoles={[ROLES.Admin, ROLES.ComAsesora]}/>}
-            >
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]}/>}>
               {/* Rutas liberadas */}
               {!feria && <Route path='/feria' element={<CrearFeria/>}/>}
               <Route path='/verFeria' element={<VisualizarFeriaActual/>}/>
@@ -192,7 +223,7 @@ function App() {
             <Route path='/notificaciones' element={<NotificationList />}/>
             <Route path='/unauthorized' element={<Unauthorized/>}/>
             <Route path='*' element={<NotFound/>}/>
-          </Route>
+          </Route>}
 
         </Route>
       </Routes>

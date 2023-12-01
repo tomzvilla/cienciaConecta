@@ -162,17 +162,23 @@ export const urlValidator = (url) => {
   return "";
 };
 
-export const fileValidator = (file, msg, format) => {
-  let formato = '*'
-  if(format === 'PDF') formato = 'application/pdf'
-  else if(format === 'imágen') formato = 'image/'
-  else if(format === 'xlsx') formato = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+export const fileValidator = (file, msg, format, size = 10) => {
+  const bytes = 1024000
+  let formato = ['*']
+  if(format === 'PDF') formato = ['application/pdf']
+  else if(format === 'imágen') formato = ['image/']
+  else if(format === 'xls o xlsx') formato = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"]
   if (!file) {
     return "Tenés que subir " + msg; 
-  } else if (!file.type?.startsWith(formato)){
-    return "El archivo se debe subir en formato " + format 
-  }
-  else if (file.size > 10240000) { // 10 MB
+  } else if (formato.length === 1) {
+    if (!file.type?.startsWith(formato)) {
+      return "El archivo se debe subir en formato " + format
+    }
+  } else if (formato.length !== 1) {
+    if(!formato.includes(file.type)) {
+      return "El archivo se debe subir en formato " + format
+    }
+  } else if (file.size > size * bytes) { // 10 MB
     return "El tamaño del archivo debe ser menor a 10 MB"
   }
   return "";
