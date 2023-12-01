@@ -25,7 +25,7 @@ const NotFound = () => {
   return (
     auth?.accessToken ? 
     (
-    <Card title="Usuario no autorizado">
+    <Card title="Página no encontrada">
     <div className='unauthorized'>
         <img className='unauthorized__img' src={notFound} alt='Imágen que representa página no encontrada'/>
         <h2 className='unauthorized__title'>PÁGINA NO ENCONTRADA</h2>

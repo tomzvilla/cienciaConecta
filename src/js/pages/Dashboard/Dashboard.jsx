@@ -28,6 +28,8 @@ const Dashboard = () => {
     const dispatch = useDispatch()
     const location = useLocation()
 
+    console.log('se inicio el dashboard')
+
     const [userRoles, setUserRoles] = useState({
         roles: auth.roles
     })
@@ -36,6 +38,8 @@ const Dashboard = () => {
     const nroProyectos = useSelector(state => state.instancias.nroProyectos)
     const categoriasState = useSelector(state => state.categorias.categorias)
     const nivelesState = useSelector(state => state.niveles.niveles)
+
+    let loadingInitialData = !(categoriasState.length > 0 && nivelesState.length > 0)
 
     const [dashboardActivo, setDashboardActivo] = useState(userRoles.roles.find(rol => rol !== "1" && rol !== "6"))
 
@@ -79,13 +83,22 @@ const Dashboard = () => {
 
     const { niveles, categorias } = useCategoriasNiveles({ categoriaData: categoriasData, nivelData: nivelesData, enabled: !loadingNiveles && !loadingCategorias })
 
-    if(nivelesState.length === 0 && categoriasState.length === 0 && !loadingNiveles && !loadingCategorias) {
-        dispatch(nivelesActions.cargarNiveles(niveles))
-        dispatch(categoriasActions.cargarCategorias(categorias))
-    }
+    useEffect(() => {
+        if (nivelesState.length === 0 && categoriasState.length === 0 && !loadingNiveles && !loadingCategorias) {
+          dispatch(nivelesActions.cargarNiveles(niveles))
+          dispatch(categoriasActions.cargarCategorias(categorias))
+          loadingInitialData = false
+        }
+      }, [])
+
+    // if(nivelesState.length === 0 && categoriasState.length === 0 && !loadingNiveles && !loadingCategorias) {
+    //     dispatch(nivelesActions.cargarNiveles(niveles))
+    //     dispatch(categoriasActions.cargarCategorias(categorias))
+    //     loadingInitialData = false
+    // }
 
     return (
-        (loadingRoles && ((categoriasState.length !== 0 && nivelesState.length !== 0) || (loadingCategorias && loadingNiveles))) ?
+        (loadingRoles && loadingInitialData) ?
         <Spinner />
         :
         <>

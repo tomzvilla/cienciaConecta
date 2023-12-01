@@ -48,6 +48,36 @@ const Sidebar = () => {
 
     return (
         <nav className={!showSidebar ? 'sidebar sidebar--show' : 'sidebar'}>
+            {/* SIDEBAR SI NO HAY FERIA */}
+            <div className="sidebar__link-container">
+                <SidebarLink img={require("../../../assets/trofeo.png")} linkto={'/dashboard'} text="Inicio"/>
+
+                { auth?.roles?.find(role => [ROLES.Docente, ROLES.ResponsableProyecto, ROLES.Evaluador].includes(role)) ?
+                    <SidebarDropdown dropdown={dropdown.proyectos} img={require("../../../assets/evaluador.png")} text="Proyectos" onClick={() => toggleDropdown('proyectos')}>
+                        <SidebarLink img={require("../../../assets/evaluador.png")} linkto={'/misProyectos'} text="Ver proyectos" dropdown={true}/>
+                    </SidebarDropdown>
+                    :
+                    null
+                }
+                {auth?.roles?.find(role => [ROLES.ComAsesora, ROLES.Admin].includes(role)) && 
+                    <>
+                        <SidebarDropdown dropdown={dropdown.feria} img={require("../../../assets/colaboracion.png")} text="Feria" onClick={() => toggleDropdown('feria')}>
+                            {!feria ? <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/feria'} text="Crear Feria" dropdown={true}/> : null}
+                            <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/verListaFerias'} text="Listado de Ferias" dropdown={true}/>
+                            <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/crearCategoria'} text="Categorías" dropdown={true}/>
+                            <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/cargarEstablecimientos'} text="Establecimientos" dropdown={true}/>
+                        </SidebarDropdown>
+
+                        {[ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar, ESTADOS.instanciaEscolar_Finalizada].includes(feria?.estado) ? <SidebarLink img={require("../../../assets/user.png")} linkto={'/asignarReferentes'} text="Asignar Referentes"/> : null }
+                        {[ESTADOS.instanciaRegional_ExposicionFinalizada, ESTADOS.instanciaProvincial_ExposicionFinalizada].includes(feria?.estado) ? <SidebarLink img={require("../../../assets/foco.png")} linkto={'/promoverProyectos'} text="Promover Proyectos"/> : null }
+                        <SidebarLink img={require("../../../assets/verificado.png")} linkto={'/activarUsuarios'} text="Activar Usuarios"/>
+                        <SidebarLink img={require("../../../assets/puntos.png")} linkto={'/reportes'} text="Reportes"/>
+                    </> 
+                }
+
+            </div>
+            {/* SIDEBAR SI HAY FERIA */}
+            {feria && 
             <div className="sidebar__link-container">
                 {/* Links publicos  */}
                 <SidebarLink img={require("../../../assets/trofeo.png")} linkto={'/dashboard'} text="Inicio"/>
@@ -77,7 +107,6 @@ const Sidebar = () => {
                             <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/verFeria'} text="Ver Feria" dropdown={true}/>
                             <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/verListaFerias'} text="Listado de Ferias" dropdown={true}/>
                             { [ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar].includes(feria?.estado) ? <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/crearCategoria'} text="Categorías" dropdown={true}/> : null }
-                            { [ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar].includes(feria?.estado) ? <SidebarLink img={require("../../../assets/colaboracion.png")} linkto={'/cargarEstablecimientos'} text="Establecimientos" dropdown={true}/> : null }
                         </SidebarDropdown>
 
                         {[ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar, ESTADOS.instanciaEscolar_Finalizada].includes(feria?.estado) ? <SidebarLink img={require("../../../assets/user.png")} linkto={'/asignarReferentes'} text="Asignar Referentes"/> : null }
@@ -101,6 +130,7 @@ const Sidebar = () => {
                 {/* <SidebarLink img={require("../../../assets/campana.png")} linkto={'/notificaciones'} text="Notificaciones"/> */}
 
             </div>
+            }
             
         </nav>
     )
