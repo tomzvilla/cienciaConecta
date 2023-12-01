@@ -28,8 +28,6 @@ const Dashboard = () => {
     const dispatch = useDispatch()
     const location = useLocation()
 
-    console.log('se inicio el dashboard')
-
     const [userRoles, setUserRoles] = useState({
         roles: auth.roles
     })
@@ -90,12 +88,6 @@ const Dashboard = () => {
           loadingInitialData = false
         }
       }, [])
-
-    // if(nivelesState.length === 0 && categoriasState.length === 0 && !loadingNiveles && !loadingCategorias) {
-    //     dispatch(nivelesActions.cargarNiveles(niveles))
-    //     dispatch(categoriasActions.cargarCategorias(categorias))
-    //     loadingInitialData = false
-    // }
 
     return (
         (loadingRoles && loadingInitialData) ?

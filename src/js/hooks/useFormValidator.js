@@ -471,7 +471,7 @@ export const useFormValidator = (form) => {
         }
 
         if (nextErrors.excel?.dirty && (field ? field === "excel" : true)) {
-            const excelMessage = fileValidator(excel, " el Excel", 'xls o xlsx', 20, form);
+            const excelMessage = fileValidator(excel, " el Excel", 'xlsx', 20, form);
             nextErrors.excel.error = !!excelMessage;
             nextErrors.excel.message = excelMessage;
             if (!!excelMessage) isValid = false;
