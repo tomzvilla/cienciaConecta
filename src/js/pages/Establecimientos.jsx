@@ -22,25 +22,27 @@ const Establecimientos = () => {
         try {
 
             const excel = new FormData()
-            excel.append('excel', formValues.excel)
+            excel.append('establecimientosEducativos', formValues.excel)
     
-            const response = await axiosPrivate.post('/evaluador/upload/excel', excel,
+            const response = await axiosPrivate.post('/establecimiento/actualizar', excel,
             {headers: {'Content-Type': 'multipart/form-data'}})
 
-            return true
+            return response.status === 200
         } catch(err) {
             console.log(err)
             let msg = ''
                 if(!err?.response){
-                  msg = 'El servidor no respondió'
+                    msg = 'El servidor no respondió'
                 } else if(err.response?.status === 401) {
-                  msg = 'No estas autorizado para cargar establecimientos.'
+                    msg = 'No estas autorizado para cargar establecimientos.'
+                } else if(err.response?.status === 400) {
+                    msg = `Se produjo un error al cargar establecimientos. <br> ${err.response.data.error}`
                 } else {
-                  msg = `Falló la carga del archivo <br> ${err.response.data.error}`
+                    msg = `Falló la carga del archivo <br> ${err.response.data.error}`
                 }
                 Swal.fire({
                   html: msg,
-                  title: 'Falló la carga del archivo',
+                  title: 'Falló la carga de establecimientos',
                   icon: 'error',
                   confirmButtonText: 'OK',
                   confirmButtonColor: '#00ACE6',
@@ -64,23 +66,22 @@ const Establecimientos = () => {
             cancelButtonText: 'Volver',
             cancelButtonColor: '#D4272D',
         }).then(async (result) => {
-            // if(result.isConfirmed) {
-            //     const success = await cargarArchivo()
-            //     if(success) Swal.fire({
-            //         title: '¡Archivo cargado correctamente!',
-            //         text: 'El archivo que subiste se cargó correctamente.',
-            //         icon: 'success',
-            //         confirmButtonText: 'OK',
-            //         confirmButtonColor: '#00ACE6',
-            //     }).then((result) => {
-            //         if(result.isConfirmed || result.isDismissed) {
-            //             navigate(from, {replace: true, state: {from:`${location.pathname}`}})
-            //         }
-            //     })
-            // }
+            if(result.isConfirmed) {
+                const success = await cargarArchivo()
+                if(success) Swal.fire({
+                    title: '¡Archivo cargado correctamente!',
+                    text: 'El archivo que subiste se cargó correctamente.',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#00ACE6',
+                }).then((result) => {
+                    if(result.isConfirmed || result.isDismissed) {
+                        navigate(from, {replace: true, state: {from:`${location.pathname}`}})
+                    }
+                })
+            }
         })
     }
-
 
 
     return (

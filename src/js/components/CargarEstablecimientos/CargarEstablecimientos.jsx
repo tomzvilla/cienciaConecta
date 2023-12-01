@@ -4,6 +4,7 @@ import FileField from "../FileField/FileField";
 const CargarEstablecimientos = (props) => {
 
     const {formValues, setFormValues, validateForm, errors, onBlurField, handleSubmit} = props
+
     const handleFileChange = (e) => {
         const file = e.target.files[0]
         const {name} = e.target
@@ -26,7 +27,7 @@ const CargarEstablecimientos = (props) => {
                 onChange={handleFileChange}
                 onBlur={onBlurField}
                 errors={errors.excel}
-                accept={'.xlsx'}
+                accept={'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}
                 required={true}
                 />
                 <div className="cargar-establecimientos__button">
