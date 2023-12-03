@@ -3,7 +3,7 @@ import Spinner from "../../components/Spinner/Spinner"
 import Metadata from "../../components/Metadata/Metadata"
 import BlankState from "../../components/BlankState/BlankState"
 import Card from "../../components/Card/Card"
-import Table from "../../components/Table/Table"
+import TablaProyectos from "../../components/Projects/TablaProyectos"
 // Hooks
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
@@ -62,10 +62,10 @@ const VisualizarListadoProyectos = () => {
     return (
       <>
         <Metadata title={'Proyecto'}/>
-        {isLoading ? (<Spinner />) : proyectos.length === 0 ? (<BlankState msg={'El usuario no tiene proyectos'}/>) 
+        {isLoading ? (<Spinner />) : proyectos.length === 0 ? (<Card title="Mis Proyectos"> <BlankState msg={'El usuario no tiene proyectos'}/> </Card>) 
         : (
           <Card title="Mis Proyectos" wide={true}>
-            <Table title="Mis Proyectos" headers={headers} data={proyectos} viewPath={'/proyecto'} editPath={'/editarProyecto'} />
+            <TablaProyectos headers={headers} proyectos={proyectos} />
           </Card>
         
         )}
