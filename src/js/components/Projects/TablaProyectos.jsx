@@ -12,7 +12,6 @@ import Swal from "sweetalert2"
 const pageSize = 10
 
 const TablaProyectos = ({ headers, proyectos, resize}) => {
-    console.log(proyectos)
 
     const feria = useSelector(state => state.instancias.feria)
 
@@ -56,10 +55,9 @@ const TablaProyectos = ({ headers, proyectos, resize}) => {
                         return (
                             !resize ? 
                             <tr key={proyecto._id} className="table-body-row">
-                                {headers.map(header => {
-                                    console.log(header)
-                                    return <td key={header.name} className="table-body-row__td" >{proyecto[`${header?.value}`]}</td>
-                                })}
+                                {headers.map(header => 
+                                    <td key={header.name} className="table-body-row__td" >{proyecto[`${header?.value}`]}</td>
+                                )}
                                 <td className="table-body-row__td table-body-row__td--actions">
                                 {
                                     parseInt(proyecto.estado) !== 8 ?
