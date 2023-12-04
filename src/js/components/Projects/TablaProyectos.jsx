@@ -4,12 +4,17 @@ import ImageButton from '../ImageButton/ImageButton'
 import Pagination from "../Pagination/Pagination"
 // hooks
 import { useState } from "react"
+import { ESTADOS } from "../../../App"
+import { useSelector } from "react-redux"
 
 import Swal from "sweetalert2"
 
 const pageSize = 10
 
-const TablaProyectos = ({ headers, proyectos}) => {
+const TablaProyectos = ({ headers, proyectos, resize}) => {
+    console.log(proyectos)
+
+    const feria = useSelector(state => state.instancias.feria)
 
     // pagination state
     const [currentPage, setCurrentPage] = useState(1);
@@ -17,7 +22,7 @@ const TablaProyectos = ({ headers, proyectos}) => {
     const calculateCurrentTableData = () => {
         const firstPageIndex = (currentPage - 1) * pageSize;
         const lastPageIndex = firstPageIndex + pageSize;
-        return postulaciones?.slice(firstPageIndex, lastPageIndex);
+        return proyectos?.slice(firstPageIndex, lastPageIndex);
     };
       
     const currentTableData = calculateCurrentTableData();
@@ -49,24 +54,26 @@ const TablaProyectos = ({ headers, proyectos}) => {
                 <tbody className="table__body">
                     {proyectos && currentTableData.map(proyecto => {
                         return (
-                            !props.resize ? 
+                            !resize ? 
                             <tr key={proyecto._id} className="table-body-row">
-                                {headers.map(header => 
-                                    <td key={header.name} className="table-body-row__td" >{proyectos[`${header?.value}`]}</td>
-                                )}
-                                <td className="table-body-row__td">
-                                    <ImageLink linkto={`${props.viewPath}/${proyecto._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/>
-                                </td>
+                                {headers.map(header => {
+                                    console.log(header)
+                                    return <td key={header.name} className="table-body-row__td" >{proyecto[`${header?.value}`]}</td>
+                                })}
+                                <td className="table-body-row__td table-body-row__td--actions">
                                 {
-                                    parseInt(proyecto.estado) <= 3?
-                                    <td className="table-body-row__td">
-                                        <ImageLink linkto={`/editarProyecto/${proyecto._id}`} small={true} alt="Editar" src={require("../../../assets/edit.png")}/>
-                                    </td>
+                                    parseInt(proyecto.estado) !== 8 ?
+                                    <ImageLink linkto={`/proyecto/${proyecto._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/>
                                     :
-                                    <td className="table-body-row__td">
-                                        <ImageButton small={true} callback={showAlert} alt="Editar" src={require("../../../assets/edit.png")}/>
-                                    </td>
+                                    <ImageLink linkto={`/proyecto/antiguo/${proyecto._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/>
                                 }
+                                {
+                                    [ ESTADOS.iniciada, ESTADOS.instanciaEscolar, ESTADOS.instanciaEscolar_Finalizada ].includes(feria?.estado) && parseInt(proyecto.estado) !== 8 ?
+                                    <ImageLink linkto={`/editarProyecto/${proyecto._id}`} small={true} alt="Editar" src={require("../../../assets/edit.png")}/>
+                                    :
+                                    <ImageButton small={true} callback={showAlert} alt="Editar" src={require("../../../assets/edit.png")}/>
+                                }
+                                </td>
 
                             </ tr>
                             :
@@ -74,9 +81,16 @@ const TablaProyectos = ({ headers, proyectos}) => {
 
                                 <td key={headers[0].name} className="table-body-row__td" >{proyecto[`${headers[0]?.value}`] + " " + proyecto[`${headers[1]?.value}`]}</td>
 
-                                <td className="table-body-row__td">
-                                    <ImageLink linkto={`${props.viewPath}/${proyecto._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/>
-                                </td>
+                                {
+                                    parseInt(proyecto.estado) !== 8 ?
+                                    <td className="table-body-row__td">
+                                        <ImageLink linkto={`/proyecto/${proyecto._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/>
+                                    </td>
+                                    :
+                                    <td className="table-body-row__td">
+                                        <ImageLink linkto={`/proyecto/antiguo/${proyecto._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/>
+                                    </td>
+                                }
                             </ tr>
                         )
                     }

@@ -49,6 +49,7 @@ const Sidebar = () => {
     return (
         <nav className={!showSidebar ? 'sidebar sidebar--show' : 'sidebar'}>
             {/* SIDEBAR SI NO HAY FERIA */}
+            {!feria &&
             <div className="sidebar__link-container">
                 <SidebarLink img={require("../../../assets/trofeo.png")} linkto={'/dashboard'} text="Inicio"/>
 
@@ -74,8 +75,8 @@ const Sidebar = () => {
                         <SidebarLink img={require("../../../assets/puntos.png")} linkto={'/reportes'} text="Reportes"/>
                     </> 
                 }
-
             </div>
+            }
             {/* SIDEBAR SI HAY FERIA */}
             {feria && 
             <div className="sidebar__link-container">

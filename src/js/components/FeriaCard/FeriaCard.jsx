@@ -7,7 +7,10 @@ import Spinner from "../Spinner/Spinner"
 
 const FeriaCard = ({ datosFeria, handleDelete, feriaActual = true }) => {
     const axiosPrivate = useAxiosPrivate()
-    const { data, isLoading } = useAxiosFetch('/feria/info', axiosPrivate)
+    console.log(datosFeria)
+    const endpoint = feriaActual ? '/feria/info' : `/feria/info?id=${datosFeria._id}`
+    const { data, isLoading } = useAxiosFetch(endpoint, axiosPrivate)
+    console.log(data)
     
     return (
         <Card wide={true} className="feria-card" header={<FeriaCardHeader feriaActual={feriaActual} handleDelete={handleDelete} datosFeria={datosFeria}/>}>

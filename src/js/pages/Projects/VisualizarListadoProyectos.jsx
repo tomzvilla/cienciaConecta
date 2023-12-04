@@ -65,7 +65,7 @@ const VisualizarListadoProyectos = () => {
         {isLoading ? (<Spinner />) : proyectos.length === 0 ? (<Card title="Mis Proyectos"> <BlankState msg={'El usuario no tiene proyectos'}/> </Card>) 
         : (
           <Card title="Mis Proyectos" wide={true}>
-            <TablaProyectos headers={headers} proyectos={proyectos} />
+            <TablaProyectos headers={headers} proyectos={proyectos} resize={resize} />
           </Card>
         
         )}

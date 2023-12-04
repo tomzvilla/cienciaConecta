@@ -6,6 +6,7 @@ const DashboardCard = (props) => {
 
     const {src, title, link} = props
     const feria = useSelector(state => state.instancias.feria)
+    console.log(feria)
 
     const location = useLocation()
 
