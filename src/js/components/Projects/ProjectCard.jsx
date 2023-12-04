@@ -153,7 +153,7 @@ const ProjectCard = (props) => {
     return (
         
 
-        <Card wide={true} header={<ProjectCardHeader datos={props.formData} handleDelete={handleDelete} handleDownload={handleDownload} goBack={props.goBack}/>}>
+        <Card wide={true} header={<ProjectCardHeader datos={props.formData} handleDelete={handleDelete} handleDownload={handleDownload} goBack={props.goBack} antiguo={props.antiguo}/>}>
             
             
             {(!loadingCategorias && !loadingNiveles) || (categorias.length !== 0 && niveles.length !== 0) ? 
