@@ -1050,6 +1050,11 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .signup-confirm__column--1 {
   grid-column: 1/2;
 }
+@media screen and (min-width: 62.5em) {
+  .signup-confirm__column--1 {
+    margin-right: 2rem;
+  }
+}
 .signup-confirm__column--2 {
   grid-column: 2/3;
 }
@@ -3717,6 +3722,62 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .cargar-establecimientos__button {
   margin: auto;
   margin-top: 3rem;
+}
+
+.cambiar-password {
+  width: 90%;
+  color: #757575;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+}
+.cambiar-password__text {
+  font-size: 2.5rem;
+  margin: 1rem 0;
+}
+@media screen and (max-width: 50em) {
+  .cambiar-password__text {
+    font-size: 2rem;
+  }
+}
+.cambiar-password__button {
+  margin: auto;
+  margin-top: 3rem;
+}
+
+.reportes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  width: 80%;
+}
+.reportes__button {
+  padding: 2rem 0;
+}
+
+.reportes-leyenda {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.reportes-leyenda__title {
+  color: #757575;
+  font-size: 2.5rem;
+  margin-left: -0.5rem;
+}
+.reportes-leyenda__item {
+  display: flex;
+  align-items: center;
+}
+.reportes-leyenda__text {
+  font-size: 2.5rem;
+  margin-left: 1rem;
+}
+.reportes-leyenda__square {
+  width: 2rem;
+  height: 2rem;
 }
 
 .login {
