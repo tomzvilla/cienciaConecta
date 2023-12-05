@@ -399,7 +399,10 @@ export const useFormValidator = (form) => {
         }
 
         if (nextErrors.fechaInicioPostulacionEvaluadores?.dirty && (field ? field === "fechaInicioPostulacionEvaluadores" : true)) {
-            const fechaInicioPostulacionEvaluadoresMessage = dateValidator({fecha:form.fechaInicioPostulacionEvaluadores, nombre: 'Inicio postulación de evaluadores'},{fecha:form.fechaInicioEvaluacionRegional, nombre: 'Inicio evaluación regional'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            let fechaInicioPostulacionEvaluadoresMessage = dateValidator({fecha:form.fechaInicioPostulacionEvaluadores, nombre: 'Inicio postulación de evaluadores'},{fecha:form.fechaInicioEvaluacionRegional, nombre: 'Inicio evaluación regional'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            if(fechaInicioPostulacionEvaluadoresMessage === '') {
+                fechaInicioPostulacionEvaluadoresMessage = dateValidator({fecha:form.fechaInicioFeria, nombre: 'Inicio de la Feria'}, {fecha:form.fechaInicioPostulacionEvaluadores, nombre: 'Inicio postulación de evaluadores'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            }
             nextErrors.fechaInicioPostulacionEvaluadores.error = !!fechaInicioPostulacionEvaluadoresMessage;
             nextErrors.fechaInicioPostulacionEvaluadores.message = fechaInicioPostulacionEvaluadoresMessage;
             if (!!fechaInicioPostulacionEvaluadoresMessage) isValid = false;
