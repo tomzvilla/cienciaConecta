@@ -36,9 +36,7 @@ const EvaluacionCard = () => {
 
     // verificar estado de evaluacion
 
-    const { data: evaluacionStatus, isLoading: loadingStatus } = useAxiosFetch(`/proyecto/estado-evaluacion/${id}`)
-
-    if(!isLoading) console.log(evaluacionStatus)
+    const { data: evaluacionStatus, isLoading: loadingStatus } = useAxiosFetch(`/proyecto/estado-evaluacion/${id}`, axiosPrivate)
 
     const { proyectoMap } = useCategoriasNiveles({ categoriaData: categoriasData, nivelData: nivelesData, enabled: !loadingCategorias && !loadingNiveles && !isLoading })
    
@@ -84,13 +82,6 @@ const EvaluacionCard = () => {
                     confirmButtonColor: '#00ACE6',
                 }).then((result) => {
                     if(result.isConfirmed || result.isDismissed) {
-                        feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 
-                        dispatch(evaluacionActions.actualizarListosEvaluacion(id)) 
-                        :
-                        feria?.estado === ESTADOS.instanciaRegional_EnExposicion ?
-                        dispatch(evaluacionActions.actualizarListosExposicion(id))
-                        :
-                        dispatch(evaluacionActions.actualizarListosExposicionProvincial(id))
                         navigate('/evaluar', {replace: true, state: { from:`${location.pathname}`}})
                     }
                 })
@@ -163,31 +154,15 @@ const EvaluacionCard = () => {
                     <div>
                         Realizadas:
                         {
-                            feria.estado === ESTADOS.instanciaRegional_EnEvaluacion ?
                             proyecto.evaluadoresRegionales.map( (e, index) =>
-                            <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.evaluacion?.evaluadorId?.length - 1} />)
-                            :
-                            feria.estado === ESTADOS.instanciaRegional_EnExposicion ?
-                            proyecto.evaluadoresRegionales.map( (e, index) =>
-                            <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.exposicion?.evaluadorId?.length - 1} />)
-                            :
-                            proyecto.evaluadoresRegionales.map( (e, index) =>
-                            <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.exposicionProvincial?.evaluadorId?.length - 1} />)
+                            <input type="checkbox" key={e} id={e} disabled checked={index <= evaluacionStatus.realizadas - 1} />)
                         }
                     </div>
                     <div>
                         Confirmadas:
                         {
-                            feria.estado === ESTADOS.instanciaRegional_EnEvaluacion ?
                             proyecto.evaluadoresRegionales.map( (e, index) =>
-                            <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.evaluacion?.listo?.length - 1} />)
-                            :
-                            feria.estado === ESTADOS.instanciaRegional_EnExposicion ?
-                            proyecto.evaluadoresRegionales.map( (e, index) =>
-                            <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.exposicion?.listo?.length - 1} />)
-                            :
-                            proyecto.evaluadoresRegionales.map( (e, index) =>
-                            <input type="checkbox" key={e} id={e} disabled checked={index <= proyecto.exposicionProvincial?.listo?.length - 1} />)
+                            <input type="checkbox" key={e} id={e} disabled checked={index <= evaluacionStatus.confirmadas - 1} />)
                         }
                     </div>
                 </div>

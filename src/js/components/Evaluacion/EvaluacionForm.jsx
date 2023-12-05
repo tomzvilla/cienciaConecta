@@ -141,16 +141,7 @@ const EvaluacionForm = (props) => {
                     confirmButtonColor: '#00ACE6',
                 }).then((result) => {
                     if(result.isConfirmed || result.isDismissed) {
-                        feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 
-                        dispatch(evaluacionActions.actualizarRealizadosEvaluacion(projectId)) 
-                        :
-                        feria?.estado === ESTADOS.instanciaRegional_EnExposicion ?
-                        dispatch(evaluacionActions.actualizarRealizadosExposicion(projectId))
-                        :
-                        dispatch(evaluacionActions.actualizarRealizadosExposicionProvincial(projectId))
-                        
-                        navigate(from, {replace: true, state: { from:`${location.pathname}`}})
-                        
+                        navigate(from, {replace: true, state: { from:`${location.pathname}`}}) 
                     }
                 })
             }

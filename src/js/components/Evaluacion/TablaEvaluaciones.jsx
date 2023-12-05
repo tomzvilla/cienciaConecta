@@ -74,15 +74,6 @@ const TablaEvaluaciones = (props) => {
                                         {`${proyecto?.exposicionProvincial?.listo?.length ?? '0'}/${proyecto.evaluadoresRegionales.length}`}
                                     </td>
                                 }
-                                {/* {proyecto.estado < 3 ?
-                                    <td className="table-body-row__td">
-                                    {!proyecto.evaluacion ? `0/${proyecto.evaluadoresRegionales.length}` : `${proyecto.evaluacion.listo.length}/${proyecto.evaluadoresRegionales.length}`}
-                                    </td>
-                                :
-                                    <td className="table-body-row__td">
-                                        {!proyecto.exposicion ? `0/${proyecto.evaluadoresRegionales.length}` : `${proyecto.exposicion.listo.length}/${proyecto.evaluadoresRegionales.length}`}
-                                    </td> 
-                                } */}
                             </ tr>
                         )
                         
