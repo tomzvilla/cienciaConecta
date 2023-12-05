@@ -58,7 +58,7 @@ const Grafico = (props) => {
     };
 
     return (
-        <>
+        <div className='reportes'>
             {props.filtro?._id === 'departamento' ?
             <Mapa datasets={data}/>
             :
@@ -73,12 +73,16 @@ const Grafico = (props) => {
             :
             null
             }
-            <Button 
-              text='Agregar a listado' 
-              onClickHandler={() => props.handleAddReport(titulo)}
-              activo={true}
-            />
-        </>
+            <div className='reportes__button'>
+              <Button 
+                text='Agregar a listado' 
+                onClickHandler={() => props.handleAddReport(titulo)}
+                activo={true}
+              />
+
+            </div>
+            
+        </div>
 
     )
     

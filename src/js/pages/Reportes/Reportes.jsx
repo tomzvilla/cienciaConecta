@@ -197,7 +197,7 @@ const Reportes = () => {
                 :
                 <>
                     <FiltroReportes searchState={searchState} reporteSeleccionado={searchState.reporteSeleccionado} filtros={filtros} reportes={reportes} ferias={ferias} graficos={graficos} handleChange={handleChange}/>
-                    <div className="button-container">
+                    <div className="reportes__button">
                         <Button 
                             text='Ver' 
                             onClickHandler={() => obtenerReporte()}

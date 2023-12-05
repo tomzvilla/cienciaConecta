@@ -2,6 +2,7 @@ import React from 'react';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import dptos from './dptos.json'
+import MapaLeyenda from './MapaLeyenda';
 
 const Mapa = (props) => {
 
@@ -69,6 +70,7 @@ const Mapa = (props) => {
         const colors = ['#b3e6f8', '#80d6f3', '#4dc5ee', '#33bdeb', '#00ace6']
         return colors[interval]
     };
+    
 
     // Función para mostrar información emergente en clic del departamento
     const onEachFeature = (feature, layer) => {
@@ -93,11 +95,7 @@ const Mapa = (props) => {
                 onEachFeature={onEachFeature}
             />
         </MapContainer> 
-        <div className='map-legends'>
-                {allIntervals.map(i => 
-                    <div style={{ "color": `${getColor(i.interval)}`}}>{i.start} - {i.end}</div>   
-                )}
-        </div>
+        <MapaLeyenda intervals={allIntervals} getColor={getColor}/>
     </>
     )
 

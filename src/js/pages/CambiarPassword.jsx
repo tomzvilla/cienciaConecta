@@ -114,14 +114,14 @@ const CambiarPassword = () => {
 
     return (
         <Card title={'Cambiar contraseña'}>
-            <div>
-                <p>
-                    Si deseas cambiar tu contraseña de CienciaConecta debes proporcionar tu contraseña anterior, 
-                    en caso de no recordarla por favor cierra sesión y accede a la opción de "Recuperar contraseña"
+            <div className="cambiar-password">
+                <p className="cambiar-password__text">
+                    Para cambiar tu contraseña, necesitamos tu contraseña anterior. 
+                    Si no la recordás, por favor cerrá sesión y accede a la opción de "Recuperar contraseña".
                 </p>
-                <small>
-                    Al cambiar tu contraseña tu sesión se cerrará, y deberás ingresar nuevamente a CienciaConecta
-                </small>
+                <p className="cambiar-password__text">
+                    Cuando cambies la contraseña se va a cerrar tu sesión, y vas a tener que ingresar nuevamente.
+                </p>
             </div>
             <form onSubmit={handleSubmit} className='login-form'>
                 <div className='login-form__input '>
