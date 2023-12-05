@@ -13,6 +13,54 @@
          }
     }
 
+    &__dropdown-title {
+        display: flex;
+        align-items: center;
+        color: $color-primary;
+        font-size: 2.7rem;
+
+        cursor: pointer;
+
+        @media screen and (max-width: $bp-medium) {
+            font-size: 2.2rem;
+         }
+
+        & > img {
+            //filter: invert(47%) sepia(0%) saturate(11%) hue-rotate(213deg) brightness(97%) contrast(91%);
+            filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
+            margin-left: auto;
+            width: 4rem;
+            height: 4rem;
+        }
+    }
+
+    &__link {
+        color: $color-primary;
+        //text-decoration: none;
+
+        &:hover{
+            cursor: pointer;
+            color: $color-primary;
+        }
+    }
+
+    &__dropdown-text {
+        padding: 0 .5rem;
+
+        & > * {
+            font-size: 2rem;
+
+            @media screen and (max-width: $bp-medium) {
+                font-size: 1.7rem;
+             }
+        }
+
+    }
+
+    &__file-field {
+        margin-top: 2rem;
+
+    }
 
     &__button {
         margin: auto;
