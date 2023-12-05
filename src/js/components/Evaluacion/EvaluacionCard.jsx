@@ -34,6 +34,12 @@ const EvaluacionCard = () => {
     const { data: categoriasData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate, !!proyecto)
     const { data: nivelesData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate, !!proyecto)
 
+    // verificar estado de evaluacion
+
+    const { data: evaluacionStatus, isLoading: loadingStatus } = useAxiosFetch(`/proyecto/estado-evaluacion/${id}`)
+
+    if(!isLoading) console.log(evaluacionStatus)
+
     const { proyectoMap } = useCategoriasNiveles({ categoriaData: categoriasData, nivelData: nivelesData, enabled: !loadingCategorias && !loadingNiveles && !isLoading })
    
     if(!isLoading && proyectoData?.proyecto) {
@@ -121,7 +127,7 @@ const EvaluacionCard = () => {
 
 
     return(
-        proyecto ?
+        (proyecto && !loadingStatus) ?
         <Card title={proyecto.titulo} goBack={'/evaluar'}>
             <div className="evaluacion-card">
                 <div className="evaluacion-card__data">
