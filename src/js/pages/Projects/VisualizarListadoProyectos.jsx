@@ -2,20 +2,23 @@
 import Spinner from "../../components/Spinner/Spinner"
 import Metadata from "../../components/Metadata/Metadata"
 import BlankState from "../../components/BlankState/BlankState"
+import Card from "../../components/Card/Card"
+import TablaProyectos from "../../components/Projects/TablaProyectos"
 // Hooks
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 
 import capitalizeEachLetter from "../../utils/utils"
-import Card from "../../components/Card/Card"
-import Table from "../../components/Table/Table"
 import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
 
 const VisualizarListadoProyectos = () => {
     const axiosPrivate = useAxiosPrivate()
+    const niveles = useSelector(state => state.niveles.niveles)
+    const categorias = useSelector(state => state.categorias.categorias)
     const {data, isLoading} = useAxiosFetch('/proyecto/misProyectos', axiosPrivate)
-    const {data: categories} = useAxiosFetch('/categoria', axiosPrivate)
-    const {data: levels} = useAxiosFetch('/nivel', axiosPrivate)
+    const {data: categories, isLoading: loadingCategorias} = useAxiosFetch('/categoria', axiosPrivate, niveles.length !== 0)
+    const {data: levels, isLoading: loadingNiveles} = useAxiosFetch('/nivel', axiosPrivate, categorias.length !== 0)
     const [resize, setResize] = useState(window.innerWidth <= 1200);
     let proyectos = []
 
@@ -30,11 +33,11 @@ const VisualizarListadoProyectos = () => {
     ];
 
 
-    if(data && categories && levels) {
+    if(data && ((!loadingCategorias && !loadingNiveles) || (niveles.length !== 0 && categorias.length !== 0))) {
 
       proyectos = data.proyectos.map(obj => {
-        const category = categories.categoria.find(element => element._id === obj.categoria)
-        const level = levels.nivel.find(element => element._id === obj.nivel)
+        const category = categorias.length !== 0 ? categorias.find(element => element._id === obj.categoria) : categories.categoria.find(element => element._id === obj.categoria)
+        const level = niveles.length !== 0 ? niveles.find(element => element._id === obj.nivel) : levels.nivel.find(element => element._id === obj.nivel)
         if(obj.estado !== '6') {
           return {...obj, categoria: category.nombre, nivel: level.nombre, nombreEscuela: capitalizeEachLetter(obj.establecimientoEducativo.nombre)}
         } else {
@@ -59,10 +62,10 @@ const VisualizarListadoProyectos = () => {
     return (
       <>
         <Metadata title={'Proyecto'}/>
-        {isLoading ? (<Spinner />) : proyectos.length === 0 ? (<BlankState msg={'El usuario no tiene proyectos'}/>) 
+        {isLoading ? (<Spinner />) : proyectos.length === 0 ? (<Card title="Mis Proyectos"> <BlankState msg={'El usuario no tiene proyectos'}/> </Card>) 
         : (
           <Card title="Mis Proyectos" wide={true}>
-            <Table title="Mis Proyectos" headers={headers} data={proyectos} viewPath={'/proyecto'} editPath={'/editarProyecto'} />
+            <TablaProyectos headers={headers} proyectos={proyectos} resize={resize} />
           </Card>
         
         )}

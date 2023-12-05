@@ -9,7 +9,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useCategoriasNiveles from "../../hooks/useCategoriasNiveles"
 import { useEffect, useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { promocionesActions } from "../../../store/promocion-slice"
 
 const headers = [
@@ -28,14 +28,19 @@ const PromoverProyectosNacional = () => {
     })
 
     const [categoria, setCategoria] = useState(null)
+    const nivelesState = useSelector(state => state.niveles.niveles)
+    const categoriasState = useSelector(state => state.categorias.categorias)
 
     const [buscaronProyectos, setBuscaronProyectos] = useState(false)
 
-    const { data: categoriasData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate)
-    const { data: nivelesData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate)
+    const { data: categoriasData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate, categoriasState.length !== 0)
+    const { data: nivelesData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate, nivelesState.length !== 0)
 
-    const { niveles, categorias, proyectosMapping } = useCategoriasNiveles({ categoriaData: categoriasData, nivelData: nivelesData, enabled: !loadingCategorias && !loadingNiveles })
+    const { niveles: nivelesMapeados, categorias: categoriasMapeadas, proyectosMapping } = useCategoriasNiveles({ categoriaData: categoriasData, nivelData: nivelesData, enabled: !loadingCategorias && !loadingNiveles, categoriasCargadas: categoriasState, nivelesCargados: nivelesState })
     
+    let niveles = nivelesState.length !== 0 ? [{_id: 0, nombre: "", codigo: '0'}, ...nivelesState] : nivelesMapeados
+    let categorias = categoriasState.length !== 0 ? [{_id: 0, nombre: ""}, ...categoriasState] : categoriasMapeadas
+
     useEffect(() => {
         buscarProyectos(searchState.nivelSeleccionado)
 

@@ -4,7 +4,6 @@ import imagenProyecto from "../../../assets/atomic_PLACEHOLDER.png"
 import imagenEvaluador from "../../../assets/evaluador_PLACEHOLDER.png"
 
 const DashboardInicioFeria = (props) => {
-
     return (
         <div className="dashboard-inicio-feria">
             <p className="dashboard-inicio-feria__text"> A continuación, elegí cómo querés empezar: </p>

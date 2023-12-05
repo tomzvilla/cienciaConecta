@@ -53,7 +53,7 @@ export const cuilValidator = (cuil) => {
   const notFormattedCuil = cuil.replace(/\D/g, '');
   if (!cuil) {
     return "Tenés que ingresar un CUIL";
-  } else if (notFormattedCuil.length > 11 || notFormattedCuil.length < 10) {
+  } else if (notFormattedCuil.length !== 11) {
     return "El CUIL que ingresaste no es válido"
   } else if (!/^[0-9]+$/.test(notFormattedCuil)) {
     return "El CUIL no puede tener letras"
@@ -162,16 +162,23 @@ export const urlValidator = (url) => {
   return "";
 };
 
-export const fileValidator = (file, msg, format) => {
-  let formato = '*'
-  if(format === 'PDF') formato = 'application/pdf'
-  else if(format === 'imágen') formato = 'image/'
+export const fileValidator = (file, msg, format, size = 10) => {
+  const bytes = 1024000
+  let formato = ['*']
+  if(format === 'PDF') formato = ['application/pdf']
+  else if(format === 'imágen') formato = ['image/']
+  else if(format === 'xls o xlsx') formato = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"]
   if (!file) {
     return "Tenés que subir " + msg; 
-  } else if (!file.type?.startsWith(formato)){
-    return "El archivo se debe subir en formato " + format 
-  }
-  else if (file.size > 10240000) { // 10 MB
+  } else if (formato.length === 1) {
+    if (!file.type?.startsWith(formato)) {
+      return "El archivo se debe subir en formato " + format
+    }
+  } else if (formato.length !== 1) {
+    if(!formato.includes(file.type)) {
+      return "El archivo se debe subir en formato " + format
+    }
+  } else if (file.size > size * bytes) { // 10 MB
     return "El tamaño del archivo debe ser menor a 10 MB"
   }
   return "";

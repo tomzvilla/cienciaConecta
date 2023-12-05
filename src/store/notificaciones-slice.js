@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     notificaciones: [],
+    numeroNoLeidas: 0,
 }
 
 const notificacionesSlice = createSlice({
@@ -9,7 +10,8 @@ const notificacionesSlice = createSlice({
     initialState: initialState,
     reducers: {
         cargarNotificaciones(state, action) {
-            state.notificaciones = action.payload;
+            let array = [...action.payload]
+            state.notificaciones = array.reverse();
         },
         marcarComoLeidas(state, action) {
             const prevNotifications = [...state.notificaciones]
@@ -23,7 +25,6 @@ const notificacionesSlice = createSlice({
                     return noti
                 }
             })
-
             state.notificaciones = newNotifications
         }, 
         marcarComoNoLeidas(state, action) {
@@ -38,8 +39,16 @@ const notificacionesSlice = createSlice({
                     return noti
                 }
             })
-
             state.notificaciones = newNotifications
+        },
+        cargarNumeroSinLeer(state, action) {
+            state.numeroNoLeidas = action.payload
+        },
+        actualizarNumeroNotificaciones(state) {
+            const prevNotifications = [...state.notificaciones]
+            const noLeidas = prevNotifications.filter(n => parseInt(n.estado) <= 1)
+            state.numeroNoLeidas = noLeidas.length
+
         }
     }
 })

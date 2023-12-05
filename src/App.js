@@ -40,6 +40,11 @@ import Categorias from './js/pages/Categorias'
 import EvaluacionCardConsulta from './js/components/Evaluacion/EvaluacionCardConsulta'
 import EvaluacionFormConsulta from './js/components/Evaluacion/EvaluacionFormConsulta'
 import NotificationList from './js/components/Notification/NotificationList'
+import Reportes from './js/pages/Reportes/Reportes'
+import Devolucion from './js/pages/Evaluacion/Devolucion'
+import VisualizarFeria from './js/pages/Ferias/VisualizarFeria.jsx'
+import CambiarPassword from './js/pages/CambiarPassword.jsx'
+import VisualizarProyectoAnterior from './js/pages/Projects/VisualizarProyectoAnterior.jsx'
 // DEV
 import AuthVerify from './js/components/PersistLogin/AuthVerify'
 import ConfirmarCuenta from './js/pages/Usuarios/ConfirmarCuenta'
@@ -47,6 +52,7 @@ import VisualizarListadoPendienteActivacion from './js/pages/Usuarios/Visualizar
 import VisualizarUsuarioPendienteActivacion from './js/pages/Usuarios/VisualizarUsuarioPendienteActivacion'
 
 import { useSelector } from 'react-redux'
+import Establecimientos from './js/pages/Establecimientos.jsx'
 
 // ROLES
 
@@ -98,6 +104,41 @@ function App() {
             <Route path='/recuperarCredenciales' element={<RecuperarCredenciales />}/>
             <Route path='/reestablecerCredenciales/:token' element={<IngresarCredenciales />}/>
           </Route>
+          {/* RUTEO CUANDO NO HAY FERIA */}
+          {!feria && 
+          <Route element={<PersistLogin />}>
+            <Route element={<RequireAuth allowedRoles={[ ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.Docente]} />}>
+              <Route path='/misProyectos' element={<VisualizarListadoProyectos/>}/>
+            </Route>
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.RefEvaluador, ROLES.ComAsesora, ROLES.Docente]}/>}>
+              {/* Rutas con auth liberadas de estados */}
+              <Route path='/dashboard' element={<Dashboard/>}/>
+              <Route path='/proyecto/:id' element={<VisualizarProyecto/>}/>
+              <Route path='/proyecto/antiguo/:id' element={<VisualizarProyectoAnterior/>}/>
+              <Route path='/perfil' element={<Profile/>}/>
+              <Route path='/cambiarCredenciales' element={<CambiarPassword/>}/>
+            </Route>
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]} />}>
+              <Route path='/crearCategoria' element={<Categorias/>}/>
+              <Route path='/cargarEstablecimientos' element={<Establecimientos/>}/>
+            </Route>
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]}/>}>
+              {/* Rutas liberadas */}
+              <Route path='/feria' element={<CrearFeria/>}/>
+              <Route path='/feria/:id' element={<VisualizarFeria/>}/>
+              <Route path='/verListaFerias' element={<VisualizarListadoFerias/>}/>
+              <Route path='/activarUsuarios' element={<VisualizarListadoPendienteActivacion/>}/>
+              <Route path='/usuarioPendienteActivacion/:id' element={<VisualizarUsuarioPendienteActivacion/>}/>
+              <Route path='/reportes' element={<Reportes />}/>
+            </Route>
+            <Route path='/notificaciones' element={<NotificationList />}/>
+            <Route path='/unauthorized' element={<Unauthorized/>}/>
+            <Route path='*' element={<NotFound/>}/>
+          </Route>
+          }
+
+          {/* RUTEO CUANDO HAY FERIA */}
+          {feria && 
           <Route element={<PersistLogin />}>
             <Route element={<RequireAuth 
               allowedRoles={[ ROLES.ResponsableProyecto, ROLES.Evaluador, ROLES.Docente]} 
@@ -124,8 +165,9 @@ function App() {
               
               <Route path='/dashboard' element={<Dashboard/>}/>
               <Route path='/proyecto/:id' element={<VisualizarProyecto/>}/>
+              <Route path='/proyecto/antiguo/:id' element={<VisualizarProyectoAnterior/>}/>
               <Route path='/perfil' element={<Profile/>}/>
-
+              <Route path='/cambiarCredenciales' element={<CambiarPassword/>}/>
               <Route path='/evaluar/:id/iniciar' element={<Evaluacion/>}/>
               <Route path='/evaluacion/:id' element={<EvaluacionCardConsulta />}/>
               <Route path='/evaluacion/:id/consultar' element={<EvaluacionFormConsulta />}/>
@@ -135,6 +177,7 @@ function App() {
             <Route element={<RequireAuth allowedRoles={[ROLES.ResponsableProyecto, ROLES.Docente]}/>}>
               {/* Rutas con auth liberadas de estados */}
               <Route path='/postulacion' element={<Postulacion/>}/> {/*Se maneja por fecha */}
+              <Route path='/devolucion/:id' element={<Devolucion/>}/> 
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]} allowedStates={[ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar]}/>}>
@@ -142,16 +185,16 @@ function App() {
             </Route>
           
 
-            <Route element={<RequireAuth 
-              allowedRoles={[ROLES.Admin, ROLES.ComAsesora]}/>}
-            >
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]}/>}>
               {/* Rutas liberadas */}
               {!feria && <Route path='/feria' element={<CrearFeria/>}/>}
               <Route path='/verFeria' element={<VisualizarFeriaActual/>}/>
+              <Route path='/feria/:id' element={<VisualizarFeria/>}/>
               <Route path='/verListaFerias' element={<VisualizarListadoFerias/>}/>
               <Route path='/editarFeria' element={<ActualizarFeria/>}/>
               <Route path='/activarUsuarios' element={<VisualizarListadoPendienteActivacion/>}/>
-              <Route path='/usuarioPendienteActivacion/:id' element={<VisualizarUsuarioPendienteActivacion/>}/> 
+              <Route path='/usuarioPendienteActivacion/:id' element={<VisualizarUsuarioPendienteActivacion/>}/>
+              <Route path='/reportes' element={<Reportes />}/>
               {/* Rutas para postulantes, liberadas por estado, se manejan por fecha */}
               <Route path='/seleccionarPostulantes' element={<SeleccionPostulantes/>}/>
             </Route>
@@ -183,7 +226,7 @@ function App() {
             <Route path='/notificaciones' element={<NotificationList />}/>
             <Route path='/unauthorized' element={<Unauthorized/>}/>
             <Route path='*' element={<NotFound/>}/>
-          </Route>
+          </Route>}
 
         </Route>
       </Routes>

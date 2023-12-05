@@ -16,7 +16,7 @@ const NavbarDropdown = (props) => {
             <li className="dropdown-navbar__item" onClick={props.navigatePerfil}> 
                 <p>Ver perfil</p>
             </li> 
-            <li className="dropdown-navbar__item" onClick={props.navigatePerfil}>
+            <li className="dropdown-navbar__item" onClick={props.navigateChangePassword}>
                 <p>Cambiar contraseña</p>
             </li>
             <li className="dropdown-navbar__item" onClick={props.signOut}>

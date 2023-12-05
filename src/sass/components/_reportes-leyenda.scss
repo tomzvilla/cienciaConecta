@@ -1,0 +1,29 @@
+.reportes-leyenda {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    &__title {
+        color: $color-grey-dark;
+        font-size: 2.5rem;
+        margin-left: -.5rem;
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+    }
+
+    &__text{ 
+        font-size: 2.5rem;
+        margin-left: 1rem;
+    }
+
+    &__square {
+        width: 2rem;
+        height: 2rem;
+    }
+
+
+}

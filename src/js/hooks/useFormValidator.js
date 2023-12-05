@@ -107,6 +107,7 @@ export const useFormValidator = (form) => {
             nombreCriterio,
             ponderacion,
             curriculum,
+            excel,
             nombreCategoria,
             abreviatura,
             color,
@@ -398,7 +399,10 @@ export const useFormValidator = (form) => {
         }
 
         if (nextErrors.fechaInicioPostulacionEvaluadores?.dirty && (field ? field === "fechaInicioPostulacionEvaluadores" : true)) {
-            const fechaInicioPostulacionEvaluadoresMessage = dateValidator({fecha:form.fechaInicioPostulacionEvaluadores, nombre: 'Inicio postulación de evaluadores'},{fecha:form.fechaInicioEvaluacionRegional, nombre: 'Inicio evaluación regional'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            let fechaInicioPostulacionEvaluadoresMessage = dateValidator({fecha:form.fechaInicioPostulacionEvaluadores, nombre: 'Inicio postulación de evaluadores'},{fecha:form.fechaInicioEvaluacionRegional, nombre: 'Inicio evaluación regional'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            if(fechaInicioPostulacionEvaluadoresMessage === '') {
+                fechaInicioPostulacionEvaluadoresMessage = dateValidator({fecha:form.fechaInicioFeria, nombre: 'Inicio de la Feria'}, {fecha:form.fechaInicioPostulacionEvaluadores, nombre: 'Inicio postulación de evaluadores'}, {fecha: fechaFinFeria, nombre: 'Fin de la feria'},form);
+            }
             nextErrors.fechaInicioPostulacionEvaluadores.error = !!fechaInicioPostulacionEvaluadoresMessage;
             nextErrors.fechaInicioPostulacionEvaluadores.message = fechaInicioPostulacionEvaluadoresMessage;
             if (!!fechaInicioPostulacionEvaluadoresMessage) isValid = false;
@@ -467,6 +471,13 @@ export const useFormValidator = (form) => {
             nextErrors.curriculum.error = !!curriculumMessage;
             nextErrors.curriculum.message = curriculumMessage;
             if (!!curriculumMessage) isValid = false;
+        }
+
+        if (nextErrors.excel?.dirty && (field ? field === "excel" : true)) {
+            const excelMessage = fileValidator(excel, " el Excel", 'xlsx', 20, form);
+            nextErrors.excel.error = !!excelMessage;
+            nextErrors.excel.message = excelMessage;
+            if (!!excelMessage) isValid = false;
         }
 
         if (nextErrors.nombreCategoria?.dirty && (field ? field === "nombreCategoria" : true)) {

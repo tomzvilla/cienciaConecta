@@ -12,13 +12,20 @@ import useAuth from "../../hooks/useAuth"
 import { useLocation } from "react-router-dom"
 import { useEffect, useState } from "react"
 import useRefreshToken from "../../hooks/useRefreshToken"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import useAxiosFetch from "../../hooks/useAxiosFetch"
+import useAxiosPrivate from "../../hooks/useAxiosPrivate"
+import useCategoriasNiveles from "../../hooks/useCategoriasNiveles"
+import { nivelesActions } from "../../../store/niveles-slice"
+import { categoriasActions } from "../../../store/categorias-slice"
 
 const rolesInicial = ['2', '3', '4', '5']
 
 const Dashboard = () => {
     const { auth } = useAuth()
     const refresh = useRefreshToken()
+    const axiosPrivate = useAxiosPrivate()
+    const dispatch = useDispatch()
     const location = useLocation()
 
     const [userRoles, setUserRoles] = useState({
@@ -27,6 +34,10 @@ const Dashboard = () => {
     const [loadingRoles, setLoadingRoles] = useState(false)
 
     const nroProyectos = useSelector(state => state.instancias.nroProyectos)
+    const categoriasState = useSelector(state => state.categorias.categorias)
+    const nivelesState = useSelector(state => state.niveles.niveles)
+
+    let loadingInitialData = !(categoriasState.length > 0 && nivelesState.length > 0)
 
     const [dashboardActivo, setDashboardActivo] = useState(userRoles.roles.find(rol => rol !== "1" && rol !== "6"))
 
@@ -65,8 +76,21 @@ const Dashboard = () => {
         ejecutar()
     }, [])
 
+    const { data: categoriasData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate, nivelesState.length !== 0)
+    const { data: nivelesData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate, categoriasState.length !== 0)
+
+    const { niveles, categorias } = useCategoriasNiveles({ categoriaData: categoriasData, nivelData: nivelesData, enabled: !loadingNiveles && !loadingCategorias })
+
+    useEffect(() => {
+        if (nivelesState.length === 0 && categoriasState.length === 0 && !loadingNiveles && !loadingCategorias) {
+          dispatch(nivelesActions.cargarNiveles(niveles))
+          dispatch(categoriasActions.cargarCategorias(categorias))
+          loadingInitialData = false
+        }
+      }, [])
+
     return (
-        loadingRoles ?
+        (loadingRoles && loadingInitialData) ?
         <Spinner />
         :
         <>

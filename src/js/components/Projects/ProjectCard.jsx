@@ -18,11 +18,12 @@ const ProjectCard = (props) => {
     const location = useLocation()
     const dispatch = useDispatch()
     const feria = useSelector(state => state.instancias.feria)
-
+    const niveles = useSelector(state => state.niveles.niveles)
+    const categorias = useSelector(state => state.categorias.categorias)
     const axiosPrivate = useAxiosPrivate()
 
-    const {data: categoriaData, isLoading: loadingCategorias} = useAxiosFetch('/categoria', axiosPrivate)
-    const {data: nivelesData, isLoading: loadingNiveles} = useAxiosFetch('/nivel', axiosPrivate)
+    const { data: categoriaData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate, niveles.length !== 0)
+    const { data: nivelesData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate, categorias.length !== 0)
 
     const handleDelete = () => {
         if(!instanciaEscolar.includes(feria?.estado)){
@@ -152,12 +153,12 @@ const ProjectCard = (props) => {
     return (
         
 
-        <Card wide={true} header={<ProjectCardHeader datos={props.formData} handleDelete={handleDelete} handleDownload={handleDownload} goBack={props.goBack}/>}>
+        <Card wide={true} header={<ProjectCardHeader datos={props.formData} handleDelete={handleDelete} handleDownload={handleDownload} goBack={props.goBack} antiguo={props.antiguo}/>}>
             
             
-            {!loadingCategorias && !loadingNiveles ? 
+            {(!loadingCategorias && !loadingNiveles) || (categorias.length !== 0 && niveles.length !== 0) ? 
                 
-            <ProjectCardDetails datos={props.formData} categorias={categoriaData} niveles={nivelesData} />
+            <ProjectCardDetails datos={props.formData} categorias={categoriaData?.categoria ?? categorias} niveles={nivelesData?.nivel ?? niveles} />
         
 
             :

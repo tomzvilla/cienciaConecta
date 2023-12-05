@@ -20,10 +20,19 @@
     &--show {
         width: 30rem;
         transition: width .3s linear;
+
+        @media screen and (max-width: $bp-medium) {
+            width: 30rem;
+            overflow-x:visible;
+            z-index: 10;
+            transition: height .3s linear;
+            background-color: $color-white;
+        }
         
 
         @media screen and (max-width: $bp-small) {
             width: 100%;
+            overflow-x: hidden;
             height: min-content;
             z-index: 10;
             transition: height .3s linear;

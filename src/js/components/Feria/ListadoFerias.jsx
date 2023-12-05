@@ -16,7 +16,7 @@ const pageSize = 5
 const headers = [
     {name: 'Nombre', value: 'nombre'},
     {name: 'Descripcion', value: 'descripcion'},
-    {name: 'Estado', value: 'estado' }
+    {name: 'Estado', value: 'nombreEstado' }
 ]
   
 const ListadoFerias = (props) => {
@@ -37,11 +37,6 @@ const ListadoFerias = (props) => {
     };
       
     const currentTableData = calculateCurrentTableData();
-
-    const handleVolver = () => {
-        const from = props.location.state?.from || '/dashboard'
-        navigate(from, {replace: true, state: {from:'/seleccionarPostulantes'}})
-    }
 
     const showAlert = () => {
         Swal.fire({

@@ -1,0 +1,13 @@
+.reportes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    width: 80%;
+    //height: 40rem;
+
+    &__button {
+        padding: 2rem 0;
+    }
+
+}

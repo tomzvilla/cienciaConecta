@@ -21,11 +21,15 @@ const headers = [
 const ListadoProyectosAsignados = () => {
     const axiosPrivate = useAxiosPrivate()
     const dispatch = useDispatch()
-    const { data: proyectosData, isLoading, status } = useAxiosFetch(`/referente/proyectos`, axiosPrivate)
-    const { data: categoriasData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate)
-    const { data: nivelesData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate)
+    
+    const niveles = useSelector(state => state.niveles.niveles)
+    const categorias = useSelector(state => state.categorias.categorias)
 
-    const { proyectosMapping } = useCategoriasNiveles({ categoriaData: categoriasData, nivelData: nivelesData, enabled: !loadingCategorias && !loadingNiveles && !isLoading })
+    const { data: proyectosData, isLoading, status } = useAxiosFetch(`/referente/proyectos`, axiosPrivate)
+    const { data: categoriasData, isLoading: loadingCategorias } = useAxiosFetch('/categoria', axiosPrivate, categorias.length !== 0)
+    const { data: nivelesData, isLoading: loadingNiveles } = useAxiosFetch('/nivel', axiosPrivate, niveles.length !== 0)
+
+    const { proyectosMapping } = useCategoriasNiveles({ categoriaData: categoriasData, nivelData: nivelesData, enabled: !loadingCategorias && !loadingNiveles && !isLoading, categoriasCargadas: categorias, nivelesCargados: niveles })
 
     if(!isLoading && proyectosData?.proyectos) {
         const proyectos = proyectosMapping(proyectosData?.proyectos)

@@ -9,6 +9,8 @@ import { useLocation, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { uiActions } from "../../../store/ui-slice";
 import { useEffect, useState } from "react";
+import ImageLink from "../ImageLink/ImageLink";
+import NavbarCampana from "./NavbarCampana";
 
 const Navbar = (props) => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -30,6 +32,10 @@ const Navbar = (props) => {
 
     const navigatePerfil =  () => {
         navigate('/perfil')
+    }
+
+    const navigateChangePassword =  () => {
+        navigate('/cambiarCredenciales')
     }
 
     const showSidebar = () => {
@@ -70,9 +76,11 @@ const Navbar = (props) => {
 
             <div className="navbar__button-container">
                 { auth?.roles ?
-                    // <Button text="Salir" onClickHandler={signOut}/>
-                    <DropdownButton img={require("../../../assets/user.png")} dropdown={showNavbarMenu} onClick={toggleNavbarMenu} navigatePerfil={navigatePerfil} signOut={signOut}/>
-                    :
+                    <>
+                        <NavbarCampana />
+                        <DropdownButton img={require("../../../assets/user.png")} dropdown={showNavbarMenu} onClick={toggleNavbarMenu} navigatePerfil={navigatePerfil} navigateChangePassword={navigateChangePassword} signOut={signOut}/>
+                    </>
+                   :
                     <Button text="Ingresar" onClickHandler={location.pathname !== '/home' ? navigateHome : props.openModal }/>
                 }
             </div>    
