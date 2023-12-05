@@ -38,6 +38,7 @@ const ProjectCardHeader = (props) => {
             <h2 className="project-card-header__titulo"> {props.datos.titulo}</h2>
 
 
+            { !props.antiguo &&
             <div className="project-card-header__botones">
                 {!resize ? <Button 
                     text='Descargar QR' 
@@ -48,6 +49,7 @@ const ProjectCardHeader = (props) => {
                 <ImageLink img={<img alt="Editar Proyecto" src={require("../../../assets/edit.png")}  className="project-card-header__img"/>} linkto={`/editarProyecto/${props.datos._id}`}/>
                 <img alt="Borrar" src={require("../../../assets/x.png")} onClick={props.handleDelete} className="project-card-header__img"/>
             </div>
+            }
 
         </div>
     );

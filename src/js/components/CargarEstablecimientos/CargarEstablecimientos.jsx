@@ -6,6 +6,7 @@ import { useState } from "react";
 const CargarEstablecimientos = (props) => {
     const [showDropdown, setShowDropdown] = useState(false)
     const {formValues, setFormValues, validateForm, errors, onBlurField, handleSubmit} = props
+
     const handleFileChange = (e) => {
         const file = e.target.files[0]
         const {name} = e.target
@@ -28,7 +29,6 @@ const CargarEstablecimientos = (props) => {
     return (
             <div className="cargar-establecimientos">
                 <p className="cargar-establecimientos__text">Para cargar los establecimientos, por favor carga el Excel y tené en cuenta los criterios del archivo:</p>
-
                 <div className="cargar-establecimientos__dropdown-title" onClick={handleDropdown}>
                     <p>Criterios a seguir en el Excel</p>
                     <img src={dropdown} alt="dropdown arrow" />
@@ -47,7 +47,7 @@ const CargarEstablecimientos = (props) => {
                         <li>Columna H: Cue Anexo</li>
                         <li>Columna I: Nombre</li>
                         <li>Columna J: Domicilio</li>
-                        <li>Columna K: Código Postal</li>
+                        <li>Columna K: CP</li>
                         <li>Columna L: Teléfono</li>
                         <li>Columna M: Email</li>
                     </ul>
@@ -66,7 +66,6 @@ const CargarEstablecimientos = (props) => {
                     required={true}
                     />
                 </div>
-                
                 <div className="cargar-establecimientos__button">
                     <Button text="Cargar" activo={true} onClickHandler={handleSubmit}/>
                 </div>
