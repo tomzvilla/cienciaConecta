@@ -55,9 +55,7 @@ const PromoverProyectosNacional = () => {
             }))
             dispatch(promocionesActions.setCupos({
                 cuposNivel: res.data.cuposNivel,
-                cuposSede: res.data.cuposSede,
                 promovidosNivel: res.data.promovidosNivel,
-                promovidosSede: res.data.promovidosSede,
             }))
             let proyectos = res.status === 204 ? [] : res.data.proyectos
             if(proyectos.length > 0) {

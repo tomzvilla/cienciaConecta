@@ -50,8 +50,9 @@ const TablaPromoverProyectos = (props) => {
         }
         else {
             if(checkAvailability()) {
+                const msg = !props.nacional ? '¡Los cupos para esta sede y este nivel están llenos!' : '¡Los cupos para este nivel están llenos!'
                 Swal.fire({
-                    text: '¡Los cupos para esta sede y este nivel están llenos!',
+                    text: msg,
                     title: 'Error al seleccionar proyectos',
                     icon: 'error',
                     confirmButtonText: 'OK',
@@ -66,8 +67,13 @@ const TablaPromoverProyectos = (props) => {
 
     const checkAvailability = () => {
         const cuposNivelRestantes = (cupos.cuposNivel - cupos.promovidosNivel)
-        const cuposSedeRestantes = (cupos.cuposSede - cupos.promovidosSede)
-        return (selectedRows.length === cuposNivelRestantes || selectedRows.length === cuposSedeRestantes)
+        const cuposSedeRestantes = (cupos?.cuposSede - cupos?.promovidosSede)
+        if(!props.nacional) {
+            return (selectedRows.length === cuposNivelRestantes || selectedRows.length === cuposSedeRestantes)
+        } else {
+            return (selectedRows.length === cuposNivelRestantes)
+        }
+       
     }
 
     const checkLength = async () => {
