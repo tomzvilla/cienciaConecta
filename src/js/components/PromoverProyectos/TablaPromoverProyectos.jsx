@@ -49,7 +49,7 @@ const TablaPromoverProyectos = (props) => {
             dispatch(promocionesActions.toggleSelectedRow(proyectoId))
         }
         else {
-            if(selectedRows.length === cupos) {
+            if(checkAvailability()) {
                 Swal.fire({
                     text: '¡Los cupos para esta sede y este nivel están llenos!',
                     title: 'Error al seleccionar proyectos',
@@ -64,17 +64,28 @@ const TablaPromoverProyectos = (props) => {
         }
     }
 
-    const handlePromocion = () => {
+    const checkAvailability = () => {
+        const cuposNivelRestantes = (cupos.cuposNivel - cupos.promovidosNivel)
+        const cuposSedeRestantes = (cupos.cuposSede - cupos.promovidosSede)
+        return (selectedRows.length === cuposNivelRestantes || selectedRows.length === cuposSedeRestantes)
+    }
+
+    const checkLength = async () => {
         if(selectedRows.length === 0) {
-            Swal.fire({
-                text: '¡No puede promover proyectos sin marcar ninguno!',
-                title: 'Error al seleccionar proyectos',
-                icon: 'error',
+            await Swal.fire({
+                text: '¡Al promover sin proyectos seleccionados, se eliminarán todas las promociones para este nivel y sede!',
+                title: 'Atención',
+                icon: 'warning',
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#00ACE6',
             })
-            return
         }
+
+    }
+
+    const handlePromocion = async () => {
+
+        await checkLength()
 
         Swal.fire({
             title: '¿Deseas promover los proyectos seleccionados?',
@@ -177,86 +188,92 @@ const TablaPromoverProyectos = (props) => {
                 <Spinner />
                 :
                 proyectos.length > 0 ?
-                <table className="table">
-                    <thead className="table__header">
+                <>
+                    <div>
+                        <p>Cupos disponibles para la sede {cupos.cuposSede - cupos.promovidosSede}/{cupos.cuposSede}</p>
+                        <p>Cupos disponibles para el nivel {cupos.cuposNivel - cupos.promovidosNivel}/{cupos.cuposNivel}</p>
+                    </div>
+                    <table className="table">
+                        <thead className="table__header">
 
-                    {!resize ? 
-                        <tr>
-                            {props.headers.map(header => {
+                        {!resize ? 
+                            <tr>
+                                {props.headers.map(header => {
+                                    return (
+                                        <th scope="col" key={header.value} className="table-header__head">{header.name}</th>
+                                        )
+                                    })
+                                }
+                                <th scope="col" className="table-header__head">Acciones</th>
+                                <th scope="col" className="table-header__head">Seleccionar</th>
+                            </tr>
+
+                            :
+
+                            <tr>
+                                <th scope="col" key={props.headers[0].value} className="table-header__head">{props.headers[0].name}</th>
+                                <th scope="col" className="table-header__head">Acciones</th>
+                                <th scope="col" className="table-header__head">Seleccionar</th>
+                            </tr>
+                        }
+                        </thead>
+
+                        <tbody className="table__body">
+                            {proyectos && currentTableData.map((proyecto) => {
+                                const isChecked = selectedRows.includes(proyecto._id)
                                 return (
-                                    <th scope="col" key={header.value} className="table-header__head">{header.name}</th>
-                                    )
-                                })
-                            }
-                            <th scope="col" className="table-header__head">Acciones</th>
-                            <th scope="col" className="table-header__head">Seleccionar</th>
-                        </tr>
+                                    !resize ? 
+                                    <tr key={proyecto._id} className="table-body-row">
+                                        {props.headers.map(header => {
+                                            if(header.name === 'Categoría'){
+                                                return (
+                                                    <td key={header.name} className="table-body-row__td table-body-row__td--badges">
+                                                        <Badge key={proyecto.categoria._id} type={proyecto.categoria} />
+                                                    </td>
+                                                )
+                                            } 
+                                            if(header.name === 'Nivel'){
+                                                return (
+                                                    <td key={header.name} className="table-body-row__td table-body-row__td--badges">
+                                                        <Badge key={proyecto.nivel._id} type={proyecto.nivel} />
+                                                    </td>
+                                                )
+                                            }
+                                            else return (
+                                            <td key={header.name} className="table-body-row__td" >{proyecto[`${header?.value}`]}</td>
+                                        )})}
+                                        <td className="table-body-row__td table-body-row__td--actions">
+                                            <ImageButton callback={() => verEvaluacion(proyecto)} linkto={`${props.viewPath}/${proyecto._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/>
+                                        </td>
+                                        <td className="table-body-row__td">
+                                            <input
+                                                type="checkbox"
+                                                checked={isChecked}
+                                                onChange={() => toggleRowSelection(proyecto._id)}
+                                            />
+                                        </td>   
+                                    </ tr>
 
-                        :
+                                    :
 
-                        <tr>
-                            <th scope="col" key={props.headers[0].value} className="table-header__head">{props.headers[0].name}</th>
-                            <th scope="col" className="table-header__head">Acciones</th>
-                            <th scope="col" className="table-header__head">Seleccionar</th>
-                        </tr>
-                    }
-                    </thead>
-
-                    <tbody className="table__body">
-                        {proyectos && currentTableData.map((proyecto) => {
-                            const isChecked = selectedRows.includes(proyecto._id)
-                            return (
-                                !resize ? 
-                                <tr key={proyecto._id} className="table-body-row">
-                                    {props.headers.map(header => {
-                                        if(header.name === 'Categoría'){
-                                            return (
-                                                <td key={header.name} className="table-body-row__td table-body-row__td--badges">
-                                                    <Badge key={proyecto.categoria._id} type={proyecto.categoria} />
-                                                </td>
-                                            )
-                                        } 
-                                        if(header.name === 'Nivel'){
-                                            return (
-                                                <td key={header.name} className="table-body-row__td table-body-row__td--badges">
-                                                    <Badge key={proyecto.nivel._id} type={proyecto.nivel} />
-                                                </td>
-                                            )
-                                        }
-                                        else return (
-                                        <td key={header.name} className="table-body-row__td" >{proyecto[`${header?.value}`]}</td>
-                                    )})}
-                                    <td className="table-body-row__td table-body-row__td--actions">
-                                        <ImageButton callback={() => verEvaluacion(proyecto)} linkto={`${props.viewPath}/${proyecto._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/>
-                                    </td>
-                                    <td className="table-body-row__td">
-                                        <input
-                                            type="checkbox"
-                                            checked={isChecked}
-                                            onChange={() => toggleRowSelection(proyecto._id)}
-                                        />
-                                    </td>   
-                                </ tr>
-
-                                :
-
-                                <tr key={proyecto._id} className="table-body-row">
-                                    <td key={props.headers[0].name} className="table-body-row__td" >{proyecto[props.headers[0].value]}</td>
-                                    <td className="table-body-row__td table-body-row__td--actions">
-                                        <ImageButton callback={() => verEvaluacion(proyecto)} linkto={`${props.viewPath}/${proyecto._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/>
-                                    </td>
-                                    <td className="table-body-row__td">
-                                        <input
-                                            type="checkbox"
-                                            checked={isChecked}
-                                            onChange={() => toggleRowSelection(proyecto._id)}
-                                        />
-                                    </td>   
-                                </ tr>
-                            )
-                        })}
-                    </tbody>
-                </table>
+                                    <tr key={proyecto._id} className="table-body-row">
+                                        <td key={props.headers[0].name} className="table-body-row__td" >{proyecto[props.headers[0].value]}</td>
+                                        <td className="table-body-row__td table-body-row__td--actions">
+                                            <ImageButton callback={() => verEvaluacion(proyecto)} linkto={`${props.viewPath}/${proyecto._id}`} small={true} alt="Ver" src={require("../../../assets/ver.png")}/>
+                                        </td>
+                                        <td className="table-body-row__td">
+                                            <input
+                                                type="checkbox"
+                                                checked={isChecked}
+                                                onChange={() => toggleRowSelection(proyecto._id)}
+                                            />
+                                        </td>   
+                                    </ tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                </>
                 :
                 <BlankState msg={'No se encontraron proyectos con esos filtros'}/>
             }

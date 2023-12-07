@@ -1,10 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialState = {
     listadoProyectos: [],
     loadingProyectos: false,
     selectedRows: [],
-    cupos: 0,
+    cupos: {},
     puntaje: 0,
 }
 
@@ -21,16 +21,22 @@ const promocionesSlice = createSlice({
             state.loadingProyectos = action.payload
         },
         setCupos(state, action) {
-            state.cupos = action.payload.cupos
+            state.cupos = action.payload
         },
         toggleSelectedRow(state, action) {
             const prevRows = [...state.selectedRows]
+            const prevCupos = {...state.cupos}
             if(prevRows.includes(action.payload)) {
+                prevCupos.promovidosNivel -= 1
+                prevCupos.promovidosSede -= 1
                 state.selectedRows = prevRows.filter((id) => id !== action.payload)
             }
             else {
                 state.selectedRows = [...prevRows, action.payload];
+                prevCupos.promovidosNivel += 1
+                prevCupos.promovidosSede += 1
             }
+            state.cupos = prevCupos
         },
         setSelectedRows(state, action) {
             state.selectedRows = action.payload

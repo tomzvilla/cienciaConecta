@@ -53,7 +53,12 @@ const PromoverProyectosNacional = () => {
             const res = await axiosPrivate.post('/promocion/nacional/proyectos', JSON.stringify({
                 nivel: nivel,
             }))
-            dispatch(promocionesActions.setCupos({cupos: res.data.cupos}))
+            dispatch(promocionesActions.setCupos({
+                cuposNivel: res.data.cuposNivel,
+                cuposSede: res.data.cuposSede,
+                promovidosNivel: res.data.promovidosNivel,
+                promovidosSede: res.data.promovidosSede,
+            }))
             let proyectos = res.status === 204 ? [] : res.data.proyectos
             if(proyectos.length > 0) {
                 proyectos = proyectosMapping(proyectos)
@@ -64,6 +69,7 @@ const PromoverProyectosNacional = () => {
 
                     }})
             }
+            dispatch(promocionesActions.setSelectedRows([]))
             dispatch(promocionesActions.setLoadingProyectos(false))
             dispatch(promocionesActions.cargarProyectos(proyectos))
             setBuscaronProyectos(true)
