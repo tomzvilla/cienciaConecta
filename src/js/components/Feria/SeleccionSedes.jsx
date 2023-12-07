@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import Table from "../Table/Table"
-
+import TablaSedes from "./TablaSedes";
 
 const SeleccionSedes = (props) => {
     const [resize, setResize] = useState(window.innerWidth <= 1000);
@@ -8,18 +7,13 @@ const SeleccionSedes = (props) => {
     const headers = !resize ? [
         {name: 'Establecimiento', value: 'nombre'},
         {name: 'CUE', value: 'cue'},
-    ] : [{name: 'Establecimiento', value: 'nombre'},]
+        {name: 'Cupos', value: 'cupos'},
+    ] : [{name: 'Establecimiento', value: 'nombre'},{name: 'Cupos', value: 'cupos'},]
 
     const handleDelete = (e, item) => {
         e.preventDefault()
-        props.handleDelete(e, item.nombre)
+        props.handleDelete(e, item)
     }
-
-    const handleCupos = (e, item) => {
-        e.preventDefault()
-        props.handleCupos(e, item.nombre)
-    }
-
     
     const handleResize = () => {
         setResize(window.innerWidth <= 1000);
@@ -40,7 +34,7 @@ const SeleccionSedes = (props) => {
         <div className="seleccion-sedes">
             <h2 className="seleccion-sedes__title">Sedes seleccionadas</h2>
                 {show ?
-                <Table modalTitle="Cupos" headers={headers} callback={handleDelete} modal={handleCupos} data={props.establecimientos}/>       
+                <TablaSedes headers={headers} handleDelete={handleDelete} sedes={props.establecimientos} handleChangeCupos={props.handleChangeCupos} prevCupos={props.prevCupos}/>    
                  :
                 (<p className="seleccion-sedes__blank"> No hay sedes cargadas </p>)   
             }
