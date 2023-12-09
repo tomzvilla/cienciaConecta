@@ -195,9 +195,10 @@ const TablaPromoverProyectos = (props) => {
                 :
                 proyectos.length > 0 ?
                 <>
-                    <div>
-                        <p>Cupos disponibles para la sede {cupos.cuposSede - cupos.promovidosSede}/{cupos.cuposSede}</p>
-                        <p>Cupos disponibles para el nivel {cupos.cuposNivel - cupos.promovidosNivel}/{cupos.cuposNivel}</p>
+                    <div className="promover-proyectos__cupos">
+                        <h6>Cupos Disponibles: </h6>
+                        <p>Para la sede: {cupos.cuposSede ? (cupos.cuposSede - cupos.promovidosSede) : 0}/{cupos.cuposSede ?? 0}</p>
+                        <p>Para el nivel: {cupos.cuposSede ?  (cupos.cuposNivel - cupos.promovidosNivel) : 0}/{cupos.cuposNivel ?? 0}</p>
                     </div>
                     <table className="table">
                         <thead className="table__header">
