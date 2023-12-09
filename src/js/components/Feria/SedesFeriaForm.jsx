@@ -1,9 +1,7 @@
 // components
 import SelectField from "../SelectField/SelectField"
 import Autocomplete from "../Autocomplete/Autocomplete";
-import CuposModal from "./CuposModal";
 import SeleccionSedes from "./SeleccionSedes";
-import Modal from "../Modal/Modal";
 
 // hooks
 import useAxiosFetch from "../../hooks/useAxiosFetch"
@@ -21,8 +19,6 @@ const SedesFeriaForm = (props) => {
     let establecimientos = [{_id: '', nombre: ''}]
     const [results, setResults] = useState([])
     const [isSelected, setIsSelected] = useState(false)
-    const [showModal, setShowModal] = useState(false)
-    const [selectedSede, setSelectedSede] = useState({})
 
     if(dptoData) {
         const sigDepartamentos = dptoData.departamentos.map((dpto) => {
@@ -114,110 +110,72 @@ const SedesFeriaForm = (props) => {
         handleDeleteSede(nombreSede)
     }
 
-    const handleCupos = (e, nombreSede) => {
-        e.preventDefault()
-        setSelectedSede(nombreSede)
-        abrirModal()
+    const handleChangeCupos = (cupo) => {
+        const index = formValues.cupos.porSede.findIndex(c => c.sede === cupo.sede)
+        const newCupos = [...formValues.cupos.porSede]
+        if(index !== -1) {
+            newCupos[index] = {
+                ...newCupos[index],
+                cantidad: cupo.cantidad
+            }
+
+        } else {
+            newCupos.push(cupo)
+        }
+        setFormValues({
+            ...formValues,
+            cupos: {
+                ...formValues.cupos,
+                porSede: newCupos
+            },
+        })
     }
 
     const getSede = (nombreSede) => {
         return formValues.establecimientos.find(s => s.nombre === nombreSede)
     }
 
-    const cerrarModal = () => {
-        setShowModal(false)
-    }
-
-    const abrirModal = () => {
-        setShowModal(true)
-    }
-
-    const confirmarCupo = (cupos) => {
-        setShowModal(false)
-        const prevCupos = [...formValues.cupos]
-        for (const cupo of cupos) {
-            const existingIndex = prevCupos.findIndex(c1 => c1.sede === cupo.sede && c1.nivel === cupo.nivel);
-            if (existingIndex !== -1) {
-                prevCupos[existingIndex].cantidad = Math.abs(cupo.cantidad);
-            } else {
-                prevCupos.push(cupo);
-            }
-        }
-
-        setFormValues({
-            ...formValues,
-            cupos: prevCupos
-        })
-
-    }
-
-    const getCupos = (selectedSede) => {
-        if(formValues.cupos.find(s => s.sede === selectedSede)){
-            const cuposSede = formValues.cupos.filter(s => s.sede === selectedSede);
-            let newCupos = {}
-            cuposSede.forEach(cupo => {
-                const { nivel, cantidad } = cupo
-                newCupos = {...newCupos, [nivel]: cantidad }
-            })
-            return newCupos
-        } else {
-            return []
-        }
-    }
-
     return (
         <>
-            {showModal && 
-            <Modal
-            title="Cupos"
-            setIsOpen={setShowModal}
-            component={
-                <CuposModal getCupos={(idSede) => getCupos(idSede)} getSede={() => getSede(selectedSede)} 
-                    cerrarModal={cerrarModal} confirmarCupo={confirmarCupo}/>
-            }
-            />
-            }
             <div className="sedes-feria-form">
-        
-            <SeleccionSedes  handleCupos={handleCupos} handleDelete={handleDelete} establecimientos={formValues.establecimientos} />
-
-            <h2 className='sedes-feria-form__title'>Seleccionar Sede: </h2>
-            <div className='sedes-feria-form__input'>
-                <SelectField
-                    label='Departamento: ' 
-                    name='departamento'
-                    dataValues={departamentos}
-                    onChange={handleChangeDpto}
-                    onBlur={onBlurField}
-                    value={formValues.departamento}
-                    errors={errors.departamento}
-                    required={true}
-                />
+                <SeleccionSedes handleDelete={handleDelete} establecimientos={formValues.establecimientos} handleChangeCupos={handleChangeCupos} prevCupos={formValues.cupos.porSede} />
+                <h2 className='sedes-feria-form__title'>Seleccionar Sede: </h2>
+                <div className='sedes-feria-form__input'>
+                    <SelectField
+                        label='Departamento: ' 
+                        name='departamento'
+                        dataValues={departamentos}
+                        onChange={handleChangeDpto}
+                        onBlur={onBlurField}
+                        value={formValues.departamento}
+                        errors={errors.departamento}
+                        required={true}
+                    />
+                </div>
+                <div className='sedes-feria-form__input'>
+                    <SelectField
+                        label='Localidad: ' 
+                        name='localidad'
+                        dataValues={localidades}
+                        onChange={handleChangeLocalidad}
+                        onBlur={onBlurField}
+                        value={formValues.localidad}
+                        errors={errors.localidad}
+                        required={true}
+                        disabled={!formValues.departamento}
+                    />
+                </div>
+                <div className='sedes-feria-form__input'>
+                    <Autocomplete 
+                        results={results} 
+                        onChange={handleFilter} 
+                        onFocus={handleFocus}
+                        onSelect={(item) => handleSelect(item)}
+                        disabled={!isSelected}
+                        renderItem={(item) => <p> {item.nombre} </p>}
+                    />
+                </div>
             </div>
-            <div className='sedes-feria-form__input'>
-                <SelectField
-                    label='Localidad: ' 
-                    name='localidad'
-                    dataValues={localidades}
-                    onChange={handleChangeLocalidad}
-                    onBlur={onBlurField}
-                    value={formValues.localidad}
-                    errors={errors.localidad}
-                    required={true}
-                    disabled={!formValues.departamento}
-                />
-            </div>
-            <div className='sedes-feria-form__input'>
-                <Autocomplete 
-                    results={results} 
-                    onChange={handleFilter} 
-                    onFocus={handleFocus}
-                    onSelect={(item) => handleSelect(item)}
-                    disabled={!isSelected}
-                    renderItem={(item) => <p> {item.nombre} </p>}
-                />
-            </div>
-        </div>
         
         </>
 

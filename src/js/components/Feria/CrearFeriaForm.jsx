@@ -2,6 +2,7 @@
 import DatosFeriaForm from "./DatosFeriaForm"
 import InstanciasFeriaForm from "./InstanciasFeriaForm";
 import SedesFeriaForm from "./SedesFeriaForm";
+import CuposPorNivel from './CuposPorNivel'
 import Button from "../Button/Button";
 import SedeProvincialForm from "./SedeProvincialForm";
 import RubricasFeriaForm from "./RubricasFeriaForm";
@@ -19,8 +20,9 @@ export const ETAPAS = {
     Datos: '1',
     Instancias: '2',
     SedesRegionales: '3',
-    SedeProvincial: '4',
-    Criterios: '5',
+    CuposRegionales: '4',
+    SedeProvincial: '5',
+    Criterios: '6',
   };
 
 const CrearFeriaForm = (props) => {
@@ -46,7 +48,7 @@ const CrearFeriaForm = (props) => {
         departamento: '',
         localidad: '',
         establecimientos: [],
-        cupos: [],
+        cupos: {},
         cuposProvincial: [],
         errorSumaPonderacion: false,
         errorRubrica:  false,
@@ -76,6 +78,7 @@ const CrearFeriaForm = (props) => {
         'fechaInicioEvaluacionProvincial',  'fechaFinEvaluacionProvincial', 'fechaInicioPostulacionEvaluadores', 'fechaFinPostulacionEvaluadores', 'fechaInicioAsignacionProyectos','fechaFinAsignacionProyectos', 'fechaPromocionInstanciaRegional', 'fechaPromocionInstanciaProvincial', 'cupos', 'criteriosEvaluacion', 'nombreRubrica']
         if(etapaActual === ETAPAS.Instancias) fieldsToExclude = ['cupos', 'criteriosEvaluacion', 'nombreRubrica']
         if(etapaActual === ETAPAS.SedesRegionales) fieldsToExclude = ['criteriosEvaluacion', 'nombreRubrica']
+        if(etapaActual === ETAPAS.CuposRegionales) fieldsToExclude = fieldsToExclude.concat(['criteriosEvaluacion', 'nombreRubrica'])
         if(etapaActual === ETAPAS.SedeProvincial) fieldsToExclude = ['criteriosEvaluacion', 'nombreRubrica']
         if(etapaActual === ETAPAS.Criterios) fieldsToExclude = []
         const { isValid } = validateForm({form: formValues, errors, forceTouchErrors: true, fieldsToExclude: fieldsToExclude})
@@ -87,8 +90,11 @@ const CrearFeriaForm = (props) => {
                 departamento: '',
                 localidad: '',
             })
-            setEtapaActual(ETAPAS.SedeProvincial)
+            setEtapaActual(ETAPAS.CuposRegionales)
         }
+        if(etapaActual === ETAPAS.CuposRegionales & isValid){
+            setEtapaActual(ETAPAS.SedeProvincial)
+        } 
         if(etapaActual === ETAPAS.SedeProvincial & isValid){
             setEtapaActual(ETAPAS.Criterios)
         } 
@@ -260,6 +266,15 @@ const CrearFeriaForm = (props) => {
                     cupos,
                     cuposProvincial,
                 } = formValues
+                const cuposPorSede = cupos.porSede.map(c => {
+                    if(c.cantidad !== '') return c
+                    else {
+                        return {
+                            sede: c.sede,
+                            cantidad: 0,
+                        }
+                    }
+                })
                 const sedesRegional = new Set(establecimientos.map(e => { 
                     return e._id
                 }))
@@ -279,7 +294,10 @@ const CrearFeriaForm = (props) => {
                             fechaFinEvaluacionTeorica: fechaFinEvaluacionRegional,
                             fechaInicioEvaluacionPresencial: fechaInicioExposicionRegional,
                             fechaFinEvaluacionPresencial: fechaFinExposicionRegional,
-                            cupos,
+                            cupos: {
+                                porNivel: cupos.porNivel,
+                                porSede: cuposPorSede,
+                            },
                             sedes: Array.from(sedesRegional),
                             fechaPromocionAProvincial: fechaPromocionInstanciaRegional,
                         },
@@ -341,15 +359,20 @@ const CrearFeriaForm = (props) => {
             })
             setEtapaActual(ETAPAS.Instancias)
         }
-        if(etapaActual === ETAPAS.SedeProvincial) setEtapaActual(ETAPAS.SedesRegionales)
+        if(etapaActual === ETAPAS.CuposRegionales) setEtapaActual(ETAPAS.SedesRegionales)
+        if(etapaActual === ETAPAS.SedeProvincial) setEtapaActual(ETAPAS.CuposRegionales)
         if(etapaActual === ETAPAS.Criterios) setEtapaActual(ETAPAS.SedeProvincial)
     }
 
-    const handleDeleteSede = (nombreSede) => {
-        const sede = formValues.establecimientos.find(obj => obj.nombre === nombreSede)
-        const prevCupos = [...formValues.cupos]
-        const newCupos = prevCupos.filter(c => c.sede !== sede._id)
-        setFormValues({...formValues, establecimientos: formValues.establecimientos.filter(obj => obj.nombre !== nombreSede), cupos: newCupos})
+    const handleDeleteSede = (sede) => {
+        setFormValues({
+            ...formValues,
+            establecimientos: formValues.establecimientos.filter(obj => obj.nombre !== sede.nombre),
+            cupos: {
+                ...formValues.cupos,
+                porSede: formValues.cupos.porSede.filter(obj => obj.sede !== sede._id)
+            }
+        })
     }
 
 
