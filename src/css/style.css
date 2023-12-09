@@ -3649,6 +3649,51 @@ table, caption, tbody, tfoot, thead, tr, th, td {
     font-size: 1.5rem;
   }
 }
+.promover-proyectos__cupos {
+  display: grid;
+  width: 80%;
+  align-items: flex-start;
+  margin: 1rem 0;
+}
+@media screen and (max-width: 37.5em) {
+  .promover-proyectos__cupos {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.promover-proyectos__cupos > h6 {
+  font-size: 2.5rem;
+  margin: 1rem 0;
+  grid-row: 1/2;
+}
+@media screen and (max-width: 50em) {
+  .promover-proyectos__cupos > h6 {
+    font-size: 2rem;
+  }
+}
+@media screen and (max-width: 37.5em) {
+  .promover-proyectos__cupos > h6 {
+    margin: 0;
+  }
+}
+.promover-proyectos__cupos > p {
+  font-size: 2rem;
+  grid-row: 2/3;
+}
+@media screen and (max-width: 50em) {
+  .promover-proyectos__cupos > p {
+    font-size: 1.5rem;
+  }
+}
+@media screen and (max-width: 37.5em) {
+  .promover-proyectos__cupos > p {
+    margin-top: 1rem;
+  }
+}
+.promover-proyectos__cupos > * {
+  color: #757575;
+  font-weight: 300;
+}
 
 .categoria-form {
   display: flex;
