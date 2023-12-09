@@ -173,31 +173,13 @@ const EvaluacionCard = () => {
                     onClickHandler={iniciarEvaluacion}
                     activo={true}
                 />
-                {
                     feria.estado === ESTADOS.instanciaRegional_EnEvaluacion ?
                     <Button 
                         text='Confirmar' 
                         onClickHandler={handleConfirmar}
                         activo={true}
-                        disabled={!proyecto?.evaluacion ? true : proyecto.evaluadoresRegionales.length > proyecto?.evaluacion?.evaluadorId?.length ? true : false}
+                        disabled={evaluacionStatus.realizadas !== proyecto.evaluadoresRegionales.length}
                     />
-                    :
-                    feria.estado === ESTADOS.instanciaRegional_EnExposicion ?
-                    <Button 
-                        text='Confirmar' 
-                        onClickHandler={handleConfirmar}
-                        activo={true}
-                        disabled={!proyecto?.exposicion ? true : proyecto.evaluadoresRegionales.length > proyecto?.exposicion?.evaluadorId?.length ? true : false}
-                    />
-                    :
-                    <Button 
-                        text='Confirmar' 
-                        onClickHandler={handleConfirmar}
-                        activo={true}
-                        disabled={!proyecto?.exposicionProvincial ? true : proyecto.evaluadoresRegionales.length > proyecto?.exposicionProvincial?.evaluadorId?.length ? true : false}
-                    />
-                }
-
             </div>
         </Card>
         :
