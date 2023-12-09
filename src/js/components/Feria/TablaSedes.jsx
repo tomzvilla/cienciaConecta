@@ -10,7 +10,8 @@ const pageSize = 5
 const TablaSedes = ({ headers, sedes, handleDelete, handleChangeCupos, prevCupos }) => {
 // referentes state
     const [cupos, setCupos] = useState(prevCupos ?? [])
-
+    console.log(cupos)
+    console.log(prevCupos)
 
     // pagination state
     const [currentPage, setCurrentPage] = useState(1);
@@ -27,14 +28,14 @@ const TablaSedes = ({ headers, sedes, handleDelete, handleChangeCupos, prevCupos
 
     useEffect(() => {
         sedes.forEach(sede => {
-            if(!cupos.find(c => c.sede === sede._id)) {
-                prevCupos.push({
+            if(!cupos?.find(c => c.sede === sede._id)) {
+                prevCupos?.push({
                     sede: sede._id,
                     cantidad: 0,
                 })
             }
         })
-        setCupos(prevCupos)
+        setCupos(prevCupos ?? [])
     }, [])
     
     // autocomplete state
@@ -58,21 +59,21 @@ const TablaSedes = ({ headers, sedes, handleDelete, handleChangeCupos, prevCupos
     const isPositiveInteger = (num) => {
         return /^[0-9]\d*$/.test(num)
     }
-
+    
     const changeCupos = (e) => {
         let { name, value } = e.target
         const newCupos = [...cupos]
-        
+  
         if (value.trim() !== '' && !isPositiveInteger(value)) return
 
-        const index = cupos.findIndex(c => c.sede === name)
+        const index = cupos?.findIndex(c => c.sede === name)
         const valor = value.trim() === '' ? '' : parseInt(value)
         if(index === -1) {
-            newCupos.push({sede: name, cantidad: valor})
+            newCupos?.push({sede: name, cantidad: valor})
         } else {
             newCupos[index].cantidad = value
         }
-
+        
         setCupos(newCupos)
 
         handleChangeCupos({sede: name, cantidad: valor})
@@ -100,7 +101,7 @@ const TablaSedes = ({ headers, sedes, handleDelete, handleChangeCupos, prevCupos
                                 {
                                     if(header.value === 'cupos') {
                                         return (
-                                            <td key={header.value} className="table-body-row__td table-body-row__td--autocomplete">
+                                            <td key={header.value} className="table-body-row__td table-body-row__td--autocomplete-cupos">
                                                 { 
                                                     editing === index ? (
                                                         <InputField

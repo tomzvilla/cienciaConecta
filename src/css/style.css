@@ -1512,6 +1512,10 @@ table, caption, tbody, tfoot, thead, tr, th, td {
     min-width: 10rem;
   }
 }
+.table-body-row__td--autocomplete-cupos {
+  min-width: 4rem;
+  max-width: 4rem;
+}
 .table-body-row__td--actions {
   display: flex;
 }
