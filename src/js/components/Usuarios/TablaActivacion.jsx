@@ -208,7 +208,7 @@ const TablaActivacion = (props) => {
             <Pagination currentPage={currentPage} totalCount={pendientes.length} pageSize={pageSize} onPageChange={page => setCurrentPage(page)} />
             <div className="button-container">
                 <Button 
-                    text='Seleccionar' 
+                    text='Activar' 
                     onClickHandler={handleSeleccion}
                     activo={true}
                 />
