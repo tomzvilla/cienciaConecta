@@ -19,51 +19,37 @@ const Devolucion = () => {
 
     const { data, isLoading, status } = useAxiosFetch(`/devoluciones/${id}`, axiosPrivate)
 
-    const verEvaluacion = (event) => {
-        switch (event) {
-            case 'evaluacion': {
-                setDevolucion(data.devoluciones.evaluacion)
-                break
-            }
-            case 'exposicion': {
-                setDevolucion(data.devoluciones.exposicion)
-                break
-            }
-            case 'exposicionProvincial': {
-                setDevolucion(data.devoluciones.exposicionProvincial)
-                break
-            }
-            default:
-                setDevolucion(null)
-                break
-        }
-        
-    }
 
     return(
         !isLoading ?
         <Card title={data?.titulo ?? 'Oops'}>
-            <div className="evaluacion-card__button-container">
+            <div className="devolucion__selector">
                 {data?.devoluciones?.evaluacion &&
-                    <Button 
-                        text='Evaluación Regional' 
-                        onClickHandler={() => verEvaluacion('evaluacion')}
-                        activo={true}
-                    />
+                    <div 
+                        className={devolucion === data.devoluciones.evaluacion  ? `devolucion__selector-button devolucion__selector-button--activo` : `devolucion__selector-button`} 
+                        key={1}
+                        onClick={() => setDevolucion(data.devoluciones.evaluacion)}
+                    >
+                        <p>Evaluación Regional</p>
+                    </div>
                 }
                 {data?.devoluciones?.exposicion &&
-                    <Button 
-                        text='Exposición Regional' 
-                        onClickHandler={() => verEvaluacion('exposicion')}
-                        activo={true}
-                    />
+                    <div 
+                        className={devolucion === data?.devoluciones?.exposicion   ? `devolucion__selector-button devolucion__selector-button--activo` : `devolucion__selector-button`} 
+                        key={2}
+                        onClick={() => setDevolucion(data.devoluciones.exposicion)}
+                    >
+                        <p>Exposición Regional</p>
+                    </div>
                 }
                 {data?.devoluciones?.exposicionProvincial &&
-                    <Button 
-                        text='Exposición Provincial' 
-                        onClickHandler={() => verEvaluacion('exposicionProvincial')}
-                        activo={true}
-                    />
+                    <div 
+                        className={devolucion === data?.devoluciones?.exposicionProvincial ? `devolucion__selector-button devolucion__selector-button--activo` : `devolucion__selector-button`} 
+                        key={3}
+                        onClick={() => setDevolucion(data.devoluciones.exposicionProvincial)}
+                    >
+                        <p>Exposición Provincial</p>
+                    </div>
                 }
             </div>
                 {
@@ -76,7 +62,8 @@ const Devolucion = () => {
                     !devolucion ?
                     <BlankState msg={'Debe seleccionar una instancia de evaluación.'} />
                     :
-                    <DevolucionForm rubricas={devolucion} />
+                        <DevolucionForm rubricas={devolucion} />
+                    
                 }
         </Card>
         :
