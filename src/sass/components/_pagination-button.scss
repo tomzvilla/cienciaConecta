@@ -1,5 +1,14 @@
 .pagination-button {
 
+    &__img {
+        width: 2.5rem;
+        height: 2.5rem;
+        filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
+        margin: auto;
+        display: block;
+        
+    }
+
     
 
     &__button {
@@ -11,8 +20,16 @@
 
             border: 1px solid $color-primary;
             border-radius: 10rem;
-            padding: 1rem 1.8rem;
+            padding: 1.3rem 2rem;
             color: $color-primary;
+
+            @media screen and (max-width: $bp-medium) {
+                width: 4rem;
+                height: 4rem;
+                padding: 0;
+                font-size: 1.6rem;
+            }
+
 
 
             &:hover {
@@ -20,6 +37,11 @@
                 background-color: $color-primary;
                 color: white;
                 transition: all .1s linear;
+
+                & > img {
+                        filter: brightness(0) invert(1);
+
+                }
             }
 
             &--disabled {
@@ -31,6 +53,10 @@
                     background-color: white;
                     color: rgba($color-primary, 0.4);
                     transition: all .1s linear;
+
+                    & > img {
+                        filter: brightness(0) saturate(100%) invert(80%) sepia(39%) saturate(412%) hue-rotate(161deg) brightness(98%) contrast(96%);
+                }
                 }
             }
 

@@ -2967,6 +2967,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   padding: 0;
   margin-top: 2rem;
   display: flex;
+  align-items: center;
 }
 .pagination > :not(:last-child) {
   margin-right: 2rem;
@@ -2975,6 +2976,13 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   color: #00ACE6;
 }
 
+.pagination-button__img {
+  width: 2.5rem;
+  height: 2.5rem;
+  filter: brightness(0) saturate(100%) invert(58%) sepia(25%) saturate(6296%) hue-rotate(159deg) brightness(94%) contrast(102%);
+  margin: auto;
+  display: block;
+}
 .pagination-button__button {
   border: none;
   background-color: transparent;
@@ -2983,14 +2991,25 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   color: #757575;
   border: 1px solid #00ACE6;
   border-radius: 10rem;
-  padding: 1rem 1.8rem;
+  padding: 1.3rem 2rem;
   color: #00ACE6;
+}
+@media screen and (max-width: 50em) {
+  .pagination-button__button {
+    width: 4rem;
+    height: 4rem;
+    padding: 0;
+    font-size: 1.6rem;
+  }
 }
 .pagination-button__button:hover {
   cursor: pointer;
   background-color: #00ACE6;
   color: white;
   transition: all 0.1s linear;
+}
+.pagination-button__button:hover > img {
+  filter: brightness(0) invert(1);
 }
 .pagination-button__button--disabled {
   border: 1px solid rgba(0, 172, 230, 0.4);
@@ -3001,6 +3020,9 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   background-color: white;
   color: rgba(0, 172, 230, 0.4);
   transition: all 0.1s linear;
+}
+.pagination-button__button--disabled:hover > img {
+  filter: brightness(0) saturate(100%) invert(80%) sepia(39%) saturate(412%) hue-rotate(161deg) brightness(98%) contrast(96%);
 }
 .pagination-button__button--current {
   background-color: #00ACE6;
