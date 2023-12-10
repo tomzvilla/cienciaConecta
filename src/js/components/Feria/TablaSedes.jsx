@@ -7,11 +7,9 @@ import { useState, useEffect } from "react"
 
 const pageSize = 5
 
-const TablaSedes = ({ headers, sedes, handleDelete, handleChangeCupos, prevCupos }) => {
+const TablaSedes = ({ headers, sedes, handleDelete, handleChangeCupos, prevCupos = [] }) => {
 // referentes state
     const [cupos, setCupos] = useState(prevCupos ?? [])
-    console.log(cupos)
-    console.log(prevCupos)
 
     // pagination state
     const [currentPage, setCurrentPage] = useState(1);
@@ -27,7 +25,7 @@ const TablaSedes = ({ headers, sedes, handleDelete, handleChangeCupos, prevCupos
     // Init cupos
 
     useEffect(() => {
-        sedes.forEach(sede => {
+        sedes?.forEach(sede => {
             if(!cupos?.find(c => c.sede === sede._id)) {
                 prevCupos?.push({
                     sede: sede._id,
@@ -35,7 +33,7 @@ const TablaSedes = ({ headers, sedes, handleDelete, handleChangeCupos, prevCupos
                 })
             }
         })
-        setCupos(prevCupos ?? [])
+        setCupos(prevCupos)
     }, [])
     
     // autocomplete state
