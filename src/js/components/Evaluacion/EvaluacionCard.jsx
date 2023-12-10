@@ -173,13 +173,12 @@ const EvaluacionCard = () => {
                     onClickHandler={iniciarEvaluacion}
                     activo={true}
                 />
-                    feria.estado === ESTADOS.instanciaRegional_EnEvaluacion ?
-                    <Button 
-                        text='Confirmar' 
-                        onClickHandler={handleConfirmar}
-                        activo={true}
-                        disabled={evaluacionStatus.realizadas !== proyecto.evaluadoresRegionales.length}
-                    />
+                <Button 
+                    text='Confirmar' 
+                    onClickHandler={handleConfirmar}
+                    activo={true}
+                    disabled={evaluacionStatus.realizadas !== proyecto.evaluadoresRegionales.length}
+                />
             </div>
         </Card>
         :

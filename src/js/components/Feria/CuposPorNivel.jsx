@@ -27,7 +27,7 @@ const CuposPorNivel = (props) => {
         e.preventDefault()
         let {name, value} = e.target
         if(parseInt(value) <= 0) value = Math.abs(value)
-        const prevCupos = [...formValues.cupos.porNivel]
+        const prevCupos = formValues.cupos?.porNivel ? [...formValues.cupos.porNivel] : []
         const existingIndex = prevCupos.findIndex(c1 => c1.nivel === name);
         if (existingIndex !== -1) {
             prevCupos[existingIndex].cantidad = Math.abs(value);
@@ -65,7 +65,7 @@ const CuposPorNivel = (props) => {
                                 onChange={handleChangeCupos}
                                 onBlur={() => {}}
                                 value={
-                                    formValues.cupos.porNivel.find(cupo => cupo.nivel === nivel._id)?.cantidad || ""
+                                    formValues.cupos?.porNivel?.find(cupo => cupo.nivel === nivel._id)?.cantidad || ""
                                 }
                                 errors={null}
                                 required={true}
