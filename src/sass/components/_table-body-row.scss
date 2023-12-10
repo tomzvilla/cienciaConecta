@@ -54,6 +54,12 @@
             }
         }
 
+        &--autocomplete-cupos {
+            min-width: 4rem;
+            max-width: 4rem;
+            
+        }
+
         &--actions {
             display: flex;
         }

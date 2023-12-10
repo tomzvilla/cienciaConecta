@@ -6,8 +6,8 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import useAxiosFetch from "../../hooks/useAxiosFetch"
 import useCategoriasNiveles from "../../hooks/useCategoriasNiveles"
 import { useSelector } from "react-redux"
-const SedeProvincialForm = (props) => {
 
+const CuposPorNivel = (props) => {
     const { setFormValues, formValues } = props
     const axiosPrivate = useAxiosPrivate()
 
@@ -27,7 +27,7 @@ const SedeProvincialForm = (props) => {
         e.preventDefault()
         let {name, value} = e.target
         if(parseInt(value) <= 0) value = Math.abs(value)
-        const prevCupos = [...formValues.cuposProvincial]
+        const prevCupos = formValues.cupos?.porNivel ? [...formValues.cupos.porNivel] : []
         const existingIndex = prevCupos.findIndex(c1 => c1.nivel === name);
         if (existingIndex !== -1) {
             prevCupos[existingIndex].cantidad = Math.abs(value);
@@ -39,7 +39,10 @@ const SedeProvincialForm = (props) => {
         }
         setFormValues({
             ...formValues,
-            cuposProvincial: prevCupos
+            cupos: {
+                ...formValues.cupos,
+                porNivel: prevCupos
+            }
         })
     }
 
@@ -50,7 +53,7 @@ const SedeProvincialForm = (props) => {
             <Spinner />
             :
             (<div className="cupos-modal">   
-                <h2 className='cupos-modal__title'>Cupos Provinciales </h2>
+                <h2 className='cupos-modal__title'>Cupos por Nivel Regionales </h2>
                 {niveles && niveles.map((nivel) =>
                     nivel._id !== 0 ? (
                         <div key={nivel._id} className="cupos-modal__nivel"> 
@@ -62,7 +65,7 @@ const SedeProvincialForm = (props) => {
                                 onChange={handleChangeCupos}
                                 onBlur={() => {}}
                                 value={
-                                    formValues.cuposProvincial.find(cupo => cupo.nivel === nivel._id)?.cantidad || ""
+                                    formValues.cupos?.porNivel?.find(cupo => cupo.nivel === nivel._id)?.cantidad || ""
                                 }
                                 errors={null}
                                 required={true}
@@ -71,8 +74,8 @@ const SedeProvincialForm = (props) => {
                     ) : ""
                 )}
             </div>)
-
-    )    
+    )   
+    
 }
 
-export default SedeProvincialForm
+export default CuposPorNivel

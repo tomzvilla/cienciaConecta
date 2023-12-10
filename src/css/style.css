@@ -1512,6 +1512,10 @@ table, caption, tbody, tfoot, thead, tr, th, td {
     min-width: 10rem;
   }
 }
+.table-body-row__td--autocomplete-cupos {
+  min-width: 4rem;
+  max-width: 4rem;
+}
 .table-body-row__td--actions {
   display: flex;
 }
@@ -3645,6 +3649,51 @@ table, caption, tbody, tfoot, thead, tr, th, td {
     font-size: 1.5rem;
   }
 }
+.promover-proyectos__cupos {
+  display: grid;
+  width: 80%;
+  align-items: flex-start;
+  margin: 1rem 0;
+}
+@media screen and (max-width: 37.5em) {
+  .promover-proyectos__cupos {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.promover-proyectos__cupos > h6 {
+  font-size: 2.5rem;
+  margin: 1rem 0;
+  grid-row: 1/2;
+}
+@media screen and (max-width: 50em) {
+  .promover-proyectos__cupos > h6 {
+    font-size: 2rem;
+  }
+}
+@media screen and (max-width: 37.5em) {
+  .promover-proyectos__cupos > h6 {
+    margin: 0;
+  }
+}
+.promover-proyectos__cupos > p {
+  font-size: 2rem;
+  grid-row: 2/3;
+}
+@media screen and (max-width: 50em) {
+  .promover-proyectos__cupos > p {
+    font-size: 1.5rem;
+  }
+}
+@media screen and (max-width: 37.5em) {
+  .promover-proyectos__cupos > p {
+    margin-top: 1rem;
+  }
+}
+.promover-proyectos__cupos > * {
+  color: #757575;
+  font-weight: 300;
+}
 
 .categoria-form {
   display: flex;
@@ -3817,6 +3866,50 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .reportes-leyenda__square {
   width: 2rem;
   height: 2rem;
+}
+
+.devolucion {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.devolucion__selector {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 2rem 0;
+}
+.devolucion__selector > :not(:first-child) {
+  margin-left: 2rem;
+}
+.devolucion__selector-button {
+  box-shadow: 0px 0.4rem 2rem rgba(0, 0, 0, 0.25);
+  min-width: 15rem;
+  border-radius: 2rem;
+  transition: all 400ms ease-in-out;
+  cursor: pointer;
+}
+.devolucion__selector-button > p {
+  margin: auto;
+  text-align: center;
+  color: #757575;
+  font-size: 2rem;
+  padding: 1rem 2rem;
+  transition: all 400ms ease-in-out;
+  text-wrap: wrap;
+}
+.devolucion__selector-button:hover {
+  background-color: #00ACE6;
+  box-shadow: 0px 1.4rem 2rem rgba(0, 0, 0, 0.34);
+}
+.devolucion__selector-button:hover > p {
+  color: white;
+}
+.devolucion__selector-button--activo {
+  background-color: #00ACE6;
+}
+.devolucion__selector-button--activo > p {
+  color: white;
 }
 
 .login {
