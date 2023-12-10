@@ -97,7 +97,7 @@ const CrearFeriaForm = (props) => {
         } 
         if(etapaActual === ETAPAS.SedeProvincial & isValid){
             setEtapaActual(ETAPAS.Criterios)
-        } 
+        }
     }
 
     const handleChange = (e) => {
@@ -399,6 +399,10 @@ const CrearFeriaForm = (props) => {
                 formValues={formValues}
                 setFormValues={setFormValues}
                 errors={errors}
+            />}
+            {etapaActual === ETAPAS.CuposRegionales && <CuposPorNivel
+                formValues={formValues}
+                setFormValues={setFormValues}
             />}
             {etapaActual === ETAPAS.SedeProvincial && <SedeProvincialForm
                 formValues={formValues}

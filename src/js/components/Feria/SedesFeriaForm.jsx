@@ -111,8 +111,8 @@ const SedesFeriaForm = (props) => {
     }
 
     const handleChangeCupos = (cupo) => {
-        const index = formValues.cupos.porSede.findIndex(c => c.sede === cupo.sede)
-        const newCupos = [...formValues.cupos.porSede]
+        const index = formValues.cupos?.porSede ? formValues.cupos?.porSede?.findIndex(c => c.sede === cupo.sede) : -1
+        const newCupos = formValues.cupos?.porSede ? [...formValues.cupos.porSede] : []
         if(index !== -1) {
             newCupos[index] = {
                 ...newCupos[index],
