@@ -19,7 +19,7 @@ const DashboardEvaluador= () => {
     }
     
     return (
-        <Card title='Resumen de Evaluador'>
+        <Card title='Resumen de Evaluador' wide={true}>
             {isLoading ? <Spinner/> : evaluador ? 
 
             <div className="dashboard-evaluador">

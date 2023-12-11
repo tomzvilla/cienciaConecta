@@ -45,9 +45,10 @@
     }
     
     &__tr {
-        //border: 3px solid black;
-        //background-color: black;
         border-bottom: 1px solid $color-grey-dark;
+        overflow-wrap: break-word;
+        overflow: hidden;
+        
         
         &:last-of-type {
             border-bottom: none;
@@ -57,6 +58,9 @@
     &__td {
         font-size: 1.8rem;
         padding: .3rem 0 ;
+        overflow-wrap: break-word;
+        overflow: hidden;
+        
 
         @media screen and (max-width: $bp-medium) {
             font-size: 1.7rem;

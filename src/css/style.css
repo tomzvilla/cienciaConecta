@@ -3045,7 +3045,8 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 
 .dashboard-evaluador {
   display: grid;
-  width: 90%;
+  width: fit-content;
+  max-width: 90%;
   grid-template-columns: 60% 40%;
   padding: 2rem 0;
   justify-content: flex-start;
@@ -3114,6 +3115,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   margin-top: 2rem;
   grid-row: 1/3;
   grid-column: 2/3;
+  width: fit-content;
 }
 @media screen and (max-width: 50em) {
   .dashboard-evaluador__tabla {
@@ -3161,6 +3163,8 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 .small-table__tr {
   border-bottom: 1px solid #757575;
+  overflow-wrap: break-word;
+  overflow: hidden;
 }
 .small-table__tr:last-of-type {
   border-bottom: none;
@@ -3168,6 +3172,8 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 .small-table__td {
   font-size: 1.8rem;
   padding: 0.3rem 0;
+  overflow-wrap: break-word;
+  overflow: hidden;
 }
 @media screen and (max-width: 50em) {
   .small-table__td {
