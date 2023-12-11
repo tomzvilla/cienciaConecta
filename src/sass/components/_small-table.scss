@@ -50,6 +50,7 @@
         overflow: hidden;
         
         
+        
         &:last-of-type {
             border-bottom: none;
         }
@@ -60,6 +61,7 @@
         padding: .3rem 0 ;
         overflow-wrap: break-word;
         overflow: hidden;
+        max-width: 20rem;
         
 
         @media screen and (max-width: $bp-medium) {
