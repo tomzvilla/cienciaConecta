@@ -17,7 +17,7 @@ import Swal from "sweetalert2"
 const headers = [
     {name: 'Nombre', value: 'nombre'},
     {name: 'Apellido', value: 'apellido'},
-    {name: 'CUIL', value: 'cuil'},
+    {name: 'Coincidencia', value: 'coincidencia'},
     {name: 'Niveles', value: 'niveles'},
     {name: 'Categorías', value: 'categorias'},
 ]
@@ -133,8 +133,8 @@ const ListadoEvaluadores = (props) => {
                                             </td>
                                         )
                                     }
-                                    else if(header.name === 'CUIL') {
-                                        return (<td key={header.name} className="table-body-row__td" >{formatCuil(evaluador.datos_docente[`${header?.value}`])}</td>)
+                                    else if(header.name === 'Coincidencia') {
+                                        return (<td key={header.name} className="table-body-row__td" >{evaluador[`${header?.value}`]} %</td>)
                                     }
                                     else return (
                                     <td key={header.name} className="table-body-row__td" >{evaluador.datos_docente[`${header?.value}`]}</td>

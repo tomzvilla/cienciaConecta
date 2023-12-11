@@ -35,7 +35,7 @@ const DashboardEvaluador= () => {
                 </div>
                 
                 <div className="dashboard-evaluador__tabla">
-                    {evaluador.proyectos_asignados.length > 0 ? <SmallTable title="Proyectos Activos" data={evaluador.proyectos_asignados} viewPath={'/proyecto'}/>  : "" }
+                    {evaluador.proyectos_asignados.length > 0 ? <SmallTable title="Proyectos Activos" data={evaluador.proyectos_asignados} viewPath={'/evaluar'}/>  : "" }
                 </div> 
             </div>
                 :
