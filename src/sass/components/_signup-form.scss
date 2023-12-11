@@ -2,28 +2,17 @@
     padding: 2rem;
     display: flex;
     flex-direction: column;
-    
-
-    &__button-container {
-        
-        align-self: flex-end;
-        margin-top: 4rem;
-
-
-        &--double {
-            display: flex;
-            justify-content: space-between;
-
-            & > :nth-child(2) {
-                margin-left: 2rem;
-              }
-            
-            
-        }
-
-    }
+    align-items: center;
 
     &__input {
         margin-top: 1rem;
+        width: 40rem;
+        min-width: 40rem;
+        max-width: 40rem;
+
+        @media screen and (max-width: $bp-small) {
+            min-width: 30rem;
+            width: 30rem;
+          }
     }
 }

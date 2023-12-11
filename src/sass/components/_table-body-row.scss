@@ -33,7 +33,7 @@
         margin: auto;
         text-overflow: initial;
         text-wrap: balance;
-
+        height: max-content;
         min-width: 14rem;
 
         @media screen and (max-width: $bp-small) {
@@ -61,10 +61,16 @@
         }
 
         &--actions {
-            display: flex;
+            & > * {
+                display: inline-block;
+                height: 100%;
+
+                &:not(:last-child) {
+                    margin-right: 1rem;
+                }
+            }
         }
 
-        
         &--badges {
             justify-content: center;
             //flex-direction: column;

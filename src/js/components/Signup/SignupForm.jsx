@@ -70,7 +70,7 @@ const SignupForm = (props) => {
           </div>
           
           
-          <div className='signup-form__button-container signup-form__button-container--double'>
+          <div className='button-container'>
             <Button text='Volver' onClickHandler={volverHome} activo={false}/>
             <Button text='Avanzar' onClickHandler={props.handleAvanzar} activo={true}/>
           </div>
@@ -131,7 +131,7 @@ const SignupForm = (props) => {
             />    
           </div>
           
-          <div className='signup-form__button-container signup-form__button-container--double'>
+          <div className='button-container'>
             <Button text='Volver' onClickHandler={props.handleVolver} activo={false}/>
             <Button text='Avanzar' onClickHandler={props.handleAvanzar} activo={true}/>
           </div>
