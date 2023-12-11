@@ -17,7 +17,7 @@ import Swal from "sweetalert2"
 const headers = [
     {name: 'Nombre', value: 'nombre'},
     {name: 'Apellido', value: 'apellido'},
-    {name: 'CUIL', value: 'cuil'},
+    {name: 'Coincidencia', value: 'coincidencia'},
     {name: 'Niveles', value: 'niveles'},
     {name: 'Categorías', value: 'categorias'},
 ]
@@ -122,6 +122,11 @@ const ListadoEvaluadores = (props) => {
                                         )
                                     } 
                                     else if(header.name === 'Niveles'){
+                                        if(evaluador.niveles.length === 0) {
+                                            return (
+                                                <GenericBadge text="Investigador"/>
+                                            )
+                                        } else {
                                         return (
                                             <td key={header.name} className="table-body-row__td table-body-row__td--badges">
                                                 {evaluador.niveles.slice(0, 3).map( (n) => (
@@ -131,10 +136,10 @@ const ListadoEvaluadores = (props) => {
                                                     evaluador.niveles.length > 3 ? <GenericBadge text="Más..."/> : ""
                                                 }    
                                             </td>
-                                        )
+                                        )}
                                     }
-                                    else if(header.name === 'CUIL') {
-                                        return (<td key={header.name} className="table-body-row__td" >{formatCuil(evaluador.datos_docente[`${header?.value}`])}</td>)
+                                    else if(header.name === 'Coincidencia') {
+                                        return (<td key={header.name} className="table-body-row__td" >{evaluador[`${header?.value}`]} %</td>)
                                     }
                                     else return (
                                     <td key={header.name} className="table-body-row__td" >{evaluador.datos_docente[`${header?.value}`]}</td>

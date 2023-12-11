@@ -180,11 +180,6 @@ function App() {
               <Route path='/devolucion/:id' element={<Devolucion/>}/> 
             </Route>
 
-            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]} allowedStates={[ESTADOS.creada, ESTADOS.iniciada, ESTADOS.instanciaEscolar]}/>}>
-              <Route path='/crearCategoria' element={<Categorias/>}/>
-            </Route>
-          
-
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.ComAsesora]}/>}>
               {/* Rutas liberadas */}
               {!feria && <Route path='/feria' element={<CrearFeria/>}/>}
