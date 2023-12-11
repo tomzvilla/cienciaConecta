@@ -59,7 +59,7 @@ const Grafico = (props) => {
 
     return (
         <div className='reportes'>
-            {props.filtro?._id === 'departamento' ?
+            {props.filtro?._id === 'departamento' || props?.reporte?._id === 'cantidadEvaluadores' ?
             <Mapa datasets={data}/>
             :
             props.reporte?._id === 'cantidadProyectosFeria' ?
