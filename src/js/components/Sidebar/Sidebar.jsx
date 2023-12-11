@@ -124,10 +124,9 @@ const Sidebar = () => {
                 }
                 {auth?.roles?.find(role => [ROLES.RefEvaluador].includes(role)) && 
                     <>
-                        <SidebarLink img={require("../../../assets/user.png")} linkto={'/proyectosParaAsignar'} text="Asignar Proyectos"/>
+                        <SidebarLink img={require("../../../assets/user.png")} linkto={'/proyectosParaAsignar'} text="Asignar Evaluadores"/>
                     </>
                 }
-                {/* <SidebarLink img={require("../../../assets/campana.png")} linkto={'/notificaciones'} text="Notificaciones"/> */}
 
             </div>
             }

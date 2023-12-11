@@ -124,7 +124,9 @@ const ListadoEvaluadores = (props) => {
                                     else if(header.name === 'Niveles'){
                                         if(evaluador.niveles.length === 0) {
                                             return (
-                                                <GenericBadge text="Investigador"/>
+                                                <td key={header.name} className="table-body-row__td table-body-row__td--badges">
+                                                    <GenericBadge text="Investigador"/>
+                                                </td>
                                             )
                                         } else {
                                         return (

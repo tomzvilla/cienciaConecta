@@ -49,8 +49,6 @@
         overflow-wrap: break-word;
         overflow: hidden;
         
-        
-        
         &:last-of-type {
             border-bottom: none;
         }
@@ -62,7 +60,6 @@
         overflow-wrap: break-word;
         overflow: hidden;
         max-width: 20rem;
-        
 
         @media screen and (max-width: $bp-medium) {
             font-size: 1.7rem;
@@ -89,6 +86,5 @@
             }
         }
     }
-
 
 }
