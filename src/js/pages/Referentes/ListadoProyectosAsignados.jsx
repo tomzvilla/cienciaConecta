@@ -41,18 +41,21 @@ const ListadoProyectosAsignados = () => {
     const fecha = new Date()
 
     return (
-        isLoading && !proyectosData?.proyectos ?
-        <Spinner />
-        :
-
         <Card wide={true} header={<CardHeader title={'Listado de proyectos asignados'} wide={true} />}>
-            {status !== 204 ?
-                <TablaProyectosReferente headers={headers} />
+            {
+                isLoading && !proyectosData?.proyectos ?
+                <Spinner />
                 :
                 fecha <= new Date(feria?.fechas_evaluador.fechaInicioAsignacionProyectos) ?
                 <BlankState msg={`La fecha de asignación de proyectos aún no llegó, por favor esperá hasta el ${formatDate(new Date(feria?.fechas_evaluador.fechaInicioAsignacionProyectos))}`}/>
                 :
+                fecha >= new Date(feria?.fechas_evaluador.fechaFinAsignacionProyectos) ?
                 <BlankState msg={'La fecha de asignación de proyectos expiró. Ahora los evaluadores podrán realizar la evaluación de los proyectos.'}/>
+                : 
+                status !== 204 ?
+                <TablaProyectosReferente headers={headers} />
+                :
+                <BlankState msg={'Hubo un error en el servidor.'}/>
             }
         </Card>
     )
