@@ -3174,6 +3174,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   padding: 0.3rem 0;
   overflow-wrap: break-word;
   overflow: hidden;
+  max-width: 20rem;
 }
 @media screen and (max-width: 50em) {
   .small-table__td {
