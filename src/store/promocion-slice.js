@@ -27,8 +27,8 @@ const promocionesSlice = createSlice({
             const prevRows = [...state.selectedRows]
             const prevCupos = {...state.cupos}
             if(prevRows.includes(action.payload)) {
-                prevCupos.promovidosNivel -= 1
-                prevCupos.promovidosSede -= 1
+                prevCupos.promovidosNivel = prevCupos.promovidosNivel !== 0 ? prevCupos.promovidosNivel - 1 : 0
+                prevCupos.promovidosSede = prevCupos.promovidosSede !== 0 ? prevCupos.promovidosSede -1 : 0
                 state.selectedRows = prevRows.filter((id) => id !== action.payload)
             }
             else {
