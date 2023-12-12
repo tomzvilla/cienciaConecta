@@ -42,11 +42,11 @@ const Devolucion = () => {
                         <p>Exposición Regional</p>
                     </div>
                 }
-                {data?.devoluciones?.exposicionProvincial &&
+                {data?.devoluciones?.exposicion_provincial &&
                     <div 
-                        className={devolucion === data?.devoluciones?.exposicionProvincial ? `devolucion__selector-button devolucion__selector-button--activo` : `devolucion__selector-button`} 
+                        className={devolucion === data?.devoluciones?.exposicion_provincial ? `devolucion__selector-button devolucion__selector-button--activo` : `devolucion__selector-button`} 
                         key={3}
-                        onClick={() => setDevolucion(data.devoluciones.exposicionProvincial)}
+                        onClick={() => setDevolucion(data.devoluciones.exposicion_provincial)}
                     >
                         <p>Exposición Provincial</p>
                     </div>

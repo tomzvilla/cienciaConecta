@@ -87,7 +87,7 @@ const Dashboard = () => {
           dispatch(categoriasActions.cargarCategorias(categorias))
           loadingInitialData = false
         }
-      }, [])
+    }, [])
 
     return (
         (loadingRoles && loadingInitialData) ?
