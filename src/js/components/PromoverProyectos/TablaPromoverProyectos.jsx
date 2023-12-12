@@ -49,7 +49,7 @@ const TablaPromoverProyectos = (props) => {
             dispatch(promocionesActions.toggleSelectedRow(proyectoId))
         }
         else {
-            if(checkAvailability()) {
+            if(cuposLlenos()) {
                 const msg = !props.nacional ? '¡Los cupos para esta sede y este nivel están llenos!' : '¡Los cupos para este nivel están llenos!'
                 Swal.fire({
                     text: msg,
@@ -65,15 +65,14 @@ const TablaPromoverProyectos = (props) => {
         }
     }
 
-    const checkAvailability = () => {
+    const cuposLlenos = () => {
         const cuposNivelRestantes = (cupos.cuposNivel - cupos.promovidosNivel)
         const cuposSedeRestantes = (cupos?.cuposSede - cupos?.promovidosSede)
         if(!props.nacional) {
-            return (selectedRows.length === cuposNivelRestantes || selectedRows.length === cuposSedeRestantes)
+            return ((cuposNivelRestantes - 1) < 0 || (cuposSedeRestantes - 1) < 0)
         } else {
-            return (selectedRows.length === cuposNivelRestantes)
+            return ((cuposNivelRestantes - 1) < 0)
         }
-       
     }
 
     const checkLength = async () => {
