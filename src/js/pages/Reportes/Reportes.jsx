@@ -96,9 +96,8 @@ const Reportes = () => {
         if(searchState.feriaSeleccionada !== '' && searchState.feriaSeleccionada !== 'all') {
             endpoint += `&feria=${searchState.feriaSeleccionada}`
         }
-        console.log(searchState.reporteSeleccionado)
         if(searchState.reporteSeleccionado === 'cantidadProyectosAprobados' || searchState.reporteSeleccionado === 'cantidadProyectosDesaprobados' || searchState.reporteSeleccionado === 'porcProyectosAprobados' ) {
-            endpoint += '&puntaje=100'
+            endpoint += '&puntaje=130'
         }
         return endpoint
 

@@ -100,8 +100,10 @@ const ListadoEvaluaciones = () => {
         return () => {
           window.removeEventListener('resize', handleResize);
         };
-      }, []);
+    }, []);
 
+    const cantidadProyectos = feria.estado === ESTADOS.instanciaProvincial_EnExposicion ? listadoDataProvincial : listadoData
+    
     return (
         <div className="table-custom-page">
             <Card title={titulos[feria?.estado] ?? 'Listado de Evaluaciones'} wide={true}>
@@ -111,10 +113,11 @@ const ListadoEvaluaciones = () => {
                         <BlankState msg={`${mensajes[feria?.estado]}`} />
                         :
                         <>
-                            {listadoData?.length === 0 ?
-                            <BlankState msg={`No hay ${feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 'proyectos' : 'exposiciones'} pendientes de evaluación. ¡Intentá de nuevo mas tarde!`} />
+                            {cantidadProyectos ?
+                            <TablaEvaluaciones resize={resize} location={location} headers={headers}/>
                             :
-                            <TablaEvaluaciones resize={resize} location={location} headers={headers}/>}
+                            <BlankState msg={`No hay ${feria?.estado === ESTADOS.instanciaRegional_EnEvaluacion ? 'proyectos' : 'exposiciones'} pendientes de evaluación. ¡Intentá de nuevo mas tarde!`} />
+                            }
                         </>
                     }
             </Card>
