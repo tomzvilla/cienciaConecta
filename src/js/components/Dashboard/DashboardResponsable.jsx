@@ -15,6 +15,7 @@ const DashboardResponsable = () => {
     const dispatch = useDispatch()
     const niveles = useSelector(state => state.niveles.niveles)
     const categorias = useSelector(state => state.categorias.categorias)
+    const feria = useSelector(state => state.instancias.feria)
 
     const {data, isLoading} = useAxiosFetch('/proyecto/misProyectos', axiosPrivate)
 
@@ -27,7 +28,7 @@ const DashboardResponsable = () => {
       proyectos = data.proyectos.map(obj => {
         const nombreCat = categorias.length !== 0 ? categorias.find(element => element._id === obj.categoria) : categoriaData.categoria.find(element => element._id === obj.categoria)
         const nombreLev = niveles.length !== 0 ? niveles.find(element => element._id === obj.nivel) : nivelesData.nivel.find(element => element._id === obj.nivel)
-        if(obj.estado !== '6') {
+        if(obj.estado !== '9') {
           return {...obj, categoria: nombreCat, nivel: nombreLev, nombreEscuela: capitalizeEachLetter(obj.establecimientoEducativo.nombre)}
         } else {
           return null
